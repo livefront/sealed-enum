@@ -1,8 +1,10 @@
-# sealed-enum
+# sealed-enum (Beta)
 *Enums are dead, long live enums!*
 
 ![CI-Status](https://travis-ci.com/livefront/sealed-enum.svg?token=WuckG7RmGXoNTzG4QzVk&branch=master)
 [![Release](https://jitpack.io/v/livefront/sealed-enum.svg)](https://jitpack.io/#livefront/sealed-enum)
+
+This tool is currently in beta, while any issues are worked through. Please feel free to try it out and report any bugs that you may encounter.
 
 [Enums in Kotlin](https://kotlinlang.org/docs/reference/enum-classes.html) are quite useful for managing state and control flows, especially in combination with [`when`](https://kotlinlang.org/docs/reference/control-flow.html#when-expression).
 

@@ -1,0 +1,14 @@
+language: java
+dist: trusty
+install:
+  - bundle install
+script:
+  - ./gradlew check jacocoTestReport
+  - bundle exec danger
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/

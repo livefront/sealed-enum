@@ -14,6 +14,7 @@ dependencies {
 
     testImplementation(Dependencies.junit)
     testImplementation(Dependencies.mockk)
+    testImplementation(kotlin("reflect"))
     kaptTest(project(":sealedenumprocessor"))
 }
 

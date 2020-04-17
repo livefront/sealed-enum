@@ -10,11 +10,11 @@ dependencies {
     val mockkVersion by rootProject.extra("1.9.3")
 
     implementation(kotlin("stdlib"))
+    implementation(project(":sealedenum"))
     implementation("com.squareup:kotlinpoet:$kotlinPoetVersion")
     implementation("com.squareup:kotlinpoet-metadata:$kotlinPoetVersion")
     implementation("com.squareup:kotlinpoet-metadata-specs:$kotlinPoetVersion")
-    implementation("com.google.auto.service:auto-service:$autoServiceVersion")
-    implementation(project(":sealedenum"))
+    implementation("com.google.auto.service:auto-service-annotations:$autoServiceVersion")
     kapt("com.google.auto.service:auto-service:$autoServiceVersion")
     implementation("net.ltgt.gradle.incap:incap:$incapVersion")
     kapt("net.ltgt.gradle.incap:incap-processor:$incapVersion")

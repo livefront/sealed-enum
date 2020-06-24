@@ -125,10 +125,13 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.livefront.sealed-enum:sealedenum:0.1.0")
-    kapt("com.github.livefront.sealed-enum:sealedenumprocessor:0.1.0")
+    implementation("com.github.livefront.sealed-enum:sealedenum:v0.1.0")
+    kapt("com.github.livefront.sealed-enum:sealedenumprocessor:v0.1.0")
 }
 ```
+
+### Class Documentation
+[Full class documentation for the runtime library is published automatically to JitPack](https://javadoc.jitpack.io/com/github/livefront/sealed-enum/sealedenum/latest/javadoc/sealedenum/index.html)
 
 ### License
 ```

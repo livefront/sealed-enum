@@ -3,7 +3,7 @@ package com.livefront.sealedenum
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-sealed class OneTypeParameterSealedClass<T> {
+sealed class OneTypeParameterSealedClass<out T> {
     object FirstObject : OneTypeParameterSealedClass<Int>()
 
     object SecondObject : OneTypeParameterSealedClass<String>()
@@ -11,7 +11,7 @@ sealed class OneTypeParameterSealedClass<T> {
     object ThirdObject : OneTypeParameterSealedClass<Nothing>()
 }
 
-sealed class TwoTypeParameterSealedClass<A, B> {
+sealed class TwoTypeParameterSealedClass<out A, out B> {
     object FirstObject : TwoTypeParameterSealedClass<Any?, Nothing>()
 
     object SecondObject : TwoTypeParameterSealedClass<Double, Double>()

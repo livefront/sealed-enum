@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    val kotlinPoetVersion by rootProject.extra("1.5.0")
+    val kotlinPoetVersion by rootProject.extra("1.6.0")
     val autoServiceVersion by rootProject.extra("1.0-rc6")
     val incapVersion by rootProject.extra("0.2")
     val junitVersion by rootProject.extra("5.6.0")
@@ -12,6 +12,7 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation(project(":sealedenum"))
     implementation("com.squareup:kotlinpoet:$kotlinPoetVersion")
+    implementation("com.squareup:kotlinpoet-classinspector-elements:$kotlinPoetVersion")
     implementation("com.squareup:kotlinpoet-metadata:$kotlinPoetVersion")
     implementation("com.squareup:kotlinpoet-metadata-specs:$kotlinPoetVersion")
     implementation("com.google.auto.service:auto-service-annotations:$autoServiceVersion")
@@ -25,6 +26,7 @@ dependencies {
 }
 
 kapt {
+    includeCompileClasspath = false
     arguments {
         arg("sealedenum.autoGenerateSealedEnums", "true")
     }

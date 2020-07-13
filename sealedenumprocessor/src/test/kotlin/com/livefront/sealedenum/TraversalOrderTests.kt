@@ -3,10 +3,10 @@ package com.livefront.sealedenum
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-@GenSealedEnum(traversalOrder = TreeTraversalOrder.PRE_ORDER)
-@GenSealedEnum(traversalOrder = TreeTraversalOrder.IN_ORDER)
-@GenSealedEnum(traversalOrder = TreeTraversalOrder.POST_ORDER)
-@GenSealedEnum(traversalOrder = TreeTraversalOrder.LEVEL_ORDER)
+@GenSealedEnum(traversalOrder = TreeTraversalOrder.PRE_ORDER, generateEnum = true)
+@GenSealedEnum(traversalOrder = TreeTraversalOrder.IN_ORDER, generateEnum = true)
+@GenSealedEnum(traversalOrder = TreeTraversalOrder.POST_ORDER, generateEnum = true)
+@GenSealedEnum(traversalOrder = TreeTraversalOrder.LEVEL_ORDER, generateEnum = true)
 sealed class Tree {
 
     object A : Tree()
@@ -59,7 +59,7 @@ sealed class Tree {
 class TraversalOrderTests {
 
     @Test
-    fun `pre order`() {
+    fun `pre order objects`() {
         assertEquals(
             listOf(
                 Tree.A,
@@ -81,9 +81,31 @@ class TraversalOrderTests {
         )
     }
 
+    @Test
+    fun `pre order enum`() {
+        assertEquals(
+            listOf(
+                TreePreOrderEnum.Tree_A,
+                TreePreOrderEnum.Tree_K,
+                TreePreOrderEnum.Tree_T,
+                TreePreOrderEnum.Tree_B_C_D,
+                TreePreOrderEnum.Tree_B_C_E,
+                TreePreOrderEnum.Tree_B_C_J,
+                TreePreOrderEnum.Tree_B_C_F_G,
+                TreePreOrderEnum.Tree_B_C_F_H,
+                TreePreOrderEnum.Tree_B_C_F_I,
+                TreePreOrderEnum.Tree_L_S,
+                TreePreOrderEnum.Tree_L_M_N,
+                TreePreOrderEnum.Tree_L_M_O,
+                TreePreOrderEnum.Tree_L_P_Q,
+                TreePreOrderEnum.Tree_L_P_R
+            ),
+            enumValues<TreePreOrderEnum>().toList()
+        )
+    }
 
     @Test
-    fun `in order`() {
+    fun `in order objects`() {
         assertEquals(
             listOf(
                 Tree.A,
@@ -105,9 +127,31 @@ class TraversalOrderTests {
         )
     }
 
+    @Test
+    fun `in order enum`() {
+        assertEquals(
+            listOf(
+                TreeInOrderEnum.Tree_A,
+                TreeInOrderEnum.Tree_B_C_D,
+                TreeInOrderEnum.Tree_B_C_E,
+                TreeInOrderEnum.Tree_B_C_F_G,
+                TreeInOrderEnum.Tree_B_C_F_H,
+                TreeInOrderEnum.Tree_B_C_F_I,
+                TreeInOrderEnum.Tree_B_C_J,
+                TreeInOrderEnum.Tree_K,
+                TreeInOrderEnum.Tree_L_M_N,
+                TreeInOrderEnum.Tree_L_M_O,
+                TreeInOrderEnum.Tree_L_P_Q,
+                TreeInOrderEnum.Tree_L_P_R,
+                TreeInOrderEnum.Tree_L_S,
+                TreeInOrderEnum.Tree_T
+            ),
+            enumValues<TreeInOrderEnum>().toList()
+        )
+    }
 
     @Test
-    fun `post order`() {
+    fun `post order objects`() {
         assertEquals(
             listOf(
                 Tree.B.C.F.G,
@@ -129,9 +173,31 @@ class TraversalOrderTests {
         )
     }
 
+    @Test
+    fun `post order enum`() {
+        assertEquals(
+            listOf(
+                TreePostOrderEnum.Tree_B_C_F_G,
+                TreePostOrderEnum.Tree_B_C_F_H,
+                TreePostOrderEnum.Tree_B_C_F_I,
+                TreePostOrderEnum.Tree_B_C_D,
+                TreePostOrderEnum.Tree_B_C_E,
+                TreePostOrderEnum.Tree_B_C_J,
+                TreePostOrderEnum.Tree_L_M_N,
+                TreePostOrderEnum.Tree_L_M_O,
+                TreePostOrderEnum.Tree_L_P_Q,
+                TreePostOrderEnum.Tree_L_P_R,
+                TreePostOrderEnum.Tree_L_S,
+                TreePostOrderEnum.Tree_A,
+                TreePostOrderEnum.Tree_K,
+                TreePostOrderEnum.Tree_T
+            ),
+            enumValues<TreePostOrderEnum>().toList()
+        )
+    }
 
     @Test
-    fun `level order`() {
+    fun `level order objects`() {
         assertEquals(
             listOf(
                 Tree.A,
@@ -150,6 +216,29 @@ class TraversalOrderTests {
                 Tree.B.C.F.I
             ),
             TreeLevelOrderSealedEnum.values
+        )
+    }
+
+    @Test
+    fun `level order enum`() {
+        assertEquals(
+            listOf(
+                TreeLevelOrderEnum.Tree_A,
+                TreeLevelOrderEnum.Tree_K,
+                TreeLevelOrderEnum.Tree_T,
+                TreeLevelOrderEnum.Tree_L_S,
+                TreeLevelOrderEnum.Tree_B_C_D,
+                TreeLevelOrderEnum.Tree_B_C_E,
+                TreeLevelOrderEnum.Tree_B_C_J,
+                TreeLevelOrderEnum.Tree_L_M_N,
+                TreeLevelOrderEnum.Tree_L_M_O,
+                TreeLevelOrderEnum.Tree_L_P_Q,
+                TreeLevelOrderEnum.Tree_L_P_R,
+                TreeLevelOrderEnum.Tree_B_C_F_G,
+                TreeLevelOrderEnum.Tree_B_C_F_H,
+                TreeLevelOrderEnum.Tree_B_C_F_I
+            ),
+            enumValues<TreeLevelOrderEnum>().toList()
         )
     }
 }

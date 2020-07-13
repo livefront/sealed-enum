@@ -3,13 +3,20 @@ package com.livefront.sealedenum.internal
 import com.livefront.sealedenum.GenSealedEnum
 import com.livefront.sealedenum.GenSealedEnums
 import com.livefront.sealedenum.TreeTraversalOrder
+import com.livefront.sealedenum.internal.SealedEnumFileSpec.SealedEnumOption.SealedEnumOnly
+import com.livefront.sealedenum.internal.SealedEnumFileSpec.SealedEnumOption.SealedEnumWithEnum
+import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.classinspector.elements.ElementsClassInspector
 import com.squareup.kotlinpoet.metadata.ImmutableKmClass
 import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
 import com.squareup.kotlinpoet.metadata.isObject
 import com.squareup.kotlinpoet.metadata.isSealed
 import com.squareup.kotlinpoet.metadata.specs.internal.ClassInspectorUtil
+import com.squareup.kotlinpoet.metadata.specs.toTypeSpec
 import com.squareup.kotlinpoet.metadata.toImmutableKmClass
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -36,6 +43,7 @@ import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.element.PackageElement
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
+import javax.lang.model.util.Types
 import javax.tools.Diagnostic.Kind.ERROR
 
 @KotlinPoetMetadataPreview
@@ -50,6 +58,9 @@ class SealedEnumProcessorTests {
 
     @MockK
     private lateinit var elementUtils: Elements
+
+    @MockK
+    private lateinit var typeUtils: Types
 
     private lateinit var processor: SealedEnumProcessor
 
@@ -128,7 +139,7 @@ class SealedEnumProcessorTests {
             every { writeTo(filer) } returns Unit
         }
         val firstSealedEnumFileSpec = mockk<SealedEnumFileSpec> {
-            every { create() } returns firstFileSpec
+            every { build() } returns firstFileSpec
         }
 
         every { processor.createSealedEnumFileSpec(firstTypeElement) } returns firstSealedEnumFileSpec
@@ -154,6 +165,34 @@ class SealedEnumProcessorTests {
             every { processingEnvironment.messager } returns messager
         }
 
+        @Test
+        fun `annotated with duplicate traversal orders`() {
+            val sealedEnumAnnotations = arrayOf<GenSealedEnum>(
+                mockk {
+                    every { traversalOrder } returns TreeTraversalOrder.IN_ORDER
+                    every { generateEnum } returns false
+                },
+                mockk {
+                    every { traversalOrder } returns TreeTraversalOrder.IN_ORDER
+                    every { generateEnum } returns false
+                }
+            )
+
+            every {
+                sealedClassElement.getAnnotationsByType(GenSealedEnum::class.java)
+            } returns sealedEnumAnnotations
+
+            every {
+                messager.printMessage(
+                    ERROR,
+                    ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER,
+                    sealedClassElement
+                )
+            } returns Unit
+
+            assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+        }
+
         @Nested
         inner class AnnotatedByMetadataOnly {
 
@@ -169,14 +208,8 @@ class SealedEnumProcessorTests {
             @Test
             fun `annotated element is not Kotlin class`() {
                 every { sealedClassElement.toImmutableKmClass() } throws IllegalStateException()
-                every {
-                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
-                } returns Unit
 
                 assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
-                verify {
-                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
-                }
             }
 
             @Nested
@@ -217,10 +250,25 @@ class SealedEnumProcessorTests {
                     @Test
                     fun `annotated sealed class only has object subclasses`() {
                         mockkObject(ClassInspectorUtil)
+                        mockkObject(ElementsClassInspector)
+                        mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
 
+                        val elementsClassInspector = mockk<ElementsClassInspector>()
+                        val sealedClassTypeSpec = mockk<TypeSpec> {
+                            every { typeVariables } returns listOf(
+                                mockk {
+                                    every { variance } returns null
+                                    every { bounds } returns listOf(ANY)
+                                }
+                            )
+                        }
                         val sealedClassNode = mockk<SealedClassNode.SealedClass>()
                         val sealedClass = mockk<ClassName>()
 
+                        every { processingEnvironment.elementUtils } returns elementUtils
+                        every { processingEnvironment.typeUtils } returns typeUtils
+                        every { ElementsClassInspector.create(elementUtils, typeUtils) } returns elementsClassInspector
+                        every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
                         every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
                         every { sealedClassKmClass.name } returns "SealedClassName"
                         every { sealedClassKmClass.typeParameters } returns listOf(mockk())
@@ -230,9 +278,11 @@ class SealedEnumProcessorTests {
                             SealedEnumFileSpec(
                                 sealedClass = sealedClass,
                                 sealedClassElement = sealedClassElement,
-                                traversalOrders = listOf(TreeTraversalOrder.IN_ORDER),
                                 sealedClassNode = sealedClassNode,
-                                numberOfTypeParameters = 1
+                                typeParameters = listOf(ANY),
+                                sealedEnumOptions = mapOf(
+                                    TreeTraversalOrder.IN_ORDER to SealedEnumOnly
+                                )
                             ),
                             processor.createSealedEnumFileSpec(sealedClassElement)
                         )
@@ -245,13 +295,23 @@ class SealedEnumProcessorTests {
         inner class AnnotatedByGenSealedEnums {
 
             private val sealedEnumAnnotations = arrayOf<GenSealedEnum>(
-                mockk { every { traversalOrder } returns TreeTraversalOrder.IN_ORDER },
-                mockk { every { traversalOrder } returns TreeTraversalOrder.LEVEL_ORDER },
-                mockk { every { traversalOrder } returns TreeTraversalOrder.PRE_ORDER },
-                mockk { every { traversalOrder } returns TreeTraversalOrder.POST_ORDER },
-                mockk { every { traversalOrder } returns TreeTraversalOrder.IN_ORDER }
+                mockk {
+                    every { traversalOrder } returns TreeTraversalOrder.IN_ORDER
+                    every { generateEnum } returns false
+                },
+                mockk {
+                    every { traversalOrder } returns TreeTraversalOrder.LEVEL_ORDER
+                    every { generateEnum } returns false
+                },
+                mockk {
+                    every { traversalOrder } returns TreeTraversalOrder.PRE_ORDER
+                    every { generateEnum } returns false
+                },
+                mockk {
+                    every { traversalOrder } returns TreeTraversalOrder.POST_ORDER
+                    every { generateEnum } returns false
+                }
             )
-
 
             @BeforeEach
             fun setup() {
@@ -317,10 +377,25 @@ class SealedEnumProcessorTests {
                     @Test
                     fun `annotated class is sealed`() {
                         mockkObject(ClassInspectorUtil)
+                        mockkObject(ElementsClassInspector)
+                        mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
 
+                        val elementsClassInspector = mockk<ElementsClassInspector>()
+                        val sealedClassTypeSpec = mockk<TypeSpec> {
+                            every { typeVariables } returns listOf(
+                                mockk {
+                                    every { variance } returns null
+                                    every { bounds } returns listOf(ANY)
+                                }
+                            )
+                        }
                         val sealedClassNode = mockk<SealedClassNode.SealedClass>()
                         val sealedClass = mockk<ClassName>()
 
+                        every { processingEnvironment.elementUtils } returns elementUtils
+                        every { processingEnvironment.typeUtils } returns typeUtils
+                        every { ElementsClassInspector.create(elementUtils, typeUtils) } returns elementsClassInspector
+                        every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
                         every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
                         every { sealedClassKmClass.name } returns "SealedClassName"
                         every { sealedClassKmClass.typeParameters } returns listOf(mockk())
@@ -330,14 +405,132 @@ class SealedEnumProcessorTests {
                             SealedEnumFileSpec(
                                 sealedClass = sealedClass,
                                 sealedClassElement = sealedClassElement,
-                                traversalOrders = listOf(
-                                    TreeTraversalOrder.IN_ORDER,
-                                    TreeTraversalOrder.LEVEL_ORDER,
-                                    TreeTraversalOrder.PRE_ORDER,
-                                    TreeTraversalOrder.POST_ORDER
-                                ),
                                 sealedClassNode = sealedClassNode,
-                                numberOfTypeParameters = 1
+                                typeParameters = listOf(ANY),
+                                sealedEnumOptions = mapOf(
+                                    TreeTraversalOrder.IN_ORDER to SealedEnumOnly,
+                                    TreeTraversalOrder.LEVEL_ORDER to SealedEnumOnly,
+                                    TreeTraversalOrder.PRE_ORDER to SealedEnumOnly,
+                                    TreeTraversalOrder.POST_ORDER to SealedEnumOnly
+                                )
+                            ),
+                            processor.createSealedEnumFileSpec(sealedClassElement)
+                        )
+                    }
+                }
+            }
+        }
+
+        @Nested
+        inner class AnnotatedByGenSealedEnumWithEnum {
+
+            private val sealedEnumAnnotations = arrayOf<GenSealedEnum>(
+                mockk {
+                    every { traversalOrder } returns TreeTraversalOrder.IN_ORDER
+                    every { generateEnum } returns true
+                }
+            )
+
+            @BeforeEach
+            fun setup() {
+                every {
+                    sealedClassElement.getAnnotationsByType(GenSealedEnum::class.java)
+                } returns sealedEnumAnnotations
+            }
+
+            @Test
+            fun `annotated element is not Kotlin class`() {
+                every { sealedClassElement.toImmutableKmClass() } throws IllegalStateException()
+                every {
+                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
+                } returns Unit
+
+                assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+                verify {
+                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
+                }
+            }
+
+            @Nested
+            inner class AnnotatedElementIsKotlinClass {
+
+                private val sealedClassKmClass = mockk<ImmutableKmClass>()
+
+                @BeforeEach
+                fun setup() {
+                    mockkStatic("com.squareup.kotlinpoet.metadata.FlagsKt")
+                    every { sealedClassElement.toImmutableKmClass() } returns sealedClassKmClass
+                }
+
+                @Test
+                fun `annotated class is not sealed`() {
+                    every { sealedClassKmClass.isSealed } returns false
+                    every { messager.printMessage(ERROR, ERROR_CLASS_IS_NOT_SEALED, sealedClassElement) } returns Unit
+
+                    assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+                    verify { messager.printMessage(ERROR, ERROR_CLASS_IS_NOT_SEALED, sealedClassElement) }
+                }
+
+                @Nested
+                inner class AnnotatedClassIsSealed {
+
+                    @BeforeEach
+                    fun setup() {
+                        every { sealedClassKmClass.isSealed } returns true
+                    }
+
+                    @Test
+                    fun `annotated sealed class has non-object subclasses`() {
+                        every {
+                            processor.createSealedClassNode(sealedClassKmClass)
+                        } throws NonObjectSealedSubclassException()
+                        every {
+                            messager.printMessage(ERROR, ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
+                        } returns Unit
+
+                        assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+                        verify { messager.printMessage(ERROR, ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement) }
+                    }
+
+                    @Test
+                    fun `annotated class is sealed`() {
+                        mockkObject(ClassInspectorUtil)
+                        mockkObject(ElementsClassInspector)
+                        mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
+                        mockkStatic("com.livefront.sealedenum.internal.SuperInterfacesKt")
+
+                        val elementsClassInspector = mockk<ElementsClassInspector>()
+                        val sealedClassTypeSpec = mockk<TypeSpec> {
+                            every { typeVariables } returns listOf(
+                                mockk {
+                                    every { variance } returns null
+                                    every { bounds } returns listOf(ANY)
+                                }
+                            )
+                        }
+                        val sealedClassNode = mockk<SealedClassNode.SealedClass>()
+                        val sealedClass = mockk<ClassName>()
+                        val superInterfaces = mockk<List<TypeName>>()
+
+                        every { processingEnvironment.elementUtils } returns elementUtils
+                        every { processingEnvironment.typeUtils } returns typeUtils
+                        every { ElementsClassInspector.create(elementUtils, typeUtils) } returns elementsClassInspector
+                        every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
+                        every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
+                        every { sealedClassKmClass.name } returns "SealedClassName"
+                        every { sealedClassKmClass.typeParameters } returns listOf(mockk())
+                        every { ClassInspectorUtil.createClassName("SealedClassName") } returns sealedClass
+                        every { elementsClassInspector.getAllSuperInterfaces(sealedClassTypeSpec) } returns superInterfaces
+
+                        assertEquals(
+                            SealedEnumFileSpec(
+                                sealedClass = sealedClass,
+                                sealedClassElement = sealedClassElement,
+                                sealedClassNode = sealedClassNode,
+                                typeParameters = listOf(ANY),
+                                sealedEnumOptions = mapOf(
+                                    TreeTraversalOrder.IN_ORDER to SealedEnumWithEnum(superInterfaces)
+                                )
                             ),
                             processor.createSealedEnumFileSpec(sealedClassElement)
                         )

@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test
 
 class FirstHierarchy {
 
-    @GenSealedEnum
+    @GenSealedEnum(generateEnum = true)
     sealed class A {
 
-        @GenSealedEnum
+        @GenSealedEnum(generateEnum = true)
         sealed class B : A() {
             object C : B()
         }

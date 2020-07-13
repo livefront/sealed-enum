@@ -20,20 +20,56 @@ interface SealedEnum<T> : Comparator<T> {
      */
     fun ordinalOf(obj: T): Int
 
+    /**
+     * Returns the name of [obj] for use with [valueOf].
+     */
+    fun nameOf(obj: T): String
+
+    /**
+     * Returns the [T] object for the given [name].
+     *
+     * If the given name doesn't correspond to any [T], an [IllegalArgumentException] will be thrown.
+     */
+    fun valueOf(name: String): T
+
     override fun compare(first: T, second: T) = ordinalOf(first) - ordinalOf(second)
 }
 
 /**
- * Creates a [SealedEnum] for the enum [E].
+ * Creates a [SealedEnumWithEnumProvider] for the enum [E].
  */
-inline fun <reified E : Enum<E>> createSealedEnumFromEnum(): SealedEnum<E> =
-    createSealedEnumFromEnumArray(enumValues())
+inline fun <reified E : Enum<E>> createSealedEnumFromEnum(): SealedEnumWithEnumProvider<E, E> =
+    createSealedEnumFromEnumArray(enumValues(), E::class.java)
 
 /**
- * Creates a [SealedEnum] for the enum [E] with the given array of enum values.
+ * Creates a [SealedEnumWithEnumProvider] for the enum [E] with the given array of enum values.
  */
-fun <E : Enum<E>> createSealedEnumFromEnumArray(values: Array<E>): SealedEnum<E> = object : SealedEnum<E> {
+fun <E : Enum<E>> createSealedEnumFromEnumArray(
+    values: Array<E>,
+    enumClass: Class<E>
+): SealedEnumWithEnumProvider<E, E> = object : SealedEnumWithEnumProvider<E, E> {
+    val nameToValueMap: Map<String, E> by lazy(LazyThreadSafetyMode.PUBLICATION) {
+        values.associateBy { it.name }
+    }
+
+    override val enumClass: Class<E> = enumClass
+
     override val values: List<E> = values.toList()
 
     override fun ordinalOf(obj: E): Int = obj.ordinal
+
+    override fun nameOf(obj: E): String = obj.name
+
+    override fun valueOf(name: String): E =
+        nameToValueMap[name] ?: throw IllegalArgumentException("No sealed enum constant $name")
+
+    /**
+     * Isomorphism is given by the identity function
+     */
+    override fun sealedObjectToEnum(obj: E): E = obj
+
+    /**
+     * Isomorphism is given by the identity function
+     */
+    override fun enumToSealedObject(enum: E): E = enum
 }

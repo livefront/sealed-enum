@@ -3,11 +3,13 @@ package com.livefront.sealedenum
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-@GenSealedEnum(generateEnum = true)
 sealed class TwoObjectSealedClass {
     object FirstObject : TwoObjectSealedClass()
 
     object SecondObject : TwoObjectSealedClass()
+
+    @GenSealedEnum(generateEnum = true)
+    companion object
 }
 
 class TwoObjectSealedClassTests {
@@ -26,6 +28,14 @@ class TwoObjectSealedClassTests {
                 TwoObjectSealedClassEnum.TwoObjectSealedClass_FirstObject,
                 TwoObjectSealedClassEnum.TwoObjectSealedClass_SecondObject
             ),
+            enumValues<TwoObjectSealedClassEnum>().toList()
+        )
+    }
+
+    @Test
+    fun `two enums for sealed class with mapping`() {
+        assertEquals(
+            TwoObjectSealedClass.values.map(TwoObjectSealedClass::enum),
             enumValues<TwoObjectSealedClassEnum>().toList()
         )
     }

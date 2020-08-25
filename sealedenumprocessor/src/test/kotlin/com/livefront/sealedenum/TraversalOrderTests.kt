@@ -3,10 +3,6 @@ package com.livefront.sealedenum
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-@GenSealedEnum(traversalOrder = TreeTraversalOrder.PRE_ORDER, generateEnum = true)
-@GenSealedEnum(traversalOrder = TreeTraversalOrder.IN_ORDER, generateEnum = true)
-@GenSealedEnum(traversalOrder = TreeTraversalOrder.POST_ORDER, generateEnum = true)
-@GenSealedEnum(traversalOrder = TreeTraversalOrder.LEVEL_ORDER, generateEnum = true)
 sealed class Tree {
 
     object A : Tree()
@@ -54,6 +50,12 @@ sealed class Tree {
     }
 
     object T : Tree()
+
+    @GenSealedEnum(traversalOrder = TreeTraversalOrder.PRE_ORDER, generateEnum = true)
+    @GenSealedEnum(traversalOrder = TreeTraversalOrder.IN_ORDER, generateEnum = true)
+    @GenSealedEnum(traversalOrder = TreeTraversalOrder.POST_ORDER, generateEnum = true)
+    @GenSealedEnum(traversalOrder = TreeTraversalOrder.LEVEL_ORDER, generateEnum = true)
+    companion object
 }
 
 class TraversalOrderTests {
@@ -77,6 +79,14 @@ class TraversalOrderTests {
                 Tree.L.P.Q,
                 Tree.L.P.R
             ),
+            Tree.preOrderValues
+        )
+    }
+
+    @Test
+    fun `pre order objects in sealed enum`() {
+        assertEquals(
+            Tree.preOrderValues,
             TreePreOrderSealedEnum.values
         )
     }
@@ -105,6 +115,14 @@ class TraversalOrderTests {
     }
 
     @Test
+    fun `pre order enum mapping`() {
+        assertEquals(
+            Tree.preOrderValues.map(Tree::preOrderEnum),
+            enumValues<TreePreOrderEnum>().toList()
+        )
+    }
+
+    @Test
     fun `in order objects`() {
         assertEquals(
             listOf(
@@ -123,6 +141,14 @@ class TraversalOrderTests {
                 Tree.L.S,
                 Tree.T
             ),
+            TreeInOrderSealedEnum.values
+        )
+    }
+
+    @Test
+    fun `in order objects in sealed enum`() {
+        assertEquals(
+            Tree.inOrderValues,
             TreeInOrderSealedEnum.values
         )
     }
@@ -151,6 +177,14 @@ class TraversalOrderTests {
     }
 
     @Test
+    fun `in order enum mapping`() {
+        assertEquals(
+            Tree.inOrderValues.map(Tree::inOrderEnum),
+            enumValues<TreeInOrderEnum>().toList()
+        )
+    }
+
+    @Test
     fun `post order objects`() {
         assertEquals(
             listOf(
@@ -169,6 +203,14 @@ class TraversalOrderTests {
                 Tree.K,
                 Tree.T
             ),
+            Tree.postOrderValues
+        )
+    }
+
+    @Test
+    fun `post order objects in sealed enum`() {
+        assertEquals(
+            Tree.postOrderValues,
             TreePostOrderSealedEnum.values
         )
     }
@@ -197,6 +239,14 @@ class TraversalOrderTests {
     }
 
     @Test
+    fun `post order enum mapping`() {
+        assertEquals(
+            Tree.postOrderValues.map(Tree::postOrderEnum),
+            enumValues<TreePostOrderEnum>().toList()
+        )
+    }
+
+    @Test
     fun `level order objects`() {
         assertEquals(
             listOf(
@@ -215,6 +265,14 @@ class TraversalOrderTests {
                 Tree.B.C.F.H,
                 Tree.B.C.F.I
             ),
+            Tree.levelOrderValues
+        )
+    }
+
+    @Test
+    fun `level order objects in sealed enum`() {
+        assertEquals(
+            Tree.levelOrderValues,
             TreeLevelOrderSealedEnum.values
         )
     }
@@ -238,6 +296,14 @@ class TraversalOrderTests {
                 TreeLevelOrderEnum.Tree_B_C_F_H,
                 TreeLevelOrderEnum.Tree_B_C_F_I
             ),
+            enumValues<TreeLevelOrderEnum>().toList()
+        )
+    }
+
+    @Test
+    fun `level order enum with mapping`() {
+        assertEquals(
+            Tree.levelOrderValues.map(Tree::levelOrderEnum),
             enumValues<TreeLevelOrderEnum>().toList()
         )
     }

@@ -13,6 +13,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.classinspector.elements.ElementsClassInspector
 import com.squareup.kotlinpoet.metadata.ImmutableKmClass
 import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
+import com.squareup.kotlinpoet.metadata.isCompanionObject
 import com.squareup.kotlinpoet.metadata.isObject
 import com.squareup.kotlinpoet.metadata.isSealed
 import com.squareup.kotlinpoet.metadata.specs.internal.ClassInspectorUtil
@@ -32,6 +33,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -78,7 +80,8 @@ class SealedEnumProcessorTests {
     }
 
     @Nested
-    inner class GetSupportedAnnotationTypes {
+    @DisplayName("GetSupportedAnnotationTypes")
+    inner class GSAT {
 
         @Test
         fun `when autogenerate is true verify SealedEnum, SealedEnums and Metadata`() {
@@ -155,9 +158,10 @@ class SealedEnumProcessorTests {
     }
 
     @Nested
-    inner class CreateSealedEnumFileSpec {
+    @DisplayName("CreateSealedEnumFileSpec")
+    inner class CSEFS {
 
-        private val sealedClassElement = mockk<TypeElement>()
+        private val sealedClassCompanionObjectElement = mockk<TypeElement>()
 
         @BeforeEach
         fun setup() {
@@ -179,120 +183,174 @@ class SealedEnumProcessorTests {
             )
 
             every {
-                sealedClassElement.getAnnotationsByType(GenSealedEnum::class.java)
+                sealedClassCompanionObjectElement.getAnnotationsByType(GenSealedEnum::class.java)
             } returns sealedEnumAnnotations
 
             every {
                 messager.printMessage(
                     ERROR,
                     ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER,
-                    sealedClassElement
+                    sealedClassCompanionObjectElement
                 )
             } returns Unit
 
-            assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+            assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
         }
 
         @Nested
-        inner class AnnotatedByMetadataOnly {
+        @DisplayName("AnnotatedByMetadataOnly")
+        inner class ABMO {
 
             private val sealedEnumAnnotations = emptyArray<GenSealedEnum>()
 
             @BeforeEach
             fun setup() {
                 every {
-                    sealedClassElement.getAnnotationsByType(GenSealedEnum::class.java)
+                    sealedClassCompanionObjectElement.getAnnotationsByType(GenSealedEnum::class.java)
                 } returns sealedEnumAnnotations
             }
 
             @Test
             fun `annotated element is not Kotlin class`() {
-                every { sealedClassElement.toImmutableKmClass() } throws IllegalStateException()
+                every { sealedClassCompanionObjectElement.toImmutableKmClass() } throws IllegalStateException()
 
-                assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+                assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
             }
 
             @Nested
-            inner class AnnotatedElementIsKotlinClass {
+            @DisplayName("AnnotatedElementIsKotlinClass")
+            inner class AEIKC {
 
-                private val sealedClassKmClass = mockk<ImmutableKmClass>()
+                private val sealedClassCompanionObjectKmClass = mockk<ImmutableKmClass>()
 
                 @BeforeEach
                 fun setup() {
                     mockkStatic("com.squareup.kotlinpoet.metadata.FlagsKt")
-                    every { sealedClassElement.toImmutableKmClass() } returns sealedClassKmClass
+                    every {
+                        sealedClassCompanionObjectElement.toImmutableKmClass()
+                    } returns sealedClassCompanionObjectKmClass
                 }
 
                 @Test
-                fun `annotated class is not sealed`() {
-                    every { sealedClassKmClass.isSealed } returns false
+                fun `annotated class is not a companion object`() {
+                    every { sealedClassCompanionObjectKmClass.isCompanionObject } returns false
 
-                    assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+                    assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
                 }
 
                 @Nested
-                inner class AnnotatedClassIsSealed {
+                @DisplayName("AnnotatedElementIsCompanionObject")
+                inner class AEICO {
+
+                    private val sealedClassElement = mockk<TypeElement>()
 
                     @BeforeEach
                     fun setup() {
-                        every { sealedClassKmClass.isSealed } returns true
+                        every { sealedClassCompanionObjectKmClass.isCompanionObject } returns true
+                        every { sealedClassCompanionObjectElement.enclosingElement } returns sealedClassElement
                     }
 
                     @Test
-                    fun `annotated sealed class has non-object subclasses`() {
-                        every {
-                            processor.createSealedClassNode(sealedClassKmClass)
-                        } throws NonObjectSealedSubclassException()
+                    fun `enclosing element is not Kotlin class`() {
+                        every { sealedClassElement.toImmutableKmClass() } throws IllegalStateException()
 
-                        assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+                        assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
                     }
 
-                    @Test
-                    fun `annotated sealed class only has object subclasses`() {
-                        mockkObject(ClassInspectorUtil)
-                        mockkObject(ElementsClassInspector)
-                        mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
+                    @Nested
+                    @DisplayName("EnclosingElementIsKotlinClass")
+                    inner class EEIKC {
 
-                        val elementsClassInspector = mockk<ElementsClassInspector>()
-                        val sealedClassTypeSpec = mockk<TypeSpec> {
-                            every { typeVariables } returns listOf(
-                                mockk {
-                                    every { variance } returns null
-                                    every { bounds } returns listOf(ANY)
-                                }
-                            )
+                        private val sealedClassKmClass = mockk<ImmutableKmClass>()
+
+                        @BeforeEach
+                        fun setup() {
+                            every { sealedClassElement.toImmutableKmClass() } returns sealedClassKmClass
                         }
-                        val sealedClassNode = mockk<SealedClassNode.SealedClass>()
-                        val sealedClass = mockk<ClassName>()
 
-                        every { processingEnvironment.elementUtils } returns elementUtils
-                        every { processingEnvironment.typeUtils } returns typeUtils
-                        every { ElementsClassInspector.create(elementUtils, typeUtils) } returns elementsClassInspector
-                        every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
-                        every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
-                        every { sealedClassKmClass.name } returns "SealedClassName"
-                        every { sealedClassKmClass.typeParameters } returns listOf(mockk())
-                        every { ClassInspectorUtil.createClassName("SealedClassName") } returns sealedClass
+                        @Test
+                        fun `annotated class is not sealed`() {
+                            every { sealedClassKmClass.isSealed } returns false
 
-                        assertEquals(
-                            SealedEnumFileSpec(
-                                sealedClass = sealedClass,
-                                sealedClassElement = sealedClassElement,
-                                sealedClassNode = sealedClassNode,
-                                typeParameters = listOf(ANY),
-                                sealedEnumOptions = mapOf(
-                                    TreeTraversalOrder.IN_ORDER to SealedEnumOnly
+                            assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                        }
+
+                        @Nested
+                        @DisplayName("EnclosingElementIsKotlinClass")
+                        inner class ACIS {
+
+                            @BeforeEach
+                            fun setup() {
+                                every { sealedClassKmClass.isSealed } returns true
+                            }
+
+                            @Test
+                            fun `annotated sealed class has non-object subclasses`() {
+                                every {
+                                    processor.createSealedClassNode(sealedClassKmClass)
+                                } throws NonObjectSealedSubclassException()
+
+                                assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                            }
+
+                            @Test
+                            fun `annotated sealed class only has object subclasses`() {
+                                mockkObject(ClassInspectorUtil)
+                                mockkObject(ElementsClassInspector)
+                                mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
+
+                                val elementsClassInspector = mockk<ElementsClassInspector>()
+                                val sealedClassTypeSpec = mockk<TypeSpec> {
+                                    every { typeVariables } returns listOf(
+                                        mockk {
+                                            every { variance } returns null
+                                            every { bounds } returns listOf(ANY)
+                                        }
+                                    )
+                                }
+                                val sealedClassNode = mockk<SealedClassNode.SealedClass>()
+                                val sealedClass = mockk<ClassName>()
+                                val sealedClassCompanion = mockk<ClassName>()
+
+                                every { processingEnvironment.elementUtils } returns elementUtils
+                                every { processingEnvironment.typeUtils } returns typeUtils
+                                every {
+                                    ElementsClassInspector.create(
+                                        elementUtils,
+                                        typeUtils
+                                    )
+                                } returns elementsClassInspector
+                                every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
+                                every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
+                                every { sealedClassKmClass.name } returns "SealedClassName"
+                                every { sealedClassKmClass.typeParameters } returns listOf(mockk())
+                                every { sealedClassCompanionObjectKmClass.name } returns "SealedClassName.Companion"
+                                every { ClassInspectorUtil.createClassName("SealedClassName") } returns sealedClass
+                                every { ClassInspectorUtil.createClassName("SealedClassName.Companion") } returns sealedClassCompanion
+
+                                assertEquals(
+                                    SealedEnumFileSpec(
+                                        sealedClass = sealedClass,
+                                        sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
+                                        sealedClassNode = sealedClassNode,
+                                        typeParameters = listOf(ANY),
+                                        sealedEnumOptions = mapOf(
+                                            TreeTraversalOrder.IN_ORDER to SealedEnumOnly
+                                        ),
+                                        sealedClassCompanionObject = sealedClassCompanion
+                                    ),
+                                    processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement)
                                 )
-                            ),
-                            processor.createSealedEnumFileSpec(sealedClassElement)
-                        )
+                            }
+                        }
                     }
                 }
             }
         }
 
         @Nested
-        inner class AnnotatedByGenSealedEnums {
+        @DisplayName("AnnotatedByGenSealedEnums")
+        inner class ANGSE {
 
             private val sealedEnumAnnotations = arrayOf<GenSealedEnum>(
                 mockk {
@@ -316,113 +374,188 @@ class SealedEnumProcessorTests {
             @BeforeEach
             fun setup() {
                 every {
-                    sealedClassElement.getAnnotationsByType(GenSealedEnum::class.java)
+                    sealedClassCompanionObjectElement.getAnnotationsByType(GenSealedEnum::class.java)
                 } returns sealedEnumAnnotations
             }
 
             @Test
             fun `annotated element is not Kotlin class`() {
-                every { sealedClassElement.toImmutableKmClass() } throws IllegalStateException()
+                every { sealedClassCompanionObjectElement.toImmutableKmClass() } throws IllegalStateException()
                 every {
-                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
+                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassCompanionObjectElement)
                 } returns Unit
 
-                assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+                assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
                 verify {
-                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
+                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassCompanionObjectElement)
                 }
             }
 
             @Nested
-            inner class AnnotatedElementIsKotlinClass {
+            @DisplayName("AnnotatedElementIsKotlinClass")
+            inner class AEIKC {
 
-                private val sealedClassKmClass = mockk<ImmutableKmClass>()
+                private val sealedClassCompanionObjectKmClass = mockk<ImmutableKmClass>()
 
                 @BeforeEach
                 fun setup() {
                     mockkStatic("com.squareup.kotlinpoet.metadata.FlagsKt")
-                    every { sealedClassElement.toImmutableKmClass() } returns sealedClassKmClass
+                    every {
+                        sealedClassCompanionObjectElement.toImmutableKmClass()
+                    } returns sealedClassCompanionObjectKmClass
                 }
 
                 @Test
-                fun `annotated class is not sealed`() {
-                    every { sealedClassKmClass.isSealed } returns false
-                    every { messager.printMessage(ERROR, ERROR_CLASS_IS_NOT_SEALED, sealedClassElement) } returns Unit
+                fun `annotated class is not a companion object`() {
+                    every { sealedClassCompanionObjectKmClass.isCompanionObject } returns false
+                    every {
+                        messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT, sealedClassCompanionObjectElement)
+                    } returns Unit
 
-                    assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
-                    verify { messager.printMessage(ERROR, ERROR_CLASS_IS_NOT_SEALED, sealedClassElement) }
+                    assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                    verify {
+                        messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT, sealedClassCompanionObjectElement)
+                    }
                 }
 
                 @Nested
-                inner class AnnotatedClassIsSealed {
+                @DisplayName("AnnotatedElementIsCompanionObject")
+                inner class AEICO {
+
+                    private val sealedClassElement = mockk<TypeElement>()
 
                     @BeforeEach
                     fun setup() {
-                        every { sealedClassKmClass.isSealed } returns true
+                        every { sealedClassCompanionObjectKmClass.isCompanionObject } returns true
+                        every { sealedClassCompanionObjectElement.enclosingElement } returns sealedClassElement
                     }
 
                     @Test
-                    fun `annotated sealed class has non-object subclasses`() {
+                    fun `enclosing element is not Kotlin class`() {
+                        every { sealedClassElement.toImmutableKmClass() } throws IllegalStateException()
                         every {
-                            processor.createSealedClassNode(sealedClassKmClass)
-                        } throws NonObjectSealedSubclassException()
-                        every {
-                            messager.printMessage(ERROR, ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
+                            messager.printMessage(ERROR, ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
                         } returns Unit
 
-                        assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
-                        verify { messager.printMessage(ERROR, ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement) }
+                        assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                        verify { messager.printMessage(ERROR, ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement) }
                     }
 
-                    @Test
-                    fun `annotated class is sealed`() {
-                        mockkObject(ClassInspectorUtil)
-                        mockkObject(ElementsClassInspector)
-                        mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
+                    @Nested
+                    @DisplayName("EnclosingElementIsKotlinClass")
+                    inner class EEIKC {
 
-                        val elementsClassInspector = mockk<ElementsClassInspector>()
-                        val sealedClassTypeSpec = mockk<TypeSpec> {
-                            every { typeVariables } returns listOf(
-                                mockk {
-                                    every { variance } returns null
-                                    every { bounds } returns listOf(ANY)
-                                }
-                            )
+                        private val sealedClassKmClass = mockk<ImmutableKmClass>()
+
+                        @BeforeEach
+                        fun setup() {
+                            every { sealedClassElement.toImmutableKmClass() } returns sealedClassKmClass
                         }
-                        val sealedClassNode = mockk<SealedClassNode.SealedClass>()
-                        val sealedClass = mockk<ClassName>()
 
-                        every { processingEnvironment.elementUtils } returns elementUtils
-                        every { processingEnvironment.typeUtils } returns typeUtils
-                        every { ElementsClassInspector.create(elementUtils, typeUtils) } returns elementsClassInspector
-                        every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
-                        every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
-                        every { sealedClassKmClass.name } returns "SealedClassName"
-                        every { sealedClassKmClass.typeParameters } returns listOf(mockk())
-                        every { ClassInspectorUtil.createClassName("SealedClassName") } returns sealedClass
-
-                        assertEquals(
-                            SealedEnumFileSpec(
-                                sealedClass = sealedClass,
-                                sealedClassElement = sealedClassElement,
-                                sealedClassNode = sealedClassNode,
-                                typeParameters = listOf(ANY),
-                                sealedEnumOptions = mapOf(
-                                    TreeTraversalOrder.IN_ORDER to SealedEnumOnly,
-                                    TreeTraversalOrder.LEVEL_ORDER to SealedEnumOnly,
-                                    TreeTraversalOrder.PRE_ORDER to SealedEnumOnly,
-                                    TreeTraversalOrder.POST_ORDER to SealedEnumOnly
+                        @Test
+                        fun `annotated class is not sealed`() {
+                            every { sealedClassKmClass.isSealed } returns false
+                            every {
+                                messager.printMessage(
+                                    ERROR,
+                                    ERROR_CLASS_IS_NOT_SEALED,
+                                    sealedClassElement
                                 )
-                            ),
-                            processor.createSealedEnumFileSpec(sealedClassElement)
-                        )
+                            } returns Unit
+
+                            assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                            verify { messager.printMessage(ERROR, ERROR_CLASS_IS_NOT_SEALED, sealedClassElement) }
+                        }
+
+                        @Nested
+                        @DisplayName("AnnotatedClassIsSealed")
+                        inner class ACIS {
+
+                            @BeforeEach
+                            fun setup() {
+                                every { sealedClassKmClass.isSealed } returns true
+                            }
+
+                            @Test
+                            fun `annotated sealed class has non-object subclasses`() {
+                                every {
+                                    processor.createSealedClassNode(sealedClassKmClass)
+                                } throws NonObjectSealedSubclassException()
+                                every {
+                                    messager.printMessage(ERROR, ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
+                                } returns Unit
+
+                                assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                                verify {
+                                    messager.printMessage(
+                                        ERROR,
+                                        ERROR_NON_OBJECT_SEALED_SUBCLASSES,
+                                        sealedClassElement
+                                    )
+                                }
+                            }
+
+                            @Test
+                            fun `annotated class is sealed`() {
+                                mockkObject(ClassInspectorUtil)
+                                mockkObject(ElementsClassInspector)
+                                mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
+
+                                val elementsClassInspector = mockk<ElementsClassInspector>()
+                                val sealedClassTypeSpec = mockk<TypeSpec> {
+                                    every { typeVariables } returns listOf(
+                                        mockk {
+                                            every { variance } returns null
+                                            every { bounds } returns listOf(ANY)
+                                        }
+                                    )
+                                }
+                                val sealedClassNode = mockk<SealedClassNode.SealedClass>()
+                                val sealedClass = mockk<ClassName>()
+                                val sealedClassCompanion = mockk<ClassName>()
+
+                                every { processingEnvironment.elementUtils } returns elementUtils
+                                every { processingEnvironment.typeUtils } returns typeUtils
+                                every {
+                                    ElementsClassInspector.create(
+                                        elementUtils,
+                                        typeUtils
+                                    )
+                                } returns elementsClassInspector
+                                every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
+                                every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
+                                every { sealedClassKmClass.name } returns "SealedClassName"
+                                every { sealedClassKmClass.typeParameters } returns listOf(mockk())
+                                every { sealedClassCompanionObjectKmClass.name } returns "SealedClassName.Companion"
+                                every { ClassInspectorUtil.createClassName("SealedClassName") } returns sealedClass
+                                every { ClassInspectorUtil.createClassName("SealedClassName.Companion") } returns sealedClassCompanion
+
+                                assertEquals(
+                                    SealedEnumFileSpec(
+                                        sealedClass = sealedClass,
+                                        sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
+                                        sealedClassNode = sealedClassNode,
+                                        typeParameters = listOf(ANY),
+                                        sealedEnumOptions = mapOf(
+                                            TreeTraversalOrder.IN_ORDER to SealedEnumOnly,
+                                            TreeTraversalOrder.LEVEL_ORDER to SealedEnumOnly,
+                                            TreeTraversalOrder.PRE_ORDER to SealedEnumOnly,
+                                            TreeTraversalOrder.POST_ORDER to SealedEnumOnly
+                                        ),
+                                        sealedClassCompanionObject = sealedClassCompanion
+                                    ),
+                                    processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement)
+                                )
+                            }
+                        }
                     }
                 }
             }
         }
 
         @Nested
-        inner class AnnotatedByGenSealedEnumWithEnum {
+        @DisplayName("AnnotatedByGenSealedEnumWithEnum")
+        inner class ABSEWE {
 
             private val sealedEnumAnnotations = arrayOf<GenSealedEnum>(
                 mockk {
@@ -434,106 +567,191 @@ class SealedEnumProcessorTests {
             @BeforeEach
             fun setup() {
                 every {
-                    sealedClassElement.getAnnotationsByType(GenSealedEnum::class.java)
+                    sealedClassCompanionObjectElement.getAnnotationsByType(GenSealedEnum::class.java)
                 } returns sealedEnumAnnotations
             }
 
             @Test
             fun `annotated element is not Kotlin class`() {
-                every { sealedClassElement.toImmutableKmClass() } throws IllegalStateException()
+                every { sealedClassCompanionObjectElement.toImmutableKmClass() } throws IllegalStateException()
                 every {
-                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
+                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassCompanionObjectElement)
                 } returns Unit
 
-                assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
+                assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
                 verify {
-                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
+                    messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassCompanionObjectElement)
                 }
             }
 
             @Nested
-            inner class AnnotatedElementIsKotlinClass {
+            @DisplayName("AnnotatedElementIsKotlinClass")
+            inner class AEIKC {
 
-                private val sealedClassKmClass = mockk<ImmutableKmClass>()
+
+                private val sealedClassCompanionObjectKmClass = mockk<ImmutableKmClass>()
 
                 @BeforeEach
                 fun setup() {
                     mockkStatic("com.squareup.kotlinpoet.metadata.FlagsKt")
-                    every { sealedClassElement.toImmutableKmClass() } returns sealedClassKmClass
+                    every {
+                        sealedClassCompanionObjectElement.toImmutableKmClass()
+                    } returns sealedClassCompanionObjectKmClass
                 }
 
                 @Test
-                fun `annotated class is not sealed`() {
-                    every { sealedClassKmClass.isSealed } returns false
-                    every { messager.printMessage(ERROR, ERROR_CLASS_IS_NOT_SEALED, sealedClassElement) } returns Unit
+                fun `annotated class is not a companion object`() {
+                    every { sealedClassCompanionObjectKmClass.isCompanionObject } returns false
+                    every {
+                        messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT, sealedClassCompanionObjectElement)
+                    } returns Unit
 
-                    assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
-                    verify { messager.printMessage(ERROR, ERROR_CLASS_IS_NOT_SEALED, sealedClassElement) }
+                    assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                    verify {
+                        messager.printMessage(ERROR, ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT, sealedClassCompanionObjectElement)
+                    }
                 }
 
                 @Nested
-                inner class AnnotatedClassIsSealed {
+                @DisplayName("AnnotatedElementIsCompanionObject")
+                inner class AEICO {
+
+                    private val sealedClassElement = mockk<TypeElement>()
 
                     @BeforeEach
                     fun setup() {
-                        every { sealedClassKmClass.isSealed } returns true
+                        every { sealedClassCompanionObjectKmClass.isCompanionObject } returns true
+                        every { sealedClassCompanionObjectElement.enclosingElement } returns sealedClassElement
                     }
 
                     @Test
-                    fun `annotated sealed class has non-object subclasses`() {
+                    fun `enclosing element is not Kotlin class`() {
+                        every { sealedClassElement.toImmutableKmClass() } throws IllegalStateException()
                         every {
-                            processor.createSealedClassNode(sealedClassKmClass)
-                        } throws NonObjectSealedSubclassException()
-                        every {
-                            messager.printMessage(ERROR, ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
+                            messager.printMessage(
+                                ERROR,
+                                ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS,
+                                sealedClassElement
+                            )
                         } returns Unit
 
-                        assertNull(processor.createSealedEnumFileSpec(sealedClassElement))
-                        verify { messager.printMessage(ERROR, ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement) }
-                    }
-
-                    @Test
-                    fun `annotated class is sealed`() {
-                        mockkObject(ClassInspectorUtil)
-                        mockkObject(ElementsClassInspector)
-                        mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
-                        mockkStatic("com.livefront.sealedenum.internal.SuperInterfacesKt")
-
-                        val elementsClassInspector = mockk<ElementsClassInspector>()
-                        val sealedClassTypeSpec = mockk<TypeSpec> {
-                            every { typeVariables } returns listOf(
-                                mockk {
-                                    every { variance } returns null
-                                    every { bounds } returns listOf(ANY)
-                                }
+                        assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                        verify {
+                            messager.printMessage(
+                                ERROR,
+                                ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS,
+                                sealedClassElement
                             )
                         }
-                        val sealedClassNode = mockk<SealedClassNode.SealedClass>()
-                        val sealedClass = mockk<ClassName>()
-                        val superInterfaces = mockk<List<TypeName>>()
+                    }
 
-                        every { processingEnvironment.elementUtils } returns elementUtils
-                        every { processingEnvironment.typeUtils } returns typeUtils
-                        every { ElementsClassInspector.create(elementUtils, typeUtils) } returns elementsClassInspector
-                        every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
-                        every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
-                        every { sealedClassKmClass.name } returns "SealedClassName"
-                        every { sealedClassKmClass.typeParameters } returns listOf(mockk())
-                        every { ClassInspectorUtil.createClassName("SealedClassName") } returns sealedClass
-                        every { elementsClassInspector.getAllSuperInterfaces(sealedClassTypeSpec) } returns superInterfaces
+                    @Nested
+                    @DisplayName("EnclosingElementIsKotlinClass")
+                    inner class EEIKC {
 
-                        assertEquals(
-                            SealedEnumFileSpec(
-                                sealedClass = sealedClass,
-                                sealedClassElement = sealedClassElement,
-                                sealedClassNode = sealedClassNode,
-                                typeParameters = listOf(ANY),
-                                sealedEnumOptions = mapOf(
-                                    TreeTraversalOrder.IN_ORDER to SealedEnumWithEnum(superInterfaces)
+                        private val sealedClassKmClass = mockk<ImmutableKmClass>()
+
+                        @BeforeEach
+                        fun setup() {
+                            every { sealedClassElement.toImmutableKmClass() } returns sealedClassKmClass
+                        }
+
+                        @Test
+                        fun `annotated class is not sealed`() {
+                            every { sealedClassKmClass.isSealed } returns false
+                            every {
+                                messager.printMessage(
+                                    ERROR,
+                                    ERROR_CLASS_IS_NOT_SEALED,
+                                    sealedClassElement
                                 )
-                            ),
-                            processor.createSealedEnumFileSpec(sealedClassElement)
-                        )
+                            } returns Unit
+
+                            assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                            verify { messager.printMessage(ERROR, ERROR_CLASS_IS_NOT_SEALED, sealedClassElement) }
+                        }
+
+                        @Nested
+                        @DisplayName("AnnotatedClassIsSealed")
+                        inner class ACIS {
+
+                            @BeforeEach
+                            fun setup() {
+                                every { sealedClassKmClass.isSealed } returns true
+                            }
+
+                            @Test
+                            fun `annotated sealed class has non-object subclasses`() {
+                                every {
+                                    processor.createSealedClassNode(sealedClassKmClass)
+                                } throws NonObjectSealedSubclassException()
+                                every {
+                                    messager.printMessage(ERROR, ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
+                                } returns Unit
+
+                                assertNull(processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement))
+                                verify {
+                                    messager.printMessage(
+                                        ERROR,
+                                        ERROR_NON_OBJECT_SEALED_SUBCLASSES,
+                                        sealedClassElement
+                                    )
+                                }
+                            }
+
+                            @Test
+                            fun `annotated class is sealed`() {
+                                mockkObject(ClassInspectorUtil)
+                                mockkObject(ElementsClassInspector)
+                                mockkStatic("com.squareup.kotlinpoet.metadata.specs.KotlinPoetMetadataSpecs")
+                                mockkStatic("com.livefront.sealedenum.internal.SuperInterfacesKt")
+
+                                val elementsClassInspector = mockk<ElementsClassInspector>()
+                                val sealedClassTypeSpec = mockk<TypeSpec> {
+                                    every { typeVariables } returns listOf(
+                                        mockk {
+                                            every { variance } returns null
+                                            every { bounds } returns listOf(ANY)
+                                        }
+                                    )
+                                }
+                                val sealedClassNode = mockk<SealedClassNode.SealedClass>()
+                                val sealedClass = mockk<ClassName>()
+                                val sealedClassCompanion = mockk<ClassName>()
+                                val superInterfaces = mockk<List<TypeName>>()
+
+                                every { processingEnvironment.elementUtils } returns elementUtils
+                                every { processingEnvironment.typeUtils } returns typeUtils
+                                every {
+                                    ElementsClassInspector.create(
+                                        elementUtils,
+                                        typeUtils
+                                    )
+                                } returns elementsClassInspector
+                                every { sealedClassElement.toTypeSpec(elementsClassInspector) } returns sealedClassTypeSpec
+                                every { processor.createSealedClassNode(sealedClassKmClass) } returns sealedClassNode
+                                every { sealedClassKmClass.name } returns "SealedClassName"
+                                every { sealedClassKmClass.typeParameters } returns listOf(mockk())
+                                every { sealedClassCompanionObjectKmClass.name } returns "SealedClassName.Companion"
+                                every { ClassInspectorUtil.createClassName("SealedClassName") } returns sealedClass
+                                every { ClassInspectorUtil.createClassName("SealedClassName.Companion") } returns sealedClassCompanion
+                                every { elementsClassInspector.getAllSuperInterfaces(sealedClassTypeSpec) } returns superInterfaces
+
+                                assertEquals(
+                                    SealedEnumFileSpec(
+                                        sealedClass = sealedClass,
+                                        sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
+                                        sealedClassNode = sealedClassNode,
+                                        typeParameters = listOf(ANY),
+                                        sealedEnumOptions = mapOf(
+                                            TreeTraversalOrder.IN_ORDER to SealedEnumWithEnum(superInterfaces)
+                                        ),
+                                        sealedClassCompanionObject = sealedClassCompanion
+                                    ),
+                                    processor.createSealedEnumFileSpec(sealedClassCompanionObjectElement)
+                                )
+                            }
+                        }
                     }
                 }
             }

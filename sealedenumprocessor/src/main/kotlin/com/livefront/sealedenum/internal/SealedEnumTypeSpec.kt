@@ -17,7 +17,7 @@ import javax.lang.model.element.TypeElement
 /**
  * A builder for a [SealedEnum] object for the given [sealedClass].
  *
- * Given the [ClassName] of the [sealedClass], the [TypeElement] for the [sealedClassElement], and the
+ * Given the [ClassName] of the [sealedClass], the [TypeElement] for the [sealedClassCompanionObjectElement], and the
  * list of [ClassName]s for the sealed subclasses, [build] will generate a [TypeSpec] for an implementation of
  * [SealedEnum].
  *
@@ -30,17 +30,18 @@ import javax.lang.model.element.TypeElement
 internal data class SealedEnumTypeSpec(
     private val sealedClass: SealedClass,
     private val parameterizedSealedClass: TypeName,
-    private val sealedClassElement: TypeElement,
+    private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedObjects: List<SealedObject>,
     private val enumPrefix: String
 ) {
+    val name = sealedClass.createSealedEnumName(enumPrefix)
     private val listOfSealedClass = List::class.asClassName().parameterizedBy(parameterizedSealedClass)
     private val sealedEnum = SealedEnum::class.asClassName()
     private val parameterizedSealedClassEnum = sealedEnum.parameterizedBy(parameterizedSealedClass)
-    private val typeSpecBuilder = TypeSpec.objectBuilder(sealedClass.createSealedEnumName(enumPrefix))
+    private val typeSpecBuilder = TypeSpec.objectBuilder(name)
         .addSuperinterface(parameterizedSealedClassEnum)
-        .addOriginatingElement(sealedClassElement)
-        .addKdoc("An implementation of [$sealedEnum] for the sealed class [$sealedClass]")
+        .addOriginatingElement(sealedClassCompanionObjectElement)
+        .addKdoc("An implementation of [%T] for the sealed class [%T]", sealedEnum, sealedClass)
         .addProperty(createObjectsProperty())
         .addFunction(createOrdinalOfFunction())
         .addFunction(createNameOfFunction())

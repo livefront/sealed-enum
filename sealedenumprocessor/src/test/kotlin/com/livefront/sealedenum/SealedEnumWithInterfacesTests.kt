@@ -15,21 +15,26 @@ interface TestGetterInterface {
     fun get(): String
 }
 
-@GenSealedEnum(generateEnum = true)
-sealed class EmptySealedClassWithInterface : TestInterface
-
-@GenSealedEnum(generateEnum = true)
-sealed class OneObjectSealedClassWithInterface : TestInterface {
-    object FirstObject : OneObjectSealedClassWithInterface()
+sealed class EmptySealedClassWithInterface : TestInterface {
+    @GenSealedEnum(generateEnum = true)
+    companion object
 }
 
-@GenSealedEnum(generateEnum = true)
+sealed class OneObjectSealedClassWithInterface : TestInterface {
+    object FirstObject : OneObjectSealedClassWithInterface()
+
+    @GenSealedEnum(generateEnum = true)
+    companion object
+}
+
 sealed class TwoObjectSealedClassWithGenericInterface<T : TestInterface> : TestGenericInterface<T> {
     object FirstObject : TwoObjectSealedClassWithGenericInterface<TestInterface>()
     object SecondObject : TwoObjectSealedClassWithGenericInterface<TestInterface>()
+
+    @GenSealedEnum(generateEnum = true)
+    companion object
 }
 
-@GenSealedEnum(generateEnum = true)
 sealed class SealedClassWithGetterInterface : TestGetterInterface {
     object FirstObject : SealedClassWithGetterInterface() {
         var hasGetBeenCalled = false
@@ -39,6 +44,9 @@ sealed class SealedClassWithGetterInterface : TestGetterInterface {
             return "First"
         }
     }
+
+    @GenSealedEnum(generateEnum = true)
+    companion object
 }
 
 class SealedEnumWithInterfacesTests {
@@ -56,7 +64,7 @@ class SealedEnumWithInterfacesTests {
         )
 
         // Check for compilation
-        val emptyValues: List<TestInterface> = EmptySealedClassWithInterfaceSealedEnum.values
+        val emptyValues: List<TestInterface> = EmptySealedClassWithInterface.values
 
         assertEquals(
             emptyList<TestInterface>(),
@@ -90,7 +98,7 @@ class SealedEnumWithInterfacesTests {
         )
 
         // Check for compilation
-        val oneObjectValues: List<TestInterface> = OneObjectSealedClassWithInterfaceSealedEnum.values
+        val oneObjectValues: List<TestInterface> = OneObjectSealedClassWithInterface.values
 
         assertEquals(
             listOf(OneObjectSealedClassWithInterface.FirstObject),
@@ -130,7 +138,7 @@ class SealedEnumWithInterfacesTests {
 
         // Check for compilation
         val twoObjectValues: List<TestGenericInterface<TestInterface>> =
-            TwoObjectSealedClassWithGenericInterfaceSealedEnum.values
+            TwoObjectSealedClassWithGenericInterface.values
 
         assertEquals(
             listOf(

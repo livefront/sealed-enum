@@ -11,7 +11,7 @@ interface EnumForSealedEnumProvider<T, E : Enum<E>> {
     fun sealedObjectToEnum(obj: T): E
 
     /**
-     * A mapping of the enum constant of type [E] to the enum constant of type [ET. Together with the inverse function
+     * A mapping of the enum constant of type [E] to the enum constant of type [T]. Together with the inverse function
      * [sealedObjectToEnum], this is an isomorphism.
      */
     fun enumToSealedObject(enum: E): T

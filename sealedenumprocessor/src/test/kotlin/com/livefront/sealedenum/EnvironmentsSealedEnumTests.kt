@@ -9,7 +9,6 @@ interface Uri {
     val path: String
 }
 
-@GenSealedEnum(generateEnum = true)
 sealed class Environments(
     override val scheme: String,
     override val authority: String,
@@ -31,6 +30,9 @@ sealed class Environments(
         object Livefront : Https("www.livefront.com", "/")
         object Google : Https("www.google.com", "/")
     }
+
+    @GenSealedEnum(generateEnum = true)
+    companion object
 }
 
 class EnvironmentManager<T>(
@@ -71,8 +73,8 @@ class EnvironmentsSealedEnumTests {
     @Test
     fun `environment manager from sealed enum`() {
         val environmentManager = EnvironmentManager(
-            enumClass = EnvironmentsSealedEnum.enumClass,
-            defaultEnvironment = EnvironmentsSealedEnum.sealedObjectToEnum(Environments.Https.Livefront)
+            enumClass = Environments.sealedEnum.enumClass,
+            defaultEnvironment = Environments.Https.Livefront.enum
         )
 
         assertEquals(
@@ -87,7 +89,7 @@ class EnvironmentsSealedEnumTests {
 
         assertEquals(
             Environments.Https.Livefront,
-            EnvironmentsSealedEnum.enumToSealedObject(environmentManager.currentEnvironment)
+            environmentManager.currentEnvironment.sealedObject
         )
     }
 }

@@ -17,13 +17,17 @@ abstract class AlphaBase<A> : BaseClassInterface1<A>
 
 abstract class BetaBase<A, B : Any> : AlphaBase<A>(), BaseClassInterface2<B>
 
-@GenSealedEnum(generateEnum = true)
-sealed class SealedEnumWithAbstractBaseClasses : BetaBase<Any?, String>()
+sealed class SealedEnumWithAbstractBaseClasses : BetaBase<Any?, String>() {
+    @GenSealedEnum(generateEnum = true)
+    companion object
+}
 
 abstract class GammaBase<out T : Any> : BaseClassInterface3<BaseClassInterface3<T>>
 
-@GenSealedEnum(generateEnum = true)
-sealed class SealedEnumWithAbstractBaseClassesCovariantType<out T : Any> : GammaBase<T>()
+sealed class SealedEnumWithAbstractBaseClassesCovariantType<out T : Any> : GammaBase<T>() {
+    @GenSealedEnum(generateEnum = true)
+    companion object
+}
 
 class SealedEnumWithAbstractBaseClassesTests {
     @Test

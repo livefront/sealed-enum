@@ -3,13 +3,17 @@ package com.livefront.sealedenum
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-@GenSealedEnum(generateEnum = true)
-sealed class AlphaOutsideSealedClass
+sealed class AlphaOutsideSealedClass {
+    @GenSealedEnum(generateEnum = true)
+    companion object
+}
 
 object AlphaFirstObject : AlphaOutsideSealedClass()
 
-@GenSealedEnum(generateEnum = true)
-sealed class BetaOutsideSealedClass
+sealed class BetaOutsideSealedClass {
+    @GenSealedEnum(generateEnum = true)
+    companion object
+}
 
 object BetaFirstObject : BetaOutsideSealedClass()
 
@@ -17,17 +21,21 @@ object BetaSecondObject : BetaOutsideSealedClass()
 
 object GammaFirstObject : GammaOutsideSealedClass()
 
-@GenSealedEnum(generateEnum = true)
 sealed class GammaOutsideSealedClass {
 
     object GammaSecondObject : GammaOutsideSealedClass()
+
+    @GenSealedEnum(generateEnum = true)
+    companion object
 }
 
 object GammaThirdObject : GammaOutsideSealedClass()
 
-@GenSealedEnum(generateEnum = true)
 sealed class DeltaOutsideSealedClass {
     object DeltaObject : DeltaOutsideSealedClass()
+
+    @GenSealedEnum(generateEnum = true)
+    companion object
 }
 
 object DeltaObject : DeltaOutsideSealedClass()
@@ -36,7 +44,7 @@ class OutsideSealedClassTests {
 
     @Test
     fun `one object outside sealed class`() {
-        assertEquals(listOf(AlphaFirstObject), AlphaOutsideSealedClassSealedEnum.values)
+        assertEquals(listOf(AlphaFirstObject), AlphaOutsideSealedClass.values)
     }
 
     @Test
@@ -48,8 +56,16 @@ class OutsideSealedClassTests {
     }
 
     @Test
+    fun `one enum outside sealed class with mapping`() {
+        assertEquals(
+            AlphaOutsideSealedClass.values.map(AlphaOutsideSealedClass::enum),
+            enumValues<AlphaOutsideSealedClassEnum>().toList()
+        )
+    }
+
+    @Test
     fun `two objects outside sealed class`() {
-        assertEquals(listOf(BetaFirstObject, BetaSecondObject), BetaOutsideSealedClassSealedEnum.values)
+        assertEquals(listOf(BetaFirstObject, BetaSecondObject), BetaOutsideSealedClass.values)
     }
 
     @Test
@@ -64,10 +80,18 @@ class OutsideSealedClassTests {
     }
 
     @Test
+    fun `two enums outside sealed class with mapping`() {
+        assertEquals(
+            BetaOutsideSealedClass.values.map(BetaOutsideSealedClass::enum),
+            enumValues<BetaOutsideSealedClassEnum>().toList()
+        )
+    }
+
+    @Test
     fun `outside object ordering`() {
         assertEquals(
             listOf(GammaFirstObject, GammaThirdObject, GammaOutsideSealedClass.GammaSecondObject),
-            GammaOutsideSealedClassSealedEnum.values
+            GammaOutsideSealedClass.values
         )
     }
 
@@ -84,10 +108,18 @@ class OutsideSealedClassTests {
     }
 
     @Test
+    fun `outside enum ordering with mapping`() {
+        assertEquals(
+            GammaOutsideSealedClass.values.map(GammaOutsideSealedClass::enum),
+            enumValues<GammaOutsideSealedClassEnum>().toList()
+        )
+    }
+
+    @Test
     fun `duplicate name objects`() {
         assertEquals(
             listOf(DeltaObject, DeltaOutsideSealedClass.DeltaObject),
-            DeltaOutsideSealedClassSealedEnum.values
+            DeltaOutsideSealedClass.values
         )
     }
 
@@ -98,6 +130,14 @@ class OutsideSealedClassTests {
                 DeltaOutsideSealedClassEnum.DeltaObject,
                 DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject
             ),
+            enumValues<DeltaOutsideSealedClassEnum>().toList()
+        )
+    }
+
+    @Test
+    fun `duplicate name enums with mapping`() {
+        assertEquals(
+            DeltaOutsideSealedClass.values.map(DeltaOutsideSealedClass::enum),
             enumValues<DeltaOutsideSealedClassEnum>().toList()
         )
     }

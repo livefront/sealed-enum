@@ -4,21 +4,25 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class OuterClass {
-    @GenSealedEnum
     sealed class InsideOneClassSealedClass {
         object FirstObject : InsideOneClassSealedClass()
 
         object SecondObject : InsideOneClassSealedClass()
+
+        @GenSealedEnum
+        companion object
     }
 }
 
 class FirstOuterClass {
     class SecondOuterClass {
-        @GenSealedEnum
         sealed class InsideTwoClassesSealedClass {
             object FirstObject : InsideTwoClassesSealedClass()
 
             object SecondObject : InsideTwoClassesSealedClass()
+
+            @GenSealedEnum
+            companion object
         }
     }
 }
@@ -32,7 +36,7 @@ class NestedClassTests {
                 OuterClass.InsideOneClassSealedClass.FirstObject,
                 OuterClass.InsideOneClassSealedClass.SecondObject
             ),
-            OuterClass_InsideOneClassSealedClassSealedEnum.values
+            OuterClass.InsideOneClassSealedClass.values
         )
     }
 
@@ -43,7 +47,7 @@ class NestedClassTests {
                 FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject,
                 FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject
             ),
-            FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum.values
+            FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.values
         )
     }
 }

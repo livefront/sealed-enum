@@ -25,10 +25,11 @@ class SealedEnumFileSpecTests {
     fun `empty sealed objects`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(emptyList()),
             typeParameters = emptyList(),
-            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly)
+            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -40,8 +41,7 @@ class SealedEnumFileSpecTests {
             import kotlin.collections.List
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassSealedEnum : SealedEnum<TestSealedClass> {
                 override val values: List<TestSealedClass> = emptyList()
@@ -56,6 +56,39 @@ class SealedEnumFileSpecTests {
                 override fun valueOf(name: String): TestSealedClass = throw
                         IllegalArgumentException(${qqq}No sealed enum constant ${d}name${qqq})
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass.ordinal: Int
+                get() = TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass.name: String
+                get() = TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<TestSealedClass>
+                get() = TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: TestSealedClassSealedEnum
+                get() = TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): TestSealedClass =
+                    TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -66,12 +99,13 @@ class SealedEnumFileSpecTests {
     fun `empty sealed objects with enum`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(emptyList()),
             typeParameters = emptyList(),
             sealedEnumOptions = mapOf(
                 TreeTraversalOrder.IN_ORDER to SealedEnumWithEnum(emptyList())
-            )
+            ),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -91,8 +125,19 @@ class SealedEnumFileSpecTests {
             enum class TestSealedClassEnum
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The isomorphic [TestSealedClassEnum] for [this].
+             */
+            val TestSealedClass.enum: TestSealedClassEnum
+                get() = TestSealedClassSealedEnum.sealedObjectToEnum(this)
+            
+            /**
+             * The isomorphic [TestSealedClass] for [this].
+             */
+            val TestSealedClassEnum.sealedObject: TestSealedClass
+                get() = TestSealedClassSealedEnum.enumToSealedObject(this)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassSealedEnum : SealedEnum<TestSealedClass>,
                     SealedEnumWithEnumProvider<TestSealedClass, TestSealedClassEnum>,
@@ -118,6 +163,39 @@ class SealedEnumFileSpecTests {
                 override fun enumToSealedObject(enum: TestSealedClassEnum): TestSealedClass = throw
                         AssertionError("Constructing a TestSealedClass is impossible, since it has no sealed subclasses")
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass.ordinal: Int
+                get() = TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass.name: String
+                get() = TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<TestSealedClass>
+                get() = TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: TestSealedClassSealedEnum
+                get() = TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): TestSealedClass =
+                    TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -128,14 +206,15 @@ class SealedEnumFileSpecTests {
     fun `empty sealed objects with enum and interface`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(emptyList()),
             typeParameters = emptyList(),
             sealedEnumOptions = mapOf(
                 TreeTraversalOrder.IN_ORDER to SealedEnumWithEnum(
                     listOf(ClassName("com.livefront", "TestA"))
                 )
-            )
+            ),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -157,8 +236,19 @@ class SealedEnumFileSpecTests {
             ) : TestA by sealedObject
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The isomorphic [TestSealedClassEnum] for [this].
+             */
+            val TestSealedClass.enum: TestSealedClassEnum
+                get() = TestSealedClassSealedEnum.sealedObjectToEnum(this)
+            
+            /**
+             * The isomorphic [TestSealedClass] for [this].
+             */
+            val TestSealedClassEnum.sealedObject: TestSealedClass
+                get() = TestSealedClassSealedEnum.enumToSealedObject(this)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassSealedEnum : SealedEnum<TestSealedClass>,
                     SealedEnumWithEnumProvider<TestSealedClass, TestSealedClassEnum>,
@@ -184,6 +274,39 @@ class SealedEnumFileSpecTests {
                 override fun enumToSealedObject(enum: TestSealedClassEnum): TestSealedClass = throw
                         AssertionError("Constructing a TestSealedClass is impossible, since it has no sealed subclasses")
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass.ordinal: Int
+                get() = TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass.name: String
+                get() = TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<TestSealedClass>
+                get() = TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: TestSealedClassSealedEnum
+                get() = TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): TestSealedClass =
+                    TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -194,14 +317,15 @@ class SealedEnumFileSpecTests {
     fun `one object sealed class`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "TestSealedClass", "FirstObject"))
                 )
             ),
             typeParameters = emptyList(),
-            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly)
+            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -213,8 +337,7 @@ class SealedEnumFileSpecTests {
             import kotlin.collections.List
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassSealedEnum : SealedEnum<TestSealedClass> {
                 override val values: List<TestSealedClass> = listOf(
@@ -235,6 +358,39 @@ class SealedEnumFileSpecTests {
                     else -> throw IllegalArgumentException(${qqq}No sealed enum constant ${d}name${qqq})
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass.ordinal: Int
+                get() = TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass.name: String
+                get() = TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<TestSealedClass>
+                get() = TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: TestSealedClassSealedEnum
+                get() = TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): TestSealedClass =
+                    TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -245,7 +401,7 @@ class SealedEnumFileSpecTests {
     fun `two object sealed class`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "TestSealedClass", "FirstObject")),
@@ -253,7 +409,8 @@ class SealedEnumFileSpecTests {
                 )
             ),
             typeParameters = emptyList(),
-            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly)
+            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -265,8 +422,7 @@ class SealedEnumFileSpecTests {
             import kotlin.collections.List
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassSealedEnum : SealedEnum<TestSealedClass> {
                 override val values: List<TestSealedClass> = listOf(
@@ -291,6 +447,39 @@ class SealedEnumFileSpecTests {
                     else -> throw IllegalArgumentException(${qqq}No sealed enum constant ${d}name${qqq})
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass.ordinal: Int
+                get() = TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass.name: String
+                get() = TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<TestSealedClass>
+                get() = TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: TestSealedClassSealedEnum
+                get() = TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): TestSealedClass =
+                    TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -301,7 +490,7 @@ class SealedEnumFileSpecTests {
     fun `two object sealed class with enum`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "TestSealedClass", "FirstObject")),
@@ -309,7 +498,8 @@ class SealedEnumFileSpecTests {
                 )
             ),
             typeParameters = emptyList(),
-            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumWithEnum(emptyList()))
+            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumWithEnum(emptyList())),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -333,8 +523,19 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The isomorphic [TestSealedClassEnum] for [this].
+             */
+            val TestSealedClass.enum: TestSealedClassEnum
+                get() = TestSealedClassSealedEnum.sealedObjectToEnum(this)
+            
+            /**
+             * The isomorphic [TestSealedClass] for [this].
+             */
+            val TestSealedClassEnum.sealedObject: TestSealedClass
+                get() = TestSealedClassSealedEnum.enumToSealedObject(this)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassSealedEnum : SealedEnum<TestSealedClass>,
                     SealedEnumWithEnumProvider<TestSealedClass, TestSealedClassEnum>,
@@ -374,6 +575,39 @@ class SealedEnumFileSpecTests {
                     TestSealedClassEnum.TestSealedClass_SecondObject -> TestSealedClass.SecondObject
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass.ordinal: Int
+                get() = TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass.name: String
+                get() = TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<TestSealedClass>
+                get() = TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: TestSealedClassSealedEnum
+                get() = TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): TestSealedClass =
+                    TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -384,7 +618,7 @@ class SealedEnumFileSpecTests {
     fun `two object sealed class with enum and interface`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "TestSealedClass", "FirstObject")),
@@ -396,7 +630,8 @@ class SealedEnumFileSpecTests {
                 TreeTraversalOrder.IN_ORDER to SealedEnumWithEnum(
                     listOf(ClassName("com.livefront", "TestA"))
                 )
-            )
+            ),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -422,8 +657,19 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The isomorphic [TestSealedClassEnum] for [this].
+             */
+            val TestSealedClass.enum: TestSealedClassEnum
+                get() = TestSealedClassSealedEnum.sealedObjectToEnum(this)
+            
+            /**
+             * The isomorphic [TestSealedClass] for [this].
+             */
+            val TestSealedClassEnum.sealedObject: TestSealedClass
+                get() = TestSealedClassSealedEnum.enumToSealedObject(this)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassSealedEnum : SealedEnum<TestSealedClass>,
                     SealedEnumWithEnumProvider<TestSealedClass, TestSealedClassEnum>,
@@ -463,6 +709,39 @@ class SealedEnumFileSpecTests {
                     TestSealedClassEnum.TestSealedClass_SecondObject -> TestSealedClass.SecondObject
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass.ordinal: Int
+                get() = TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass.name: String
+                get() = TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<TestSealedClass>
+                get() = TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: TestSealedClassSealedEnum
+                get() = TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): TestSealedClass =
+                    TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -473,14 +752,15 @@ class SealedEnumFileSpecTests {
     fun `inner sealed class`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "OuterClass", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "OuterClass", "TestSealedClass", "FirstObject"))
                 )
             ),
             typeParameters = emptyList(),
-            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly)
+            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -492,8 +772,7 @@ class SealedEnumFileSpecTests {
             import kotlin.collections.List
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.OuterClass.TestSealedClass]
+             * An implementation of [SealedEnum] for the sealed class [OuterClass.TestSealedClass]
              */
             object OuterClass_TestSealedClassSealedEnum : SealedEnum<OuterClass.TestSealedClass> {
                 override val values: List<OuterClass.TestSealedClass> = listOf(
@@ -514,6 +793,39 @@ class SealedEnumFileSpecTests {
                     else -> throw IllegalArgumentException(${qqq}No sealed enum constant ${d}name${qqq})
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val OuterClass.TestSealedClass.ordinal: Int
+                get() = OuterClass_TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val OuterClass.TestSealedClass.name: String
+                get() = OuterClass_TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [OuterClass.TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<OuterClass.TestSealedClass>
+                get() = OuterClass_TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [OuterClass.TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: OuterClass_TestSealedClassSealedEnum
+                get() = OuterClass_TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [OuterClass.TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [OuterClass.TestSealedClass], an
+             * [IllegalArgumentException] will be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): OuterClass.TestSealedClass =
+                    OuterClass_TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -524,14 +836,15 @@ class SealedEnumFileSpecTests {
     fun `generic sealed class`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "TestSealedClass", "FirstObject"))
                 )
             ),
             typeParameters = listOf(STAR),
-            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly)
+            sealedEnumOptions = mapOf(TreeTraversalOrder.IN_ORDER to SealedEnumOnly),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -543,8 +856,7 @@ class SealedEnumFileSpecTests {
             import kotlin.collections.List
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassSealedEnum : SealedEnum<TestSealedClass<*>> {
                 override val values: List<TestSealedClass<*>> = listOf(
@@ -565,6 +877,39 @@ class SealedEnumFileSpecTests {
                     else -> throw IllegalArgumentException(${qqq}No sealed enum constant ${d}name${qqq})
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.ordinal: Int
+                get() = TestSealedClassSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.name: String
+                get() = TestSealedClassSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.values: List<TestSealedClass<*>>
+                get() = TestSealedClassSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.sealedEnum: TestSealedClassSealedEnum
+                get() = TestSealedClassSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.valueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -575,7 +920,7 @@ class SealedEnumFileSpecTests {
     fun `multiple traversal orders`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "TestSealedClass", "FirstObject"))
@@ -585,7 +930,8 @@ class SealedEnumFileSpecTests {
             sealedEnumOptions = mapOf(
                 TreeTraversalOrder.IN_ORDER to SealedEnumOnly,
                 TreeTraversalOrder.LEVEL_ORDER to SealedEnumOnly
-            )
+            ),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -597,8 +943,7 @@ class SealedEnumFileSpecTests {
             import kotlin.collections.List
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassInOrderSealedEnum : SealedEnum<TestSealedClass<*>> {
                 override val values: List<TestSealedClass<*>> = listOf(
@@ -621,8 +966,40 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.inOrderOrdinal: Int
+                get() = TestSealedClassInOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.inOrderName: String
+                get() = TestSealedClassInOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.inOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassInOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.inOrderSealedEnum: TestSealedClassInOrderSealedEnum
+                get() = TestSealedClassInOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.inOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassInOrderSealedEnum.valueOf(name)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassLevelOrderSealedEnum : SealedEnum<TestSealedClass<*>> {
                 override val values: List<TestSealedClass<*>> = listOf(
@@ -643,6 +1020,39 @@ class SealedEnumFileSpecTests {
                     else -> throw IllegalArgumentException(${qqq}No sealed enum constant ${d}name${qqq})
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.levelOrderOrdinal: Int
+                get() = TestSealedClassLevelOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.levelOrderName: String
+                get() = TestSealedClassLevelOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.levelOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassLevelOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.levelOrderSealedEnum: TestSealedClassLevelOrderSealedEnum
+                get() = TestSealedClassLevelOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.levelOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassLevelOrderSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -653,7 +1063,7 @@ class SealedEnumFileSpecTests {
     fun `all traversal orders`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "TestSealedClass", "FirstObject"))
@@ -665,7 +1075,8 @@ class SealedEnumFileSpecTests {
                 TreeTraversalOrder.POST_ORDER to SealedEnumOnly,
                 TreeTraversalOrder.LEVEL_ORDER to SealedEnumOnly,
                 TreeTraversalOrder.PRE_ORDER to SealedEnumOnly
-            )
+            ),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -677,8 +1088,7 @@ class SealedEnumFileSpecTests {
             import kotlin.collections.List
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassInOrderSealedEnum : SealedEnum<TestSealedClass<*>> {
                 override val values: List<TestSealedClass<*>> = listOf(
@@ -701,8 +1111,40 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.inOrderOrdinal: Int
+                get() = TestSealedClassInOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.inOrderName: String
+                get() = TestSealedClassInOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.inOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassInOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.inOrderSealedEnum: TestSealedClassInOrderSealedEnum
+                get() = TestSealedClassInOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.inOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassInOrderSealedEnum.valueOf(name)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassPostOrderSealedEnum : SealedEnum<TestSealedClass<*>> {
                 override val values: List<TestSealedClass<*>> = listOf(
@@ -725,8 +1167,40 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.postOrderOrdinal: Int
+                get() = TestSealedClassPostOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.postOrderName: String
+                get() = TestSealedClassPostOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.postOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassPostOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.postOrderSealedEnum: TestSealedClassPostOrderSealedEnum
+                get() = TestSealedClassPostOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.postOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassPostOrderSealedEnum.valueOf(name)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassLevelOrderSealedEnum : SealedEnum<TestSealedClass<*>> {
                 override val values: List<TestSealedClass<*>> = listOf(
@@ -749,8 +1223,40 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.levelOrderOrdinal: Int
+                get() = TestSealedClassLevelOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.levelOrderName: String
+                get() = TestSealedClassLevelOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.levelOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassLevelOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.levelOrderSealedEnum: TestSealedClassLevelOrderSealedEnum
+                get() = TestSealedClassLevelOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.levelOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassLevelOrderSealedEnum.valueOf(name)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassPreOrderSealedEnum : SealedEnum<TestSealedClass<*>> {
                 override val values: List<TestSealedClass<*>> = listOf(
@@ -771,6 +1277,39 @@ class SealedEnumFileSpecTests {
                     else -> throw IllegalArgumentException(${qqq}No sealed enum constant ${d}name${qqq})
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.preOrderOrdinal: Int
+                get() = TestSealedClassPreOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.preOrderName: String
+                get() = TestSealedClassPreOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.preOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassPreOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.preOrderSealedEnum: TestSealedClassPreOrderSealedEnum
+                get() = TestSealedClassPreOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.preOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassPreOrderSealedEnum.valueOf(name)
 
         """.trimIndent()
 
@@ -781,7 +1320,7 @@ class SealedEnumFileSpecTests {
     fun `all traversal orders with enum and interface`() {
         val fileSpec = SealedEnumFileSpec(
             sealedClass = ClassName("com.livefront", "TestSealedClass"),
-            sealedClassElement = mockk(),
+            sealedClassCompanionObjectElement = mockk(),
             sealedClassNode = SealedClassNode.SealedClass(
                 listOf(
                     SealedClassNode.Object(ClassName("com.livefront", "TestSealedClass", "FirstObject"))
@@ -801,7 +1340,8 @@ class SealedEnumFileSpecTests {
                 TreeTraversalOrder.PRE_ORDER to SealedEnumWithEnum(
                     listOf(ClassName("com.livefront", "TestA"))
                 )
-            )
+            ),
+            sealedClassCompanionObject = ClassName("com.livefront", "TestSealedClass", "Companion")
         )
 
         val expected = """
@@ -825,8 +1365,19 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The isomorphic [TestSealedClassInOrderEnum] for [this].
+             */
+            val TestSealedClass<*>.inOrderEnum: TestSealedClassInOrderEnum
+                get() = TestSealedClassInOrderSealedEnum.sealedObjectToEnum(this)
+            
+            /**
+             * The isomorphic [TestSealedClass] for [this].
+             */
+            val TestSealedClassInOrderEnum.sealedObject: TestSealedClass<*>
+                get() = TestSealedClassInOrderSealedEnum.enumToSealedObject(this)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassInOrderSealedEnum : SealedEnum<TestSealedClass<*>>,
                     SealedEnumWithEnumProvider<TestSealedClass<*>, TestSealedClassInOrderEnum>,
@@ -864,6 +1415,39 @@ class SealedEnumFileSpecTests {
             }
             
             /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.inOrderOrdinal: Int
+                get() = TestSealedClassInOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.inOrderName: String
+                get() = TestSealedClassInOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.inOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassInOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.inOrderSealedEnum: TestSealedClassInOrderSealedEnum
+                get() = TestSealedClassInOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.inOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassInOrderSealedEnum.valueOf(name)
+            
+            /**
              * An isomorphic enum for the sealed class [com.livefront.TestSealedClass]
              */
             enum class TestSealedClassPostOrderEnum(
@@ -873,8 +1457,19 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The isomorphic [TestSealedClassPostOrderEnum] for [this].
+             */
+            val TestSealedClass<*>.postOrderEnum: TestSealedClassPostOrderEnum
+                get() = TestSealedClassPostOrderSealedEnum.sealedObjectToEnum(this)
+            
+            /**
+             * The isomorphic [TestSealedClass] for [this].
+             */
+            val TestSealedClassPostOrderEnum.sealedObject: TestSealedClass<*>
+                get() = TestSealedClassPostOrderSealedEnum.enumToSealedObject(this)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassPostOrderSealedEnum : SealedEnum<TestSealedClass<*>>,
                     SealedEnumWithEnumProvider<TestSealedClass<*>, TestSealedClassPostOrderEnum>,
@@ -912,6 +1507,39 @@ class SealedEnumFileSpecTests {
             }
             
             /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.postOrderOrdinal: Int
+                get() = TestSealedClassPostOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.postOrderName: String
+                get() = TestSealedClassPostOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.postOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassPostOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.postOrderSealedEnum: TestSealedClassPostOrderSealedEnum
+                get() = TestSealedClassPostOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.postOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassPostOrderSealedEnum.valueOf(name)
+            
+            /**
              * An isomorphic enum for the sealed class [com.livefront.TestSealedClass]
              */
             enum class TestSealedClassLevelOrderEnum(
@@ -921,8 +1549,19 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The isomorphic [TestSealedClassLevelOrderEnum] for [this].
+             */
+            val TestSealedClass<*>.levelOrderEnum: TestSealedClassLevelOrderEnum
+                get() = TestSealedClassLevelOrderSealedEnum.sealedObjectToEnum(this)
+            
+            /**
+             * The isomorphic [TestSealedClass] for [this].
+             */
+            val TestSealedClassLevelOrderEnum.sealedObject: TestSealedClass<*>
+                get() = TestSealedClassLevelOrderSealedEnum.enumToSealedObject(this)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassLevelOrderSealedEnum : SealedEnum<TestSealedClass<*>>,
                     SealedEnumWithEnumProvider<TestSealedClass<*>, TestSealedClassLevelOrderEnum>,
@@ -960,6 +1599,39 @@ class SealedEnumFileSpecTests {
             }
             
             /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.levelOrderOrdinal: Int
+                get() = TestSealedClassLevelOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.levelOrderName: String
+                get() = TestSealedClassLevelOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.levelOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassLevelOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.levelOrderSealedEnum: TestSealedClassLevelOrderSealedEnum
+                get() = TestSealedClassLevelOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.levelOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassLevelOrderSealedEnum.valueOf(name)
+            
+            /**
              * An isomorphic enum for the sealed class [com.livefront.TestSealedClass]
              */
             enum class TestSealedClassPreOrderEnum(
@@ -969,8 +1641,19 @@ class SealedEnumFileSpecTests {
             }
             
             /**
-             * An implementation of [com.livefront.sealedenum.SealedEnum] for the sealed class
-             * [com.livefront.TestSealedClass]
+             * The isomorphic [TestSealedClassPreOrderEnum] for [this].
+             */
+            val TestSealedClass<*>.preOrderEnum: TestSealedClassPreOrderEnum
+                get() = TestSealedClassPreOrderSealedEnum.sealedObjectToEnum(this)
+            
+            /**
+             * The isomorphic [TestSealedClass] for [this].
+             */
+            val TestSealedClassPreOrderEnum.sealedObject: TestSealedClass<*>
+                get() = TestSealedClassPreOrderSealedEnum.enumToSealedObject(this)
+            
+            /**
+             * An implementation of [SealedEnum] for the sealed class [TestSealedClass]
              */
             object TestSealedClassPreOrderSealedEnum : SealedEnum<TestSealedClass<*>>,
                     SealedEnumWithEnumProvider<TestSealedClass<*>, TestSealedClassPreOrderEnum>,
@@ -1006,6 +1689,39 @@ class SealedEnumFileSpecTests {
                     TestSealedClassPreOrderEnum.TestSealedClass_FirstObject -> TestSealedClass.FirstObject
                 }
             }
+            
+            /**
+             * The index of [this] in the values list.
+             */
+            val TestSealedClass<*>.preOrderOrdinal: Int
+                get() = TestSealedClassPreOrderSealedEnum.ordinalOf(this)
+            
+            /**
+             * The name of [this] for use with valueOf.
+             */
+            val TestSealedClass<*>.preOrderName: String
+                get() = TestSealedClassPreOrderSealedEnum.nameOf(this)
+            
+            /**
+             * A list of all [TestSealedClass] objects.
+             */
+            val TestSealedClass.Companion.preOrderValues: List<TestSealedClass<*>>
+                get() = TestSealedClassPreOrderSealedEnum.values
+            
+            /**
+             * Returns an implementation of [SealedEnum] for the sealed class [TestSealedClass]
+             */
+            val TestSealedClass.Companion.preOrderSealedEnum: TestSealedClassPreOrderSealedEnum
+                get() = TestSealedClassPreOrderSealedEnum
+            
+            /**
+             * Returns the [TestSealedClass] object for the given [name].
+             *
+             * If the given name doesn't correspond to any [TestSealedClass], an [IllegalArgumentException] will
+             * be thrown.
+             */
+            fun TestSealedClass.Companion.preOrderValueOf(name: String): TestSealedClass<*> =
+                    TestSealedClassPreOrderSealedEnum.valueOf(name)
 
         """.trimIndent()
 

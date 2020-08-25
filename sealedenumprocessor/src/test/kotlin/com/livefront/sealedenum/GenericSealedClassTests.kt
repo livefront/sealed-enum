@@ -9,18 +9,24 @@ sealed class OneTypeParameterSealedClass<out T> {
     object SecondObject : OneTypeParameterSealedClass<String>()
 
     object ThirdObject : OneTypeParameterSealedClass<Nothing>()
+
+    companion object
 }
 
 sealed class TwoTypeParameterSealedClass<out A, out B> {
     object FirstObject : TwoTypeParameterSealedClass<Any?, Nothing>()
 
     object SecondObject : TwoTypeParameterSealedClass<Double, Double>()
+
+    companion object
 }
 
 sealed class LimitedTypeParameterSealedClass<in Number, out String> {
     object FirstObject : LimitedTypeParameterSealedClass<Int, String>()
 
     object SecondObject : LimitedTypeParameterSealedClass<Int, Any>()
+
+    companion object
 }
 
 class GenericSealedClassTests {
@@ -33,7 +39,7 @@ class GenericSealedClassTests {
                 OneTypeParameterSealedClass.SecondObject,
                 OneTypeParameterSealedClass.ThirdObject
             ),
-            OneTypeParameterSealedClassSealedEnum.values
+            OneTypeParameterSealedClass.values
         )
     }
 
@@ -44,7 +50,7 @@ class GenericSealedClassTests {
                 TwoTypeParameterSealedClass.FirstObject,
                 TwoTypeParameterSealedClass.SecondObject
             ),
-            TwoTypeParameterSealedClassSealedEnum.values
+            TwoTypeParameterSealedClass.values
         )
     }
 
@@ -55,7 +61,7 @@ class GenericSealedClassTests {
                 LimitedTypeParameterSealedClass.FirstObject,
                 LimitedTypeParameterSealedClass.SecondObject
             ),
-            LimitedTypeParameterSealedClassSealedEnum.values
+            LimitedTypeParameterSealedClass.values
         )
     }
 }

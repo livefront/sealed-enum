@@ -13,6 +13,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.classinspector.elements.ElementsClassInspector
 import com.squareup.kotlinpoet.metadata.ImmutableKmClass
 import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
+import com.squareup.kotlinpoet.metadata.isCompanionObject
 import com.squareup.kotlinpoet.metadata.isObject
 import com.squareup.kotlinpoet.metadata.isSealed
 import com.squareup.kotlinpoet.metadata.specs.internal.ClassInspectorUtil
@@ -26,6 +27,7 @@ import javax.annotation.processing.Processor
 import javax.annotation.processing.RoundEnvironment
 import javax.annotation.processing.SupportedSourceVersion
 import javax.lang.model.SourceVersion
+import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 import javax.tools.Diagnostic
 
@@ -34,7 +36,9 @@ internal const val OPTION_AUTO_GENERATE_SEALED_ENUMS = "sealedenum.autoGenerateS
 internal const val ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER =
     "Element is annotated with the same traversal order multiple times"
 internal const val ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS = "Annotated element is not a Kotlin class"
-internal const val ERROR_CLASS_IS_NOT_SEALED = "Annotated class is not a sealed class."
+internal const val ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT = "Annotated element is not a companion object"
+internal const val ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS = "Enclosing element is not a Kotlin class"
+internal const val ERROR_CLASS_IS_NOT_SEALED = "Annotated companion object is not for a sealed class."
 internal const val ERROR_NON_OBJECT_SEALED_SUBCLASSES = "Annotated sealed class has a non-object subclass"
 
 @IncrementalAnnotationProcessor(IncrementalAnnotationProcessorType.ISOLATING)
@@ -80,30 +84,30 @@ internal class SealedEnumProcessor(
     }
 
     /**
-     * Tries to create a [SealedEnumFileSpec] for the given [sealedClassElement] that was annotated.
+     * Tries to create a [SealedEnumFileSpec] for the given [sealedClassCompanionObjectElement] that was annotated.
      *
      * If there is an error processing the given [TypeElement], a relevant error message will be printed and a null
      * [SealedEnumFileSpec] will be returned.
      */
-    @Suppress("ReturnCount", "LongMethod")
-    internal fun createSealedEnumFileSpec(sealedClassElement: TypeElement): SealedEnumFileSpec? {
+    @Suppress("ReturnCount", "LongMethod", "ComplexMethod")
+    internal fun createSealedEnumFileSpec(sealedClassCompanionObjectElement: TypeElement): SealedEnumFileSpec? {
 
         /**
          * A helper function to print the given [message] as an error.
          */
-        fun printError(message: String) {
-            injectedProcessEnv.messager.printMessage(Diagnostic.Kind.ERROR, message, sealedClassElement)
+        fun printError(message: String, element: Element) {
+            injectedProcessEnv.messager.printMessage(Diagnostic.Kind.ERROR, message, element)
         }
 
         /**
-         * The [GenSealedEnum] annotations used to annotate the [sealedClassElement]
+         * The [GenSealedEnum] annotations used to annotate the [sealedClassCompanionObjectElement]
          */
-        val sealedEnumAnnotations = sealedClassElement
+        val sealedEnumAnnotations = sealedClassCompanionObjectElement
             .getAnnotationsByType(GenSealedEnum::class.java)
 
         // Ensure that the annotation are unique by traversal order
         if (!sealedEnumAnnotations.areUniqueBy { it.traversalOrder }) {
-            printError(ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER)
+            printError(ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER, sealedClassCompanionObjectElement)
             return null
         }
 
@@ -133,22 +137,46 @@ internal class SealedEnumProcessor(
         }
 
         /**
+         * The [ImmutableKmClass] for the sealed class's companion object.
+         */
+        val sealedClassCompanionObjectKmClass =
+            @Suppress("TooGenericExceptionCaught")
+            try {
+                sealedClassCompanionObjectElement.toImmutableKmClass()
+            } catch (exception: Exception) {
+                if (!isAnnotatedByMetadataOnly) {
+                    printError(ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassCompanionObjectElement)
+                }
+                return null
+            }.apply {
+                if (!isCompanionObject) {
+                    // If this element wasn't explicitly annotated, quietly fail if the class isn't a companion object.
+                    if (!isAnnotatedByMetadataOnly) {
+                        printError(ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT, sealedClassCompanionObjectElement)
+                    }
+                    return null
+                }
+            }
+
+        val sealedClassElement = sealedClassCompanionObjectElement.enclosingElement
+
+        /**
          * The [ImmutableKmClass] for the sealed class.
          */
         val sealedClassKmClass =
             @Suppress("TooGenericExceptionCaught")
             try {
-                sealedClassElement.toImmutableKmClass()
+                (sealedClassElement as TypeElement).toImmutableKmClass()
             } catch (exception: Exception) {
                 if (!isAnnotatedByMetadataOnly) {
-                    printError(ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS)
+                    printError(ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
                 }
                 return null
             }.apply {
                 if (!isSealed) {
                     // If this element wasn't explicitly annotated, quietly fail if the class wasn't sealed.
                     if (!isAnnotatedByMetadataOnly) {
-                        printError(ERROR_CLASS_IS_NOT_SEALED)
+                        printError(ERROR_CLASS_IS_NOT_SEALED, sealedClassElement)
                     }
                     return null
                 }
@@ -162,7 +190,7 @@ internal class SealedEnumProcessor(
         } catch (nonSealedClassException: NonObjectSealedSubclassException) {
             if (!isAnnotatedByMetadataOnly) {
                 // If this element wasn't explicitly annotated, quietly fail if the class had a non-object subclass.
-                printError(ERROR_NON_OBJECT_SEALED_SUBCLASSES)
+                printError(ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
             }
             return null
         }
@@ -184,8 +212,9 @@ internal class SealedEnumProcessor(
 
         return SealedEnumFileSpec(
             sealedClass = ClassInspectorUtil.createClassName(sealedClassKmClass.name),
+            sealedClassCompanionObject = ClassInspectorUtil.createClassName(sealedClassCompanionObjectKmClass.name),
             typeParameters = sealedClassTypeSpec.wildcardedTypeVariables,
-            sealedClassElement = sealedClassElement,
+            sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
             sealedClassNode = sealedClassNode,
             sealedEnumOptions = sealedEnumSeeds.associate {
                 it.treeTraversalOrder to if (it.generateEnum) {

@@ -34,15 +34,18 @@ class SecondHierarchy {
             sealed class F : C() {
                 object G : F()
 
+                @GenSealedEnum
                 companion object
             }
 
             sealed class H : C() {
                 object I : H()
 
+                @GenSealedEnum
                 companion object
             }
 
+            @GenSealedEnum
             companion object
         }
 
@@ -50,11 +53,13 @@ class SecondHierarchy {
 
             object K : J()
 
+            @GenSealedEnum
             companion object
         }
 
         object L : A()
 
+        @GenSealedEnum
         companion object
     }
 }

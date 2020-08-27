@@ -3,8 +3,6 @@ package com.livefront.sealedenum.internal
 import com.google.auto.service.AutoService
 import com.livefront.sealedenum.GenSealedEnum
 import com.livefront.sealedenum.GenSealedEnums
-import com.livefront.sealedenum.SealedEnum
-import com.livefront.sealedenum.TreeTraversalOrder
 import com.livefront.sealedenum.internal.SealedEnumFileSpec.SealedEnumOption.SealedEnumOnly
 import com.livefront.sealedenum.internal.SealedEnumFileSpec.SealedEnumOption.SealedEnumWithEnum
 import com.squareup.kotlinpoet.ClassName
@@ -31,8 +29,6 @@ import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 import javax.tools.Diagnostic
 
-internal const val OPTION_AUTO_GENERATE_SEALED_ENUMS = "sealedenum.autoGenerateSealedEnums"
-
 internal const val ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER =
     "Element is annotated with the same traversal order multiple times"
 internal const val ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS = "Annotated element is not a Kotlin class"
@@ -52,8 +48,7 @@ internal class SealedEnumProcessor(
     private val injectedProcessEnv: ProcessingEnvironment
         get() = customProcessingEnv ?: processingEnv
 
-    override fun getSupportedOptions(): MutableSet<String> =
-        mutableSetOf(OPTION_AUTO_GENERATE_SEALED_ENUMS)
+    override fun getSupportedOptions(): MutableSet<String> = mutableSetOf()
 
     private val elementsClassInspector by lazy {
         ElementsClassInspector.create(
@@ -63,11 +58,7 @@ internal class SealedEnumProcessor(
     }
 
     override fun getSupportedAnnotationTypes(): MutableSet<String> =
-        (if (injectedProcessEnv.options[OPTION_AUTO_GENERATE_SEALED_ENUMS].equals("true", ignoreCase = true)) {
-            setOf(Metadata::class.java.name)
-        } else {
-            emptySet()
-        } + setOf(GenSealedEnum::class.java.name, GenSealedEnums::class.java.name)).toMutableSet()
+        mutableSetOf(GenSealedEnum::class.java.name, GenSealedEnums::class.java.name)
 
     override fun process(annotations: MutableSet<out TypeElement>, roundEnvironment: RoundEnvironment): Boolean {
         annotations
@@ -112,31 +103,6 @@ internal class SealedEnumProcessor(
         }
 
         /**
-         * If the list of [GenSealedEnum] annotations is empty, then we must be trying to generate [SealedEnum] from
-         * all sealed classes.
-         */
-        val isAnnotatedByMetadataOnly = sealedEnumAnnotations.isEmpty()
-
-        /**
-         * The list of [SealedEnumSeed]s, from which sealed enum classes will be generated
-         */
-        val sealedEnumSeeds: List<SealedEnumSeed> = if (isAnnotatedByMetadataOnly) {
-            listOf(
-                SealedEnumSeed(
-                    treeTraversalOrder = TreeTraversalOrder.IN_ORDER,
-                    generateEnum = false
-                )
-            )
-        } else {
-            sealedEnumAnnotations.map {
-                SealedEnumSeed(
-                    treeTraversalOrder = it.traversalOrder,
-                    generateEnum = it.generateEnum
-                )
-            }
-        }
-
-        /**
          * The [ImmutableKmClass] for the sealed class's companion object.
          */
         val sealedClassCompanionObjectKmClass =
@@ -144,16 +110,11 @@ internal class SealedEnumProcessor(
             try {
                 sealedClassCompanionObjectElement.toImmutableKmClass()
             } catch (exception: Exception) {
-                if (!isAnnotatedByMetadataOnly) {
-                    printError(ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassCompanionObjectElement)
-                }
+                printError(ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassCompanionObjectElement)
                 return null
             }.apply {
                 if (!isCompanionObject) {
-                    // If this element wasn't explicitly annotated, quietly fail if the class isn't a companion object.
-                    if (!isAnnotatedByMetadataOnly) {
-                        printError(ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT, sealedClassCompanionObjectElement)
-                    }
+                    printError(ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT, sealedClassCompanionObjectElement)
                     return null
                 }
             }
@@ -168,16 +129,11 @@ internal class SealedEnumProcessor(
             try {
                 (sealedClassElement as TypeElement).toImmutableKmClass()
             } catch (exception: Exception) {
-                if (!isAnnotatedByMetadataOnly) {
-                    printError(ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
-                }
+                printError(ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
                 return null
             }.apply {
                 if (!isSealed) {
-                    // If this element wasn't explicitly annotated, quietly fail if the class wasn't sealed.
-                    if (!isAnnotatedByMetadataOnly) {
-                        printError(ERROR_CLASS_IS_NOT_SEALED, sealedClassElement)
-                    }
+                    printError(ERROR_CLASS_IS_NOT_SEALED, sealedClassElement)
                     return null
                 }
             }
@@ -188,10 +144,7 @@ internal class SealedEnumProcessor(
         val sealedClassNode = try {
             createSealedClassNode(sealedClassKmClass)
         } catch (nonSealedClassException: NonObjectSealedSubclassException) {
-            if (!isAnnotatedByMetadataOnly) {
-                // If this element wasn't explicitly annotated, quietly fail if the class had a non-object subclass.
-                printError(ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
-            }
+            printError(ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
             return null
         }
 
@@ -204,7 +157,7 @@ internal class SealedEnumProcessor(
          * A nullable list of interfaces that the sealed class (or any of its super classes) implement.
          * This list is only created if it will be used (that is, if `generateEnum` is true for any sealed enum seed).
          */
-        val sealedClassInterfaces: List<TypeName>? = if (sealedEnumSeeds.any { it.generateEnum }) {
+        val sealedClassInterfaces: List<TypeName>? = if (sealedEnumAnnotations.any { it.generateEnum }) {
             elementsClassInspector.getAllSuperInterfaces(sealedClassTypeSpec)
         } else {
             null
@@ -216,8 +169,8 @@ internal class SealedEnumProcessor(
             typeParameters = sealedClassTypeSpec.wildcardedTypeVariables,
             sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
             sealedClassNode = sealedClassNode,
-            sealedEnumOptions = sealedEnumSeeds.associate {
-                it.treeTraversalOrder to if (it.generateEnum) {
+            sealedEnumOptions = sealedEnumAnnotations.associate {
+                it.traversalOrder to if (it.generateEnum) {
                     SealedEnumWithEnum(sealedClassInterfaces!!)
                 } else {
                     SealedEnumOnly

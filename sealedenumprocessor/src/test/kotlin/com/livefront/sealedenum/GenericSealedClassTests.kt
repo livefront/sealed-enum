@@ -10,7 +10,8 @@ sealed class OneTypeParameterSealedClass<out T> {
 
     object ThirdObject : OneTypeParameterSealedClass<Nothing>()
 
-    companion object
+    @GenSealedEnum
+    companion object OneType
 }
 
 sealed class TwoTypeParameterSealedClass<out A, out B> {
@@ -18,7 +19,8 @@ sealed class TwoTypeParameterSealedClass<out A, out B> {
 
     object SecondObject : TwoTypeParameterSealedClass<Double, Double>()
 
-    companion object
+    @GenSealedEnum
+    companion object TwoType
 }
 
 sealed class LimitedTypeParameterSealedClass<in Number, out String> {
@@ -26,7 +28,8 @@ sealed class LimitedTypeParameterSealedClass<in Number, out String> {
 
     object SecondObject : LimitedTypeParameterSealedClass<Int, Any>()
 
-    companion object
+    @GenSealedEnum
+    companion object LimitedType
 }
 
 class GenericSealedClassTests {

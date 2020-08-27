@@ -27,7 +27,4 @@ dependencies {
 
 kapt {
     includeCompileClasspath = false
-    arguments {
-        arg("sealedenum.autoGenerateSealedEnums", "true")
-    }
 }

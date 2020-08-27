@@ -1,14 +1,17 @@
 package com.livefront.sealedenum
 
 /**
- * Indicates that an implementation of [SealedEnum] should be generated for the annotated sealed class.
+ * Indicates that an implementation of [SealedEnum] should be generated for the annotated companion object's enclosing
+ * sealed class.
  *
  * For example,
  * ```
- * @GenSealedEnum
  * sealed class Alpha {
  *     object Beta : Alpha()
  *     object Gamma : Alpha()
+ *
+ *     @GenSealedEnum
+ *     companion object
  * }
  * ```
  * will generate the following object:
@@ -40,17 +43,35 @@ package com.livefront.sealedenum
  * The [SealedEnum.valueOf] and [SealedEnum.nameOf] methods mimic the corresponding [Enum] methods, and use
  * the simple names of the objects joined by underscores.
  *
- * If there is a nested hierarchy of sealed classes, then `values` will contain all object subclasses, with the
- * tree ordering given by [traversalOrder]. By default, an [TreeTraversalOrder.IN_ORDER] will be used.
+ * In addition, extension methods on the sealed class and the sealed class's companion object will be generated for
+ * convenient access to the generated properties and values:
  *
- * If multiple ordering strategies are desired simultaneously, then the sealed class can be annotated with multiple
- * [GenSealedEnum] annotations, with different [TreeTraversalOrder]s. This will cause multiple objects to be generated,
- * with different names to indicate the traversal order used.
+ * ```
+ * val Alpha.ordinal: Int
+ *     get() = AlphaSealedEnum.ordinalOf(this)
+ *
+ * val Alpha.name: String
+ *     get() = AlphaSealedEnum.nameOf(this)
+ *
+ * val Alpha.Companion.values: List<Alpha>
+ *     get() = AlphaSealedEnum.values
+ *
+ * val Alpha.Companion.sealedEnum: AlphaSealedEnum
+ *     get() = AlphaSealedEnum
+ *
+ * fun Alpha.Companion.valueOf(name: String): Alpha = AlphaSealedEnum.valueOf(name)
+ * ```
+ *
+ * If there is a nested hierarchy of sealed classes, then `values` will contain all object subclasses, with the
+ * tree ordering given by [traversalOrder].
+ * By default, an [TreeTraversalOrder.IN_ORDER] will be used.
+ *
+ * If multiple ordering strategies are desired simultaneously, then the sealed class's companion object can be annotated
+ * with multiple [GenSealedEnum] annotations, with different [TreeTraversalOrder]s.
+ * This will cause multiple objects to be generated, with different names to indicate the traversal order used.
  *
  * For example,
  * ```
- * @GenSealedEnum(traversalOrder = TreeTraversalOrder.IN_ORDER)
- * @GenSealedEnum(traversalOrder = TreeTraversalOrder.LEVEL_ORDER)
  * sealed class Alpha {
  *     sealed class Beta : Alpha() {
  *         object Gamma : Beta()
@@ -59,6 +80,10 @@ package com.livefront.sealedenum
  *     sealed class Epsilon : Alpha() {
  *         object Zeta : Epsilon()
  *     }
+ *
+ *     @GenSealedEnum(traversalOrder = TreeTraversalOrder.IN_ORDER)
+ *     @GenSealedEnum(traversalOrder = TreeTraversalOrder.LEVEL_ORDER)
+ *     companion object
  * }
  * ```
  * will generate two objects:
@@ -116,6 +141,39 @@ package com.livefront.sealedenum
  *         else -> throw IllegalArgumentException("""No sealed enum constant $name""")
  *     }
  * }
+ * ```
+ *
+ * The generated extensions will also be prefixed with the traversal order to disambiguate them:
+ *
+ * ```
+ * val Alpha.levelOrderOrdinal: Int
+ *     get() = AlphaLevelOrderSealedEnum.ordinalOf(this)
+ *
+ * val Alpha.levelOrderName: String
+ *     get() = AlphaLevelOrderSealedEnum.nameOf(this)
+ *
+ * val Alpha.Companion.levelOrderValues: List<Alpha>
+ *     get() = AlphaLevelOrderSealedEnum.values
+ *
+ * val Alpha.Companion.levelOrderSealedEnum: AlphaLevelOrderSealedEnum
+ *     get() = AlphaLevelOrderSealedEnum
+ *
+ * fun Alpha.Companion.levelOrderValueOf(name: String): Alpha = AlphaLevelOrderSealedEnum.valueOf(name)
+ *
+ * val Alpha.inOrderOrdinal: Int
+ *     get() = AlphaInOrderSealedEnum.ordinalOf(this)
+ *
+ * val Alpha.inOrderName: String
+ *     get() = AlphaInOrderSealedEnum.nameOf(this)
+ *
+ * val Alpha.Companion.inOrderValues: List<Alpha>
+ *     get() = AlphaInOrderSealedEnum.values
+ *
+ * val Alpha.Companion.inOrderSealedEnum: AlphaInOrderSealedEnum
+ *     get() = AlphaInOrderSealedEnum
+ *
+ * fun Alpha.Companion.inOrderValueOf(name: String): Alpha = AlphaInOrderSealedEnum.valueOf(name)
+ *
  * ```
  *
  * If the sealed class (or any child sealed class) has non-object and non-sealed subclasses, they will cause

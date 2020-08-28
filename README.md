@@ -264,7 +264,7 @@ sealed class Alpha {
 ```
 
 will also generate the following enum class and properties:
-```
+```kotlin
 enum class AlphaEnum {
     Alpha_Beta,
     Alpha_Gamma
@@ -294,9 +294,8 @@ object AlphaSealedEnum : SealedEnum<Alpha>, SealedEnumWithEnumProvider<Alpha, Al
         AlphaEnum.Alpha_Beta -> Alpha.Beta
         AlphaEnum.Alpha_Gamma -> Alpha.Gamma
     }
+}
 ```
-
-The following extension properties will also be created:
 
 The generated enum will implement any interface that the sealed class or any of its superclasses implement, with their implementations delegated to the isomorphic sealed objects.
 See below for details on how generics are handled.

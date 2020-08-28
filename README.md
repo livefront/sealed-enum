@@ -4,7 +4,27 @@
 ![CI-Status](https://travis-ci.com/livefront/sealed-enum.svg?token=WuckG7RmGXoNTzG4QzVk&branch=master)
 [![Release](https://jitpack.io/v/livefront/sealed-enum.svg)](https://jitpack.io/#livefront/sealed-enum)
 
+Generates enum-like behavior for sealed classes of objects.
+
+Just annotate the `companion object` with `@GenSealedEnum`, and you'll see generated extensions like `ordinal` and `values`:
+
+```kotlin
+sealed class Alpha {
+    object Beta : Alpha()
+    object Gamma : Alpha()
+    
+    @GenSealedEnum
+    companion object
+}
+
+println(Beta.ordinal) // 0
+
+println(Alpha.values) // [Alpha$Beta@491cc5c9, Alpha$Gamma@74ad1f1f]
+```
+
 This tool is currently in beta, while any issues are worked through. Please feel free to try it out and report any bugs that you may encounter.
+
+### Background
 
 [Enums in Kotlin](https://kotlinlang.org/docs/reference/enum-classes.html) are quite useful for managing state and control flows, especially in combination with [`when`](https://kotlinlang.org/docs/reference/control-flow.html#when-expression).
 

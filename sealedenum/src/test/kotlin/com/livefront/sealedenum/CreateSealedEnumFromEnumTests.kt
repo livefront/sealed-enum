@@ -2,6 +2,7 @@ package com.livefront.sealedenum
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -61,5 +62,77 @@ class CreateSealedEnumFromEnumTests {
     @ArgumentsSource(ComparatorConfig.Provider::class)
     fun `verify compareTo is correct`(config: ComparatorConfig) {
         assertEquals(config.compareValue, alphaEnumSealedEnum.compare(config.first, config.second))
+    }
+
+    @Test
+    fun `verify name of BETA is correct`() {
+        assertEquals("BETA", alphaEnumSealedEnum.nameOf(AlphaEnum.BETA))
+    }
+
+    @Test
+    fun `verify name of GAMMA is correct`() {
+        assertEquals("GAMMA", alphaEnumSealedEnum.nameOf(AlphaEnum.GAMMA))
+    }
+
+    @Test
+    fun `verify name of DELTA is correct`() {
+        assertEquals("DELTA", alphaEnumSealedEnum.nameOf(AlphaEnum.DELTA))
+    }
+
+    @Test
+    fun `verify valueOf of BETA is correct`() {
+        assertEquals(AlphaEnum.BETA, alphaEnumSealedEnum.valueOf("BETA"))
+    }
+
+    @Test
+    fun `verify valueOf of GAMMA is correct`() {
+        assertEquals(AlphaEnum.GAMMA, alphaEnumSealedEnum.valueOf("GAMMA"))
+    }
+
+    @Test
+    fun `verify valueOf of DELTA is correct`() {
+        assertEquals(AlphaEnum.DELTA, alphaEnumSealedEnum.valueOf("DELTA"))
+    }
+
+    @Test
+    fun `verify valueOf of EPSILON throws exception`() {
+        assertThrows<IllegalArgumentException> {
+            alphaEnumSealedEnum.valueOf("EPSILON")
+        }
+    }
+
+    @Test
+    fun `verify enum class is correct`() {
+        assertEquals(AlphaEnum::class.java, alphaEnumSealedEnum.enumClass)
+    }
+
+    @Test
+    fun `verify sealed enum to object is correct for BETA`() {
+        assertEquals(AlphaEnum.BETA, alphaEnumSealedEnum.sealedObjectToEnum(AlphaEnum.BETA))
+    }
+
+    @Test
+    fun `verify sealed enum to object is correct for GAMMA`() {
+        assertEquals(AlphaEnum.GAMMA, alphaEnumSealedEnum.sealedObjectToEnum(AlphaEnum.GAMMA))
+    }
+
+    @Test
+    fun `verify sealed enum to object is correct for DELTA`() {
+        assertEquals(AlphaEnum.DELTA, alphaEnumSealedEnum.sealedObjectToEnum(AlphaEnum.DELTA))
+    }
+
+    @Test
+    fun `verify object to sealed enum is correct for BETA`() {
+        assertEquals(AlphaEnum.BETA, alphaEnumSealedEnum.enumToSealedObject(AlphaEnum.BETA))
+    }
+
+    @Test
+    fun `verify object to sealed enum is correct for GAMMA`() {
+        assertEquals(AlphaEnum.GAMMA, alphaEnumSealedEnum.enumToSealedObject(AlphaEnum.GAMMA))
+    }
+
+    @Test
+    fun `verify object to sealed enum is correct for DELTA`() {
+        assertEquals(AlphaEnum.DELTA, alphaEnumSealedEnum.enumToSealedObject(AlphaEnum.DELTA))
     }
 }

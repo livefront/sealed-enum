@@ -5,13 +5,17 @@ import org.junit.jupiter.api.Test
 
 class FirstHierarchy {
 
-    @GenSealedEnum
     sealed class A {
 
-        @GenSealedEnum
         sealed class B : A() {
             object C : B()
+
+            @GenSealedEnum(generateEnum = true)
+            companion object
         }
+
+        @GenSealedEnum(generateEnum = true)
+        companion object
     }
 }
 
@@ -29,19 +33,34 @@ class SecondHierarchy {
 
             sealed class F : C() {
                 object G : F()
+
+                @GenSealedEnum
+                companion object
             }
 
             sealed class H : C() {
                 object I : H()
+
+                @GenSealedEnum
+                companion object
             }
+
+            @GenSealedEnum
+            companion object
         }
 
         sealed class J : A() {
 
             object K : J()
+
+            @GenSealedEnum
+            companion object
         }
 
         object L : A()
+
+        @GenSealedEnum
+        companion object
     }
 }
 
@@ -49,22 +68,22 @@ class SealedClassHierarchyTests {
 
     @Test
     fun `first hierarchy class A values`() {
-        assertEquals(listOf(FirstHierarchy.A.B.C), FirstHierarchy_ASealedEnum.values)
+        assertEquals(listOf(FirstHierarchy.A.B.C), FirstHierarchy.A.values)
     }
 
     @Test
     fun `first hierarchy class A ordinal of A_B_C`() {
-        assertEquals(0, FirstHierarchy_ASealedEnum.ordinalOf(FirstHierarchy.A.B.C))
+        assertEquals(0, (FirstHierarchy.A.B.C as FirstHierarchy.A).ordinal)
     }
 
     @Test
     fun `first hierarchy class B values`() {
-        assertEquals(listOf(FirstHierarchy.A.B.C), FirstHierarchy_A_BSealedEnum.values)
+        assertEquals(listOf(FirstHierarchy.A.B.C), FirstHierarchy.A.B.values)
     }
 
     @Test
     fun `first hierarchy class B ordinal`() {
-        assertEquals(0, FirstHierarchy_A_BSealedEnum.ordinalOf(FirstHierarchy.A.B.C))
+        assertEquals(0, (FirstHierarchy.A.B.C as FirstHierarchy.A.B).ordinal)
     }
 
     @Test
@@ -79,43 +98,43 @@ class SealedClassHierarchyTests {
                 SecondHierarchy.A.J.K,
                 SecondHierarchy.A.L
             ),
-            SecondHierarchy_ASealedEnum.values
+            SecondHierarchy.A.values
         )
     }
 
     @Test
     fun `second hierarchy class A ordinal of A_B`() {
-        assertEquals(0, SecondHierarchy_ASealedEnum.ordinalOf(SecondHierarchy.A.B))
+        assertEquals(0, (SecondHierarchy.A.B as SecondHierarchy.A).ordinal)
     }
 
     @Test
     fun `second hierarchy class A ordinal of A_C_D`() {
-        assertEquals(1, SecondHierarchy_ASealedEnum.ordinalOf(SecondHierarchy.A.C.D))
+        assertEquals(1, (SecondHierarchy.A.C.D as SecondHierarchy.A).ordinal)
     }
 
     @Test
     fun `second hierarchy class A ordinal of A_C_E`() {
-        assertEquals(2, SecondHierarchy_ASealedEnum.ordinalOf(SecondHierarchy.A.C.E))
+        assertEquals(2, (SecondHierarchy.A.C.E as SecondHierarchy.A).ordinal)
     }
 
     @Test
     fun `second hierarchy class A ordinal of A_C_F_G`() {
-        assertEquals(3, SecondHierarchy_ASealedEnum.ordinalOf(SecondHierarchy.A.C.F.G))
+        assertEquals(3, (SecondHierarchy.A.C.F.G as SecondHierarchy.A).ordinal)
     }
 
     @Test
     fun `second hierarchy class A ordinal of A_C_H_I`() {
-        assertEquals(4, SecondHierarchy_ASealedEnum.ordinalOf(SecondHierarchy.A.C.H.I))
+        assertEquals(4, (SecondHierarchy.A.C.H.I as SecondHierarchy.A).ordinal)
     }
 
     @Test
     fun `second hierarchy class A ordinal of A_J_K`() {
-        assertEquals(5, SecondHierarchy_ASealedEnum.ordinalOf(SecondHierarchy.A.J.K))
+        assertEquals(5, (SecondHierarchy.A.J.K as SecondHierarchy.A).ordinal)
     }
 
     @Test
     fun `second hierarchy class A ordinal of A_L`() {
-        assertEquals(6, SecondHierarchy_ASealedEnum.ordinalOf(SecondHierarchy.A.L))
+        assertEquals(6, (SecondHierarchy.A.L as SecondHierarchy.A).ordinal)
     }
 
     @Test
@@ -127,66 +146,66 @@ class SealedClassHierarchyTests {
                 SecondHierarchy.A.C.F.G,
                 SecondHierarchy.A.C.H.I
             ),
-            SecondHierarchy_A_CSealedEnum.values
+            SecondHierarchy.A.C.values
         )
     }
 
     @Test
     fun `second hierarchy class C ordinal of A_C_D`() {
-        assertEquals(0, SecondHierarchy_A_CSealedEnum.ordinalOf(SecondHierarchy.A.C.D))
+        assertEquals(0, (SecondHierarchy.A.C.D as SecondHierarchy.A.C).ordinal)
     }
 
     @Test
     fun `second hierarchy class C ordinal of A_C_E`() {
-        assertEquals(1, SecondHierarchy_A_CSealedEnum.ordinalOf(SecondHierarchy.A.C.E))
+        assertEquals(1, (SecondHierarchy.A.C.E as SecondHierarchy.A.C).ordinal)
     }
 
     @Test
     fun `second hierarchy class C ordinal of A_C_F_G`() {
-        assertEquals(2, SecondHierarchy_A_CSealedEnum.ordinalOf(SecondHierarchy.A.C.F.G))
+        assertEquals(2, (SecondHierarchy.A.C.F.G as SecondHierarchy.A.C).ordinal)
     }
 
     @Test
     fun `second hierarchy class C ordinal of A_C_H_I`() {
-        assertEquals(3, SecondHierarchy_A_CSealedEnum.ordinalOf(SecondHierarchy.A.C.H.I))
+        assertEquals(3, (SecondHierarchy.A.C.H.I as SecondHierarchy.A.C).ordinal)
     }
 
     @Test
     fun `second hierarchy class F values`() {
         assertEquals(
             listOf(SecondHierarchy.A.C.F.G),
-            SecondHierarchy_A_C_FSealedEnum.values
+            SecondHierarchy.A.C.F.values
         )
     }
 
     @Test
     fun `second hierarchy class F ordinal of A_L`() {
-        assertEquals(0, SecondHierarchy_A_C_FSealedEnum.ordinalOf(SecondHierarchy.A.C.F.G))
+        assertEquals(0, (SecondHierarchy.A.C.F.G as SecondHierarchy.A.C.F).ordinal)
     }
 
     @Test
     fun `second hierarchy class H values`() {
         assertEquals(
             listOf(SecondHierarchy.A.C.H.I),
-            SecondHierarchy_A_C_HSealedEnum.values
+            SecondHierarchy.A.C.H.values
         )
     }
 
     @Test
     fun `second hierarchy class H ordinal of A_C_H_I`() {
-        assertEquals(0, SecondHierarchy_A_C_HSealedEnum.ordinalOf(SecondHierarchy.A.C.H.I))
+        assertEquals(0, (SecondHierarchy.A.C.H.I as SecondHierarchy.A.C.H).ordinal)
     }
 
     @Test
     fun `second hierarchy class J values`() {
         assertEquals(
             listOf(SecondHierarchy.A.J.K),
-            SecondHierarchy_A_JSealedEnum.values
+            SecondHierarchy.A.J.values
         )
     }
 
     @Test
     fun `second hierarchy class J ordinal of A_J_K`() {
-        assertEquals(0, SecondHierarchy_A_JSealedEnum.ordinalOf(SecondHierarchy.A.J.K))
+        assertEquals(0, (SecondHierarchy.A.J.K as SecondHierarchy.A.J).ordinal)
     }
 }

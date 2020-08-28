@@ -2,7 +2,6 @@ package com.livefront.sealedenum.internal
 
 import com.livefront.sealedenum.internal.SealedClassNode.Object
 import com.livefront.sealedenum.internal.SealedClassNode.SealedClass
-import com.squareup.kotlinpoet.ClassName
 
 /**
  * An internal tree structure representing a sealed class and its sealed subclasses.
@@ -16,7 +15,7 @@ internal sealed class SealedClassNode {
      *
      * The object's name is [className]
      */
-    internal data class Object(val className: ClassName) : SealedClassNode()
+    internal data class Object(val className: SealedObject) : SealedClassNode()
 
     /**
      * A node representing a subclass sealed class. This node may have additional children in [sealedSubclasses],

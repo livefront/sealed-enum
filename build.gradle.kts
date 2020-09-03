@@ -1,10 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version Versions.kotlin
     jacoco
-    id("io.gitlab.arturbosch.detekt") version "1.6.0"
-    id("org.jetbrains.dokka") version "0.10.1"
+    id("io.gitlab.arturbosch.detekt") version Versions.detekt
+    id("org.jetbrains.dokka") version Versions.dokka
     `maven-publish`
 }
 
@@ -24,7 +24,7 @@ subprojects {
     }
 
     dependencies {
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.6.0")
+        detektPlugins(Dependencies.detektFormatting)
     }
 
     java {

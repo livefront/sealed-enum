@@ -3,8 +3,9 @@ package com.livefront.sealedenum.internal
 import com.google.auto.service.AutoService
 import com.livefront.sealedenum.GenSealedEnum
 import com.livefront.sealedenum.GenSealedEnums
-import com.livefront.sealedenum.internal.SealedEnumFileSpec.SealedEnumOption.SealedEnumOnly
-import com.livefront.sealedenum.internal.SealedEnumFileSpec.SealedEnumOption.SealedEnumWithEnum
+import com.livefront.sealedenum.internal.spec.SealedEnumFileSpec
+import com.livefront.sealedenum.internal.spec.SealedEnumFileSpec.SealedEnumOption.SealedEnumOnly
+import com.livefront.sealedenum.internal.spec.SealedEnumFileSpec.SealedEnumOption.SealedEnumWithEnum
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec

@@ -2,6 +2,7 @@ package com.livefront.sealedenum.internal
 
 import com.livefront.sealedenum.internal.SealedClassNode.Object
 import com.livefront.sealedenum.internal.SealedClassNode.SealedClass
+import com.livefront.sealedenum.internal.spec.SealedObject
 
 /**
  * An internal tree structure representing a sealed class and its sealed subclasses.

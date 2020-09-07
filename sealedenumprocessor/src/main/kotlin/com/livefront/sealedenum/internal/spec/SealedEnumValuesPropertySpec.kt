@@ -1,26 +1,31 @@
-package com.livefront.sealedenum.internal
+package com.livefront.sealedenum.internal.spec
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.asClassName
 import javax.lang.model.element.TypeElement
 
-internal data class SealedEnumOrdinalPropertySpec(
+internal data class SealedEnumValuesPropertySpec(
     private val sealedClass: SealedClass,
     private val parameterizedSealedClass: TypeName,
+    private val sealedClassCompanionObject: ClassName,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedEnum: ClassName,
     private val enumPrefix: String
 ) {
+    private val listOfSealedClass = List::class.asClassName().parameterizedBy(parameterizedSealedClass)
+
     fun build(): PropertySpec {
-        val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "Ordinal"), Int::class)
+        val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "Values"), listOfSealedClass)
             .addOriginatingElement(sealedClassCompanionObjectElement)
-            .addKdoc("The index of [this] in the values list.")
-            .receiver(parameterizedSealedClass)
+            .addKdoc("A list of all [%T] objects.", sealedClass)
+            .receiver(sealedClassCompanionObject)
             .getter(
                 FunSpec.getterBuilder()
-                    .addStatement("return %T.ordinalOf(this)", sealedEnum)
+                    .addStatement("return %T.values", sealedEnum)
                     .build()
             )
 

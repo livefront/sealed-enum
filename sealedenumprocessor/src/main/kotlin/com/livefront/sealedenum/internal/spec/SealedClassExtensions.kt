@@ -1,4 +1,4 @@
-package com.livefront.sealedenum.internal
+package com.livefront.sealedenum.internal.spec
 
 import com.livefront.sealedenum.SealedEnum
 import com.squareup.kotlinpoet.ClassName

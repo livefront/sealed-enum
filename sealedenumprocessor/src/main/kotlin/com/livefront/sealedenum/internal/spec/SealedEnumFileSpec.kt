@@ -1,7 +1,9 @@
-package com.livefront.sealedenum.internal
+package com.livefront.sealedenum.internal.spec
 
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.TreeTraversalOrder
+import com.livefront.sealedenum.internal.SealedClassNode
+import com.livefront.sealedenum.internal.getSealedObjectsFromNode
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy

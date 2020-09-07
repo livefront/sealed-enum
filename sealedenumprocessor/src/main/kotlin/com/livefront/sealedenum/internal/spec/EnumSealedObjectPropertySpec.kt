@@ -1,4 +1,4 @@
-package com.livefront.sealedenum.internal
+package com.livefront.sealedenum.internal.spec
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
@@ -6,21 +6,21 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
 
-internal data class SealedEnumNamePropertySpec(
+internal data class EnumSealedObjectPropertySpec(
     private val sealedClass: SealedClass,
     private val parameterizedSealedClass: TypeName,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedEnum: ClassName,
-    private val enumPrefix: String
+    private val enumForSealedEnum: ClassName
 ) {
     fun build(): PropertySpec {
-        val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "Name"), String::class)
+        val propertySpecBuilder = PropertySpec.builder("sealedObject", parameterizedSealedClass)
             .addOriginatingElement(sealedClassCompanionObjectElement)
-            .addKdoc("The name of [this] for use with valueOf.")
-            .receiver(parameterizedSealedClass)
+            .addKdoc("The isomorphic [%T] for [this].", sealedClass)
+            .receiver(enumForSealedEnum)
             .getter(
                 FunSpec.getterBuilder()
-                    .addStatement("return %T.nameOf(this)", sealedEnum)
+                    .addStatement("return %T.enumToSealedObject(this)", sealedEnum)
                     .build()
             )
 

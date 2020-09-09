@@ -1,5 +1,6 @@
 package com.livefront.sealedenum.internal.spec
 
+import com.livefront.sealedenum.internal.Visibility
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -12,6 +13,7 @@ internal data class SealedEnumValuesPropertySpec(
     private val sealedClass: SealedClass,
     private val parameterizedSealedClass: TypeName,
     private val sealedClassCompanionObject: ClassName,
+    private val sealedClassCompanionObjectEffectiveVisibility: Visibility,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedEnum: ClassName,
     private val enumPrefix: String
@@ -23,6 +25,7 @@ internal data class SealedEnumValuesPropertySpec(
             .addOriginatingElement(sealedClassCompanionObjectElement)
             .addKdoc("A list of all [%T] objects.", sealedClass)
             .receiver(sealedClassCompanionObject)
+            .addModifiers(sealedClassCompanionObjectEffectiveVisibility.kModifier)
             .getter(
                 FunSpec.getterBuilder()
                     .addStatement("return %T.values", sealedEnum)

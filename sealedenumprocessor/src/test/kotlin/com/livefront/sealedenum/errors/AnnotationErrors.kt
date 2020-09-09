@@ -44,7 +44,7 @@ class AnnotationErrors {
         assertFails(result)
         assertTrue(result.messages.contains("Annotated element is not a Kotlin class"))
     }
-    
+
     @Test
     fun `annotated element is not a companion object`() {
         @Language("kotlin")
@@ -59,6 +59,42 @@ class AnnotationErrors {
 
         assertFails(result)
         assertTrue(result.messages.contains("Annotated element is not a companion object"))
+    }
+
+    @Test
+    fun `companion object is private`() {
+        @Language("kotlin")
+        val source = """
+            import com.livefront.sealedenum.GenSealedEnum
+            
+            sealed class PrivateCompanionObject {
+                @GenSealedEnum
+                private companion object
+            }
+        """.trimIndent()
+
+        val result = compile(SourceFile.kotlin("PrivateCompanionObject.kt", source))
+
+        assertFails(result)
+        assertTrue(result.messages.contains("Annotated companion object isn't internal or public"))
+    }
+
+    @Test
+    fun `companion object is protected`() {
+        @Language("kotlin")
+        val source = """
+            import com.livefront.sealedenum.GenSealedEnum
+            
+            sealed class ProtectedCompanionObject {
+                @GenSealedEnum
+                protected companion object
+            }
+        """.trimIndent()
+
+        val result = compile(SourceFile.kotlin("ProtectedCompanionObject.kt", source))
+
+        assertFails(result)
+        assertTrue(result.messages.contains("Annotated companion object isn't internal or public"))
     }
 
     @Test
@@ -77,5 +113,129 @@ class AnnotationErrors {
 
         assertFails(result)
         assertTrue(result.messages.contains("Annotated companion object is not for a sealed class"))
+    }
+
+    @Test
+    fun `sealed class is private`() {
+        @Language("kotlin")
+        val source = """
+            import com.livefront.sealedenum.GenSealedEnum
+            
+            class OuterClass {
+                private sealed class PrivateSealedClass {
+                    @GenSealedEnum
+                    companion object
+                }
+            }
+        """.trimIndent()
+
+        val result = compile(SourceFile.kotlin("OuterClass.kt", source))
+
+        assertFails(result)
+        assertTrue(result.messages.contains("Annotated sealed class isn't internal or public"))
+    }
+
+    @Test
+    fun `sealed class is protected`() {
+        @Language("kotlin")
+        val source = """
+            import com.livefront.sealedenum.GenSealedEnum
+            
+            class OuterClass {
+                protected sealed class ProtectedSealedClass {
+                    @GenSealedEnum
+                    companion object
+                }
+            }
+        """.trimIndent()
+
+        val result = compile(SourceFile.kotlin("OuterClass.kt", source))
+
+        assertFails(result)
+        assertTrue(result.messages.contains("Annotated sealed class isn't internal or public"))
+    }
+
+    @Test
+    fun `subclass sealed class is private`() {
+        @Language("kotlin")
+        val source = """
+            import com.livefront.sealedenum.GenSealedEnum
+            
+            sealed class OuterSealedClass {
+                private sealed class InnerSealedClass : OuterSealedClass() {
+                    object FirstObject : InnerSealedClass()
+                }
+                
+                @GenSealedEnum
+                companion object
+            }
+        """.trimIndent()
+
+        val result = compile(SourceFile.kotlin("OuterSealedClass.kt", source))
+
+        assertFails(result)
+        assertTrue(result.messages.contains("Subclass of sealed class isn't internal or public"))
+    }
+
+    @Test
+    fun `subclass sealed class is protected`() {
+        @Language("kotlin")
+        val source = """
+            import com.livefront.sealedenum.GenSealedEnum
+            
+            sealed class OuterSealedClass {
+                protected sealed class InnerSealedClass : OuterSealedClass() {
+                    object FirstObject : InnerSealedClass()
+                }
+                
+                @GenSealedEnum
+                companion object
+            }
+        """.trimIndent()
+
+        val result = compile(SourceFile.kotlin("OuterSealedClass.kt", source))
+
+        assertFails(result)
+        assertTrue(result.messages.contains("Subclass of sealed class isn't internal or public"))
+    }
+
+    @Test
+    fun `subclass object is private`() {
+        @Language("kotlin")
+        val source = """
+            import com.livefront.sealedenum.GenSealedEnum
+            
+            sealed class PrivateObject {
+                private object FirstObject : PrivateObject()
+                
+                @GenSealedEnum
+                companion object
+            }
+        """.trimIndent()
+
+        val result = compile(SourceFile.kotlin("PrivateObject.kt", source))
+
+        assertFails(result)
+        assertTrue(result.messages.contains("Subclass of sealed class isn't internal or public"))
+    }
+
+    @Test
+    fun `subclass object is protected`() {
+        @Language("kotlin")
+        val source = """
+            import com.livefront.sealedenum.GenSealedEnum
+            
+            sealed class PrivateObject {
+                protected object FirstObject : PrivateObject()
+                
+                @GenSealedEnum
+                companion object
+            }
+        """.trimIndent()
+
+        val result = compile(SourceFile.kotlin("PrivateObject.kt", source))
+
+        assertFails(result)
+        assertTrue(result.messages.contains("Subclass of sealed class isn't internal or public"))
     }
 }

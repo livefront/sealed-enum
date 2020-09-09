@@ -1,5 +1,6 @@
 package com.livefront.sealedenum.internal.spec
 
+import com.livefront.sealedenum.internal.Visibility
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -10,14 +11,15 @@ import javax.lang.model.element.TypeElement
 /**
  * A builder for an enum class for the given [sealedClass].
  *
- * Given the [ClassName] of the [sealedClass], the [TypeElement] for the [sealedClassCompanionObjectElement], and the
- * list of [ClassName]s for the sealed subclasses, [build] will generate a [TypeSpec] for an enum class
+ * Given the [ClassName] of the [sealedClass], the [TypeElement] for the [sealedClassCompanionObjectElement], and
+ * the list of [ClassName]s for the sealed subclasses, [build] will generate a [TypeSpec] for an enum class.
  *
  * The name of the created enum class will be the name of the sealed class concatenated with [enumPrefix] concatenated
  * with "Enum".
  */
 internal data class EnumForSealedEnumTypeSpec(
     private val sealedClass: SealedClass,
+    private val sealedClassVisibility: Visibility,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedObjects: List<SealedObject>,
     private val parameterizedSealedClass: TypeName,
@@ -25,6 +27,7 @@ internal data class EnumForSealedEnumTypeSpec(
     private val sealedClassInterfaces: List<TypeName>
 ) {
     private val typeSpecBuilder = TypeSpec.enumBuilder(sealedClass.createEnumForSealedEnumName(enumPrefix))
+        .addModifiers(sealedClassVisibility.kModifier)
         .addOriginatingElement(sealedClassCompanionObjectElement)
         .addKdoc("An isomorphic enum for the sealed class [%T]", sealedClass)
         .primaryConstructor(

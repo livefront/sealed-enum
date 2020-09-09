@@ -3,6 +3,7 @@ package com.livefront.sealedenum.internal.spec
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.TreeTraversalOrder
 import com.livefront.sealedenum.internal.SealedClassNode
+import com.livefront.sealedenum.internal.Visibility
 import com.livefront.sealedenum.internal.getSealedObjectsFromNode
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
@@ -24,12 +25,27 @@ import javax.lang.model.element.TypeElement
  */
 internal data class SealedEnumFileSpec(
     private val sealedClass: ClassName,
+    private val sealedClassVisibility: Visibility,
     private val sealedClassCompanionObject: ClassName,
+    private val sealedClassCompanionObjectVisibility: Visibility,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedClassNode: SealedClassNode.SealedClass,
     private val typeParameters: List<TypeName>,
     private val sealedEnumOptions: Map<TreeTraversalOrder, SealedEnumOption>
 ) {
+
+    /**
+     * Determines the effective visibility of the companion object based on the companion object's visibility and the
+     * sealed class's visibility. If either are internal, than the effective visibility is internal.
+     */
+    private val sealedClassCompanionObjectEffectiveVisibility = when (sealedClassCompanionObjectVisibility) {
+        Visibility.PUBLIC -> when (sealedClassVisibility) {
+            Visibility.INTERNAL -> Visibility.INTERNAL
+            Visibility.PUBLIC -> Visibility.PUBLIC
+        }
+        Visibility.INTERNAL -> Visibility.INTERNAL
+    }
+
     fun build(): FileSpec {
         val fileName = "${sealedClass.simpleNames.joinToString(".")}_SealedEnum"
         val fileSpecBuilder = FileSpec.builder(sealedClass.packageName, fileName).indent("    ")
@@ -56,6 +72,7 @@ internal data class SealedEnumFileSpec(
 
             val sealedEnumTypeSpecBuilder = SealedEnumTypeSpec(
                 sealedClass = sealedClass,
+                sealedClassVisibility = sealedClassVisibility,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
                 sealedObjects = sealedObjects,
@@ -103,6 +120,7 @@ internal data class SealedEnumFileSpec(
     ) {
         val enumForSealedEnumTypeSpec = EnumForSealedEnumTypeSpec(
             sealedClass = sealedClass,
+            sealedClassVisibility = sealedClassVisibility,
             parameterizedSealedClass = parameterizedSealedClass,
             sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
             sealedObjects = sealedObjects,
@@ -122,6 +140,7 @@ internal data class SealedEnumFileSpec(
         fileSpecBuilder.addProperty(
             SealedEnumEnumPropertySpec(
                 sealedClass = sealedClass,
+                sealedClassVisibility = sealedClassVisibility,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
                 sealedEnum = sealedEnumClassName,
@@ -135,6 +154,7 @@ internal data class SealedEnumFileSpec(
         fileSpecBuilder.addProperty(
             EnumSealedObjectPropertySpec(
                 sealedClass = sealedClass,
+                sealedClassVisibility = sealedClassVisibility,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
                 sealedEnum = sealedEnumClassName,
@@ -157,6 +177,7 @@ internal data class SealedEnumFileSpec(
         fileSpecBuilder.addProperty(
             SealedEnumOrdinalPropertySpec(
                 sealedClass = sealedClass,
+                sealedClassVisibility = sealedClassVisibility,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
                 sealedEnum = sealedEnumClassName,
@@ -169,6 +190,7 @@ internal data class SealedEnumFileSpec(
         fileSpecBuilder.addProperty(
             SealedEnumNamePropertySpec(
                 sealedClass = sealedClass,
+                sealedClassVisibility = sealedClassVisibility,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
                 sealedEnum = sealedEnumClassName,
@@ -183,6 +205,7 @@ internal data class SealedEnumFileSpec(
                 sealedClass = sealedClass,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObject = sealedClassCompanionObject,
+                sealedClassCompanionObjectEffectiveVisibility = sealedClassCompanionObjectEffectiveVisibility,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
                 sealedEnum = sealedEnumClassName,
                 enumPrefix = enumPrefix
@@ -195,6 +218,7 @@ internal data class SealedEnumFileSpec(
             SealedEnumSealedEnumPropertySpec(
                 sealedClass = sealedClass,
                 sealedClassCompanionObject = sealedClassCompanionObject,
+                sealedClassCompanionObjectEffectiveVisibility = sealedClassCompanionObjectEffectiveVisibility,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
                 sealedEnum = sealedEnumClassName,
                 enumPrefix = enumPrefix
@@ -208,6 +232,7 @@ internal data class SealedEnumFileSpec(
                 sealedClass = sealedClass,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObject = sealedClassCompanionObject,
+                sealedClassCompanionObjectEffectiveVisibility = sealedClassCompanionObjectEffectiveVisibility,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
                 sealedEnum = sealedEnumClassName,
                 enumPrefix = enumPrefix

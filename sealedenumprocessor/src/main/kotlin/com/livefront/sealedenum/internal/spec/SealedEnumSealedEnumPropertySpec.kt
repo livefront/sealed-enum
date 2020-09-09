@@ -1,6 +1,7 @@
 package com.livefront.sealedenum.internal.spec
 
 import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.internal.Visibility
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.PropertySpec
@@ -9,6 +10,7 @@ import javax.lang.model.element.TypeElement
 internal data class SealedEnumSealedEnumPropertySpec(
     private val sealedClass: SealedClass,
     private val sealedClassCompanionObject: ClassName,
+    private val sealedClassCompanionObjectEffectiveVisibility: Visibility,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedEnum: ClassName,
     private val enumPrefix: String
@@ -18,6 +20,7 @@ internal data class SealedEnumSealedEnumPropertySpec(
             .addOriginatingElement(sealedClassCompanionObjectElement)
             .addKdoc("Returns an implementation of [%T] for the sealed class [%T]", SealedEnum::class, sealedClass)
             .receiver(sealedClassCompanionObject)
+            .addModifiers(sealedClassCompanionObjectEffectiveVisibility.kModifier)
             .getter(
                 FunSpec.getterBuilder()
                     .addStatement("return %T", sealedEnum)

@@ -12,7 +12,9 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.classinspector.elements.ElementsClassInspector
 import com.squareup.kotlinpoet.metadata.ImmutableKmClass
 import com.squareup.kotlinpoet.metadata.isCompanionObject
+import com.squareup.kotlinpoet.metadata.isInternal
 import com.squareup.kotlinpoet.metadata.isObject
+import com.squareup.kotlinpoet.metadata.isPublic
 import com.squareup.kotlinpoet.metadata.isSealed
 import com.squareup.kotlinpoet.metadata.specs.internal.ClassInspectorUtil
 import com.squareup.kotlinpoet.metadata.specs.toTypeSpec
@@ -32,9 +34,12 @@ internal const val ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER =
     "Element is annotated with the same traversal order multiple times"
 internal const val ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS = "Annotated element is not a Kotlin class"
 internal const val ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT = "Annotated element is not a companion object"
+internal const val ERROR_COMPANION_OBJECT_HAS_INVALID_VISIBILITY = "Annotated companion object isn't internal or public"
 internal const val ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS = "Enclosing element is not a Kotlin class"
 internal const val ERROR_CLASS_IS_NOT_SEALED = "Annotated companion object is not for a sealed class"
 internal const val ERROR_NON_OBJECT_SEALED_SUBCLASSES = "Annotated sealed class has a non-object subclass"
+internal const val ERROR_SUBCLASS_HAS_INVALID_VISIBILITY = "Subclass of sealed class isn't internal or public"
+internal const val ERROR_SEALED_CLASS_HAS_INVALID_VISIBILITY = "Annotated sealed class isn't internal or public"
 
 @IncrementalAnnotationProcessor(IncrementalAnnotationProcessorType.ISOLATING)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -112,6 +117,15 @@ internal class SealedEnumProcessor : AbstractProcessor() {
                 }
             }
 
+        val sealedClassCompanionObjectVisibility = when {
+            sealedClassCompanionObjectKmClass.isPublic -> Visibility.PUBLIC
+            sealedClassCompanionObjectKmClass.isInternal -> Visibility.INTERNAL
+            else -> {
+                printError(ERROR_COMPANION_OBJECT_HAS_INVALID_VISIBILITY, sealedClassCompanionObjectElement)
+                return null
+            }
+        }
+
         val sealedClassElement = sealedClassCompanionObjectElement.enclosingElement
 
         /**
@@ -131,13 +145,25 @@ internal class SealedEnumProcessor : AbstractProcessor() {
                 }
             }
 
+        val sealedClassVisibility = when {
+            sealedClassKmClass.isPublic -> Visibility.PUBLIC
+            sealedClassKmClass.isInternal -> Visibility.INTERNAL
+            else -> {
+                printError(ERROR_SEALED_CLASS_HAS_INVALID_VISIBILITY, sealedClassElement)
+                return null
+            }
+        }
+
         /**
          * The root of the tree representing the sealed class hierarchy.
          */
         val sealedClassNode = try {
             createSealedClassNode(sealedClassKmClass)
         } catch (nonSealedClassException: NonObjectSealedSubclassException) {
-            printError(ERROR_NON_OBJECT_SEALED_SUBCLASSES, sealedClassElement)
+            printError(ERROR_NON_OBJECT_SEALED_SUBCLASSES, nonSealedClassException.element)
+            return null
+        } catch (invalidSubclassVisibilityException: InvalidSubclassVisibilityException) {
+            printError(ERROR_SUBCLASS_HAS_INVALID_VISIBILITY, invalidSubclassVisibilityException.element)
             return null
         }
 
@@ -158,7 +184,9 @@ internal class SealedEnumProcessor : AbstractProcessor() {
 
         return SealedEnumFileSpec(
             sealedClass = ClassInspectorUtil.createClassName(sealedClassKmClass.name),
+            sealedClassVisibility = sealedClassVisibility,
             sealedClassCompanionObject = ClassInspectorUtil.createClassName(sealedClassCompanionObjectKmClass.name),
+            sealedClassCompanionObjectVisibility = sealedClassCompanionObjectVisibility,
             typeParameters = sealedClassTypeSpec.wildcardedTypeVariables,
             sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
             sealedClassNode = sealedClassNode,
@@ -187,17 +215,23 @@ internal class SealedEnumProcessor : AbstractProcessor() {
     /**
      * A recursive function used in concert with [createSealedClassNode] to try to create a [SealedClassNode].
      *
+     * If [sealedSubclass] is not public or internal, than an [InvalidSubclassVisibilityException] will be thrown.
+     *
      * If [sealedSubclass] is an object, then this function will return a [SealedClassNode.Object].
      * If [sealedSubclass] is another sealed class, then this function will return a [SealedClassNode.SealedClass].
-     * If [sealedSubclass] is neither, then this function will throw a [NonObjectSealedSubclassException].
+     * If [sealedSubclass] is neither, then this function will throw a [NonObjectSealedSubclassException]
      */
     private fun convertSealedSubclassToNode(sealedSubclass: ClassName): SealedClassNode {
-        val kmClass = processingEnv.elementUtils.getTypeElement(sealedSubclass.canonicalName).toImmutableKmClass()
+        val element = processingEnv.elementUtils.getTypeElement(sealedSubclass.canonicalName)
+        val kmClass = element.toImmutableKmClass()
 
         return when {
-            kmClass.isObject -> SealedClassNode.Object(sealedSubclass)
-            kmClass.isSealed -> createSealedClassNode(kmClass)
-            else -> throw NonObjectSealedSubclassException()
+            kmClass.isPublic || kmClass.isInternal -> when {
+                kmClass.isObject -> SealedClassNode.Object(sealedSubclass)
+                kmClass.isSealed -> createSealedClassNode(kmClass)
+                else -> throw NonObjectSealedSubclassException(element)
+            }
+            else -> throw InvalidSubclassVisibilityException(element)
         }
     }
 }

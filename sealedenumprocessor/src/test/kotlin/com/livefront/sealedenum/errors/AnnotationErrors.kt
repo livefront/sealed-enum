@@ -2,13 +2,11 @@ package com.livefront.sealedenum.errors
 
 import com.livefront.sealedenum.testing.assertFails
 import com.livefront.sealedenum.testing.compile
-import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
 import com.tschuchort.compiletesting.SourceFile
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-@KotlinPoetMetadataPreview
 class AnnotationErrors {
 
     @Test

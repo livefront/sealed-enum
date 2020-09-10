@@ -21,3 +21,7 @@ dependencies {
 kapt {
     includeCompileClasspath = false
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+    kotlinOptions.freeCompilerArgs += "-Xopt-in=com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview"
+}

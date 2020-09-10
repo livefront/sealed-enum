@@ -4,7 +4,6 @@ import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
-import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -12,7 +11,6 @@ import kotlin.reflect.KTypeProjection
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubtypeOf
 
-@KotlinPoetMetadataPreview
 class SealedEnumWithAbstractBaseClassesTests {
     @Test
     fun `enum implements correct interfaces with type arguments`() {

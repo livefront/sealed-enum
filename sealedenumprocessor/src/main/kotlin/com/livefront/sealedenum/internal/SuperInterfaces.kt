@@ -11,7 +11,6 @@ import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.TypeVariableName
 import com.squareup.kotlinpoet.WildcardTypeName
-import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
 import com.squareup.kotlinpoet.metadata.specs.ClassInspector
 import com.squareup.kotlinpoet.metadata.specs.classFor
 import com.squareup.kotlinpoet.metadata.specs.toTypeSpec
@@ -22,7 +21,6 @@ import com.squareup.kotlinpoet.metadata.specs.toTypeSpec
  *
  * A super interface is "valid" if it does not require a wildcard generic type parameter.
  */
-@KotlinPoetMetadataPreview
 internal fun ClassInspector.getAllSuperInterfaces(typeSpec: TypeSpec): List<TypeName> {
     val superInterfaces = mutableListOf<TypeName>()
     getAllSuperInterfacesImpl(
@@ -38,7 +36,6 @@ internal fun ClassInspector.getAllSuperInterfaces(typeSpec: TypeSpec): List<Type
  *
  * This method adds all valid super interfaces to [superInterfaces].
  */
-@KotlinPoetMetadataPreview
 private tailrec fun ClassInspector.getAllSuperInterfacesImpl(
     typeSpec: TypeSpec,
     parentTypeArguments: List<TypeName>,
@@ -96,7 +93,6 @@ private tailrec fun ClassInspector.getAllSuperInterfacesImpl(
     }
 }
 
-@KotlinPoetMetadataPreview
 @Suppress("TooGenericExceptionCaught")
 internal fun ClassInspector.getTypeSpec(className: ClassName): TypeSpec? = try {
     classFor(className).toTypeSpec(this, className)

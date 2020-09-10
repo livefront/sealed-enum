@@ -4,11 +4,9 @@ import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
-import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-@KotlinPoetMetadataPreview
 class NestedClassTests {
 
     @Test

@@ -10,7 +10,6 @@ import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.classinspector.elements.ElementsClassInspector
 import com.squareup.kotlinpoet.metadata.ImmutableKmClass
-import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
 import com.squareup.kotlinpoet.metadata.isCompanionObject
 import com.squareup.kotlinpoet.metadata.isObject
 import com.squareup.kotlinpoet.metadata.isSealed
@@ -37,7 +36,6 @@ internal const val ERROR_CLASS_IS_NOT_SEALED = "Annotated companion object is no
 internal const val ERROR_NON_OBJECT_SEALED_SUBCLASSES = "Annotated sealed class has a non-object subclass"
 
 @IncrementalAnnotationProcessor(IncrementalAnnotationProcessorType.ISOLATING)
-@KotlinPoetMetadataPreview
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor::class)
 internal class SealedEnumProcessor : AbstractProcessor() {

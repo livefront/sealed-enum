@@ -1,5 +1,10 @@
 package com.livefront.sealedenum
 
+import com.livefront.sealedenum.testing.assertCompiles
+import com.livefront.sealedenum.testing.assertGeneratedFileMatches
+import com.livefront.sealedenum.testing.compile
+import com.livefront.sealedenum.testing.getSourceFile
+import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -7,28 +12,7 @@ import kotlin.reflect.KTypeProjection
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubtypeOf
 
-interface BaseClassInterface1<T>
-
-interface BaseClassInterface2<T>
-
-interface BaseClassInterface3<out T>
-
-abstract class AlphaBase<A> : BaseClassInterface1<A>
-
-abstract class BetaBase<A, B : Any> : AlphaBase<A>(), BaseClassInterface2<B>
-
-sealed class SealedEnumWithAbstractBaseClasses : BetaBase<Any?, String>() {
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
-abstract class GammaBase<out T : Any> : BaseClassInterface3<BaseClassInterface3<T>>
-
-sealed class SealedEnumWithAbstractBaseClassesCovariantType<out T : Any> : GammaBase<T>() {
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
+@KotlinPoetMetadataPreview
 class SealedEnumWithAbstractBaseClassesTests {
     @Test
     fun `enum implements correct interfaces with type arguments`() {
@@ -68,6 +52,18 @@ class SealedEnumWithAbstractBaseClassesTests {
     }
 
     @Test
+    fun `compilation for invariant type generates correct code`() {
+        val result = compile(getSourceFile("SealedEnumWithAbstractBaseClasses.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "SealedEnumWithAbstractBaseClasses_SealedEnum.kt",
+            sealedEnumWithAbstractBaseClassesGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `covariant type enum implements correct interfaces with type arguments`() {
         assertTrue(
             SealedEnumWithAbstractBaseClassesCovariantTypeEnum::class.createType().isSubtypeOf(
@@ -91,6 +87,18 @@ class SealedEnumWithAbstractBaseClassesTests {
         assertEquals(
             emptyList<BaseClassInterface3<BaseClassInterface3<*>>>(),
             emptyValues.toList()
+        )
+    }
+
+    @Test
+    fun `compilation for covariant type generates correct code`() {
+        val result = compile(getSourceFile("SealedEnumWithAbstractBaseClasses.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "SealedEnumWithAbstractBaseClassesCovariantType_SealedEnum.kt",
+            sealedEnumWithAbstractBaseClassesCovariantTypeGenerated,
+            result
         )
     }
 }

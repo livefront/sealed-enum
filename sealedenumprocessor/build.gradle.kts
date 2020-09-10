@@ -13,7 +13,7 @@ dependencies {
     incap()
 
     testImplementation(Dependencies.junit)
-    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.kotlinCompileTesting)
     testImplementation(kotlin("reflect"))
     kaptTest(project(":sealedenumprocessor"))
 }

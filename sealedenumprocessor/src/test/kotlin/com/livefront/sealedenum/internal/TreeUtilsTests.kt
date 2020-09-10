@@ -4,7 +4,6 @@ import com.livefront.sealedenum.TreeTraversalOrder
 import com.livefront.sealedenum.internal.SealedClassNode.Object
 import com.livefront.sealedenum.internal.SealedClassNode.SealedClass
 import com.squareup.kotlinpoet.ClassName
-import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -30,7 +29,7 @@ class TreeUtilsTests {
         @ParameterizedTest
         @EnumSource(TreeTraversalOrder::class)
         fun `sealed class node with one leaf`(treeTraversalOrder: TreeTraversalOrder) {
-            val className1 = mockk<ClassName>()
+            val className1 = ClassName("com.livefront", "One")
 
             val root = SealedClass(
                 listOf(
@@ -47,8 +46,8 @@ class TreeUtilsTests {
         @ParameterizedTest
         @EnumSource(TreeTraversalOrder::class)
         fun `sealed class node with two leaves`(treeTraversalOrder: TreeTraversalOrder) {
-            val className1 = mockk<ClassName>()
-            val className2 = mockk<ClassName>()
+            val className1 = ClassName("com.livefront", "Two")
+            val className2 = ClassName("com.livefront", "Three")
 
             val root = SealedClass(
                 listOf(
@@ -97,7 +96,7 @@ class TreeUtilsTests {
         @ParameterizedTest
         @EnumSource(TreeTraversalOrder::class)
         fun `nested sealed class node with one leaf`(treeTraversalOrder: TreeTraversalOrder) {
-            val className1 = mockk<ClassName>()
+            val className1 = ClassName("com.livefront", "One")
 
             val root = SealedClass(
                 listOf(
@@ -121,9 +120,9 @@ class TreeUtilsTests {
             @Nested
             inner class HeightOne {
 
-                private val className1 = mockk<ClassName>()
-                private val className2 = mockk<ClassName>()
-                private val className3 = mockk<ClassName>()
+                private val className1 = ClassName("com.livefront", "One")
+                private val className2 = ClassName("com.livefront", "Two")
+                private val className3 = ClassName("com.livefront", "Three")
 
                 private val root = SealedClass(
                     listOf(
@@ -176,13 +175,13 @@ class TreeUtilsTests {
 
             @Nested
             inner class HeightTwo {
-                private val className1 = mockk<ClassName>()
-                private val className2 = mockk<ClassName>()
-                private val className3 = mockk<ClassName>()
-                private val className4 = mockk<ClassName>()
-                private val className5 = mockk<ClassName>()
-                private val className6 = mockk<ClassName>()
-                private val className7 = mockk<ClassName>()
+                private val className1 = ClassName("com.livefront", "One")
+                private val className2 = ClassName("com.livefront", "Two")
+                private val className3 = ClassName("com.livefront", "Three")
+                private val className4 = ClassName("com.livefront", "Four")
+                private val className5 = ClassName("com.livefront", "Five")
+                private val className6 = ClassName("com.livefront", "Six")
+                private val className7 = ClassName("com.livefront", "Seven")
 
                 private val root = SealedClass(
                     listOf(

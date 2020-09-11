@@ -44,7 +44,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.Environments]
+ * An isomorphic enum for the sealed class [Environments]
  */
 enum class EnvironmentsEnum(
     sealedObject: Environments

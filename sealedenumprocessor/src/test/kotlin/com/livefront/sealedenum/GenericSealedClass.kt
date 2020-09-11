@@ -25,7 +25,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.OneTypeParameterSealedClass]
+ * An isomorphic enum for the sealed class [OneTypeParameterSealedClass]
  */
 enum class OneTypeParameterSealedClassEnum {
     OneTypeParameterSealedClass_FirstObject,
@@ -159,7 +159,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.TwoTypeParameterSealedClass]
+ * An isomorphic enum for the sealed class [TwoTypeParameterSealedClass]
  */
 enum class TwoTypeParameterSealedClassEnum {
     TwoTypeParameterSealedClass_FirstObject,
@@ -284,8 +284,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class
- * [com.livefront.sealedenum.LimitedTypeParameterSealedClass]
+ * An isomorphic enum for the sealed class [LimitedTypeParameterSealedClass]
  */
 enum class LimitedTypeParameterSealedClassEnum {
     LimitedTypeParameterSealedClass_FirstObject,
@@ -417,7 +416,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.MultipleBoundsSealedClass]
+ * An isomorphic enum for the sealed class [MultipleBoundsSealedClass]
  */
 enum class MultipleBoundsSealedClassEnum {
     MultipleBoundsSealedClass_FirstObject

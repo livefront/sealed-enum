@@ -28,8 +28,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class
- * [com.livefront.sealedenum.SealedEnumWithAbstractBaseClasses]
+ * An isomorphic enum for the sealed class [SealedEnumWithAbstractBaseClasses]
  */
 enum class SealedEnumWithAbstractBaseClassesEnum(
     sealedObject: SealedEnumWithAbstractBaseClasses
@@ -136,8 +135,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class
- * [com.livefront.sealedenum.SealedEnumWithAbstractBaseClassesCovariantType]
+ * An isomorphic enum for the sealed class [SealedEnumWithAbstractBaseClassesCovariantType]
  */
 enum class SealedEnumWithAbstractBaseClassesCovariantTypeEnum(
     sealedObject: SealedEnumWithAbstractBaseClassesCovariantType<*>

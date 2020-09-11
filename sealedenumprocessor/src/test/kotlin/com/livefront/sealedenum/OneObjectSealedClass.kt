@@ -19,7 +19,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.OneObjectSealedClass]
+ * An isomorphic enum for the sealed class [OneObjectSealedClass]
  */
 enum class OneObjectSealedClassEnum {
     OneObjectSealedClass_FirstObject

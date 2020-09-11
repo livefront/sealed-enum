@@ -19,7 +19,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.AlphaOutsideSealedClass]
+ * An isomorphic enum for the sealed class [AlphaOutsideSealedClass]
  */
 enum class AlphaOutsideSealedClassEnum {
     AlphaFirstObject
@@ -129,7 +129,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.BetaOutsideSealedClass]
+ * An isomorphic enum for the sealed class [BetaOutsideSealedClass]
  */
 enum class BetaOutsideSealedClassEnum {
     BetaFirstObject,
@@ -250,7 +250,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.GammaOutsideSealedClass]
+ * An isomorphic enum for the sealed class [GammaOutsideSealedClass]
  */
 enum class GammaOutsideSealedClassEnum {
     GammaFirstObject,
@@ -378,7 +378,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.DeltaOutsideSealedClass]
+ * An isomorphic enum for the sealed class [DeltaOutsideSealedClass]
  */
 enum class DeltaOutsideSealedClassEnum {
     DeltaObject,

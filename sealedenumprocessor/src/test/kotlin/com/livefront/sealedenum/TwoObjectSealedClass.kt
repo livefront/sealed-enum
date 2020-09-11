@@ -21,7 +21,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.TwoObjectSealedClass]
+ * An isomorphic enum for the sealed class [TwoObjectSealedClass]
  */
 enum class TwoObjectSealedClassEnum {
     TwoObjectSealedClass_FirstObject,

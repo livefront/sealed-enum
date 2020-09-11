@@ -28,7 +28,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.FirstHierarchy.A]
+ * An isomorphic enum for the sealed class [FirstHierarchy.A]
  */
 enum class FirstHierarchy_AEnum {
     FirstHierarchy_A_B_C
@@ -127,7 +127,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.FirstHierarchy.A.B]
+ * An isomorphic enum for the sealed class [FirstHierarchy.A.B]
  */
 enum class FirstHierarchy_A_BEnum {
     FirstHierarchy_A_B_C

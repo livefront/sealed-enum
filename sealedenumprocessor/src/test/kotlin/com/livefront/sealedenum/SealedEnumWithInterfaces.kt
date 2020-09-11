@@ -25,7 +25,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.EmptySealedClassWithInterface]
+ * An isomorphic enum for the sealed class [EmptySealedClassWithInterface]
  */
 enum class EmptySealedClassWithInterfaceEnum(
     sealedObject: EmptySealedClassWithInterface
@@ -126,8 +126,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class
- * [com.livefront.sealedenum.OneObjectSealedClassWithInterface]
+ * An isomorphic enum for the sealed class [OneObjectSealedClassWithInterface]
  */
 enum class OneObjectSealedClassWithInterfaceEnum(
     sealedObject: OneObjectSealedClassWithInterface
@@ -247,8 +246,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class
- * [com.livefront.sealedenum.TwoObjectSealedClassWithGenericInterface]
+ * An isomorphic enum for the sealed class [TwoObjectSealedClassWithGenericInterface]
  */
 enum class TwoObjectSealedClassWithGenericInterfaceEnum(
     sealedObject: TwoObjectSealedClassWithGenericInterface<TestInterface>
@@ -393,7 +391,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.SealedClassWithGetterInterface]
+ * An isomorphic enum for the sealed class [SealedClassWithGetterInterface]
  */
 enum class SealedClassWithGetterInterfaceEnum(
     sealedObject: SealedClassWithGetterInterface

@@ -67,7 +67,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.Tree]
+ * An isomorphic enum for the sealed class [Tree]
  */
 enum class TreeLevelOrderEnum {
     Tree_A,
@@ -256,7 +256,7 @@ val Tree.Companion.levelOrderSealedEnum: TreeLevelOrderSealedEnum
 fun Tree.Companion.levelOrderValueOf(name: String): Tree = TreeLevelOrderSealedEnum.valueOf(name)
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.Tree]
+ * An isomorphic enum for the sealed class [Tree]
  */
 enum class TreePostOrderEnum {
     Tree_B_C_F_G,
@@ -445,7 +445,7 @@ val Tree.Companion.postOrderSealedEnum: TreePostOrderSealedEnum
 fun Tree.Companion.postOrderValueOf(name: String): Tree = TreePostOrderSealedEnum.valueOf(name)
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.Tree]
+ * An isomorphic enum for the sealed class [Tree]
  */
 enum class TreeInOrderEnum {
     Tree_A,
@@ -634,7 +634,7 @@ val Tree.Companion.inOrderSealedEnum: TreeInOrderSealedEnum
 fun Tree.Companion.inOrderValueOf(name: String): Tree = TreeInOrderSealedEnum.valueOf(name)
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.Tree]
+ * An isomorphic enum for the sealed class [Tree]
  */
 enum class TreePreOrderEnum {
     Tree_A,

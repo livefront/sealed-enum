@@ -17,7 +17,7 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * An isomorphic enum for the sealed class [com.livefront.sealedenum.EmptySealedClass]
+ * An isomorphic enum for the sealed class [EmptySealedClass]
  */
 enum class EmptySealedClassEnum
 

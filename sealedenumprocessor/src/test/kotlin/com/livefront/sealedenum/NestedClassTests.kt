@@ -1,31 +1,11 @@
 package com.livefront.sealedenum
 
+import com.livefront.sealedenum.testing.assertCompiles
+import com.livefront.sealedenum.testing.assertGeneratedFileMatches
+import com.livefront.sealedenum.testing.compile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-class OuterClass {
-    sealed class InsideOneClassSealedClass {
-        object FirstObject : InsideOneClassSealedClass()
-
-        object SecondObject : InsideOneClassSealedClass()
-
-        @GenSealedEnum
-        companion object
-    }
-}
-
-class FirstOuterClass {
-    class SecondOuterClass {
-        sealed class InsideTwoClassesSealedClass {
-            object FirstObject : InsideTwoClassesSealedClass()
-
-            object SecondObject : InsideTwoClassesSealedClass()
-
-            @GenSealedEnum
-            companion object
-        }
-    }
-}
 
 class NestedClassTests {
 
@@ -41,6 +21,18 @@ class NestedClassTests {
     }
 
     @Test
+    fun `compilation for inside one class generates correct code`() {
+        val result = compile(getSourceFile("NestedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "OuterClass.InsideOneClassSealedClass_SealedEnum.kt",
+            insideOneClassSealedClassGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `inside two classes`() {
         assertEquals(
             listOf(
@@ -48,6 +40,18 @@ class NestedClassTests {
                 FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject
             ),
             FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.values
+        )
+    }
+
+    @Test
+    fun `compilation for inside two classes generates correct code`() {
+        val result = compile(getSourceFile("NestedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass_SealedEnum.kt",
+            insideTwoClassesSealedClassGenerated,
+            result
         )
     }
 }

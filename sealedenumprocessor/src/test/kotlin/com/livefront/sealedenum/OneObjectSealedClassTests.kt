@@ -1,14 +1,11 @@
 package com.livefront.sealedenum
 
+import com.livefront.sealedenum.testing.assertCompiles
+import com.livefront.sealedenum.testing.assertGeneratedFileMatches
+import com.livefront.sealedenum.testing.compile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-sealed class OneObjectSealedClass {
-    object FirstObject : OneObjectSealedClass()
-
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
 
 class OneObjectSealedClassTests {
     @Test
@@ -35,5 +32,13 @@ class OneObjectSealedClassTests {
     @Test
     fun `correct enum class`() {
         assertEquals(OneObjectSealedClassEnum::class.java, OneObjectSealedClass.sealedEnum.enumClass)
+    }
+
+    @Test
+    fun `compilation generates correct code`() {
+        val result = compile(getSourceFile("OneObjectSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches("OneObjectSealedClass_SealedEnum.kt", oneObjectSealedClassGenerated, result)
     }
 }

@@ -26,7 +26,7 @@ internal data class EnumForSealedEnumTypeSpec(
 ) {
     private val typeSpecBuilder = TypeSpec.enumBuilder(sealedClass.createEnumForSealedEnumName(enumPrefix))
         .addOriginatingElement(sealedClassCompanionObjectElement)
-        .addKdoc("An isomorphic enum for the sealed class [$sealedClass]")
+        .addKdoc("An isomorphic enum for the sealed class [%T]", sealedClass)
         .primaryConstructor(
             FunSpec.constructorBuilder()
                 .apply {

@@ -1,36 +1,11 @@
 package com.livefront.sealedenum
 
+import com.livefront.sealedenum.testing.assertCompiles
+import com.livefront.sealedenum.testing.assertGeneratedFileMatches
+import com.livefront.sealedenum.testing.compile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-sealed class OneTypeParameterSealedClass<out T> {
-    object FirstObject : OneTypeParameterSealedClass<Int>()
-
-    object SecondObject : OneTypeParameterSealedClass<String>()
-
-    object ThirdObject : OneTypeParameterSealedClass<Nothing>()
-
-    @GenSealedEnum
-    companion object OneType
-}
-
-sealed class TwoTypeParameterSealedClass<out A, out B> {
-    object FirstObject : TwoTypeParameterSealedClass<Any?, Nothing>()
-
-    object SecondObject : TwoTypeParameterSealedClass<Double, Double>()
-
-    @GenSealedEnum
-    companion object TwoType
-}
-
-sealed class LimitedTypeParameterSealedClass<in Number, out String> {
-    object FirstObject : LimitedTypeParameterSealedClass<Int, String>()
-
-    object SecondObject : LimitedTypeParameterSealedClass<Int, Any>()
-
-    @GenSealedEnum
-    companion object LimitedType
-}
 
 class GenericSealedClassTests {
 
@@ -47,6 +22,18 @@ class GenericSealedClassTests {
     }
 
     @Test
+    fun `compilation for one type parameter generates correct code`() {
+        val result = compile(getSourceFile("GenericSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "OneTypeParameterSealedClass_SealedEnum.kt",
+            oneTypeParameterSealedClassGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `two type parameter sealed class`() {
         assertEquals(
             listOf(
@@ -58,6 +45,18 @@ class GenericSealedClassTests {
     }
 
     @Test
+    fun `compilation for two type parameter generates correct code`() {
+        val result = compile(getSourceFile("GenericSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "TwoTypeParameterSealedClass_SealedEnum.kt",
+            twoTypeParameterSealedClassGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `limited type parameter sealed class`() {
         assertEquals(
             listOf(
@@ -65,6 +64,40 @@ class GenericSealedClassTests {
                 LimitedTypeParameterSealedClass.SecondObject
             ),
             LimitedTypeParameterSealedClass.values
+        )
+    }
+
+    @Test
+    fun `compilation for limited type parameter generates correct code`() {
+        val result = compile(getSourceFile("GenericSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "LimitedTypeParameterSealedClass_SealedEnum.kt",
+            limitedTypeParameterSealedClassGenerated,
+            result
+        )
+    }
+
+    @Test
+    fun `multiple bounds sealed class`() {
+        assertEquals(
+            listOf(
+                MultipleBoundsSealedClass.FirstObject
+            ),
+            MultipleBoundsSealedClass.values
+        )
+    }
+
+    @Test
+    fun `compilation for multiple bounds sealed class generates correct code`() {
+        val result = compile(getSourceFile("GenericSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "MultipleBoundsSealedClass_SealedEnum.kt",
+            multipleBoundsSealedClassGenerated,
+            result
         )
     }
 }

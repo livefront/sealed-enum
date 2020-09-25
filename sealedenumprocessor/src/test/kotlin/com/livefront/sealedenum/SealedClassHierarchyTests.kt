@@ -1,68 +1,11 @@
 package com.livefront.sealedenum
 
+import com.livefront.sealedenum.testing.assertCompiles
+import com.livefront.sealedenum.testing.assertGeneratedFileMatches
+import com.livefront.sealedenum.testing.compile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-class FirstHierarchy {
-
-    sealed class A {
-
-        sealed class B : A() {
-            object C : B()
-
-            @GenSealedEnum(generateEnum = true)
-            companion object
-        }
-
-        @GenSealedEnum(generateEnum = true)
-        companion object
-    }
-}
-
-class SecondHierarchy {
-
-    sealed class A {
-
-        object B : A()
-
-        sealed class C : A() {
-
-            object D : C()
-
-            object E : C()
-
-            sealed class F : C() {
-                object G : F()
-
-                @GenSealedEnum
-                companion object
-            }
-
-            sealed class H : C() {
-                object I : H()
-
-                @GenSealedEnum
-                companion object
-            }
-
-            @GenSealedEnum
-            companion object
-        }
-
-        sealed class J : A() {
-
-            object K : J()
-
-            @GenSealedEnum
-            companion object
-        }
-
-        object L : A()
-
-        @GenSealedEnum
-        companion object
-    }
-}
 
 class SealedClassHierarchyTests {
 
@@ -77,6 +20,18 @@ class SealedClassHierarchyTests {
     }
 
     @Test
+    fun `compilation for first hierarchy A generates correct code`() {
+        val result = compile(getSourceFile("SealedClassHierarchy.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "FirstHierarchy.A_SealedEnum.kt",
+            firstHierarchyAGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `first hierarchy class B values`() {
         assertEquals(listOf(FirstHierarchy.A.B.C), FirstHierarchy.A.B.values)
     }
@@ -84,6 +39,18 @@ class SealedClassHierarchyTests {
     @Test
     fun `first hierarchy class B ordinal`() {
         assertEquals(0, (FirstHierarchy.A.B.C as FirstHierarchy.A.B).ordinal)
+    }
+
+    @Test
+    fun `compilation for first hierarchy B generates correct code`() {
+        val result = compile(getSourceFile("SealedClassHierarchy.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "FirstHierarchy.A.B_SealedEnum.kt",
+            firstHierarchyBGenerated,
+            result
+        )
     }
 
     @Test
@@ -138,6 +105,18 @@ class SealedClassHierarchyTests {
     }
 
     @Test
+    fun `compilation for second hierarchy A generates correct code`() {
+        val result = compile(getSourceFile("SealedClassHierarchy.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "SecondHierarchy.A_SealedEnum.kt",
+            secondHierarchyAGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `second hierarchy class C values`() {
         assertEquals(
             listOf(
@@ -171,6 +150,18 @@ class SealedClassHierarchyTests {
     }
 
     @Test
+    fun `compilation for second hierarchy C generates correct code`() {
+        val result = compile(getSourceFile("SealedClassHierarchy.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "SecondHierarchy.A.C_SealedEnum.kt",
+            secondHierarchyACGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `second hierarchy class F values`() {
         assertEquals(
             listOf(SecondHierarchy.A.C.F.G),
@@ -181,6 +172,18 @@ class SealedClassHierarchyTests {
     @Test
     fun `second hierarchy class F ordinal of A_L`() {
         assertEquals(0, (SecondHierarchy.A.C.F.G as SecondHierarchy.A.C.F).ordinal)
+    }
+
+    @Test
+    fun `compilation for second hierarchy F generates correct code`() {
+        val result = compile(getSourceFile("SealedClassHierarchy.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "SecondHierarchy.A.C.F_SealedEnum.kt",
+            secondHierarchyACFGenerated,
+            result
+        )
     }
 
     @Test
@@ -197,6 +200,18 @@ class SealedClassHierarchyTests {
     }
 
     @Test
+    fun `compilation for second hierarchy H generates correct code`() {
+        val result = compile(getSourceFile("SealedClassHierarchy.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "SecondHierarchy.A.C.H_SealedEnum.kt",
+            secondHierarchyACHGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `second hierarchy class J values`() {
         assertEquals(
             listOf(SecondHierarchy.A.J.K),
@@ -207,5 +222,17 @@ class SealedClassHierarchyTests {
     @Test
     fun `second hierarchy class J ordinal of A_J_K`() {
         assertEquals(0, (SecondHierarchy.A.J.K as SecondHierarchy.A.J).ordinal)
+    }
+
+    @Test
+    fun `compilation for second hierarchy J generates correct code`() {
+        val result = compile(getSourceFile("SealedClassHierarchy.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "SecondHierarchy.A.J_SealedEnum.kt",
+            secondHierarchyAJGenerated,
+            result
+        )
     }
 }

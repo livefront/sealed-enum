@@ -1,53 +1,17 @@
 package com.livefront.sealedenum
 
-import org.junit.jupiter.api.Assertions.*
+import com.livefront.sealedenum.testing.assertCompiles
+import com.livefront.sealedenum.testing.assertGeneratedFileMatches
+import com.livefront.sealedenum.testing.compile
+import com.livefront.sealedenum.testing.getSourceFile
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.isSubtypeOf
-
-interface TestInterface
-
-interface TestGenericInterface<T>
-
-interface TestGetterInterface {
-    fun get(): String
-}
-
-sealed class EmptySealedClassWithInterface : TestInterface {
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
-sealed class OneObjectSealedClassWithInterface : TestInterface {
-    object FirstObject : OneObjectSealedClassWithInterface()
-
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
-sealed class TwoObjectSealedClassWithGenericInterface<T : TestInterface> : TestGenericInterface<T> {
-    object FirstObject : TwoObjectSealedClassWithGenericInterface<TestInterface>()
-    object SecondObject : TwoObjectSealedClassWithGenericInterface<TestInterface>()
-
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
-sealed class SealedClassWithGetterInterface : TestGetterInterface {
-    object FirstObject : SealedClassWithGetterInterface() {
-        var hasGetBeenCalled = false
-
-        override fun get(): String {
-            hasGetBeenCalled = true
-            return "First"
-        }
-    }
-
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
 
 class SealedEnumWithInterfacesTests {
 
@@ -86,6 +50,18 @@ class SealedEnumWithInterfacesTests {
     }
 
     @Test
+    fun `compilation for empty sealed class generates correct code`() {
+        val result = compile(getSourceFile("SealedEnumWithInterfaces.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "EmptySealedClassWithInterface_SealedEnum.kt",
+            emptySealedClassWithInterfaceGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `single object sealed enum implements interface`() {
         assertTrue(
             OneObjectSealedClassWithInterfaceSealedEnum::class.createType().isSubtypeOf(
@@ -115,6 +91,18 @@ class SealedEnumWithInterfacesTests {
         assertEquals(
             listOf(OneObjectSealedClassWithInterfaceEnum.OneObjectSealedClassWithInterface_FirstObject),
             oneObjectValues.toList()
+        )
+    }
+
+    @Test
+    fun `compilation for one object sealed class generates correct code`() {
+        val result = compile(getSourceFile("SealedEnumWithInterfaces.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "OneObjectSealedClassWithInterface_SealedEnum.kt",
+            oneObjectSealedClassWithInterfaceGenerated,
+            result
         )
     }
 
@@ -174,6 +162,18 @@ class SealedEnumWithInterfacesTests {
     }
 
     @Test
+    fun `compilation for two object sealed class generates correct code`() {
+        val result = compile(getSourceFile("SealedEnumWithInterfaces.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "TwoObjectSealedClassWithGenericInterface_SealedEnum.kt",
+            twoObjectSealedClassWithGenericInterfaceGenerated,
+            result
+        )
+    }
+
+    @Test
     fun `enum delegates to sealed class`() {
         val sealedObject = SealedClassWithGetterInterface.FirstObject
 
@@ -184,5 +184,17 @@ class SealedEnumWithInterfacesTests {
         assertEquals("First", enumValue.get())
 
         assertTrue(sealedObject.hasGetBeenCalled)
+    }
+
+    @Test
+    fun `compilation for sealed class with getter interface generates correct code`() {
+        val result = compile(getSourceFile("SealedEnumWithInterfaces.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches(
+            "SealedClassWithGetterInterface_SealedEnum.kt",
+            sealedClassWithGetterInterface,
+            result
+        )
     }
 }

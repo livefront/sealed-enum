@@ -1,44 +1,11 @@
 package com.livefront.sealedenum
 
+import com.livefront.sealedenum.testing.assertCompiles
+import com.livefront.sealedenum.testing.assertGeneratedFileMatches
+import com.livefront.sealedenum.testing.compile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-sealed class AlphaOutsideSealedClass {
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
-object AlphaFirstObject : AlphaOutsideSealedClass()
-
-sealed class BetaOutsideSealedClass {
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
-object BetaFirstObject : BetaOutsideSealedClass()
-
-object BetaSecondObject : BetaOutsideSealedClass()
-
-object GammaFirstObject : GammaOutsideSealedClass()
-
-sealed class GammaOutsideSealedClass {
-
-    object GammaSecondObject : GammaOutsideSealedClass()
-
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
-object GammaThirdObject : GammaOutsideSealedClass()
-
-sealed class DeltaOutsideSealedClass {
-    object DeltaObject : DeltaOutsideSealedClass()
-
-    @GenSealedEnum(generateEnum = true)
-    companion object
-}
-
-object DeltaObject : DeltaOutsideSealedClass()
 
 class OutsideSealedClassTests {
 
@@ -64,6 +31,14 @@ class OutsideSealedClassTests {
     }
 
     @Test
+    fun `compilation for alpha outside sealed class generates correct code`() {
+        val result = compile(getSourceFile("OutsideSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches("AlphaOutsideSealedClass_SealedEnum.kt", alphaOutsideSealedClassGenerated, result)
+    }
+
+    @Test
     fun `two objects outside sealed class`() {
         assertEquals(listOf(BetaFirstObject, BetaSecondObject), BetaOutsideSealedClass.values)
     }
@@ -85,6 +60,14 @@ class OutsideSealedClassTests {
             BetaOutsideSealedClass.values.map(BetaOutsideSealedClass::enum),
             enumValues<BetaOutsideSealedClassEnum>().toList()
         )
+    }
+
+    @Test
+    fun `compilation for beta outside sealed class generates correct code`() {
+        val result = compile(getSourceFile("OutsideSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches("BetaOutsideSealedClass_SealedEnum.kt", betaOutsideSealedClassGenerated, result)
     }
 
     @Test
@@ -116,6 +99,14 @@ class OutsideSealedClassTests {
     }
 
     @Test
+    fun `compilation for gamma outside sealed class generates correct code`() {
+        val result = compile(getSourceFile("OutsideSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches("GammaOutsideSealedClass_SealedEnum.kt", gammaOutsideSealedClassGenerated, result)
+    }
+
+    @Test
     fun `duplicate name objects`() {
         assertEquals(
             listOf(DeltaObject, DeltaOutsideSealedClass.DeltaObject),
@@ -140,5 +131,13 @@ class OutsideSealedClassTests {
             DeltaOutsideSealedClass.values.map(DeltaOutsideSealedClass::enum),
             enumValues<DeltaOutsideSealedClassEnum>().toList()
         )
+    }
+
+    @Test
+    fun `compilation for delta outside sealed class generates correct code`() {
+        val result = compile(getSourceFile("OutsideSealedClass.kt"))
+
+        assertCompiles(result)
+        assertGeneratedFileMatches("DeltaOutsideSealedClass_SealedEnum.kt", deltaOutsideSealedClassGenerated, result)
     }
 }

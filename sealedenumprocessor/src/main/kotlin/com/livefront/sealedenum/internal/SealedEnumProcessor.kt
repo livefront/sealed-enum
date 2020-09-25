@@ -10,7 +10,6 @@ import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.classinspector.elements.ElementsClassInspector
 import com.squareup.kotlinpoet.metadata.ImmutableKmClass
-import com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview
 import com.squareup.kotlinpoet.metadata.isCompanionObject
 import com.squareup.kotlinpoet.metadata.isObject
 import com.squareup.kotlinpoet.metadata.isSealed
@@ -20,7 +19,6 @@ import com.squareup.kotlinpoet.metadata.toImmutableKmClass
 import net.ltgt.gradle.incap.IncrementalAnnotationProcessor
 import net.ltgt.gradle.incap.IncrementalAnnotationProcessorType
 import javax.annotation.processing.AbstractProcessor
-import javax.annotation.processing.ProcessingEnvironment
 import javax.annotation.processing.Processor
 import javax.annotation.processing.RoundEnvironment
 import javax.annotation.processing.SupportedSourceVersion
@@ -34,26 +32,20 @@ internal const val ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER =
 internal const val ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS = "Annotated element is not a Kotlin class"
 internal const val ERROR_ELEMENT_IS_NOT_COMPANION_OBJECT = "Annotated element is not a companion object"
 internal const val ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS = "Enclosing element is not a Kotlin class"
-internal const val ERROR_CLASS_IS_NOT_SEALED = "Annotated companion object is not for a sealed class."
+internal const val ERROR_CLASS_IS_NOT_SEALED = "Annotated companion object is not for a sealed class"
 internal const val ERROR_NON_OBJECT_SEALED_SUBCLASSES = "Annotated sealed class has a non-object subclass"
 
 @IncrementalAnnotationProcessor(IncrementalAnnotationProcessorType.ISOLATING)
-@KotlinPoetMetadataPreview
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor::class)
-internal class SealedEnumProcessor(
-    private val customProcessingEnv: ProcessingEnvironment? = null
-) : AbstractProcessor() {
-
-    private val injectedProcessEnv: ProcessingEnvironment
-        get() = customProcessingEnv ?: processingEnv
+internal class SealedEnumProcessor : AbstractProcessor() {
 
     override fun getSupportedOptions(): MutableSet<String> = mutableSetOf()
 
     private val elementsClassInspector by lazy {
         ElementsClassInspector.create(
-            injectedProcessEnv.elementUtils,
-            injectedProcessEnv.typeUtils
+            processingEnv.elementUtils,
+            processingEnv.typeUtils
         )
     }
 
@@ -67,7 +59,7 @@ internal class SealedEnumProcessor(
             .filterIsInstance<TypeElement>()
             .mapNotNull(::createSealedEnumFileSpec)
             .forEach {
-                it.build().writeTo(injectedProcessEnv.filer)
+                it.build().writeTo(processingEnv.filer)
             }
 
         // Only one round of annotation processing is needed
@@ -81,13 +73,13 @@ internal class SealedEnumProcessor(
      * [SealedEnumFileSpec] will be returned.
      */
     @Suppress("ReturnCount", "LongMethod", "ComplexMethod")
-    internal fun createSealedEnumFileSpec(sealedClassCompanionObjectElement: TypeElement): SealedEnumFileSpec? {
+    private fun createSealedEnumFileSpec(sealedClassCompanionObjectElement: TypeElement): SealedEnumFileSpec? {
 
         /**
          * A helper function to print the given [message] as an error.
          */
         fun printError(message: String, element: Element) {
-            injectedProcessEnv.messager.printMessage(Diagnostic.Kind.ERROR, message, element)
+            processingEnv.messager.printMessage(Diagnostic.Kind.ERROR, message, element)
         }
 
         /**
@@ -183,7 +175,7 @@ internal class SealedEnumProcessor(
      * A recursive function used in concert with [convertSealedSubclassToNode] to create a
      * [SealedClassNode.SealedClass] given a [ImmutableKmClass] for the sealed class.
      */
-    internal fun createSealedClassNode(
+    private fun createSealedClassNode(
         sealedClassKmClass: ImmutableKmClass
     ): SealedClassNode.SealedClass = SealedClassNode.SealedClass(
         sealedClassKmClass.sealedSubclasses
@@ -199,7 +191,7 @@ internal class SealedEnumProcessor(
      * If [sealedSubclass] is neither, then this function will throw a [NonObjectSealedSubclassException].
      */
     private fun convertSealedSubclassToNode(sealedSubclass: ClassName): SealedClassNode {
-        val kmClass = injectedProcessEnv.elementUtils.getTypeElement(sealedSubclass.canonicalName).toImmutableKmClass()
+        val kmClass = processingEnv.elementUtils.getTypeElement(sealedSubclass.canonicalName).toImmutableKmClass()
 
         return when {
             kmClass.isObject -> SealedClassNode.Object(sealedSubclass)

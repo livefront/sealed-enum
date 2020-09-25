@@ -1,5 +1,6 @@
-package com.livefront.sealedenum.internal
+package com.livefront.sealedenum.internal.spec
 
+import com.livefront.sealedenum.internal.Visibility
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.TypeName
@@ -9,6 +10,7 @@ internal data class SealedEnumValueOfFunSpec(
     private val sealedClass: SealedClass,
     private val parameterizedSealedClass: TypeName,
     private val sealedClassCompanionObject: ClassName,
+    private val sealedClassCompanionObjectEffectiveVisibility: Visibility,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedEnum: ClassName,
     private val enumPrefix: String
@@ -26,6 +28,7 @@ internal data class SealedEnumValueOfFunSpec(
                 sealedClass
             )
             .receiver(sealedClassCompanionObject)
+            .addModifiers(sealedClassCompanionObjectEffectiveVisibility.kModifier)
             .returns(parameterizedSealedClass)
             .addParameter("name", String::class)
             .addStatement("return %T.valueOf(name)", sealedEnum)

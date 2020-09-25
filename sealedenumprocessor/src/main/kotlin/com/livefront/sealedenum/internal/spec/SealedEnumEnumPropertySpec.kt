@@ -1,31 +1,30 @@
-package com.livefront.sealedenum.internal
+package com.livefront.sealedenum.internal.spec
 
+import com.livefront.sealedenum.internal.Visibility
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
-import com.squareup.kotlinpoet.asClassName
 import javax.lang.model.element.TypeElement
 
-internal data class SealedEnumValuesPropertySpec(
+internal data class SealedEnumEnumPropertySpec(
     private val sealedClass: SealedClass,
+    private val sealedClassVisibility: Visibility,
     private val parameterizedSealedClass: TypeName,
-    private val sealedClassCompanionObject: ClassName,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedEnum: ClassName,
+    private val enumForSealedEnum: ClassName,
     private val enumPrefix: String
 ) {
-    private val listOfSealedClass = List::class.asClassName().parameterizedBy(parameterizedSealedClass)
-
     fun build(): PropertySpec {
-        val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "Values"), listOfSealedClass)
+        val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "Enum"), enumForSealedEnum)
             .addOriginatingElement(sealedClassCompanionObjectElement)
-            .addKdoc("A list of all [%T] objects.", sealedClass)
-            .receiver(sealedClassCompanionObject)
+            .addKdoc("The isomorphic [%T] for [this].", enumForSealedEnum)
+            .receiver(parameterizedSealedClass)
+            .addModifiers(sealedClassVisibility.kModifier)
             .getter(
                 FunSpec.getterBuilder()
-                    .addStatement("return %T.values", sealedEnum)
+                    .addStatement("return %T.sealedObjectToEnum(this)", sealedEnum)
                     .build()
             )
 

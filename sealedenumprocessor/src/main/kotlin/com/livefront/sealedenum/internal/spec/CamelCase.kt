@@ -1,4 +1,4 @@
-package com.livefront.sealedenum.internal
+package com.livefront.sealedenum.internal.spec
 
 /**
  * Converts a PascalCase string to a camelCase string. That is, this function lowercases the first letter.

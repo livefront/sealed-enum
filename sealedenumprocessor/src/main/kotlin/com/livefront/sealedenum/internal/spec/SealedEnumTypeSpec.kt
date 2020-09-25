@@ -1,8 +1,9 @@
-package com.livefront.sealedenum.internal
+package com.livefront.sealedenum.internal.spec
 
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import com.livefront.sealedenum.internal.Visibility
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
@@ -29,6 +30,7 @@ import javax.lang.model.element.TypeElement
  */
 internal data class SealedEnumTypeSpec(
     private val sealedClass: SealedClass,
+    private val sealedClassVisibility: Visibility,
     private val parameterizedSealedClass: TypeName,
     private val sealedClassCompanionObjectElement: TypeElement,
     private val sealedObjects: List<SealedObject>,
@@ -39,6 +41,7 @@ internal data class SealedEnumTypeSpec(
     private val sealedEnum = SealedEnum::class.asClassName()
     private val parameterizedSealedClassEnum = sealedEnum.parameterizedBy(parameterizedSealedClass)
     private val typeSpecBuilder = TypeSpec.objectBuilder(name)
+        .addModifiers(sealedClassVisibility.kModifier)
         .addSuperinterface(parameterizedSealedClassEnum)
         .addOriginatingElement(sealedClassCompanionObjectElement)
         .addKdoc("An implementation of [%T] for the sealed class [%T]", sealedEnum, sealedClass)

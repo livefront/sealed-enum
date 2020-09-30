@@ -177,7 +177,13 @@ internal class SealedEnumProcessor : AbstractProcessor() {
          * This list is only created if it will be used (that is, if `generateEnum` is true for any sealed enum seed).
          */
         val sealedClassInterfaces: List<TypeName>? = if (sealedEnumAnnotations.any { it.generateEnum }) {
-            elementsClassInspector.getAllSuperInterfaces(sealedClassTypeSpec)
+            SuperInterfaces(
+                typeElement = sealedClassElement,
+                typeSpec = sealedClassTypeSpec,
+                types = processingEnv.typeUtils,
+                elements = processingEnv.elementUtils,
+                classInspector = elementsClassInspector
+            ).getAllSuperInterfaces()
         } else {
             null
         }

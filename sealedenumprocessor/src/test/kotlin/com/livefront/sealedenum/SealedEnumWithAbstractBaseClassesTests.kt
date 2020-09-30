@@ -18,7 +18,13 @@ class SealedEnumWithAbstractBaseClassesTests {
             SealedEnumWithAbstractBaseClassesEnum::class.createType().isSubtypeOf(
                 BaseClassInterface1::class.createType(
                     arguments = listOf(
-                        KTypeProjection.invariant(Any::class.createType(nullable = true))
+                        KTypeProjection.invariant(
+                            BaseClassInterface1::class.createType(
+                                arguments = listOf(
+                                    KTypeProjection.invariant(Any::class.createType(nullable = true))
+                                )
+                            )
+                        )
                     )
                 )
             )
@@ -35,7 +41,7 @@ class SealedEnumWithAbstractBaseClassesTests {
         )
 
         // Check for compilation
-        val emptyValues1: Array<out BaseClassInterface1<Any?>> = SealedEnumWithAbstractBaseClassesEnum.values()
+        val emptyValues1: Array<out BaseClassInterface1<BaseClassInterface1<Any?>>> = SealedEnumWithAbstractBaseClassesEnum.values()
         val emptyValues2: Array<out BaseClassInterface2<String>> = SealedEnumWithAbstractBaseClassesEnum.values()
 
         assertEquals(

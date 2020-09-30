@@ -10,7 +10,7 @@ interface BaseClassInterface3<out T>
 
 abstract class AlphaBase<A> : BaseClassInterface1<A>
 
-abstract class BetaBase<A, B : Any> : AlphaBase<A>(), BaseClassInterface2<B>
+abstract class BetaBase<A, B : Any> : AlphaBase<BaseClassInterface1<A>>(), BaseClassInterface2<B>
 
 sealed class SealedEnumWithAbstractBaseClasses : BetaBase<Any?, String>() {
     @GenSealedEnum(generateEnum = true)
@@ -32,7 +32,8 @@ import kotlin.collections.List
  */
 enum class SealedEnumWithAbstractBaseClassesEnum(
     sealedObject: SealedEnumWithAbstractBaseClasses
-) : BaseClassInterface2<String> by sealedObject, BaseClassInterface1<Any?> by sealedObject
+) : BaseClassInterface2<String> by sealedObject, BaseClassInterface1<BaseClassInterface1<Any?>> by
+        sealedObject
 
 /**
  * The isomorphic [SealedEnumWithAbstractBaseClassesEnum] for [this].

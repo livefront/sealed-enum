@@ -151,27 +151,13 @@ class JavaBaseClassesTests {
     @Test
     fun `compilation generates correct code`() {
         val result = compile(
-            SourceFile.fromPath(
-                Paths.get("src", "test", "java", "com", "livefront", "sealedenum", "compilation", "kitchensink", "JavaInterface1.java").toFile()
-            ),
-            SourceFile.fromPath(
-                Paths.get("src", "test", "java", "com", "livefront", "sealedenum", "compilation", "kitchensink", "JavaInterface2.java").toFile()
-            ),
-            SourceFile.fromPath(
-                Paths.get("src", "test", "java", "com", "livefront", "sealedenum", "compilation", "kitchensink", "JavaInterface3.java").toFile()
-            ),
-            SourceFile.fromPath(
-                Paths.get("src", "test", "java", "com", "livefront", "sealedenum", "compilation", "kitchensink", "JavaInterface4.java").toFile()
-            ),
-            SourceFile.fromPath(
-                Paths.get("src", "test", "java", "com", "livefront", "sealedenum", "compilation", "kitchensink", "JavaInterface5.java").toFile()
-            ),
-            SourceFile.fromPath(
-                Paths.get("src", "test", "java", "com", "livefront", "sealedenum", "compilation", "kitchensink", "JavaFirstBaseClass.java").toFile()
-            ),
-            SourceFile.fromPath(
-                Paths.get("src", "test", "java", "com", "livefront", "sealedenum", "compilation", "kitchensink", "JavaSecondBaseClass.java").toFile()
-            ),
+            getSourceFile("compilation", "kitchensink", "JavaInterface1.java"),
+            getSourceFile("compilation", "kitchensink", "JavaInterface2.java"),
+            getSourceFile("compilation", "kitchensink", "JavaInterface3.java"),
+            getSourceFile("compilation", "kitchensink", "JavaInterface4.java"),
+            getSourceFile("compilation", "kitchensink", "JavaInterface5.java"),
+            getSourceFile("compilation", "kitchensink", "JavaFirstBaseClass.java"),
+            getSourceFile("compilation", "kitchensink", "JavaSecondBaseClass.java"),
             getSourceFile("compilation", "kitchensink", "JavaBaseClasses.kt")
         )
 

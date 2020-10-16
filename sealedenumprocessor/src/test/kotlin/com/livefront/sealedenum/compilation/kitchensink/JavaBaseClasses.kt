@@ -3,32 +3,32 @@ package com.livefront.sealedenum.compilation.kitchensink
 import com.livefront.sealedenum.GenSealedEnum
 import org.intellij.lang.annotations.Language
 
-interface JavaBaseClassesInterface1
+interface KotlinInterface1
 
-interface JavaBaseClassesInterface2<T>
+interface KotlinInterface2<T>
 
-interface JavaBaseClassesInterface3<out T>
+interface KotlinInterface3<out T>
 
-internal interface JavaBaseClassesInterface4<T>
+internal interface KotlinInterface4<T>
 
-internal interface JavaBaseClassesInterface5<T>
+internal interface KotlinInterface5<T>
 
-internal interface JavaBaseClassesInterface6<T>
+internal interface KotlinInterface6<T>
 
-interface JavaBaseClassesInterface7<out T>
+interface KotlinInterface7<out T>
 
 open class KotlinFirstBaseClass<out C : Collection<String>> :
-    JavaBaseClassesInterface1, JavaBaseClassesInterface3<C>, JavaInterface4
+    KotlinInterface1, KotlinInterface3<C>, JavaInterface4
 
 open class KotlinSecondBaseClass<A, B, C : Collection<String>, D> :
     JavaFirstBaseClass<B, C>(),
-    JavaBaseClassesInterface4<Double>,
-    JavaBaseClassesInterface6<A>,
+    KotlinInterface4<Double>,
+    KotlinInterface6<A>,
     JavaInterface2<C>,
-    JavaInterface5<JavaBaseClassesInterface5<JavaInterface2<JavaBaseClassesInterface7<D>>>>
+    JavaInterface5<KotlinInterface5<JavaInterface2<KotlinInterface7<D>>>>
 
 sealed class JavaBaseClassesSealedClass<out A : Collection<Int>> :
-    JavaSecondBaseClass<Int, String, List<String>>(), JavaBaseClassesInterface7<A> {
+    JavaSecondBaseClass<Int, String, List<String>>(), KotlinInterface7<A> {
 
     object FirstObject : JavaBaseClassesSealedClass<List<Int>>()
 
@@ -56,14 +56,13 @@ import kotlin.collections.List
  */
 enum class JavaBaseClassesSealedClassEnum(
     sealedObject: JavaBaseClassesSealedClass<*>
-) : JavaBaseClassesInterface5<JavaBaseClassesInterface1> by sealedObject, JavaInterface3<Int> by
-        sealedObject, JavaBaseClassesInterface4<Double> by sealedObject,
-        JavaBaseClassesInterface6<Int> by sealedObject, JavaInterface2<List<String>> by
-        sealedObject,
-        JavaInterface5<JavaBaseClassesInterface5<JavaInterface2<JavaBaseClassesInterface7<JavaInterface3<List<String>>>>>>
-        by sealedObject, JavaBaseClassesInterface2<String> by sealedObject, JavaInterface1 by
-        sealedObject, JavaBaseClassesInterface1 by sealedObject,
-        JavaBaseClassesInterface3<List<String>> by sealedObject, JavaInterface4 by sealedObject {
+) : KotlinInterface5<KotlinInterface1> by sealedObject, JavaInterface3<Int> by sealedObject,
+        KotlinInterface4<Double> by sealedObject, KotlinInterface6<Int> by sealedObject,
+        JavaInterface2<List<String>> by sealedObject,
+        JavaInterface5<KotlinInterface5<JavaInterface2<KotlinInterface7<JavaInterface3<List<String>>>>>>
+        by sealedObject, KotlinInterface2<String> by sealedObject, JavaInterface1 by sealedObject,
+        KotlinInterface1 by sealedObject, KotlinInterface3<List<String>> by sealedObject,
+        JavaInterface4 by sealedObject {
     JavaBaseClassesSealedClass_FirstObject(com.livefront.sealedenum.compilation.kitchensink.JavaBaseClassesSealedClass.FirstObject),
 
     JavaBaseClassesSealedClass_SecondObject(com.livefront.sealedenum.compilation.kitchensink.JavaBaseClassesSealedClass.SecondObject)

@@ -4,5 +4,5 @@ import java.util.Collection;
 
 public class JavaSecondBaseClass<A, B, C extends Collection<String>>
         extends KotlinSecondBaseClass<A, B, C, JavaInterface3<C>>
-        implements JavaBaseClassesInterface5<JavaBaseClassesInterface1>, JavaInterface3<A> {
+        implements KotlinInterface5<KotlinInterface1>, JavaInterface3<A> {
 }

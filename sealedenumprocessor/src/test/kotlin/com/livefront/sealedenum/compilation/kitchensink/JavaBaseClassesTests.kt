@@ -18,13 +18,13 @@ class JavaBaseClassesTests {
     fun `enum implements correct interfaces with type arguments`() {
         assertTrue(
             JavaBaseClassesSealedClassEnum::class.createType().isSubtypeOf(
-                JavaBaseClassesInterface1::class.createType()
+                KotlinInterface1::class.createType()
             )
         )
 
         assertTrue(
             JavaBaseClassesSealedClassEnum::class.createType().isSubtypeOf(
-                JavaBaseClassesInterface2::class.createType(
+                KotlinInterface2::class.createType(
                     arguments = listOf(
                         KTypeProjection.invariant(String::class.createType())
                     )
@@ -34,7 +34,7 @@ class JavaBaseClassesTests {
 
         assertTrue(
             JavaBaseClassesSealedClassEnum::class.createType().isSubtypeOf(
-                JavaBaseClassesInterface3::class.createType(
+                KotlinInterface3::class.createType(
                     arguments = listOf(
                         KTypeProjection.invariant(
                             List::class.createType(
@@ -50,7 +50,7 @@ class JavaBaseClassesTests {
 
         assertTrue(
             JavaBaseClassesSealedClassEnum::class.createType().isSubtypeOf(
-                JavaBaseClassesInterface4::class.createType(
+                KotlinInterface4::class.createType(
                     arguments = listOf(
                         KTypeProjection.invariant(Double::class.createType())
                     )
@@ -60,9 +60,9 @@ class JavaBaseClassesTests {
 
         assertTrue(
             JavaBaseClassesSealedClassEnum::class.createType().isSubtypeOf(
-                JavaBaseClassesInterface5::class.createType(
+                KotlinInterface5::class.createType(
                     arguments = listOf(
-                        KTypeProjection.invariant(JavaBaseClassesInterface1::class.createType())
+                        KTypeProjection.invariant(KotlinInterface1::class.createType())
                     )
                 )
             )
@@ -70,7 +70,7 @@ class JavaBaseClassesTests {
 
         assertTrue(
             JavaBaseClassesSealedClassEnum::class.createType().isSubtypeOf(
-                JavaBaseClassesInterface6::class.createType(
+                KotlinInterface6::class.createType(
                     arguments = listOf(
                         KTypeProjection.invariant(Int::class.createType())
                     )
@@ -79,18 +79,18 @@ class JavaBaseClassesTests {
         )
 
         // Check for compilation
-        val values1: Array<out JavaBaseClassesInterface1> = JavaBaseClassesSealedClassEnum.values()
-        val values2: Array<out JavaBaseClassesInterface2<String>> = JavaBaseClassesSealedClassEnum.values()
-        val values3: Array<out JavaBaseClassesInterface3<List<String>>> = JavaBaseClassesSealedClassEnum.values()
-        val values4: Array<out JavaBaseClassesInterface4<Double>> = JavaBaseClassesSealedClassEnum.values()
-        val values5: Array<out JavaBaseClassesInterface5<JavaBaseClassesInterface1>> =
+        val values1: Array<out KotlinInterface1> = JavaBaseClassesSealedClassEnum.values()
+        val values2: Array<out KotlinInterface2<String>> = JavaBaseClassesSealedClassEnum.values()
+        val values3: Array<out KotlinInterface3<List<String>>> = JavaBaseClassesSealedClassEnum.values()
+        val values4: Array<out KotlinInterface4<Double>> = JavaBaseClassesSealedClassEnum.values()
+        val values5: Array<out KotlinInterface5<KotlinInterface1>> =
             JavaBaseClassesSealedClassEnum.values()
-        val values6: Array<out JavaBaseClassesInterface6<Int>> = JavaBaseClassesSealedClassEnum.values()
+        val values6: Array<out KotlinInterface6<Int>> = JavaBaseClassesSealedClassEnum.values()
         val values7: Array<out JavaInterface1> = JavaBaseClassesSealedClassEnum.values()
         val values8: Array<out JavaInterface2<List<String>>> = JavaBaseClassesSealedClassEnum.values()
         val values9: Array<out JavaInterface3<Int>> = JavaBaseClassesSealedClassEnum.values()
         val values10: Array<out JavaInterface4> = JavaBaseClassesSealedClassEnum.values()
-        val values11: Array<out JavaInterface5<JavaBaseClassesInterface5<JavaInterface2<JavaBaseClassesInterface7<JavaInterface3<List<String>>>>>>> = JavaBaseClassesSealedClassEnum.values()
+        val values11: Array<out JavaInterface5<KotlinInterface5<JavaInterface2<KotlinInterface7<JavaInterface3<List<String>>>>>>> = JavaBaseClassesSealedClassEnum.values()
 
         assertEquals(
             JavaBaseClassesSealedClass.values.map(JavaBaseClassesSealedClass<*>::enum),

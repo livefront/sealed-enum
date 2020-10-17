@@ -31,49 +31,49 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [EmptySealedClassWithInterface]
  */
-enum class EmptySealedClassWithInterfaceEnum(
+public enum class EmptySealedClassWithInterfaceEnum(
     sealedObject: EmptySealedClassWithInterface
 ) : TestInterface by sealedObject
 
 /**
  * The isomorphic [EmptySealedClassWithInterfaceEnum] for [this].
  */
-val EmptySealedClassWithInterface.enum: EmptySealedClassWithInterfaceEnum
+public val EmptySealedClassWithInterface.`enum`: EmptySealedClassWithInterfaceEnum
     get() = EmptySealedClassWithInterfaceSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [EmptySealedClassWithInterface] for [this].
  */
-val EmptySealedClassWithInterfaceEnum.sealedObject: EmptySealedClassWithInterface
+public val EmptySealedClassWithInterfaceEnum.sealedObject: EmptySealedClassWithInterface
     get() = EmptySealedClassWithInterfaceSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [EmptySealedClassWithInterface]
  */
-object EmptySealedClassWithInterfaceSealedEnum : SealedEnum<EmptySealedClassWithInterface>,
+public object EmptySealedClassWithInterfaceSealedEnum : SealedEnum<EmptySealedClassWithInterface>,
         SealedEnumWithEnumProvider<EmptySealedClassWithInterface,
         EmptySealedClassWithInterfaceEnum>, EnumForSealedEnumProvider<EmptySealedClassWithInterface,
         EmptySealedClassWithInterfaceEnum> {
-    override val values: List<EmptySealedClassWithInterface> = emptyList()
+    public override val values: List<EmptySealedClassWithInterface> = emptyList()
 
 
-    override val enumClass: Class<EmptySealedClassWithInterfaceEnum>
+    public override val enumClass: Class<EmptySealedClassWithInterfaceEnum>
         get() = EmptySealedClassWithInterfaceEnum::class.java
 
-    override fun ordinalOf(obj: EmptySealedClassWithInterface): Int = throw
+    public override fun ordinalOf(obj: EmptySealedClassWithInterface): Int = throw
             AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
 
-    override fun nameOf(obj: EmptySealedClassWithInterface): String = throw
+    public override fun nameOf(obj: EmptySealedClassWithInterface): String = throw
             AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
 
-    override fun valueOf(name: String): EmptySealedClassWithInterface = throw
+    public override fun valueOf(name: String): EmptySealedClassWithInterface = throw
             IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
 
-    override fun sealedObjectToEnum(obj: EmptySealedClassWithInterface):
+    public override fun sealedObjectToEnum(obj: EmptySealedClassWithInterface):
             EmptySealedClassWithInterfaceEnum = throw
             AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
 
-    override fun enumToSealedObject(enum: EmptySealedClassWithInterfaceEnum):
+    public override fun enumToSealedObject(`enum`: EmptySealedClassWithInterfaceEnum):
             EmptySealedClassWithInterface = throw
             AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
 }
@@ -81,25 +81,26 @@ object EmptySealedClassWithInterfaceSealedEnum : SealedEnum<EmptySealedClassWith
 /**
  * The index of [this] in the values list.
  */
-val EmptySealedClassWithInterface.ordinal: Int
+public val EmptySealedClassWithInterface.ordinal: Int
     get() = EmptySealedClassWithInterfaceSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val EmptySealedClassWithInterface.name: String
+public val EmptySealedClassWithInterface.name: String
     get() = EmptySealedClassWithInterfaceSealedEnum.nameOf(this)
 
 /**
  * A list of all [EmptySealedClassWithInterface] objects.
  */
-val EmptySealedClassWithInterface.Companion.values: List<EmptySealedClassWithInterface>
+public val EmptySealedClassWithInterface.Companion.values: List<EmptySealedClassWithInterface>
     get() = EmptySealedClassWithInterfaceSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [EmptySealedClassWithInterface]
  */
-val EmptySealedClassWithInterface.Companion.sealedEnum: EmptySealedClassWithInterfaceSealedEnum
+public val EmptySealedClassWithInterface.Companion.sealedEnum:
+        EmptySealedClassWithInterfaceSealedEnum
     get() = EmptySealedClassWithInterfaceSealedEnum
 
 /**
@@ -108,8 +109,8 @@ val EmptySealedClassWithInterface.Companion.sealedEnum: EmptySealedClassWithInte
  * If the given name doesn't correspond to any [EmptySealedClassWithInterface], an
  * [IllegalArgumentException] will be thrown.
  */
-fun EmptySealedClassWithInterface.Companion.valueOf(name: String): EmptySealedClassWithInterface =
-        EmptySealedClassWithInterfaceSealedEnum.valueOf(name)
+public fun EmptySealedClassWithInterface.Companion.valueOf(name: String):
+        EmptySealedClassWithInterface = EmptySealedClassWithInterfaceSealedEnum.valueOf(name)
 
 """.trimIndent()
 
@@ -135,62 +136,63 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [OneObjectSealedClassWithInterface]
  */
-enum class OneObjectSealedClassWithInterfaceEnum(
+public enum class OneObjectSealedClassWithInterfaceEnum(
     sealedObject: OneObjectSealedClassWithInterface
 ) : TestInterface by sealedObject {
-    OneObjectSealedClassWithInterface_FirstObject(com.livefront.sealedenum.compilation.generics.OneObjectSealedClassWithInterface.FirstObject)
+    OneObjectSealedClassWithInterface_FirstObject(com.livefront.sealedenum.compilation.generics.OneObjectSealedClassWithInterface.FirstObject),
 }
 
 /**
  * The isomorphic [OneObjectSealedClassWithInterfaceEnum] for [this].
  */
-val OneObjectSealedClassWithInterface.enum: OneObjectSealedClassWithInterfaceEnum
+public val OneObjectSealedClassWithInterface.`enum`: OneObjectSealedClassWithInterfaceEnum
     get() = OneObjectSealedClassWithInterfaceSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [OneObjectSealedClassWithInterface] for [this].
  */
-val OneObjectSealedClassWithInterfaceEnum.sealedObject: OneObjectSealedClassWithInterface
+public val OneObjectSealedClassWithInterfaceEnum.sealedObject: OneObjectSealedClassWithInterface
     get() = OneObjectSealedClassWithInterfaceSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [OneObjectSealedClassWithInterface]
  */
-object OneObjectSealedClassWithInterfaceSealedEnum : SealedEnum<OneObjectSealedClassWithInterface>,
+public object OneObjectSealedClassWithInterfaceSealedEnum :
+        SealedEnum<OneObjectSealedClassWithInterface>,
         SealedEnumWithEnumProvider<OneObjectSealedClassWithInterface,
         OneObjectSealedClassWithInterfaceEnum>,
         EnumForSealedEnumProvider<OneObjectSealedClassWithInterface,
         OneObjectSealedClassWithInterfaceEnum> {
-    override val values: List<OneObjectSealedClassWithInterface> = listOf(
+    public override val values: List<OneObjectSealedClassWithInterface> = listOf(
         OneObjectSealedClassWithInterface.FirstObject
     )
 
 
-    override val enumClass: Class<OneObjectSealedClassWithInterfaceEnum>
+    public override val enumClass: Class<OneObjectSealedClassWithInterfaceEnum>
         get() = OneObjectSealedClassWithInterfaceEnum::class.java
 
-    override fun ordinalOf(obj: OneObjectSealedClassWithInterface): Int = when (obj) {
+    public override fun ordinalOf(obj: OneObjectSealedClassWithInterface): Int = when (obj) {
         OneObjectSealedClassWithInterface.FirstObject -> 0
     }
 
-    override fun nameOf(obj: OneObjectSealedClassWithInterface): String = when (obj) {
+    public override fun nameOf(obj: OneObjectSealedClassWithInterface): String = when (obj) {
         OneObjectSealedClassWithInterface.FirstObject ->
                 "OneObjectSealedClassWithInterface_FirstObject"
     }
 
-    override fun valueOf(name: String): OneObjectSealedClassWithInterface = when (name) {
+    public override fun valueOf(name: String): OneObjectSealedClassWithInterface = when (name) {
         "OneObjectSealedClassWithInterface_FirstObject" ->
                 OneObjectSealedClassWithInterface.FirstObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: OneObjectSealedClassWithInterface):
+    public override fun sealedObjectToEnum(obj: OneObjectSealedClassWithInterface):
             OneObjectSealedClassWithInterfaceEnum = when (obj) {
         OneObjectSealedClassWithInterface.FirstObject ->
                 OneObjectSealedClassWithInterfaceEnum.OneObjectSealedClassWithInterface_FirstObject
     }
 
-    override fun enumToSealedObject(enum: OneObjectSealedClassWithInterfaceEnum):
+    public override fun enumToSealedObject(`enum`: OneObjectSealedClassWithInterfaceEnum):
             OneObjectSealedClassWithInterface = when (enum) {
         OneObjectSealedClassWithInterfaceEnum.OneObjectSealedClassWithInterface_FirstObject ->
                 OneObjectSealedClassWithInterface.FirstObject
@@ -200,26 +202,27 @@ object OneObjectSealedClassWithInterfaceSealedEnum : SealedEnum<OneObjectSealedC
 /**
  * The index of [this] in the values list.
  */
-val OneObjectSealedClassWithInterface.ordinal: Int
+public val OneObjectSealedClassWithInterface.ordinal: Int
     get() = OneObjectSealedClassWithInterfaceSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val OneObjectSealedClassWithInterface.name: String
+public val OneObjectSealedClassWithInterface.name: String
     get() = OneObjectSealedClassWithInterfaceSealedEnum.nameOf(this)
 
 /**
  * A list of all [OneObjectSealedClassWithInterface] objects.
  */
-val OneObjectSealedClassWithInterface.Companion.values: List<OneObjectSealedClassWithInterface>
+public val OneObjectSealedClassWithInterface.Companion.values:
+        List<OneObjectSealedClassWithInterface>
     get() = OneObjectSealedClassWithInterfaceSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class
  * [OneObjectSealedClassWithInterface]
  */
-val OneObjectSealedClassWithInterface.Companion.sealedEnum:
+public val OneObjectSealedClassWithInterface.Companion.sealedEnum:
         OneObjectSealedClassWithInterfaceSealedEnum
     get() = OneObjectSealedClassWithInterfaceSealedEnum
 
@@ -229,7 +232,7 @@ val OneObjectSealedClassWithInterface.Companion.sealedEnum:
  * If the given name doesn't correspond to any [OneObjectSealedClassWithInterface], an
  * [IllegalArgumentException] will be thrown.
  */
-fun OneObjectSealedClassWithInterface.Companion.valueOf(name: String):
+public fun OneObjectSealedClassWithInterface.Companion.valueOf(name: String):
         OneObjectSealedClassWithInterface =
         OneObjectSealedClassWithInterfaceSealedEnum.valueOf(name)
 
@@ -258,62 +261,62 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [TwoObjectSealedClassWithGenericInterface]
  */
-enum class TwoObjectSealedClassWithGenericInterfaceEnum(
+public enum class TwoObjectSealedClassWithGenericInterfaceEnum(
     sealedObject: TwoObjectSealedClassWithGenericInterface<TestInterface>
 ) : TestGenericInterface<TestInterface> by sealedObject {
     TwoObjectSealedClassWithGenericInterface_FirstObject(com.livefront.sealedenum.compilation.generics.TwoObjectSealedClassWithGenericInterface.FirstObject),
-
-    TwoObjectSealedClassWithGenericInterface_SecondObject(com.livefront.sealedenum.compilation.generics.TwoObjectSealedClassWithGenericInterface.SecondObject)
+    TwoObjectSealedClassWithGenericInterface_SecondObject(com.livefront.sealedenum.compilation.generics.TwoObjectSealedClassWithGenericInterface.SecondObject),
 }
 
 /**
  * The isomorphic [TwoObjectSealedClassWithGenericInterfaceEnum] for [this].
  */
-val TwoObjectSealedClassWithGenericInterface<TestInterface>.enum:
+public val TwoObjectSealedClassWithGenericInterface<TestInterface>.`enum`:
         TwoObjectSealedClassWithGenericInterfaceEnum
     get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [TwoObjectSealedClassWithGenericInterface] for [this].
  */
-val TwoObjectSealedClassWithGenericInterfaceEnum.sealedObject:
+public val TwoObjectSealedClassWithGenericInterfaceEnum.sealedObject:
         TwoObjectSealedClassWithGenericInterface<TestInterface>
     get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [TwoObjectSealedClassWithGenericInterface]
  */
-object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
+public object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
         SealedEnum<TwoObjectSealedClassWithGenericInterface<TestInterface>>,
         SealedEnumWithEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>,
         TwoObjectSealedClassWithGenericInterfaceEnum>,
         EnumForSealedEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>,
         TwoObjectSealedClassWithGenericInterfaceEnum> {
-    override val values: List<TwoObjectSealedClassWithGenericInterface<TestInterface>> = listOf(
+    public override val values: List<TwoObjectSealedClassWithGenericInterface<TestInterface>> =
+            listOf(
         TwoObjectSealedClassWithGenericInterface.FirstObject,
         TwoObjectSealedClassWithGenericInterface.SecondObject
     )
 
 
-    override val enumClass: Class<TwoObjectSealedClassWithGenericInterfaceEnum>
+    public override val enumClass: Class<TwoObjectSealedClassWithGenericInterfaceEnum>
         get() = TwoObjectSealedClassWithGenericInterfaceEnum::class.java
 
-    override fun ordinalOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): Int = when
-            (obj) {
+    public override fun ordinalOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): Int
+            = when (obj) {
         TwoObjectSealedClassWithGenericInterface.FirstObject -> 0
         TwoObjectSealedClassWithGenericInterface.SecondObject -> 1
     }
 
-    override fun nameOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): String = when
-            (obj) {
+    public override fun nameOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): String
+            = when (obj) {
         TwoObjectSealedClassWithGenericInterface.FirstObject ->
                 "TwoObjectSealedClassWithGenericInterface_FirstObject"
         TwoObjectSealedClassWithGenericInterface.SecondObject ->
                 "TwoObjectSealedClassWithGenericInterface_SecondObject"
     }
 
-    override fun valueOf(name: String): TwoObjectSealedClassWithGenericInterface<TestInterface> =
-            when (name) {
+    public override fun valueOf(name: String):
+            TwoObjectSealedClassWithGenericInterface<TestInterface> = when (name) {
         "TwoObjectSealedClassWithGenericInterface_FirstObject" ->
                 TwoObjectSealedClassWithGenericInterface.FirstObject
         "TwoObjectSealedClassWithGenericInterface_SecondObject" ->
@@ -321,7 +324,8 @@ object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>):
+    public override
+            fun sealedObjectToEnum(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>):
             TwoObjectSealedClassWithGenericInterfaceEnum = when (obj) {
         TwoObjectSealedClassWithGenericInterface.FirstObject ->
                 TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_FirstObject
@@ -329,7 +333,7 @@ object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
                 TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_SecondObject
     }
 
-    override fun enumToSealedObject(enum: TwoObjectSealedClassWithGenericInterfaceEnum):
+    public override fun enumToSealedObject(`enum`: TwoObjectSealedClassWithGenericInterfaceEnum):
             TwoObjectSealedClassWithGenericInterface<TestInterface> = when (enum) {
         TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_FirstObject ->
                 TwoObjectSealedClassWithGenericInterface.FirstObject
@@ -341,19 +345,19 @@ object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
 /**
  * The index of [this] in the values list.
  */
-val TwoObjectSealedClassWithGenericInterface<TestInterface>.ordinal: Int
+public val TwoObjectSealedClassWithGenericInterface<TestInterface>.ordinal: Int
     get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val TwoObjectSealedClassWithGenericInterface<TestInterface>.name: String
+public val TwoObjectSealedClassWithGenericInterface<TestInterface>.name: String
     get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.nameOf(this)
 
 /**
  * A list of all [TwoObjectSealedClassWithGenericInterface] objects.
  */
-val TwoObjectSealedClassWithGenericInterface.Companion.values:
+public val TwoObjectSealedClassWithGenericInterface.Companion.values:
         List<TwoObjectSealedClassWithGenericInterface<TestInterface>>
     get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.values
 
@@ -361,7 +365,7 @@ val TwoObjectSealedClassWithGenericInterface.Companion.values:
  * Returns an implementation of [SealedEnum] for the sealed class
  * [TwoObjectSealedClassWithGenericInterface]
  */
-val TwoObjectSealedClassWithGenericInterface.Companion.sealedEnum:
+public val TwoObjectSealedClassWithGenericInterface.Companion.sealedEnum:
         TwoObjectSealedClassWithGenericInterfaceSealedEnum
     get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum
 
@@ -371,7 +375,7 @@ val TwoObjectSealedClassWithGenericInterface.Companion.sealedEnum:
  * If the given name doesn't correspond to any [TwoObjectSealedClassWithGenericInterface], an
  * [IllegalArgumentException] will be thrown.
  */
-fun TwoObjectSealedClassWithGenericInterface.Companion.valueOf(name: String):
+public fun TwoObjectSealedClassWithGenericInterface.Companion.valueOf(name: String):
         TwoObjectSealedClassWithGenericInterface<TestInterface> =
         TwoObjectSealedClassWithGenericInterfaceSealedEnum.valueOf(name)
 
@@ -406,60 +410,60 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [SealedClassWithGetterInterface]
  */
-enum class SealedClassWithGetterInterfaceEnum(
+public enum class SealedClassWithGetterInterfaceEnum(
     sealedObject: SealedClassWithGetterInterface
 ) : TestGetterInterface by sealedObject {
-    SealedClassWithGetterInterface_FirstObject(com.livefront.sealedenum.compilation.generics.SealedClassWithGetterInterface.FirstObject)
+    SealedClassWithGetterInterface_FirstObject(com.livefront.sealedenum.compilation.generics.SealedClassWithGetterInterface.FirstObject),
 }
 
 /**
  * The isomorphic [SealedClassWithGetterInterfaceEnum] for [this].
  */
-val SealedClassWithGetterInterface.enum: SealedClassWithGetterInterfaceEnum
+public val SealedClassWithGetterInterface.`enum`: SealedClassWithGetterInterfaceEnum
     get() = SealedClassWithGetterInterfaceSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [SealedClassWithGetterInterface] for [this].
  */
-val SealedClassWithGetterInterfaceEnum.sealedObject: SealedClassWithGetterInterface
+public val SealedClassWithGetterInterfaceEnum.sealedObject: SealedClassWithGetterInterface
     get() = SealedClassWithGetterInterfaceSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [SealedClassWithGetterInterface]
  */
-object SealedClassWithGetterInterfaceSealedEnum : SealedEnum<SealedClassWithGetterInterface>,
+public object SealedClassWithGetterInterfaceSealedEnum : SealedEnum<SealedClassWithGetterInterface>,
         SealedEnumWithEnumProvider<SealedClassWithGetterInterface,
         SealedClassWithGetterInterfaceEnum>,
         EnumForSealedEnumProvider<SealedClassWithGetterInterface,
         SealedClassWithGetterInterfaceEnum> {
-    override val values: List<SealedClassWithGetterInterface> = listOf(
+    public override val values: List<SealedClassWithGetterInterface> = listOf(
         SealedClassWithGetterInterface.FirstObject
     )
 
 
-    override val enumClass: Class<SealedClassWithGetterInterfaceEnum>
+    public override val enumClass: Class<SealedClassWithGetterInterfaceEnum>
         get() = SealedClassWithGetterInterfaceEnum::class.java
 
-    override fun ordinalOf(obj: SealedClassWithGetterInterface): Int = when (obj) {
+    public override fun ordinalOf(obj: SealedClassWithGetterInterface): Int = when (obj) {
         SealedClassWithGetterInterface.FirstObject -> 0
     }
 
-    override fun nameOf(obj: SealedClassWithGetterInterface): String = when (obj) {
+    public override fun nameOf(obj: SealedClassWithGetterInterface): String = when (obj) {
         SealedClassWithGetterInterface.FirstObject -> "SealedClassWithGetterInterface_FirstObject"
     }
 
-    override fun valueOf(name: String): SealedClassWithGetterInterface = when (name) {
+    public override fun valueOf(name: String): SealedClassWithGetterInterface = when (name) {
         "SealedClassWithGetterInterface_FirstObject" -> SealedClassWithGetterInterface.FirstObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: SealedClassWithGetterInterface):
+    public override fun sealedObjectToEnum(obj: SealedClassWithGetterInterface):
             SealedClassWithGetterInterfaceEnum = when (obj) {
         SealedClassWithGetterInterface.FirstObject ->
                 SealedClassWithGetterInterfaceEnum.SealedClassWithGetterInterface_FirstObject
     }
 
-    override fun enumToSealedObject(enum: SealedClassWithGetterInterfaceEnum):
+    public override fun enumToSealedObject(`enum`: SealedClassWithGetterInterfaceEnum):
             SealedClassWithGetterInterface = when (enum) {
         SealedClassWithGetterInterfaceEnum.SealedClassWithGetterInterface_FirstObject ->
                 SealedClassWithGetterInterface.FirstObject
@@ -469,25 +473,26 @@ object SealedClassWithGetterInterfaceSealedEnum : SealedEnum<SealedClassWithGett
 /**
  * The index of [this] in the values list.
  */
-val SealedClassWithGetterInterface.ordinal: Int
+public val SealedClassWithGetterInterface.ordinal: Int
     get() = SealedClassWithGetterInterfaceSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val SealedClassWithGetterInterface.name: String
+public val SealedClassWithGetterInterface.name: String
     get() = SealedClassWithGetterInterfaceSealedEnum.nameOf(this)
 
 /**
  * A list of all [SealedClassWithGetterInterface] objects.
  */
-val SealedClassWithGetterInterface.Companion.values: List<SealedClassWithGetterInterface>
+public val SealedClassWithGetterInterface.Companion.values: List<SealedClassWithGetterInterface>
     get() = SealedClassWithGetterInterfaceSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [SealedClassWithGetterInterface]
  */
-val SealedClassWithGetterInterface.Companion.sealedEnum: SealedClassWithGetterInterfaceSealedEnum
+public val SealedClassWithGetterInterface.Companion.sealedEnum:
+        SealedClassWithGetterInterfaceSealedEnum
     get() = SealedClassWithGetterInterfaceSealedEnum
 
 /**
@@ -496,7 +501,7 @@ val SealedClassWithGetterInterface.Companion.sealedEnum: SealedClassWithGetterIn
  * If the given name doesn't correspond to any [SealedClassWithGetterInterface], an
  * [IllegalArgumentException] will be thrown.
  */
-fun SealedClassWithGetterInterface.Companion.valueOf(name: String): SealedClassWithGetterInterface =
-        SealedClassWithGetterInterfaceSealedEnum.valueOf(name)
+public fun SealedClassWithGetterInterface.Companion.valueOf(name: String):
+        SealedClassWithGetterInterface = SealedClassWithGetterInterfaceSealedEnum.valueOf(name)
 
 """.trimIndent()

@@ -25,57 +25,57 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [OneObjectSealedClass]
  */
-enum class OneObjectSealedClassEnum {
-    OneObjectSealedClass_FirstObject
+public enum class OneObjectSealedClassEnum {
+    OneObjectSealedClass_FirstObject,
 }
 
 /**
  * The isomorphic [OneObjectSealedClassEnum] for [this].
  */
-val OneObjectSealedClass.enum: OneObjectSealedClassEnum
+public val OneObjectSealedClass.`enum`: OneObjectSealedClassEnum
     get() = OneObjectSealedClassSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [OneObjectSealedClass] for [this].
  */
-val OneObjectSealedClassEnum.sealedObject: OneObjectSealedClass
+public val OneObjectSealedClassEnum.sealedObject: OneObjectSealedClass
     get() = OneObjectSealedClassSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [OneObjectSealedClass]
  */
-object OneObjectSealedClassSealedEnum : SealedEnum<OneObjectSealedClass>,
+public object OneObjectSealedClassSealedEnum : SealedEnum<OneObjectSealedClass>,
         SealedEnumWithEnumProvider<OneObjectSealedClass, OneObjectSealedClassEnum>,
         EnumForSealedEnumProvider<OneObjectSealedClass, OneObjectSealedClassEnum> {
-    override val values: List<OneObjectSealedClass> = listOf(
+    public override val values: List<OneObjectSealedClass> = listOf(
         OneObjectSealedClass.FirstObject
     )
 
 
-    override val enumClass: Class<OneObjectSealedClassEnum>
+    public override val enumClass: Class<OneObjectSealedClassEnum>
         get() = OneObjectSealedClassEnum::class.java
 
-    override fun ordinalOf(obj: OneObjectSealedClass): Int = when (obj) {
+    public override fun ordinalOf(obj: OneObjectSealedClass): Int = when (obj) {
         OneObjectSealedClass.FirstObject -> 0
     }
 
-    override fun nameOf(obj: OneObjectSealedClass): String = when (obj) {
+    public override fun nameOf(obj: OneObjectSealedClass): String = when (obj) {
         OneObjectSealedClass.FirstObject -> "OneObjectSealedClass_FirstObject"
     }
 
-    override fun valueOf(name: String): OneObjectSealedClass = when (name) {
+    public override fun valueOf(name: String): OneObjectSealedClass = when (name) {
         "OneObjectSealedClass_FirstObject" -> OneObjectSealedClass.FirstObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: OneObjectSealedClass): OneObjectSealedClassEnum = when
-            (obj) {
+    public override fun sealedObjectToEnum(obj: OneObjectSealedClass): OneObjectSealedClassEnum =
+            when (obj) {
         OneObjectSealedClass.FirstObject ->
                 OneObjectSealedClassEnum.OneObjectSealedClass_FirstObject
     }
 
-    override fun enumToSealedObject(enum: OneObjectSealedClassEnum): OneObjectSealedClass = when
-            (enum) {
+    public override fun enumToSealedObject(`enum`: OneObjectSealedClassEnum): OneObjectSealedClass =
+            when (enum) {
         OneObjectSealedClassEnum.OneObjectSealedClass_FirstObject ->
                 OneObjectSealedClass.FirstObject
     }
@@ -84,25 +84,25 @@ object OneObjectSealedClassSealedEnum : SealedEnum<OneObjectSealedClass>,
 /**
  * The index of [this] in the values list.
  */
-val OneObjectSealedClass.ordinal: Int
+public val OneObjectSealedClass.ordinal: Int
     get() = OneObjectSealedClassSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val OneObjectSealedClass.name: String
+public val OneObjectSealedClass.name: String
     get() = OneObjectSealedClassSealedEnum.nameOf(this)
 
 /**
  * A list of all [OneObjectSealedClass] objects.
  */
-val OneObjectSealedClass.Companion.values: List<OneObjectSealedClass>
+public val OneObjectSealedClass.Companion.values: List<OneObjectSealedClass>
     get() = OneObjectSealedClassSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [OneObjectSealedClass]
  */
-val OneObjectSealedClass.Companion.sealedEnum: OneObjectSealedClassSealedEnum
+public val OneObjectSealedClass.Companion.sealedEnum: OneObjectSealedClassSealedEnum
     get() = OneObjectSealedClassSealedEnum
 
 /**
@@ -111,7 +111,7 @@ val OneObjectSealedClass.Companion.sealedEnum: OneObjectSealedClassSealedEnum
  * If the given name doesn't correspond to any [OneObjectSealedClass], an [IllegalArgumentException]
  * will be thrown.
  */
-fun OneObjectSealedClass.Companion.valueOf(name: String): OneObjectSealedClass =
+public fun OneObjectSealedClass.Companion.valueOf(name: String): OneObjectSealedClass =
         OneObjectSealedClassSealedEnum.valueOf(name)
 
 """.trimIndent()

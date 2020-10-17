@@ -34,7 +34,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [SealedEnumWithAbstractBaseClasses]
  */
-enum class SealedEnumWithAbstractBaseClassesEnum(
+public enum class SealedEnumWithAbstractBaseClassesEnum(
     sealedObject: SealedEnumWithAbstractBaseClasses
 ) : BaseClassInterface2<String> by sealedObject, BaseClassInterface1<BaseClassInterface1<Any?>> by
         sealedObject
@@ -42,43 +42,44 @@ enum class SealedEnumWithAbstractBaseClassesEnum(
 /**
  * The isomorphic [SealedEnumWithAbstractBaseClassesEnum] for [this].
  */
-val SealedEnumWithAbstractBaseClasses.enum: SealedEnumWithAbstractBaseClassesEnum
+public val SealedEnumWithAbstractBaseClasses.`enum`: SealedEnumWithAbstractBaseClassesEnum
     get() = SealedEnumWithAbstractBaseClassesSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [SealedEnumWithAbstractBaseClasses] for [this].
  */
-val SealedEnumWithAbstractBaseClassesEnum.sealedObject: SealedEnumWithAbstractBaseClasses
+public val SealedEnumWithAbstractBaseClassesEnum.sealedObject: SealedEnumWithAbstractBaseClasses
     get() = SealedEnumWithAbstractBaseClassesSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [SealedEnumWithAbstractBaseClasses]
  */
-object SealedEnumWithAbstractBaseClassesSealedEnum : SealedEnum<SealedEnumWithAbstractBaseClasses>,
+public object SealedEnumWithAbstractBaseClassesSealedEnum :
+        SealedEnum<SealedEnumWithAbstractBaseClasses>,
         SealedEnumWithEnumProvider<SealedEnumWithAbstractBaseClasses,
         SealedEnumWithAbstractBaseClassesEnum>,
         EnumForSealedEnumProvider<SealedEnumWithAbstractBaseClasses,
         SealedEnumWithAbstractBaseClassesEnum> {
-    override val values: List<SealedEnumWithAbstractBaseClasses> = emptyList()
+    public override val values: List<SealedEnumWithAbstractBaseClasses> = emptyList()
 
 
-    override val enumClass: Class<SealedEnumWithAbstractBaseClassesEnum>
+    public override val enumClass: Class<SealedEnumWithAbstractBaseClassesEnum>
         get() = SealedEnumWithAbstractBaseClassesEnum::class.java
 
-    override fun ordinalOf(obj: SealedEnumWithAbstractBaseClasses): Int = throw
+    public override fun ordinalOf(obj: SealedEnumWithAbstractBaseClasses): Int = throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClasses is impossible, since it has no sealed subclasses")
 
-    override fun nameOf(obj: SealedEnumWithAbstractBaseClasses): String = throw
+    public override fun nameOf(obj: SealedEnumWithAbstractBaseClasses): String = throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClasses is impossible, since it has no sealed subclasses")
 
-    override fun valueOf(name: String): SealedEnumWithAbstractBaseClasses = throw
+    public override fun valueOf(name: String): SealedEnumWithAbstractBaseClasses = throw
             IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
 
-    override fun sealedObjectToEnum(obj: SealedEnumWithAbstractBaseClasses):
+    public override fun sealedObjectToEnum(obj: SealedEnumWithAbstractBaseClasses):
             SealedEnumWithAbstractBaseClassesEnum = throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClasses is impossible, since it has no sealed subclasses")
 
-    override fun enumToSealedObject(enum: SealedEnumWithAbstractBaseClassesEnum):
+    public override fun enumToSealedObject(`enum`: SealedEnumWithAbstractBaseClassesEnum):
             SealedEnumWithAbstractBaseClasses = throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClasses is impossible, since it has no sealed subclasses")
 }
@@ -86,26 +87,27 @@ object SealedEnumWithAbstractBaseClassesSealedEnum : SealedEnum<SealedEnumWithAb
 /**
  * The index of [this] in the values list.
  */
-val SealedEnumWithAbstractBaseClasses.ordinal: Int
+public val SealedEnumWithAbstractBaseClasses.ordinal: Int
     get() = SealedEnumWithAbstractBaseClassesSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val SealedEnumWithAbstractBaseClasses.name: String
+public val SealedEnumWithAbstractBaseClasses.name: String
     get() = SealedEnumWithAbstractBaseClassesSealedEnum.nameOf(this)
 
 /**
  * A list of all [SealedEnumWithAbstractBaseClasses] objects.
  */
-val SealedEnumWithAbstractBaseClasses.Companion.values: List<SealedEnumWithAbstractBaseClasses>
+public val SealedEnumWithAbstractBaseClasses.Companion.values:
+        List<SealedEnumWithAbstractBaseClasses>
     get() = SealedEnumWithAbstractBaseClassesSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class
  * [SealedEnumWithAbstractBaseClasses]
  */
-val SealedEnumWithAbstractBaseClasses.Companion.sealedEnum:
+public val SealedEnumWithAbstractBaseClasses.Companion.sealedEnum:
         SealedEnumWithAbstractBaseClassesSealedEnum
     get() = SealedEnumWithAbstractBaseClassesSealedEnum
 
@@ -115,7 +117,7 @@ val SealedEnumWithAbstractBaseClasses.Companion.sealedEnum:
  * If the given name doesn't correspond to any [SealedEnumWithAbstractBaseClasses], an
  * [IllegalArgumentException] will be thrown.
  */
-fun SealedEnumWithAbstractBaseClasses.Companion.valueOf(name: String):
+public fun SealedEnumWithAbstractBaseClasses.Companion.valueOf(name: String):
         SealedEnumWithAbstractBaseClasses =
         SealedEnumWithAbstractBaseClassesSealedEnum.valueOf(name)
 
@@ -145,21 +147,21 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [SealedEnumWithAbstractBaseClassesCovariantType]
  */
-enum class SealedEnumWithAbstractBaseClassesCovariantTypeEnum(
+public enum class SealedEnumWithAbstractBaseClassesCovariantTypeEnum(
     sealedObject: SealedEnumWithAbstractBaseClassesCovariantType<*>
 ) : BaseClassInterface3<BaseClassInterface3<*>> by sealedObject
 
 /**
  * The isomorphic [SealedEnumWithAbstractBaseClassesCovariantTypeEnum] for [this].
  */
-val SealedEnumWithAbstractBaseClassesCovariantType<*>.enum:
+public val SealedEnumWithAbstractBaseClassesCovariantType<*>.`enum`:
         SealedEnumWithAbstractBaseClassesCovariantTypeEnum
     get() = SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [SealedEnumWithAbstractBaseClassesCovariantType] for [this].
  */
-val SealedEnumWithAbstractBaseClassesCovariantTypeEnum.sealedObject:
+public val SealedEnumWithAbstractBaseClassesCovariantTypeEnum.sealedObject:
         SealedEnumWithAbstractBaseClassesCovariantType<*>
     get() = SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum.enumToSealedObject(this)
 
@@ -167,32 +169,36 @@ val SealedEnumWithAbstractBaseClassesCovariantTypeEnum.sealedObject:
  * An implementation of [SealedEnum] for the sealed class
  * [SealedEnumWithAbstractBaseClassesCovariantType]
  */
-object SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum :
+public object SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum :
         SealedEnum<SealedEnumWithAbstractBaseClassesCovariantType<*>>,
         SealedEnumWithEnumProvider<SealedEnumWithAbstractBaseClassesCovariantType<*>,
         SealedEnumWithAbstractBaseClassesCovariantTypeEnum>,
         EnumForSealedEnumProvider<SealedEnumWithAbstractBaseClassesCovariantType<*>,
         SealedEnumWithAbstractBaseClassesCovariantTypeEnum> {
-    override val values: List<SealedEnumWithAbstractBaseClassesCovariantType<*>> = emptyList()
+    public override val values: List<SealedEnumWithAbstractBaseClassesCovariantType<*>> =
+            emptyList()
 
 
-    override val enumClass: Class<SealedEnumWithAbstractBaseClassesCovariantTypeEnum>
+    public override val enumClass: Class<SealedEnumWithAbstractBaseClassesCovariantTypeEnum>
         get() = SealedEnumWithAbstractBaseClassesCovariantTypeEnum::class.java
 
-    override fun ordinalOf(obj: SealedEnumWithAbstractBaseClassesCovariantType<*>): Int = throw
+    public override fun ordinalOf(obj: SealedEnumWithAbstractBaseClassesCovariantType<*>): Int =
+            throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClassesCovariantType is impossible, since it has no sealed subclasses")
 
-    override fun nameOf(obj: SealedEnumWithAbstractBaseClassesCovariantType<*>): String = throw
+    public override fun nameOf(obj: SealedEnumWithAbstractBaseClassesCovariantType<*>): String =
+            throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClassesCovariantType is impossible, since it has no sealed subclasses")
 
-    override fun valueOf(name: String): SealedEnumWithAbstractBaseClassesCovariantType<*> = throw
-            IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
+    public override fun valueOf(name: String): SealedEnumWithAbstractBaseClassesCovariantType<*> =
+            throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
 
-    override fun sealedObjectToEnum(obj: SealedEnumWithAbstractBaseClassesCovariantType<*>):
+    public override fun sealedObjectToEnum(obj: SealedEnumWithAbstractBaseClassesCovariantType<*>):
             SealedEnumWithAbstractBaseClassesCovariantTypeEnum = throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClassesCovariantType is impossible, since it has no sealed subclasses")
 
-    override fun enumToSealedObject(enum: SealedEnumWithAbstractBaseClassesCovariantTypeEnum):
+    public override
+            fun enumToSealedObject(`enum`: SealedEnumWithAbstractBaseClassesCovariantTypeEnum):
             SealedEnumWithAbstractBaseClassesCovariantType<*> = throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClassesCovariantType is impossible, since it has no sealed subclasses")
 }
@@ -200,19 +206,19 @@ object SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum :
 /**
  * The index of [this] in the values list.
  */
-val SealedEnumWithAbstractBaseClassesCovariantType<*>.ordinal: Int
+public val SealedEnumWithAbstractBaseClassesCovariantType<*>.ordinal: Int
     get() = SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val SealedEnumWithAbstractBaseClassesCovariantType<*>.name: String
+public val SealedEnumWithAbstractBaseClassesCovariantType<*>.name: String
     get() = SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum.nameOf(this)
 
 /**
  * A list of all [SealedEnumWithAbstractBaseClassesCovariantType] objects.
  */
-val SealedEnumWithAbstractBaseClassesCovariantType.Companion.values:
+public val SealedEnumWithAbstractBaseClassesCovariantType.Companion.values:
         List<SealedEnumWithAbstractBaseClassesCovariantType<*>>
     get() = SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum.values
 
@@ -220,7 +226,7 @@ val SealedEnumWithAbstractBaseClassesCovariantType.Companion.values:
  * Returns an implementation of [SealedEnum] for the sealed class
  * [SealedEnumWithAbstractBaseClassesCovariantType]
  */
-val SealedEnumWithAbstractBaseClassesCovariantType.Companion.sealedEnum:
+public val SealedEnumWithAbstractBaseClassesCovariantType.Companion.sealedEnum:
         SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum
     get() = SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum
 
@@ -230,7 +236,7 @@ val SealedEnumWithAbstractBaseClassesCovariantType.Companion.sealedEnum:
  * If the given name doesn't correspond to any [SealedEnumWithAbstractBaseClassesCovariantType], an
  * [IllegalArgumentException] will be thrown.
  */
-fun SealedEnumWithAbstractBaseClassesCovariantType.Companion.valueOf(name: String):
+public fun SealedEnumWithAbstractBaseClassesCovariantType.Companion.valueOf(name: String):
         SealedEnumWithAbstractBaseClassesCovariantType<*> =
         SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum.valueOf(name)
 

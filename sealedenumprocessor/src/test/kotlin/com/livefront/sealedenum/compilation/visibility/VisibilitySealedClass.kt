@@ -31,56 +31,54 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [InternalObjectsSealedClass]
  */
-enum class InternalObjectsSealedClassEnum {
+public enum class InternalObjectsSealedClassEnum {
     InternalObjectsSealedClass_FirstObject,
-
     InternalObjectsSealedClass_SecondObject,
-
-    InternalObjectsSealedClass_InnerSealedClass_ThirdObject
+    InternalObjectsSealedClass_InnerSealedClass_ThirdObject,
 }
 
 /**
  * The isomorphic [InternalObjectsSealedClassEnum] for [this].
  */
-val InternalObjectsSealedClass.enum: InternalObjectsSealedClassEnum
+public val InternalObjectsSealedClass.`enum`: InternalObjectsSealedClassEnum
     get() = InternalObjectsSealedClassSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [InternalObjectsSealedClass] for [this].
  */
-val InternalObjectsSealedClassEnum.sealedObject: InternalObjectsSealedClass
+public val InternalObjectsSealedClassEnum.sealedObject: InternalObjectsSealedClass
     get() = InternalObjectsSealedClassSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [InternalObjectsSealedClass]
  */
-object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsSealedClass>,
+public object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsSealedClass>,
         SealedEnumWithEnumProvider<InternalObjectsSealedClass, InternalObjectsSealedClassEnum>,
         EnumForSealedEnumProvider<InternalObjectsSealedClass, InternalObjectsSealedClassEnum> {
-    override val values: List<InternalObjectsSealedClass> = listOf(
+    public override val values: List<InternalObjectsSealedClass> = listOf(
         InternalObjectsSealedClass.FirstObject,
         InternalObjectsSealedClass.SecondObject,
         InternalObjectsSealedClass.InnerSealedClass.ThirdObject
     )
 
 
-    override val enumClass: Class<InternalObjectsSealedClassEnum>
+    public override val enumClass: Class<InternalObjectsSealedClassEnum>
         get() = InternalObjectsSealedClassEnum::class.java
 
-    override fun ordinalOf(obj: InternalObjectsSealedClass): Int = when (obj) {
+    public override fun ordinalOf(obj: InternalObjectsSealedClass): Int = when (obj) {
         InternalObjectsSealedClass.FirstObject -> 0
         InternalObjectsSealedClass.SecondObject -> 1
         InternalObjectsSealedClass.InnerSealedClass.ThirdObject -> 2
     }
 
-    override fun nameOf(obj: InternalObjectsSealedClass): String = when (obj) {
+    public override fun nameOf(obj: InternalObjectsSealedClass): String = when (obj) {
         InternalObjectsSealedClass.FirstObject -> "InternalObjectsSealedClass_FirstObject"
         InternalObjectsSealedClass.SecondObject -> "InternalObjectsSealedClass_SecondObject"
         InternalObjectsSealedClass.InnerSealedClass.ThirdObject ->
                 "InternalObjectsSealedClass_InnerSealedClass_ThirdObject"
     }
 
-    override fun valueOf(name: String): InternalObjectsSealedClass = when (name) {
+    public override fun valueOf(name: String): InternalObjectsSealedClass = when (name) {
         "InternalObjectsSealedClass_FirstObject" -> InternalObjectsSealedClass.FirstObject
         "InternalObjectsSealedClass_SecondObject" -> InternalObjectsSealedClass.SecondObject
         "InternalObjectsSealedClass_InnerSealedClass_ThirdObject" ->
@@ -88,8 +86,8 @@ object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsSealedCl
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: InternalObjectsSealedClass): InternalObjectsSealedClassEnum
-            = when (obj) {
+    public override fun sealedObjectToEnum(obj: InternalObjectsSealedClass):
+            InternalObjectsSealedClassEnum = when (obj) {
         InternalObjectsSealedClass.FirstObject ->
                 InternalObjectsSealedClassEnum.InternalObjectsSealedClass_FirstObject
         InternalObjectsSealedClass.SecondObject ->
@@ -98,7 +96,7 @@ object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsSealedCl
                 InternalObjectsSealedClassEnum.InternalObjectsSealedClass_InnerSealedClass_ThirdObject
     }
 
-    override fun enumToSealedObject(enum: InternalObjectsSealedClassEnum):
+    public override fun enumToSealedObject(`enum`: InternalObjectsSealedClassEnum):
             InternalObjectsSealedClass = when (enum) {
         InternalObjectsSealedClassEnum.InternalObjectsSealedClass_FirstObject ->
                 InternalObjectsSealedClass.FirstObject
@@ -112,25 +110,25 @@ object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsSealedCl
 /**
  * The index of [this] in the values list.
  */
-val InternalObjectsSealedClass.ordinal: Int
+public val InternalObjectsSealedClass.ordinal: Int
     get() = InternalObjectsSealedClassSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val InternalObjectsSealedClass.name: String
+public val InternalObjectsSealedClass.name: String
     get() = InternalObjectsSealedClassSealedEnum.nameOf(this)
 
 /**
  * A list of all [InternalObjectsSealedClass] objects.
  */
-val InternalObjectsSealedClass.Companion.values: List<InternalObjectsSealedClass>
+public val InternalObjectsSealedClass.Companion.values: List<InternalObjectsSealedClass>
     get() = InternalObjectsSealedClassSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [InternalObjectsSealedClass]
  */
-val InternalObjectsSealedClass.Companion.sealedEnum: InternalObjectsSealedClassSealedEnum
+public val InternalObjectsSealedClass.Companion.sealedEnum: InternalObjectsSealedClassSealedEnum
     get() = InternalObjectsSealedClassSealedEnum
 
 /**
@@ -139,7 +137,7 @@ val InternalObjectsSealedClass.Companion.sealedEnum: InternalObjectsSealedClassS
  * If the given name doesn't correspond to any [InternalObjectsSealedClass], an
  * [IllegalArgumentException] will be thrown.
  */
-fun InternalObjectsSealedClass.Companion.valueOf(name: String): InternalObjectsSealedClass =
+public fun InternalObjectsSealedClass.Companion.valueOf(name: String): InternalObjectsSealedClass =
         InternalObjectsSealedClassSealedEnum.valueOf(name)
 
 """.trimIndent()
@@ -170,14 +168,13 @@ import kotlin.collections.List
  */
 internal enum class InternalSealedClassEnum {
     InternalSealedClass_FirstObject,
-
-    InternalSealedClass_SecondObject
+    InternalSealedClass_SecondObject,
 }
 
 /**
  * The isomorphic [InternalSealedClassEnum] for [this].
  */
-internal val InternalSealedClass.enum: InternalSealedClassEnum
+internal val InternalSealedClass.`enum`: InternalSealedClassEnum
     get() = InternalSealedClassSealedEnum.sealedObjectToEnum(this)
 
 /**
@@ -192,39 +189,39 @@ internal val InternalSealedClassEnum.sealedObject: InternalSealedClass
 internal object InternalSealedClassSealedEnum : SealedEnum<InternalSealedClass>,
         SealedEnumWithEnumProvider<InternalSealedClass, InternalSealedClassEnum>,
         EnumForSealedEnumProvider<InternalSealedClass, InternalSealedClassEnum> {
-    override val values: List<InternalSealedClass> = listOf(
+    public override val values: List<InternalSealedClass> = listOf(
         InternalSealedClass.FirstObject,
         InternalSealedClass.SecondObject
     )
 
 
-    override val enumClass: Class<InternalSealedClassEnum>
+    public override val enumClass: Class<InternalSealedClassEnum>
         get() = InternalSealedClassEnum::class.java
 
-    override fun ordinalOf(obj: InternalSealedClass): Int = when (obj) {
+    public override fun ordinalOf(obj: InternalSealedClass): Int = when (obj) {
         InternalSealedClass.FirstObject -> 0
         InternalSealedClass.SecondObject -> 1
     }
 
-    override fun nameOf(obj: InternalSealedClass): String = when (obj) {
+    public override fun nameOf(obj: InternalSealedClass): String = when (obj) {
         InternalSealedClass.FirstObject -> "InternalSealedClass_FirstObject"
         InternalSealedClass.SecondObject -> "InternalSealedClass_SecondObject"
     }
 
-    override fun valueOf(name: String): InternalSealedClass = when (name) {
+    public override fun valueOf(name: String): InternalSealedClass = when (name) {
         "InternalSealedClass_FirstObject" -> InternalSealedClass.FirstObject
         "InternalSealedClass_SecondObject" -> InternalSealedClass.SecondObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: InternalSealedClass): InternalSealedClassEnum = when
+    public override fun sealedObjectToEnum(obj: InternalSealedClass): InternalSealedClassEnum = when
             (obj) {
         InternalSealedClass.FirstObject -> InternalSealedClassEnum.InternalSealedClass_FirstObject
         InternalSealedClass.SecondObject -> InternalSealedClassEnum.InternalSealedClass_SecondObject
     }
 
-    override fun enumToSealedObject(enum: InternalSealedClassEnum): InternalSealedClass = when
-            (enum) {
+    public override fun enumToSealedObject(`enum`: InternalSealedClassEnum): InternalSealedClass =
+            when (enum) {
         InternalSealedClassEnum.InternalSealedClass_FirstObject -> InternalSealedClass.FirstObject
         InternalSealedClassEnum.InternalSealedClass_SecondObject -> InternalSealedClass.SecondObject
     }
@@ -289,56 +286,55 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [InternalCompanionSealedClass]
  */
-enum class InternalCompanionSealedClassEnum {
+public enum class InternalCompanionSealedClassEnum {
     InternalCompanionSealedClass_FirstObject,
-
-    InternalCompanionSealedClass_SecondObject
+    InternalCompanionSealedClass_SecondObject,
 }
 
 /**
  * The isomorphic [InternalCompanionSealedClassEnum] for [this].
  */
-val InternalCompanionSealedClass.enum: InternalCompanionSealedClassEnum
+public val InternalCompanionSealedClass.`enum`: InternalCompanionSealedClassEnum
     get() = InternalCompanionSealedClassSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [InternalCompanionSealedClass] for [this].
  */
-val InternalCompanionSealedClassEnum.sealedObject: InternalCompanionSealedClass
+public val InternalCompanionSealedClassEnum.sealedObject: InternalCompanionSealedClass
     get() = InternalCompanionSealedClassSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [InternalCompanionSealedClass]
  */
-object InternalCompanionSealedClassSealedEnum : SealedEnum<InternalCompanionSealedClass>,
+public object InternalCompanionSealedClassSealedEnum : SealedEnum<InternalCompanionSealedClass>,
         SealedEnumWithEnumProvider<InternalCompanionSealedClass, InternalCompanionSealedClassEnum>,
         EnumForSealedEnumProvider<InternalCompanionSealedClass, InternalCompanionSealedClassEnum> {
-    override val values: List<InternalCompanionSealedClass> = listOf(
+    public override val values: List<InternalCompanionSealedClass> = listOf(
         InternalCompanionSealedClass.FirstObject,
         InternalCompanionSealedClass.SecondObject
     )
 
 
-    override val enumClass: Class<InternalCompanionSealedClassEnum>
+    public override val enumClass: Class<InternalCompanionSealedClassEnum>
         get() = InternalCompanionSealedClassEnum::class.java
 
-    override fun ordinalOf(obj: InternalCompanionSealedClass): Int = when (obj) {
+    public override fun ordinalOf(obj: InternalCompanionSealedClass): Int = when (obj) {
         InternalCompanionSealedClass.FirstObject -> 0
         InternalCompanionSealedClass.SecondObject -> 1
     }
 
-    override fun nameOf(obj: InternalCompanionSealedClass): String = when (obj) {
+    public override fun nameOf(obj: InternalCompanionSealedClass): String = when (obj) {
         InternalCompanionSealedClass.FirstObject -> "InternalCompanionSealedClass_FirstObject"
         InternalCompanionSealedClass.SecondObject -> "InternalCompanionSealedClass_SecondObject"
     }
 
-    override fun valueOf(name: String): InternalCompanionSealedClass = when (name) {
+    public override fun valueOf(name: String): InternalCompanionSealedClass = when (name) {
         "InternalCompanionSealedClass_FirstObject" -> InternalCompanionSealedClass.FirstObject
         "InternalCompanionSealedClass_SecondObject" -> InternalCompanionSealedClass.SecondObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: InternalCompanionSealedClass):
+    public override fun sealedObjectToEnum(obj: InternalCompanionSealedClass):
             InternalCompanionSealedClassEnum = when (obj) {
         InternalCompanionSealedClass.FirstObject ->
                 InternalCompanionSealedClassEnum.InternalCompanionSealedClass_FirstObject
@@ -346,7 +342,7 @@ object InternalCompanionSealedClassSealedEnum : SealedEnum<InternalCompanionSeal
                 InternalCompanionSealedClassEnum.InternalCompanionSealedClass_SecondObject
     }
 
-    override fun enumToSealedObject(enum: InternalCompanionSealedClassEnum):
+    public override fun enumToSealedObject(`enum`: InternalCompanionSealedClassEnum):
             InternalCompanionSealedClass = when (enum) {
         InternalCompanionSealedClassEnum.InternalCompanionSealedClass_FirstObject ->
                 InternalCompanionSealedClass.FirstObject
@@ -358,13 +354,13 @@ object InternalCompanionSealedClassSealedEnum : SealedEnum<InternalCompanionSeal
 /**
  * The index of [this] in the values list.
  */
-val InternalCompanionSealedClass.ordinal: Int
+public val InternalCompanionSealedClass.ordinal: Int
     get() = InternalCompanionSealedClassSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val InternalCompanionSealedClass.name: String
+public val InternalCompanionSealedClass.name: String
     get() = InternalCompanionSealedClassSealedEnum.nameOf(this)
 
 /**
@@ -417,14 +413,13 @@ import kotlin.collections.List
  */
 internal enum class InternalSealedAndCompanionSealedClassEnum {
     InternalSealedAndCompanionSealedClass_FirstObject,
-
-    InternalSealedAndCompanionSealedClass_SecondObject
+    InternalSealedAndCompanionSealedClass_SecondObject,
 }
 
 /**
  * The isomorphic [InternalSealedAndCompanionSealedClassEnum] for [this].
  */
-internal val InternalSealedAndCompanionSealedClass.enum: InternalSealedAndCompanionSealedClassEnum
+internal val InternalSealedAndCompanionSealedClass.`enum`: InternalSealedAndCompanionSealedClassEnum
     get() = InternalSealedAndCompanionSealedClassSealedEnum.sealedObjectToEnum(this)
 
 /**
@@ -443,28 +438,28 @@ internal object InternalSealedAndCompanionSealedClassSealedEnum :
         InternalSealedAndCompanionSealedClassEnum>,
         EnumForSealedEnumProvider<InternalSealedAndCompanionSealedClass,
         InternalSealedAndCompanionSealedClassEnum> {
-    override val values: List<InternalSealedAndCompanionSealedClass> = listOf(
+    public override val values: List<InternalSealedAndCompanionSealedClass> = listOf(
         InternalSealedAndCompanionSealedClass.FirstObject,
         InternalSealedAndCompanionSealedClass.SecondObject
     )
 
 
-    override val enumClass: Class<InternalSealedAndCompanionSealedClassEnum>
+    public override val enumClass: Class<InternalSealedAndCompanionSealedClassEnum>
         get() = InternalSealedAndCompanionSealedClassEnum::class.java
 
-    override fun ordinalOf(obj: InternalSealedAndCompanionSealedClass): Int = when (obj) {
+    public override fun ordinalOf(obj: InternalSealedAndCompanionSealedClass): Int = when (obj) {
         InternalSealedAndCompanionSealedClass.FirstObject -> 0
         InternalSealedAndCompanionSealedClass.SecondObject -> 1
     }
 
-    override fun nameOf(obj: InternalSealedAndCompanionSealedClass): String = when (obj) {
+    public override fun nameOf(obj: InternalSealedAndCompanionSealedClass): String = when (obj) {
         InternalSealedAndCompanionSealedClass.FirstObject ->
                 "InternalSealedAndCompanionSealedClass_FirstObject"
         InternalSealedAndCompanionSealedClass.SecondObject ->
                 "InternalSealedAndCompanionSealedClass_SecondObject"
     }
 
-    override fun valueOf(name: String): InternalSealedAndCompanionSealedClass = when (name) {
+    public override fun valueOf(name: String): InternalSealedAndCompanionSealedClass = when (name) {
         "InternalSealedAndCompanionSealedClass_FirstObject" ->
                 InternalSealedAndCompanionSealedClass.FirstObject
         "InternalSealedAndCompanionSealedClass_SecondObject" ->
@@ -472,7 +467,7 @@ internal object InternalSealedAndCompanionSealedClassSealedEnum :
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: InternalSealedAndCompanionSealedClass):
+    public override fun sealedObjectToEnum(obj: InternalSealedAndCompanionSealedClass):
             InternalSealedAndCompanionSealedClassEnum = when (obj) {
         InternalSealedAndCompanionSealedClass.FirstObject ->
                 InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_FirstObject
@@ -480,7 +475,7 @@ internal object InternalSealedAndCompanionSealedClassSealedEnum :
                 InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_SecondObject
     }
 
-    override fun enumToSealedObject(enum: InternalSealedAndCompanionSealedClassEnum):
+    public override fun enumToSealedObject(`enum`: InternalSealedAndCompanionSealedClassEnum):
             InternalSealedAndCompanionSealedClass = when (enum) {
         InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_FirstObject ->
                 InternalSealedAndCompanionSealedClass.FirstObject

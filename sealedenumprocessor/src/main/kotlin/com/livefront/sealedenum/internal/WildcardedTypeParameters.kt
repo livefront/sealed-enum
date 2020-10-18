@@ -14,7 +14,7 @@ import com.squareup.kotlinpoet.TypeSpec
  * In particular, single invariant types can be replaced with the type directly. In all other cases (multiple bounds,
  * other types of variance) the only thing we can do is wildcard the type.
  */
-val TypeSpec.wildcardedTypeVariables: List<TypeName>
+internal val TypeSpec.wildcardedTypeVariables: List<TypeName>
     get() = typeVariables
         .map {
             if (it.bounds.size == 1) {

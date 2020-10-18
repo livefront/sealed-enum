@@ -40,12 +40,14 @@ subprojects {
         compileKotlin {
             kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_1_8.toString()
+                allWarningsAsErrors = true
             }
         }
 
         compileTestKotlin {
             kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_1_8.toString()
+                allWarningsAsErrors = true
             }
         }
 

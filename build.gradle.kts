@@ -65,13 +65,8 @@ subprojects {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
 
-        val dokka by getting(org.jetbrains.dokka.gradle.DokkaTask::class) {
-            outputFormat = "html"
-            outputDirectory = javadoc.get().destinationDir!!.absolutePath
-
-            configuration {
-                jdkVersion = 8
-            }
+        dokkaHtml {
+            outputDirectory.set(javadoc.get().destinationDir)
         }
 
         val sourcesJar by creating(Jar::class) {
@@ -81,7 +76,7 @@ subprojects {
 
         val javadocJar by creating(Jar::class) {
             archiveClassifier.set("javadoc")
-            from(dokka)
+            from(dokkaHtml)
         }
 
         publishing {

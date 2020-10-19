@@ -353,9 +353,6 @@ dependencies {
 }
 ```
 
-### Class Documentation
-[Full class documentation for the runtime library is published automatically to JitPack](https://javadoc.jitpack.io/com/github/livefront/sealed-enum/sealedenum/latest/javadoc/sealedenum/index.html)
-
 ### License
 ```
 Copyright 2020 Livefront

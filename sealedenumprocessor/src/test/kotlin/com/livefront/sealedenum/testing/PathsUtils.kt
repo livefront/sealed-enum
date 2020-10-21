@@ -8,5 +8,13 @@ import java.nio.file.Paths
  * folder.
  */
 internal fun getSourceFile(vararg paths: String): SourceFile = SourceFile.fromPath(
-    Paths.get("src", "test", "kotlin", "com", "livefront", "sealedenum", *paths).toFile()
+    Paths.get(
+        "src",
+        "test",
+        if (paths.last().endsWith(".java")) "java" else "kotlin",
+        "com",
+        "livefront",
+        "sealedenum",
+        *paths
+    ).toFile()
 )

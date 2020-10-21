@@ -5,11 +5,11 @@ import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 
 /**
- * Compiles the given [sourceFile] with the application of [SealedEnumProcessor].
+ * Compiles the given [sourceFiles] with the application of [SealedEnumProcessor].
  */
-internal fun compile(sourceFile: SourceFile): KotlinCompilation.Result =
+internal fun compile(vararg sourceFiles: SourceFile): KotlinCompilation.Result =
     KotlinCompilation().apply {
-        sources = listOf(sourceFile)
+        sources = sourceFiles.toList()
         annotationProcessors = listOf(SealedEnumProcessor())
         inheritClassPath = true
     }.compile()

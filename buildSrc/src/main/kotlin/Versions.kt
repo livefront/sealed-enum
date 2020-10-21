@@ -6,5 +6,5 @@ object Versions {
     const val junit = "5.6.2"
     const val kotlin = "1.4.0"
     const val kotlinCompileTesting = "1.2.11"
-    const val kotlinPoet = "1.6.0"
+    const val kotlinPoet = "1.7.2"
 }

@@ -54,7 +54,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [JavaBaseClassesSealedClass]
  */
-enum class JavaBaseClassesSealedClassEnum(
+public enum class JavaBaseClassesSealedClassEnum(
     sealedObject: JavaBaseClassesSealedClass<*>
 ) : KotlinInterface5<KotlinInterface1> by sealedObject, JavaInterface3<Int> by sealedObject,
         KotlinInterface4<Double> by sealedObject, KotlinInterface6<Int> by sealedObject,
@@ -64,54 +64,53 @@ enum class JavaBaseClassesSealedClassEnum(
         KotlinInterface1 by sealedObject, KotlinInterface3<List<String>> by sealedObject,
         JavaInterface4 by sealedObject {
     JavaBaseClassesSealedClass_FirstObject(com.livefront.sealedenum.compilation.kitchensink.JavaBaseClassesSealedClass.FirstObject),
-
-    JavaBaseClassesSealedClass_SecondObject(com.livefront.sealedenum.compilation.kitchensink.JavaBaseClassesSealedClass.SecondObject)
+    JavaBaseClassesSealedClass_SecondObject(com.livefront.sealedenum.compilation.kitchensink.JavaBaseClassesSealedClass.SecondObject),
 }
 
 /**
  * The isomorphic [JavaBaseClassesSealedClassEnum] for [this].
  */
-val JavaBaseClassesSealedClass<*>.enum: JavaBaseClassesSealedClassEnum
+public val JavaBaseClassesSealedClass<*>.`enum`: JavaBaseClassesSealedClassEnum
     get() = JavaBaseClassesSealedClassSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [JavaBaseClassesSealedClass] for [this].
  */
-val JavaBaseClassesSealedClassEnum.sealedObject: JavaBaseClassesSealedClass<*>
+public val JavaBaseClassesSealedClassEnum.sealedObject: JavaBaseClassesSealedClass<*>
     get() = JavaBaseClassesSealedClassSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [JavaBaseClassesSealedClass]
  */
-object JavaBaseClassesSealedClassSealedEnum : SealedEnum<JavaBaseClassesSealedClass<*>>,
+public object JavaBaseClassesSealedClassSealedEnum : SealedEnum<JavaBaseClassesSealedClass<*>>,
         SealedEnumWithEnumProvider<JavaBaseClassesSealedClass<*>, JavaBaseClassesSealedClassEnum>,
         EnumForSealedEnumProvider<JavaBaseClassesSealedClass<*>, JavaBaseClassesSealedClassEnum> {
-    override val values: List<JavaBaseClassesSealedClass<*>> = listOf(
+    public override val values: List<JavaBaseClassesSealedClass<*>> = listOf(
         JavaBaseClassesSealedClass.FirstObject,
         JavaBaseClassesSealedClass.SecondObject
     )
 
 
-    override val enumClass: Class<JavaBaseClassesSealedClassEnum>
+    public override val enumClass: Class<JavaBaseClassesSealedClassEnum>
         get() = JavaBaseClassesSealedClassEnum::class.java
 
-    override fun ordinalOf(obj: JavaBaseClassesSealedClass<*>): Int = when (obj) {
+    public override fun ordinalOf(obj: JavaBaseClassesSealedClass<*>): Int = when (obj) {
         JavaBaseClassesSealedClass.FirstObject -> 0
         JavaBaseClassesSealedClass.SecondObject -> 1
     }
 
-    override fun nameOf(obj: JavaBaseClassesSealedClass<*>): String = when (obj) {
+    public override fun nameOf(obj: JavaBaseClassesSealedClass<*>): String = when (obj) {
         JavaBaseClassesSealedClass.FirstObject -> "JavaBaseClassesSealedClass_FirstObject"
         JavaBaseClassesSealedClass.SecondObject -> "JavaBaseClassesSealedClass_SecondObject"
     }
 
-    override fun valueOf(name: String): JavaBaseClassesSealedClass<*> = when (name) {
+    public override fun valueOf(name: String): JavaBaseClassesSealedClass<*> = when (name) {
         "JavaBaseClassesSealedClass_FirstObject" -> JavaBaseClassesSealedClass.FirstObject
         "JavaBaseClassesSealedClass_SecondObject" -> JavaBaseClassesSealedClass.SecondObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: JavaBaseClassesSealedClass<*>):
+    public override fun sealedObjectToEnum(obj: JavaBaseClassesSealedClass<*>):
             JavaBaseClassesSealedClassEnum = when (obj) {
         JavaBaseClassesSealedClass.FirstObject ->
                 JavaBaseClassesSealedClassEnum.JavaBaseClassesSealedClass_FirstObject
@@ -119,7 +118,7 @@ object JavaBaseClassesSealedClassSealedEnum : SealedEnum<JavaBaseClassesSealedCl
                 JavaBaseClassesSealedClassEnum.JavaBaseClassesSealedClass_SecondObject
     }
 
-    override fun enumToSealedObject(enum: JavaBaseClassesSealedClassEnum):
+    public override fun enumToSealedObject(`enum`: JavaBaseClassesSealedClassEnum):
             JavaBaseClassesSealedClass<*> = when (enum) {
         JavaBaseClassesSealedClassEnum.JavaBaseClassesSealedClass_FirstObject ->
                 JavaBaseClassesSealedClass.FirstObject
@@ -131,25 +130,25 @@ object JavaBaseClassesSealedClassSealedEnum : SealedEnum<JavaBaseClassesSealedCl
 /**
  * The index of [this] in the values list.
  */
-val JavaBaseClassesSealedClass<*>.ordinal: Int
+public val JavaBaseClassesSealedClass<*>.ordinal: Int
     get() = JavaBaseClassesSealedClassSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val JavaBaseClassesSealedClass<*>.name: String
+public val JavaBaseClassesSealedClass<*>.name: String
     get() = JavaBaseClassesSealedClassSealedEnum.nameOf(this)
 
 /**
  * A list of all [JavaBaseClassesSealedClass] objects.
  */
-val JavaBaseClassesSealedClass.Companion.values: List<JavaBaseClassesSealedClass<*>>
+public val JavaBaseClassesSealedClass.Companion.values: List<JavaBaseClassesSealedClass<*>>
     get() = JavaBaseClassesSealedClassSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [JavaBaseClassesSealedClass]
  */
-val JavaBaseClassesSealedClass.Companion.sealedEnum: JavaBaseClassesSealedClassSealedEnum
+public val JavaBaseClassesSealedClass.Companion.sealedEnum: JavaBaseClassesSealedClassSealedEnum
     get() = JavaBaseClassesSealedClassSealedEnum
 
 /**
@@ -158,7 +157,7 @@ val JavaBaseClassesSealedClass.Companion.sealedEnum: JavaBaseClassesSealedClassS
  * If the given name doesn't correspond to any [JavaBaseClassesSealedClass], an
  * [IllegalArgumentException] will be thrown.
  */
-fun JavaBaseClassesSealedClass.Companion.valueOf(name: String): JavaBaseClassesSealedClass<*> =
-        JavaBaseClassesSealedClassSealedEnum.valueOf(name)
+public fun JavaBaseClassesSealedClass.Companion.valueOf(name: String): JavaBaseClassesSealedClass<*>
+        = JavaBaseClassesSealedClassSealedEnum.valueOf(name)
 
 """.trimIndent()

@@ -74,54 +74,41 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [Tree]
  */
-enum class TreeLevelOrderEnum {
+public enum class TreeLevelOrderEnum {
     Tree_A,
-
     Tree_K,
-
     Tree_T,
-
     Tree_L_S,
-
     Tree_B_C_D,
-
     Tree_B_C_E,
-
     Tree_B_C_J,
-
     Tree_L_M_N,
-
     Tree_L_M_O,
-
     Tree_L_P_Q,
-
     Tree_L_P_R,
-
     Tree_B_C_F_G,
-
     Tree_B_C_F_H,
-
-    Tree_B_C_F_I
+    Tree_B_C_F_I,
 }
 
 /**
  * The isomorphic [TreeLevelOrderEnum] for [this].
  */
-val Tree.levelOrderEnum: TreeLevelOrderEnum
+public val Tree.levelOrderEnum: TreeLevelOrderEnum
     get() = TreeLevelOrderSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [Tree] for [this].
  */
-val TreeLevelOrderEnum.sealedObject: Tree
+public val TreeLevelOrderEnum.sealedObject: Tree
     get() = TreeLevelOrderSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [Tree]
  */
-object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
+public object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
         TreeLevelOrderEnum>, EnumForSealedEnumProvider<Tree, TreeLevelOrderEnum> {
-    override val values: List<Tree> = listOf(
+    public override val values: List<Tree> = listOf(
         Tree.A,
         Tree.K,
         Tree.T,
@@ -139,10 +126,10 @@ object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<T
     )
 
 
-    override val enumClass: Class<TreeLevelOrderEnum>
+    public override val enumClass: Class<TreeLevelOrderEnum>
         get() = TreeLevelOrderEnum::class.java
 
-    override fun ordinalOf(obj: Tree): Int = when (obj) {
+    public override fun ordinalOf(obj: Tree): Int = when (obj) {
         Tree.A -> 0
         Tree.K -> 1
         Tree.T -> 2
@@ -159,7 +146,7 @@ object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<T
         Tree.B.C.F.I -> 13
     }
 
-    override fun nameOf(obj: Tree): String = when (obj) {
+    public override fun nameOf(obj: Tree): String = when (obj) {
         Tree.A -> "Tree_A"
         Tree.K -> "Tree_K"
         Tree.T -> "Tree_T"
@@ -176,7 +163,7 @@ object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<T
         Tree.B.C.F.I -> "Tree_B_C_F_I"
     }
 
-    override fun valueOf(name: String): Tree = when (name) {
+    public override fun valueOf(name: String): Tree = when (name) {
         "Tree_A" -> Tree.A
         "Tree_K" -> Tree.K
         "Tree_T" -> Tree.T
@@ -194,7 +181,7 @@ object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<T
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: Tree): TreeLevelOrderEnum = when (obj) {
+    public override fun sealedObjectToEnum(obj: Tree): TreeLevelOrderEnum = when (obj) {
         Tree.A -> TreeLevelOrderEnum.Tree_A
         Tree.K -> TreeLevelOrderEnum.Tree_K
         Tree.T -> TreeLevelOrderEnum.Tree_T
@@ -211,7 +198,7 @@ object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<T
         Tree.B.C.F.I -> TreeLevelOrderEnum.Tree_B_C_F_I
     }
 
-    override fun enumToSealedObject(enum: TreeLevelOrderEnum): Tree = when (enum) {
+    public override fun enumToSealedObject(`enum`: TreeLevelOrderEnum): Tree = when (enum) {
         TreeLevelOrderEnum.Tree_A -> Tree.A
         TreeLevelOrderEnum.Tree_K -> Tree.K
         TreeLevelOrderEnum.Tree_T -> Tree.T
@@ -232,25 +219,25 @@ object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<T
 /**
  * The index of [this] in the values list.
  */
-val Tree.levelOrderOrdinal: Int
+public val Tree.levelOrderOrdinal: Int
     get() = TreeLevelOrderSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val Tree.levelOrderName: String
+public val Tree.levelOrderName: String
     get() = TreeLevelOrderSealedEnum.nameOf(this)
 
 /**
  * A list of all [Tree] objects.
  */
-val Tree.Companion.levelOrderValues: List<Tree>
+public val Tree.Companion.levelOrderValues: List<Tree>
     get() = TreeLevelOrderSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [Tree]
  */
-val Tree.Companion.levelOrderSealedEnum: TreeLevelOrderSealedEnum
+public val Tree.Companion.levelOrderSealedEnum: TreeLevelOrderSealedEnum
     get() = TreeLevelOrderSealedEnum
 
 /**
@@ -258,59 +245,47 @@ val Tree.Companion.levelOrderSealedEnum: TreeLevelOrderSealedEnum
  *
  * If the given name doesn't correspond to any [Tree], an [IllegalArgumentException] will be thrown.
  */
-fun Tree.Companion.levelOrderValueOf(name: String): Tree = TreeLevelOrderSealedEnum.valueOf(name)
+public fun Tree.Companion.levelOrderValueOf(name: String): Tree =
+        TreeLevelOrderSealedEnum.valueOf(name)
 
 /**
  * An isomorphic enum for the sealed class [Tree]
  */
-enum class TreePostOrderEnum {
+public enum class TreePostOrderEnum {
     Tree_B_C_F_G,
-
     Tree_B_C_F_H,
-
     Tree_B_C_F_I,
-
     Tree_B_C_D,
-
     Tree_B_C_E,
-
     Tree_B_C_J,
-
     Tree_L_M_N,
-
     Tree_L_M_O,
-
     Tree_L_P_Q,
-
     Tree_L_P_R,
-
     Tree_L_S,
-
     Tree_A,
-
     Tree_K,
-
-    Tree_T
+    Tree_T,
 }
 
 /**
  * The isomorphic [TreePostOrderEnum] for [this].
  */
-val Tree.postOrderEnum: TreePostOrderEnum
+public val Tree.postOrderEnum: TreePostOrderEnum
     get() = TreePostOrderSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [Tree] for [this].
  */
-val TreePostOrderEnum.sealedObject: Tree
+public val TreePostOrderEnum.sealedObject: Tree
     get() = TreePostOrderSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [Tree]
  */
-object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
+public object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
         TreePostOrderEnum>, EnumForSealedEnumProvider<Tree, TreePostOrderEnum> {
-    override val values: List<Tree> = listOf(
+    public override val values: List<Tree> = listOf(
         Tree.B.C.F.G,
         Tree.B.C.F.H,
         Tree.B.C.F.I,
@@ -328,10 +303,10 @@ object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tr
     )
 
 
-    override val enumClass: Class<TreePostOrderEnum>
+    public override val enumClass: Class<TreePostOrderEnum>
         get() = TreePostOrderEnum::class.java
 
-    override fun ordinalOf(obj: Tree): Int = when (obj) {
+    public override fun ordinalOf(obj: Tree): Int = when (obj) {
         Tree.B.C.F.G -> 0
         Tree.B.C.F.H -> 1
         Tree.B.C.F.I -> 2
@@ -348,7 +323,7 @@ object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tr
         Tree.T -> 13
     }
 
-    override fun nameOf(obj: Tree): String = when (obj) {
+    public override fun nameOf(obj: Tree): String = when (obj) {
         Tree.B.C.F.G -> "Tree_B_C_F_G"
         Tree.B.C.F.H -> "Tree_B_C_F_H"
         Tree.B.C.F.I -> "Tree_B_C_F_I"
@@ -365,7 +340,7 @@ object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tr
         Tree.T -> "Tree_T"
     }
 
-    override fun valueOf(name: String): Tree = when (name) {
+    public override fun valueOf(name: String): Tree = when (name) {
         "Tree_B_C_F_G" -> Tree.B.C.F.G
         "Tree_B_C_F_H" -> Tree.B.C.F.H
         "Tree_B_C_F_I" -> Tree.B.C.F.I
@@ -383,7 +358,7 @@ object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tr
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: Tree): TreePostOrderEnum = when (obj) {
+    public override fun sealedObjectToEnum(obj: Tree): TreePostOrderEnum = when (obj) {
         Tree.B.C.F.G -> TreePostOrderEnum.Tree_B_C_F_G
         Tree.B.C.F.H -> TreePostOrderEnum.Tree_B_C_F_H
         Tree.B.C.F.I -> TreePostOrderEnum.Tree_B_C_F_I
@@ -400,7 +375,7 @@ object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tr
         Tree.T -> TreePostOrderEnum.Tree_T
     }
 
-    override fun enumToSealedObject(enum: TreePostOrderEnum): Tree = when (enum) {
+    public override fun enumToSealedObject(`enum`: TreePostOrderEnum): Tree = when (enum) {
         TreePostOrderEnum.Tree_B_C_F_G -> Tree.B.C.F.G
         TreePostOrderEnum.Tree_B_C_F_H -> Tree.B.C.F.H
         TreePostOrderEnum.Tree_B_C_F_I -> Tree.B.C.F.I
@@ -421,25 +396,25 @@ object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tr
 /**
  * The index of [this] in the values list.
  */
-val Tree.postOrderOrdinal: Int
+public val Tree.postOrderOrdinal: Int
     get() = TreePostOrderSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val Tree.postOrderName: String
+public val Tree.postOrderName: String
     get() = TreePostOrderSealedEnum.nameOf(this)
 
 /**
  * A list of all [Tree] objects.
  */
-val Tree.Companion.postOrderValues: List<Tree>
+public val Tree.Companion.postOrderValues: List<Tree>
     get() = TreePostOrderSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [Tree]
  */
-val Tree.Companion.postOrderSealedEnum: TreePostOrderSealedEnum
+public val Tree.Companion.postOrderSealedEnum: TreePostOrderSealedEnum
     get() = TreePostOrderSealedEnum
 
 /**
@@ -447,59 +422,47 @@ val Tree.Companion.postOrderSealedEnum: TreePostOrderSealedEnum
  *
  * If the given name doesn't correspond to any [Tree], an [IllegalArgumentException] will be thrown.
  */
-fun Tree.Companion.postOrderValueOf(name: String): Tree = TreePostOrderSealedEnum.valueOf(name)
+public fun Tree.Companion.postOrderValueOf(name: String): Tree =
+        TreePostOrderSealedEnum.valueOf(name)
 
 /**
  * An isomorphic enum for the sealed class [Tree]
  */
-enum class TreeInOrderEnum {
+public enum class TreeInOrderEnum {
     Tree_A,
-
     Tree_B_C_D,
-
     Tree_B_C_E,
-
     Tree_B_C_F_G,
-
     Tree_B_C_F_H,
-
     Tree_B_C_F_I,
-
     Tree_B_C_J,
-
     Tree_K,
-
     Tree_L_M_N,
-
     Tree_L_M_O,
-
     Tree_L_P_Q,
-
     Tree_L_P_R,
-
     Tree_L_S,
-
-    Tree_T
+    Tree_T,
 }
 
 /**
  * The isomorphic [TreeInOrderEnum] for [this].
  */
-val Tree.inOrderEnum: TreeInOrderEnum
+public val Tree.inOrderEnum: TreeInOrderEnum
     get() = TreeInOrderSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [Tree] for [this].
  */
-val TreeInOrderEnum.sealedObject: Tree
+public val TreeInOrderEnum.sealedObject: Tree
     get() = TreeInOrderSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [Tree]
  */
-object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree, TreeInOrderEnum>,
-        EnumForSealedEnumProvider<Tree, TreeInOrderEnum> {
-    override val values: List<Tree> = listOf(
+public object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
+        TreeInOrderEnum>, EnumForSealedEnumProvider<Tree, TreeInOrderEnum> {
+    public override val values: List<Tree> = listOf(
         Tree.A,
         Tree.B.C.D,
         Tree.B.C.E,
@@ -517,10 +480,10 @@ object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree
     )
 
 
-    override val enumClass: Class<TreeInOrderEnum>
+    public override val enumClass: Class<TreeInOrderEnum>
         get() = TreeInOrderEnum::class.java
 
-    override fun ordinalOf(obj: Tree): Int = when (obj) {
+    public override fun ordinalOf(obj: Tree): Int = when (obj) {
         Tree.A -> 0
         Tree.B.C.D -> 1
         Tree.B.C.E -> 2
@@ -537,7 +500,7 @@ object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree
         Tree.T -> 13
     }
 
-    override fun nameOf(obj: Tree): String = when (obj) {
+    public override fun nameOf(obj: Tree): String = when (obj) {
         Tree.A -> "Tree_A"
         Tree.B.C.D -> "Tree_B_C_D"
         Tree.B.C.E -> "Tree_B_C_E"
@@ -554,7 +517,7 @@ object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree
         Tree.T -> "Tree_T"
     }
 
-    override fun valueOf(name: String): Tree = when (name) {
+    public override fun valueOf(name: String): Tree = when (name) {
         "Tree_A" -> Tree.A
         "Tree_B_C_D" -> Tree.B.C.D
         "Tree_B_C_E" -> Tree.B.C.E
@@ -572,7 +535,7 @@ object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: Tree): TreeInOrderEnum = when (obj) {
+    public override fun sealedObjectToEnum(obj: Tree): TreeInOrderEnum = when (obj) {
         Tree.A -> TreeInOrderEnum.Tree_A
         Tree.B.C.D -> TreeInOrderEnum.Tree_B_C_D
         Tree.B.C.E -> TreeInOrderEnum.Tree_B_C_E
@@ -589,7 +552,7 @@ object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree
         Tree.T -> TreeInOrderEnum.Tree_T
     }
 
-    override fun enumToSealedObject(enum: TreeInOrderEnum): Tree = when (enum) {
+    public override fun enumToSealedObject(`enum`: TreeInOrderEnum): Tree = when (enum) {
         TreeInOrderEnum.Tree_A -> Tree.A
         TreeInOrderEnum.Tree_B_C_D -> Tree.B.C.D
         TreeInOrderEnum.Tree_B_C_E -> Tree.B.C.E
@@ -610,25 +573,25 @@ object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree
 /**
  * The index of [this] in the values list.
  */
-val Tree.inOrderOrdinal: Int
+public val Tree.inOrderOrdinal: Int
     get() = TreeInOrderSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val Tree.inOrderName: String
+public val Tree.inOrderName: String
     get() = TreeInOrderSealedEnum.nameOf(this)
 
 /**
  * A list of all [Tree] objects.
  */
-val Tree.Companion.inOrderValues: List<Tree>
+public val Tree.Companion.inOrderValues: List<Tree>
     get() = TreeInOrderSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [Tree]
  */
-val Tree.Companion.inOrderSealedEnum: TreeInOrderSealedEnum
+public val Tree.Companion.inOrderSealedEnum: TreeInOrderSealedEnum
     get() = TreeInOrderSealedEnum
 
 /**
@@ -636,59 +599,46 @@ val Tree.Companion.inOrderSealedEnum: TreeInOrderSealedEnum
  *
  * If the given name doesn't correspond to any [Tree], an [IllegalArgumentException] will be thrown.
  */
-fun Tree.Companion.inOrderValueOf(name: String): Tree = TreeInOrderSealedEnum.valueOf(name)
+public fun Tree.Companion.inOrderValueOf(name: String): Tree = TreeInOrderSealedEnum.valueOf(name)
 
 /**
  * An isomorphic enum for the sealed class [Tree]
  */
-enum class TreePreOrderEnum {
+public enum class TreePreOrderEnum {
     Tree_A,
-
     Tree_K,
-
     Tree_T,
-
     Tree_B_C_D,
-
     Tree_B_C_E,
-
     Tree_B_C_J,
-
     Tree_B_C_F_G,
-
     Tree_B_C_F_H,
-
     Tree_B_C_F_I,
-
     Tree_L_S,
-
     Tree_L_M_N,
-
     Tree_L_M_O,
-
     Tree_L_P_Q,
-
-    Tree_L_P_R
+    Tree_L_P_R,
 }
 
 /**
  * The isomorphic [TreePreOrderEnum] for [this].
  */
-val Tree.preOrderEnum: TreePreOrderEnum
+public val Tree.preOrderEnum: TreePreOrderEnum
     get() = TreePreOrderSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [Tree] for [this].
  */
-val TreePreOrderEnum.sealedObject: Tree
+public val TreePreOrderEnum.sealedObject: Tree
     get() = TreePreOrderSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [Tree]
  */
-object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
+public object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
         TreePreOrderEnum>, EnumForSealedEnumProvider<Tree, TreePreOrderEnum> {
-    override val values: List<Tree> = listOf(
+    public override val values: List<Tree> = listOf(
         Tree.A,
         Tree.K,
         Tree.T,
@@ -706,10 +656,10 @@ object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tre
     )
 
 
-    override val enumClass: Class<TreePreOrderEnum>
+    public override val enumClass: Class<TreePreOrderEnum>
         get() = TreePreOrderEnum::class.java
 
-    override fun ordinalOf(obj: Tree): Int = when (obj) {
+    public override fun ordinalOf(obj: Tree): Int = when (obj) {
         Tree.A -> 0
         Tree.K -> 1
         Tree.T -> 2
@@ -726,7 +676,7 @@ object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tre
         Tree.L.P.R -> 13
     }
 
-    override fun nameOf(obj: Tree): String = when (obj) {
+    public override fun nameOf(obj: Tree): String = when (obj) {
         Tree.A -> "Tree_A"
         Tree.K -> "Tree_K"
         Tree.T -> "Tree_T"
@@ -743,7 +693,7 @@ object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tre
         Tree.L.P.R -> "Tree_L_P_R"
     }
 
-    override fun valueOf(name: String): Tree = when (name) {
+    public override fun valueOf(name: String): Tree = when (name) {
         "Tree_A" -> Tree.A
         "Tree_K" -> Tree.K
         "Tree_T" -> Tree.T
@@ -761,7 +711,7 @@ object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tre
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: Tree): TreePreOrderEnum = when (obj) {
+    public override fun sealedObjectToEnum(obj: Tree): TreePreOrderEnum = when (obj) {
         Tree.A -> TreePreOrderEnum.Tree_A
         Tree.K -> TreePreOrderEnum.Tree_K
         Tree.T -> TreePreOrderEnum.Tree_T
@@ -778,7 +728,7 @@ object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tre
         Tree.L.P.R -> TreePreOrderEnum.Tree_L_P_R
     }
 
-    override fun enumToSealedObject(enum: TreePreOrderEnum): Tree = when (enum) {
+    public override fun enumToSealedObject(`enum`: TreePreOrderEnum): Tree = when (enum) {
         TreePreOrderEnum.Tree_A -> Tree.A
         TreePreOrderEnum.Tree_K -> Tree.K
         TreePreOrderEnum.Tree_T -> Tree.T
@@ -799,25 +749,25 @@ object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tre
 /**
  * The index of [this] in the values list.
  */
-val Tree.preOrderOrdinal: Int
+public val Tree.preOrderOrdinal: Int
     get() = TreePreOrderSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val Tree.preOrderName: String
+public val Tree.preOrderName: String
     get() = TreePreOrderSealedEnum.nameOf(this)
 
 /**
  * A list of all [Tree] objects.
  */
-val Tree.Companion.preOrderValues: List<Tree>
+public val Tree.Companion.preOrderValues: List<Tree>
     get() = TreePreOrderSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [Tree]
  */
-val Tree.Companion.preOrderSealedEnum: TreePreOrderSealedEnum
+public val Tree.Companion.preOrderSealedEnum: TreePreOrderSealedEnum
     get() = TreePreOrderSealedEnum
 
 /**
@@ -825,6 +775,6 @@ val Tree.Companion.preOrderSealedEnum: TreePreOrderSealedEnum
  *
  * If the given name doesn't correspond to any [Tree], an [IllegalArgumentException] will be thrown.
  */
-fun Tree.Companion.preOrderValueOf(name: String): Tree = TreePreOrderSealedEnum.valueOf(name)
+public fun Tree.Companion.preOrderValueOf(name: String): Tree = TreePreOrderSealedEnum.valueOf(name)
 
 """.trimIndent()

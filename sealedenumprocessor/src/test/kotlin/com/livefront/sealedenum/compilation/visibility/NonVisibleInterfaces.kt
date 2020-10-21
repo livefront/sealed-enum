@@ -31,56 +31,55 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [PrivateInterfaceSealedClass]
  */
-enum class PrivateInterfaceSealedClassEnum {
+public enum class PrivateInterfaceSealedClassEnum {
     PrivateInterfaceSealedClass_FirstObject,
-
-    PrivateInterfaceSealedClass_SecondObject
+    PrivateInterfaceSealedClass_SecondObject,
 }
 
 /**
  * The isomorphic [PrivateInterfaceSealedClassEnum] for [this].
  */
-val PrivateInterfaceSealedClass.enum: PrivateInterfaceSealedClassEnum
+public val PrivateInterfaceSealedClass.`enum`: PrivateInterfaceSealedClassEnum
     get() = PrivateInterfaceSealedClassSealedEnum.sealedObjectToEnum(this)
 
 /**
  * The isomorphic [PrivateInterfaceSealedClass] for [this].
  */
-val PrivateInterfaceSealedClassEnum.sealedObject: PrivateInterfaceSealedClass
+public val PrivateInterfaceSealedClassEnum.sealedObject: PrivateInterfaceSealedClass
     get() = PrivateInterfaceSealedClassSealedEnum.enumToSealedObject(this)
 
 /**
  * An implementation of [SealedEnum] for the sealed class [PrivateInterfaceSealedClass]
  */
-object PrivateInterfaceSealedClassSealedEnum : SealedEnum<PrivateInterfaceSealedClass>,
+public object PrivateInterfaceSealedClassSealedEnum : SealedEnum<PrivateInterfaceSealedClass>,
         SealedEnumWithEnumProvider<PrivateInterfaceSealedClass, PrivateInterfaceSealedClassEnum>,
         EnumForSealedEnumProvider<PrivateInterfaceSealedClass, PrivateInterfaceSealedClassEnum> {
-    override val values: List<PrivateInterfaceSealedClass> = listOf(
+    public override val values: List<PrivateInterfaceSealedClass> = listOf(
         PrivateInterfaceSealedClass.FirstObject,
         PrivateInterfaceSealedClass.SecondObject
     )
 
 
-    override val enumClass: Class<PrivateInterfaceSealedClassEnum>
+    public override val enumClass: Class<PrivateInterfaceSealedClassEnum>
         get() = PrivateInterfaceSealedClassEnum::class.java
 
-    override fun ordinalOf(obj: PrivateInterfaceSealedClass): Int = when (obj) {
+    public override fun ordinalOf(obj: PrivateInterfaceSealedClass): Int = when (obj) {
         PrivateInterfaceSealedClass.FirstObject -> 0
         PrivateInterfaceSealedClass.SecondObject -> 1
     }
 
-    override fun nameOf(obj: PrivateInterfaceSealedClass): String = when (obj) {
+    public override fun nameOf(obj: PrivateInterfaceSealedClass): String = when (obj) {
         PrivateInterfaceSealedClass.FirstObject -> "PrivateInterfaceSealedClass_FirstObject"
         PrivateInterfaceSealedClass.SecondObject -> "PrivateInterfaceSealedClass_SecondObject"
     }
 
-    override fun valueOf(name: String): PrivateInterfaceSealedClass = when (name) {
+    public override fun valueOf(name: String): PrivateInterfaceSealedClass = when (name) {
         "PrivateInterfaceSealedClass_FirstObject" -> PrivateInterfaceSealedClass.FirstObject
         "PrivateInterfaceSealedClass_SecondObject" -> PrivateInterfaceSealedClass.SecondObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override fun sealedObjectToEnum(obj: PrivateInterfaceSealedClass):
+    public override fun sealedObjectToEnum(obj: PrivateInterfaceSealedClass):
             PrivateInterfaceSealedClassEnum = when (obj) {
         PrivateInterfaceSealedClass.FirstObject ->
                 PrivateInterfaceSealedClassEnum.PrivateInterfaceSealedClass_FirstObject
@@ -88,7 +87,7 @@ object PrivateInterfaceSealedClassSealedEnum : SealedEnum<PrivateInterfaceSealed
                 PrivateInterfaceSealedClassEnum.PrivateInterfaceSealedClass_SecondObject
     }
 
-    override fun enumToSealedObject(enum: PrivateInterfaceSealedClassEnum):
+    public override fun enumToSealedObject(`enum`: PrivateInterfaceSealedClassEnum):
             PrivateInterfaceSealedClass = when (enum) {
         PrivateInterfaceSealedClassEnum.PrivateInterfaceSealedClass_FirstObject ->
                 PrivateInterfaceSealedClass.FirstObject
@@ -100,25 +99,25 @@ object PrivateInterfaceSealedClassSealedEnum : SealedEnum<PrivateInterfaceSealed
 /**
  * The index of [this] in the values list.
  */
-val PrivateInterfaceSealedClass.ordinal: Int
+public val PrivateInterfaceSealedClass.ordinal: Int
     get() = PrivateInterfaceSealedClassSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val PrivateInterfaceSealedClass.name: String
+public val PrivateInterfaceSealedClass.name: String
     get() = PrivateInterfaceSealedClassSealedEnum.nameOf(this)
 
 /**
  * A list of all [PrivateInterfaceSealedClass] objects.
  */
-val PrivateInterfaceSealedClass.Companion.values: List<PrivateInterfaceSealedClass>
+public val PrivateInterfaceSealedClass.Companion.values: List<PrivateInterfaceSealedClass>
     get() = PrivateInterfaceSealedClassSealedEnum.values
 
 /**
  * Returns an implementation of [SealedEnum] for the sealed class [PrivateInterfaceSealedClass]
  */
-val PrivateInterfaceSealedClass.Companion.sealedEnum: PrivateInterfaceSealedClassSealedEnum
+public val PrivateInterfaceSealedClass.Companion.sealedEnum: PrivateInterfaceSealedClassSealedEnum
     get() = PrivateInterfaceSealedClassSealedEnum
 
 /**
@@ -127,8 +126,8 @@ val PrivateInterfaceSealedClass.Companion.sealedEnum: PrivateInterfaceSealedClas
  * If the given name doesn't correspond to any [PrivateInterfaceSealedClass], an
  * [IllegalArgumentException] will be thrown.
  */
-fun PrivateInterfaceSealedClass.Companion.valueOf(name: String): PrivateInterfaceSealedClass =
-        PrivateInterfaceSealedClassSealedEnum.valueOf(name)
+public fun PrivateInterfaceSealedClass.Companion.valueOf(name: String): PrivateInterfaceSealedClass
+        = PrivateInterfaceSealedClassSealedEnum.valueOf(name)
 
 """.trimIndent()
 
@@ -164,18 +163,17 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class
  * [ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass]
  */
-enum class ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum(
+public enum class ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum(
     sealedObject: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass
 ) : JavaProtectedInterfaceBaseClass.ProtectedInterface by sealedObject {
     ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_FirstObject(com.livefront.sealedenum.compilation.visibility.ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject),
-
-    ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_SecondObject(com.livefront.sealedenum.compilation.visibility.ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject)
+    ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_SecondObject(com.livefront.sealedenum.compilation.visibility.ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject),
 }
 
 /**
  * The isomorphic [ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum] for [this].
  */
-val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.enum:
+public val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.`enum`:
         ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum
     get() =
             ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum.sealedObjectToEnum(this)
@@ -183,7 +181,7 @@ val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.enum:
 /**
  * The isomorphic [ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass] for [this].
  */
-val ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum.sealedObject:
+public val ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum.sealedObject:
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass
     get() =
             ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum.enumToSealedObject(this)
@@ -192,37 +190,39 @@ val ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum.sealedObject:
  * An implementation of [SealedEnum] for the sealed class
  * [ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass]
  */
-object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum :
+public object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum :
         SealedEnum<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass>,
         SealedEnumWithEnumProvider<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass,
         ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>,
         EnumForSealedEnumProvider<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass,
         ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum> {
-    override val values: List<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass> = listOf(
+    public override val values: List<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass> =
+            listOf(
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject,
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject
     )
 
 
-    override val enumClass: Class<ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>
+    public override val enumClass:
+            Class<ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>
         get() = ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum::class.java
 
-    override fun ordinalOf(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass): Int =
-            when (obj) {
+    public override fun ordinalOf(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass):
+            Int = when (obj) {
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject -> 0
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject -> 1
     }
 
-    override fun nameOf(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass): String =
-            when (obj) {
+    public override fun nameOf(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass):
+            String = when (obj) {
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject ->
                 "ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_FirstObject"
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject ->
                 "ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_SecondObject"
     }
 
-    override fun valueOf(name: String): ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass =
-            when (name) {
+    public override fun valueOf(name: String):
+            ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass = when (name) {
         "ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_FirstObject" ->
                 ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject
         "ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_SecondObject" ->
@@ -230,7 +230,7 @@ object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum :
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override
+    public override
             fun sealedObjectToEnum(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass):
             ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum = when (obj) {
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject ->
@@ -239,8 +239,8 @@ object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum :
                 ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum.ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_SecondObject
     }
 
-    override
-            fun enumToSealedObject(enum: ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum):
+    public override
+            fun enumToSealedObject(`enum`: ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum):
             ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass = when (enum) {
         ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum.ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_FirstObject ->
                 ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject
@@ -252,19 +252,19 @@ object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum :
 /**
  * The index of [this] in the values list.
  */
-val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.ordinal: Int
+public val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.ordinal: Int
     get() = ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum.ordinalOf(this)
 
 /**
  * The name of [this] for use with valueOf.
  */
-val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.name: String
+public val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.name: String
     get() = ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum.nameOf(this)
 
 /**
  * A list of all [ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass] objects.
  */
-val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.Companion.values:
+public val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.Companion.values:
         List<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass>
     get() = ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum.values
 
@@ -272,7 +272,7 @@ val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.Companion.values:
  * Returns an implementation of [SealedEnum] for the sealed class
  * [ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass]
  */
-val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.Companion.sealedEnum:
+public val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.Companion.sealedEnum:
         ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum
     get() = ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum
 
@@ -284,7 +284,8 @@ val ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.Companion.sealedE
  * [ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass], an [IllegalArgumentException] will be
  * thrown.
  */
-fun ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.Companion.valueOf(name: String):
+public
+        fun ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.Companion.valueOf(name: String):
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass =
         ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum.valueOf(name)
 
@@ -323,12 +324,11 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class
  * [ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass]
  */
-enum class
+public enum class
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum
         {
     ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClass_FirstObject,
-
-    ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClass_SecondObject
+    ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClass_SecondObject,
 }
 
 /**
@@ -336,7 +336,8 @@ enum class
  * [ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum] for
  * [this].
  */
-val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.enum:
+public
+        val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.`enum`:
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum
     get() =
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum.sealedObjectToEnum(this)
@@ -346,7 +347,8 @@ val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterface
  * [ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass] for
  * [this].
  */
-val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum.sealedObject:
+public
+        val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum.sealedObject:
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass
     get() =
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum.enumToSealedObject(this)
@@ -355,7 +357,7 @@ val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterface
  * An implementation of [SealedEnum] for the sealed class
  * [ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass]
  */
-object
+public object
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum
         :
         SealedEnum<ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass>,
@@ -364,7 +366,7 @@ object
         EnumForSealedEnumProvider<ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass,
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum>
         {
-    override val values:
+    public override val values:
             List<ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass>
             = listOf(
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.FirstObject,
@@ -372,12 +374,12 @@ object
     )
 
 
-    override val enumClass:
+    public override val enumClass:
             Class<ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum>
         get() =
                 ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum::class.java
 
-    override
+    public override
             fun ordinalOf(obj: ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass):
             Int = when (obj) {
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.FirstObject ->
@@ -386,7 +388,7 @@ object
                 1
     }
 
-    override
+    public override
             fun nameOf(obj: ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass):
             String = when (obj) {
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.FirstObject ->
@@ -395,7 +397,7 @@ object
                 "ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClass_SecondObject"
     }
 
-    override fun valueOf(name: String):
+    public override fun valueOf(name: String):
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass
             = when (name) {
         "ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClass_FirstObject" ->
@@ -405,7 +407,7 @@ object
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
-    override
+    public override
             fun sealedObjectToEnum(obj: ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass):
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum
             = when (obj) {
@@ -415,8 +417,8 @@ object
                 ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum.ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClass_SecondObject
     }
 
-    override
-            fun enumToSealedObject(enum: ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum):
+    public override
+            fun enumToSealedObject(`enum`: ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum):
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass
             = when (enum) {
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum.ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClass_FirstObject ->
@@ -429,7 +431,8 @@ object
 /**
  * The index of [this] in the values list.
  */
-val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.ordinal:
+public
+        val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.ordinal:
         Int
     get() =
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum.ordinalOf(this)
@@ -437,7 +440,8 @@ val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterface
 /**
  * The name of [this] for use with valueOf.
  */
-val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.name:
+public
+        val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.name:
         String
     get() =
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum.nameOf(this)
@@ -446,7 +450,8 @@ val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterface
  * A list of all
  * [ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass] objects.
  */
-val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.Companion.values:
+public
+        val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.Companion.values:
         List<ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass>
     get() =
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum.values
@@ -455,7 +460,8 @@ val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterface
  * Returns an implementation of [SealedEnum] for the sealed class
  * [ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass]
  */
-val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.Companion.sealedEnum:
+public
+        val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.Companion.sealedEnum:
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum
     get() =
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum
@@ -469,7 +475,8 @@ val ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterface
  * [ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass], an
  * [IllegalArgumentException] will be thrown.
  */
-fun ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.Companion.valueOf(name: String):
+public
+        fun ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.Companion.valueOf(name: String):
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass =
         ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassSealedEnum.valueOf(name)
 

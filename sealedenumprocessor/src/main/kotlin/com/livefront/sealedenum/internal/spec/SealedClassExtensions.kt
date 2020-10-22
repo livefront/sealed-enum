@@ -3,9 +3,9 @@ package com.livefront.sealedenum.internal.spec
 import com.livefront.sealedenum.SealedEnum
 import com.squareup.kotlinpoet.ClassName
 
-typealias SealedClass = ClassName
+internal typealias SealedClass = ClassName
 
-typealias SealedObject = ClassName
+internal typealias SealedObject = ClassName
 
 /**
  * Creates the name of the [SealedEnum] for the given [SealedClass] and [enumPrefix].

@@ -199,7 +199,7 @@ package com.livefront.sealedenum
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
 @Repeatable
-annotation class GenSealedEnum(
+public annotation class GenSealedEnum(
     val traversalOrder: TreeTraversalOrder = TreeTraversalOrder.IN_ORDER,
     val generateEnum: Boolean = false
 )
@@ -207,4 +207,4 @@ annotation class GenSealedEnum(
 /**
  * This is the container annotation for multiple [GenSealedEnum] annotations.
  */
-annotation class GenSealedEnums(vararg val value: GenSealedEnum)
+public annotation class GenSealedEnums(vararg val value: GenSealedEnum)

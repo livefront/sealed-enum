@@ -3,7 +3,7 @@ package com.livefront.sealedenum
 /**
  * An enum specifying the traversal order for the list of sealed objects.
  */
-enum class TreeTraversalOrder {
+public enum class TreeTraversalOrder {
     /**
      * All objects that are direct children of a sealed class will be listed before objects in subclasses that are
      * themselves sealed.

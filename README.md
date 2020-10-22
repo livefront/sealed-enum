@@ -348,8 +348,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.livefront.sealed-enum:sealedenum:0.1.1")
-    kapt("com.github.livefront.sealed-enum:sealedenumprocessor:0.1.1")
+    implementation("com.github.livefront.sealed-enum:sealedenum:0.2.0")
+    kapt("com.github.livefront.sealed-enum:sealedenumprocessor:0.2.0")
 }
 ```
 

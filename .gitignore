@@ -6,3 +6,5 @@ out/
 # Gradle files
 build/
 .gradle/
+
+local.properties

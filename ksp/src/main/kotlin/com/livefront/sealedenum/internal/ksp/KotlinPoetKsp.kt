@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 internal fun KSClassDeclaration.toClassName(): ClassName {
     require(!isLocal()) { "Local/anonymous classes are not supported!" }
     val pkgName = packageName.asString()
+    println("$qualifiedName, $simpleName")
     val typesString = qualifiedName!!.asString().removePrefix("$pkgName.")
 
     val simpleNames = typesString.split(".")

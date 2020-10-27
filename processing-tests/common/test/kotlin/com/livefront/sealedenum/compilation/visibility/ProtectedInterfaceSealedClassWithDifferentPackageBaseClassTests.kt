@@ -6,6 +6,7 @@ import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledIf
 
 class ProtectedInterfaceSealedClassWithDifferentPackageBaseClassTests {
 
@@ -47,7 +48,12 @@ class ProtectedInterfaceSealedClassWithDifferentPackageBaseClassTests {
         )
     }
 
+    /**
+     * TODO: kotlin-compile-testing seems to only allow KSP to view Java files with an Origin of CLASS, which causes
+     *       issues when trying to look at the PROTECTED modifier. Per above, in real use this usage still compiles.
+     */
     @Test
+    @DisabledIf("com.livefront.sealedenum.testing.ProcessingTypeGetter#isKSP")
     fun `compilation generates correct code`() {
         val result = compile(
             getSourceFile("compilation", "visibility", "ProtectedInterfaceSealedClassWithDifferentPackageBaseClass.kt")

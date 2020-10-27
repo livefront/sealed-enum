@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Assertions.assertEquals
 /**
  * Asserts that the given [result] compiled successfully.
  */
-internal fun assertCompiles(result: CompilationResult) {
-    assertEquals(KotlinCompilation.ExitCode.OK, result.kotlinCompilationResult.exitCode)
+internal fun assertCompiles(result: KotlinCompilation.Result) {
+    assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
 }
 
 /**
  * Asserts that the given [result] failed to compile.
  */
-internal fun assertFails(result: CompilationResult) {
-    assertEquals(KotlinCompilation.ExitCode.COMPILATION_ERROR, result.kotlinCompilationResult.exitCode)
+internal fun assertFails(result: KotlinCompilation.Result) {
+    assertEquals(KotlinCompilation.ExitCode.COMPILATION_ERROR, result.exitCode)
 }
 
 /**
@@ -25,10 +25,10 @@ internal fun assertFails(result: CompilationResult) {
 internal fun assertGeneratedFileMatches(
     fileName: String,
     @Language("kotlin") expected: String,
-    result: CompilationResult
+    result: KotlinCompilation.Result
 ) {
     assertEquals(
         expected,
-        result.kotlinCompilationResult.outputDirectory.parentFile.walk().first { it.name == fileName }.readText()
+        result.outputDirectory.parentFile.walk().first { it.name == fileName }.readText()
     )
 }

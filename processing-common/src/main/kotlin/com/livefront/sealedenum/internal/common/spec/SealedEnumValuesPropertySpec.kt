@@ -14,7 +14,7 @@ internal data class SealedEnumValuesPropertySpec(
     private val parameterizedSealedClass: TypeName,
     private val sealedClassCompanionObject: ClassName,
     private val sealedClassCompanionObjectEffectiveVisibility: Visibility,
-    private val sealedClassCompanionObjectElement: TypeElement,
+    private val sealedClassCompanionObjectElement: TypeElement?,
     private val sealedEnum: ClassName,
     private val enumPrefix: String
 ) {
@@ -22,7 +22,7 @@ internal data class SealedEnumValuesPropertySpec(
 
     fun build(): PropertySpec {
         val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "Values"), listOfSealedClass)
-            .addOriginatingElement(sealedClassCompanionObjectElement)
+            .maybeAddOriginatingElement(sealedClassCompanionObjectElement)
             .addKdoc("A list of all [%T] objects.", sealedClass)
             .receiver(sealedClassCompanionObject)
             .addModifiers(sealedClassCompanionObjectEffectiveVisibility.kModifier)

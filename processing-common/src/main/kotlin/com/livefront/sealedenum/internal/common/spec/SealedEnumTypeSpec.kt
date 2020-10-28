@@ -32,7 +32,7 @@ internal data class SealedEnumTypeSpec(
     private val sealedClass: SealedClass,
     private val sealedClassVisibility: Visibility,
     private val parameterizedSealedClass: TypeName,
-    private val sealedClassCompanionObjectElement: TypeElement,
+    private val sealedClassCompanionObjectElement: TypeElement?,
     private val sealedObjects: List<SealedObject>,
     private val enumPrefix: String
 ) {
@@ -43,7 +43,7 @@ internal data class SealedEnumTypeSpec(
     private val typeSpecBuilder = TypeSpec.objectBuilder(name)
         .addModifiers(sealedClassVisibility.kModifier)
         .addSuperinterface(parameterizedSealedClassEnum)
-        .addOriginatingElement(sealedClassCompanionObjectElement)
+        .maybeAddOriginatingElement(sealedClassCompanionObjectElement)
         .addKdoc("An implementation of [%T] for the sealed class [%T]", sealedEnum, sealedClass)
         .addProperty(createObjectsProperty())
         .addFunction(createOrdinalOfFunction())

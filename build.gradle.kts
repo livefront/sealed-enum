@@ -53,9 +53,6 @@ subprojects {
 
         test {
             useJUnitPlatform()
-            configure<JacocoTaskExtension> {
-                isIncludeNoLocationClasses = true
-            }
         }
 
         jacocoTestReport {

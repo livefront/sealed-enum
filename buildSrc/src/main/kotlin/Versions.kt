@@ -1,6 +1,6 @@
 object Versions {
     const val autoService = "1.0-rc7"
-    const val detekt = "1.12.0"
+    const val detekt = "1.15.0"
     const val dokka = "1.4.0"
     const val incap = "0.3"
     const val junit = "5.6.2"

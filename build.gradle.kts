@@ -89,6 +89,35 @@ subprojects {
                     from(this@subprojects.components["java"])
                     artifact(sourcesJar)
                     artifact(javadocJar)
+
+                    pom {
+                        name.set(project.name)
+                        description.set("Obsoleting enums with sealed classes of objects")
+                        url.set("https://github.com/livefront/sealed-enum")
+
+                        licenses {
+                            license {
+                                name.set("The Apache Software License, Version 2.0")
+                                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                                distribution.set("repo")
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id.set("alexvanyo")
+                                name.set("Alex Vanyo")
+                                organization.set("Livefront")
+                                organizationUrl.set("https://www.livefront.com")
+                            }
+                        }
+
+                        scm {
+                            url.set("https://github.com/livefront/sealed-enum")
+                            connection.set("scm:git:git://github.com/livefront/sealed-enum.git")
+                            developerConnection.set("scm:git:git://github.com/livefront/sealed-enum.git")
+                        }
+                    }
                 }
             }
         }

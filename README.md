@@ -1,7 +1,7 @@
 # sealed-enum (Beta)
 *Enums are dead, long live enums!*
 
-![CI-Status](https://travis-ci.com/livefront/sealed-enum.svg?token=WuckG7RmGXoNTzG4QzVk&branch=master)
+![CI](https://github.com/livefront/sealed-enum/workflows/CI/badge.svg)
 [![Release](https://jitpack.io/v/livefront/sealed-enum.svg)](https://jitpack.io/#livefront/sealed-enum)
 
 Generates enum-like behavior for sealed classes of objects.

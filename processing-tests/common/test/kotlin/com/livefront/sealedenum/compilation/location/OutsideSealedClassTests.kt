@@ -73,7 +73,7 @@ class OutsideSealedClassTests {
     @Test
     fun `outside object ordering`() {
         assertEquals(
-            listOf(GammaFirstObject, GammaThirdObject, GammaOutsideSealedClass.GammaSecondObject),
+            listOf(GammaFirstObject, GammaOutsideSealedClass.GammaSecondObject, GammaThirdObject),
             GammaOutsideSealedClass.values
         )
     }
@@ -83,8 +83,8 @@ class OutsideSealedClassTests {
         assertEquals(
             listOf(
                 GammaOutsideSealedClassEnum.GammaFirstObject,
+                GammaOutsideSealedClassEnum.GammaOutsideSealedClass_GammaSecondObject,
                 GammaOutsideSealedClassEnum.GammaThirdObject,
-                GammaOutsideSealedClassEnum.GammaOutsideSealedClass_GammaSecondObject
             ),
             enumValues<GammaOutsideSealedClassEnum>().toList()
         )
@@ -109,7 +109,7 @@ class OutsideSealedClassTests {
     @Test
     fun `duplicate name objects`() {
         assertEquals(
-            listOf(DeltaObject, DeltaOutsideSealedClass.DeltaObject),
+            listOf(DeltaOutsideSealedClass.DeltaObject, DeltaObject),
             DeltaOutsideSealedClass.values
         )
     }
@@ -118,8 +118,8 @@ class OutsideSealedClassTests {
     fun `duplicate name enums`() {
         assertEquals(
             listOf(
-                DeltaOutsideSealedClassEnum.DeltaObject,
-                DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject
+                DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject,
+                DeltaOutsideSealedClassEnum.DeltaObject
             ),
             enumValues<DeltaOutsideSealedClassEnum>().toList()
         )

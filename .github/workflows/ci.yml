@@ -32,9 +32,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ matrix.java-version }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
+          key: v1-${{ runner.os }}-gradle-${{ matrix.java-version }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-${{ matrix.java-version }}-
+            v1-${{ runner.os }}-gradle-${{ matrix.java-version }}-
 
       - name: Configure Ruby
         uses: ruby/setup-ruby@v1

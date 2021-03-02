@@ -1,0 +1,22 @@
+[versions]
+autoService = "1.0-rc7"
+incap = "0.3"
+junit = "5.6.2"
+kotlinCompileTesting = "1.2.11"
+kotlinPoet = "1.7.2"
+
+[libraries]
+autoService-runtime = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoService" }
+autoService-processor = { module = "com.google.auto.service:auto-service", version.ref = "autoService" }
+
+incap-runtime = { module = "net.ltgt.gradle.incap:incap", version.ref = "incap" }
+incap-processor = { module = "net.ltgt.gradle.incap:incap-processor", version.ref = "incap" }
+
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+
+kotlinCompileTesting = { module = "com.github.tschuchortdev:kotlin-compile-testing", version.ref = "kotlinCompileTesting" }
+
+squareUp-kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
+squareUp-kotlinPoetClassInspectorElements = { module = "com.squareup:kotlinpoet-classinspector-elements", version.ref = "kotlinPoet" }
+squareUp-kotlinPoetMetadata = { module = "com.squareup:kotlinpoet-metadata", version.ref = "kotlinPoet" }
+squareUp-kotlinPoetMetadataSpecs = { module = "com.squareup:kotlinpoet-metadata-specs", version.ref = "kotlinPoet" }

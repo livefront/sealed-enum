@@ -1,3 +1,12 @@
+# 0.3.0
+## Breaking changes:
+- Artifact ids were updated (`sealedenum` -> `runtime` and `sealedenumprocessor` -> `processor`).
+  This was done to accomodate alternate generation implementations, such as by [KSP](https://github.com/google/ksp)
+
+## Miscellaneous updates:
+- Switch to GitHub actions for CI
+- Various dependency updates
+
 # 0.2.0
 ## Features:
 - Added extension properties and methods to make `sealed-enum` easier to use in common cases.

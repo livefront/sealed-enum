@@ -1,5 +1,6 @@
 plugins {
     kotlin("kapt")
+    `maven-publish`
 }
 
 dependencies {

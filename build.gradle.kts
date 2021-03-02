@@ -20,7 +20,6 @@ subprojects {
         plugin<org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper>()
         plugin<JacocoPlugin>()
         plugin<io.gitlab.arturbosch.detekt.DetektPlugin>()
-        plugin<MavenPublishPlugin>()
         plugin<org.jetbrains.dokka.gradle.DokkaPlugin>()
     }
 
@@ -73,49 +72,51 @@ subprojects {
             outputDirectory.set(javadoc.get().destinationDir)
         }
 
-        val sourcesJar by creating(Jar::class) {
-            archiveClassifier.set("sources")
-            from(sourceSets.main.get().allSource)
-        }
+        plugins.withType(MavenPublishPlugin::class) {
+            val sourcesJar by creating(Jar::class) {
+                archiveClassifier.set("sources")
+                from(sourceSets.main.get().allSource)
+            }
 
-        val javadocJar by creating(Jar::class) {
-            archiveClassifier.set("javadoc")
-            from(dokkaHtml)
-        }
+            val javadocJar by creating(Jar::class) {
+                archiveClassifier.set("javadoc")
+                from(dokkaHtml)
+            }
 
-        publishing {
-            publications {
-                create<MavenPublication>("default") {
-                    from(this@subprojects.components["java"])
-                    artifact(sourcesJar)
-                    artifact(javadocJar)
+            publishing {
+                publications {
+                    create<MavenPublication>("default") {
+                        from(this@subprojects.components["java"])
+                        artifact(sourcesJar)
+                        artifact(javadocJar)
 
-                    pom {
-                        name.set(project.name)
-                        description.set("Obsoleting enums with sealed classes of objects")
-                        url.set("https://github.com/livefront/sealed-enum")
-
-                        licenses {
-                            license {
-                                name.set("The Apache Software License, Version 2.0")
-                                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                                distribution.set("repo")
-                            }
-                        }
-
-                        developers {
-                            developer {
-                                id.set("alexvanyo")
-                                name.set("Alex Vanyo")
-                                organization.set("Livefront")
-                                organizationUrl.set("https://www.livefront.com")
-                            }
-                        }
-
-                        scm {
+                        pom {
+                            name.set(project.name)
+                            description.set("Obsoleting enums with sealed classes of objects")
                             url.set("https://github.com/livefront/sealed-enum")
-                            connection.set("scm:git:git://github.com/livefront/sealed-enum.git")
-                            developerConnection.set("scm:git:git://github.com/livefront/sealed-enum.git")
+
+                            licenses {
+                                license {
+                                    name.set("The Apache Software License, Version 2.0")
+                                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                                    distribution.set("repo")
+                                }
+                            }
+
+                            developers {
+                                developer {
+                                    id.set("alexvanyo")
+                                    name.set("Alex Vanyo")
+                                    organization.set("Livefront")
+                                    organizationUrl.set("https://www.livefront.com")
+                                }
+                            }
+
+                            scm {
+                                url.set("https://github.com/livefront/sealed-enum")
+                                connection.set("scm:git:git://github.com/livefront/sealed-enum.git")
+                                developerConnection.set("scm:git:git://github.com/livefront/sealed-enum.git")
+                            }
                         }
                     }
                 }

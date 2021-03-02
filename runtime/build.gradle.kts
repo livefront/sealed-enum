@@ -1,3 +1,7 @@
+plugins {
+    `maven-publish`
+}
+
 dependencies {
     compileOnly(kotlin("stdlib"))
 

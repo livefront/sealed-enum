@@ -5,6 +5,7 @@ plugins {
     jacoco
     id("io.gitlab.arturbosch.detekt") version Versions.detekt
     id("org.jetbrains.dokka") version Versions.dokka
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version Versions.kotlinBinaryCompatibilityValidator
     `maven-publish`
 }
 
@@ -123,6 +124,10 @@ subprojects {
             }
         }
     }
+}
+
+apiValidation {
+    ignoredPackages.add("com.livefront.sealedenum.internal")
 }
 
 tasks {

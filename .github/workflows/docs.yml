@@ -37,9 +37,6 @@ jobs:
       - name: Create documentation
         run: ./gradlew dokkaHtmlMultiModule
 
-      - name: Create index.html for GitHub Pages
-        run: cp ./build/dokka/htmlMultiModule/-modules.html ./build/dokka/htmlMultiModule/index.html
-
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:

@@ -1,5 +1,38 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
-
+$dokka.location:com.livefront.sealedenum////PointingToDeclaration/runtime/com.livefront.sealedenum/index.html
+$dokka.location:com.livefront.sealedenum//createSealedEnumFromEnum/#/PointingToDeclaration/runtime/com.livefront.sealedenum/create-sealed-enum-from-enum.html
+$dokka.location:com.livefront.sealedenum//createSealedEnumFromEnumArray/#kotlin.Array[TypeParam(bounds=[kotlin.Enum[^]])]#java.lang.Class[TypeParam(bounds=[kotlin.Enum[^]])]/PointingToDeclaration/runtime/com.livefront.sealedenum/create-sealed-enum-from-enum-array.html
+$dokka.location:com.livefront.sealedenum/EnumForSealedEnumProvider///PointingToDeclaration/runtime/com.livefront.sealedenum/-enum-for-sealed-enum-provider/index.html
+$dokka.location:com.livefront.sealedenum/EnumForSealedEnumProvider/enumClass/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-enum-for-sealed-enum-provider/enum-class.html
+$dokka.location:com.livefront.sealedenum/EnumForSealedEnumProvider/enumToSealedObject/#TypeParam(bounds=[kotlin.Enum[^]])/PointingToDeclaration/runtime/com.livefront.sealedenum/-enum-for-sealed-enum-provider/enum-to-sealed-object.html
+$dokka.location:com.livefront.sealedenum/EnumForSealedEnumProvider/sealedObjectToEnum/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/runtime/com.livefront.sealedenum/-enum-for-sealed-enum-provider/sealed-object-to-enum.html
+$dokka.location:com.livefront.sealedenum/GenSealedEnum///PointingToDeclaration/runtime/com.livefront.sealedenum/-gen-sealed-enum/index.html
+$dokka.location:com.livefront.sealedenum/GenSealedEnum/GenSealedEnum/#com.livefront.sealedenum.TreeTraversalOrder#kotlin.Boolean/PointingToDeclaration/runtime/com.livefront.sealedenum/-gen-sealed-enum/-gen-sealed-enum.html
+$dokka.location:com.livefront.sealedenum/GenSealedEnum/generateEnum/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-gen-sealed-enum/generate-enum.html
+$dokka.location:com.livefront.sealedenum/GenSealedEnum/traversalOrder/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-gen-sealed-enum/traversal-order.html
+$dokka.location:com.livefront.sealedenum/GenSealedEnums///PointingToDeclaration/runtime/com.livefront.sealedenum/-gen-sealed-enums/index.html
+$dokka.location:com.livefront.sealedenum/GenSealedEnums/GenSealedEnums/#kotlin.Array[com.livefront.sealedenum.GenSealedEnum]/PointingToDeclaration/runtime/com.livefront.sealedenum/-gen-sealed-enums/-gen-sealed-enums.html
+$dokka.location:com.livefront.sealedenum/GenSealedEnums/value/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-gen-sealed-enums/value.html
+$dokka.location:com.livefront.sealedenum/SealedEnum///PointingToDeclaration/runtime/com.livefront.sealedenum/-sealed-enum/index.html
+$dokka.location:com.livefront.sealedenum/SealedEnum/compare/#TypeParam(bounds=[kotlin.Any?])#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/runtime/com.livefront.sealedenum/-sealed-enum/compare.html
+$dokka.location:com.livefront.sealedenum/SealedEnum/nameOf/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/runtime/com.livefront.sealedenum/-sealed-enum/name-of.html
+$dokka.location:com.livefront.sealedenum/SealedEnum/ordinalOf/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/runtime/com.livefront.sealedenum/-sealed-enum/ordinal-of.html
+$dokka.location:com.livefront.sealedenum/SealedEnum/valueOf/#kotlin.String/PointingToDeclaration/runtime/com.livefront.sealedenum/-sealed-enum/value-of.html
+$dokka.location:com.livefront.sealedenum/SealedEnum/values/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-sealed-enum/values.html
+$dokka.location:com.livefront.sealedenum/SealedEnumWithEnumProvider///PointingToDeclaration/runtime/com.livefront.sealedenum/-sealed-enum-with-enum-provider/index.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.IN_ORDER///PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-i-n_-o-r-d-e-r/index.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.IN_ORDER/name/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-i-n_-o-r-d-e-r/name.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.IN_ORDER/ordinal/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-i-n_-o-r-d-e-r/ordinal.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.LEVEL_ORDER///PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-l-e-v-e-l_-o-r-d-e-r/index.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.LEVEL_ORDER/name/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-l-e-v-e-l_-o-r-d-e-r/name.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.LEVEL_ORDER/ordinal/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-l-e-v-e-l_-o-r-d-e-r/ordinal.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.POST_ORDER///PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-p-o-s-t_-o-r-d-e-r/index.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.POST_ORDER/name/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-p-o-s-t_-o-r-d-e-r/name.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.POST_ORDER/ordinal/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-p-o-s-t_-o-r-d-e-r/ordinal.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.PRE_ORDER///PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-p-r-e_-o-r-d-e-r/index.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.PRE_ORDER/name/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-p-r-e_-o-r-d-e-r/name.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder.PRE_ORDER/ordinal/#/PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/-p-r-e_-o-r-d-e-r/ordinal.html
+$dokka.location:com.livefront.sealedenum/TreeTraversalOrder///PointingToDeclaration/runtime/com.livefront.sealedenum/-tree-traversal-order/index.html
 com.livefront.sealedenum
 

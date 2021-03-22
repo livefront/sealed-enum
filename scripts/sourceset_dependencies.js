@@ -1,1 +1,1 @@
-sourceset_dependencies = '{}'
+sourceset_dependencies = '{":processing-common:dokkaHtmlPartial/main":[],":runtime:dokkaHtmlPartial/main":[],":processor:dokkaHtmlPartial/main":[]}'

@@ -1,5 +1,16 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
-
+$dokka.location:com.livefront.sealedenum.internal.processor////PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/index.html
+$dokka.location:com.livefront.sealedenum.internal.processor/InvalidSubclassVisibilityException///PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-invalid-subclass-visibility-exception/index.html
+$dokka.location:com.livefront.sealedenum.internal.processor/InvalidSubclassVisibilityException/InvalidSubclassVisibilityException/#javax.lang.model.element.Element/PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-invalid-subclass-visibility-exception/-invalid-subclass-visibility-exception.html
+$dokka.location:com.livefront.sealedenum.internal.processor/InvalidSubclassVisibilityException/element/#/PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-invalid-subclass-visibility-exception/element.html
+$dokka.location:com.livefront.sealedenum.internal.processor/NonObjectSealedSubclassException///PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-non-object-sealed-subclass-exception/index.html
+$dokka.location:com.livefront.sealedenum.internal.processor/NonObjectSealedSubclassException/NonObjectSealedSubclassException/#javax.lang.model.element.Element/PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-non-object-sealed-subclass-exception/-non-object-sealed-subclass-exception.html
+$dokka.location:com.livefront.sealedenum.internal.processor/NonObjectSealedSubclassException/element/#/PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-non-object-sealed-subclass-exception/element.html
+$dokka.location:com.livefront.sealedenum.internal.processor/SealedEnumProcessor///PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-sealed-enum-processor/index.html
+$dokka.location:com.livefront.sealedenum.internal.processor/SealedEnumProcessor/SealedEnumProcessor/#/PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-sealed-enum-processor/-sealed-enum-processor.html
+$dokka.location:com.livefront.sealedenum.internal.processor/SealedEnumProcessor/getSupportedAnnotationTypes/#/PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-sealed-enum-processor/get-supported-annotation-types.html
+$dokka.location:com.livefront.sealedenum.internal.processor/SealedEnumProcessor/getSupportedOptions/#/PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-sealed-enum-processor/get-supported-options.html
+$dokka.location:com.livefront.sealedenum.internal.processor/SealedEnumProcessor/process/#kotlin.collections.MutableSet[javax.lang.model.element.TypeElement]#javax.annotation.processing.RoundEnvironment/PointingToDeclaration/processor/com.livefront.sealedenum.internal.processor/-sealed-enum-processor/process.html
 com.livefront.sealedenum.internal.processor
 

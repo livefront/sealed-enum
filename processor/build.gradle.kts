@@ -5,8 +5,8 @@ plugins {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation(project(":runtime"))
-    implementation(project(":processing-common"))
+    implementation(projects.runtime)
+    implementation(projects.processingCommon)
     implementation(libs.squareUp.kotlinPoet)
     implementation(libs.squareUp.kotlinPoetClassInspectorElements)
     implementation(libs.squareUp.kotlinPoetMetadata)

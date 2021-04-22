@@ -4,8 +4,8 @@ plugins {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation(project(":runtime"))
-    implementation(Dependencies.kotlinPoet)
+    implementation(projects.runtime)
+    implementation(libs.squareUp.kotlinPoet)
 
-    testImplementation(Dependencies.junit)
+    testImplementation(libs.junit.jupiter)
 }

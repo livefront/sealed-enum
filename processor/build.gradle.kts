@@ -5,14 +5,16 @@ plugins {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation(project(":runtime"))
-    implementation(project(":processing-common"))
-    implementation(Dependencies.kotlinPoet)
-    implementation(Dependencies.kotlinPoetClassInspectorElements)
-    implementation(Dependencies.kotlinPoetMetadata)
-    implementation(Dependencies.kotlinPoetMetadataSpecs)
-    autoService()
-    incap()
+    implementation(projects.runtime)
+    implementation(projects.processingCommon)
+    implementation(libs.squareUp.kotlinPoet)
+    implementation(libs.squareUp.kotlinPoetClassInspectorElements)
+    implementation(libs.squareUp.kotlinPoetMetadata)
+    implementation(libs.squareUp.kotlinPoetMetadataSpecs)
+    implementation(libs.autoService.runtime)
+    kapt(libs.autoService.processor)
+    implementation(libs.incap.runtime)
+    kapt(libs.incap.processor)
 }
 
 kapt {

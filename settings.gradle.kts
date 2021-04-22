@@ -1,3 +1,6 @@
+enableFeaturePreview("VERSION_CATALOGS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include(":runtime")
 include(":processing-common")
 include(":processor")

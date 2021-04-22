@@ -23,10 +23,10 @@ if (!debugKsp) {
 }
 
 dependencies {
-    testImplementation(Dependencies.junit)
-    testImplementation(Dependencies.kotlinCompileTesting)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotlinCompileTesting)
     testImplementation(kotlin("reflect"))
-    testImplementation(project(":runtime"))
-    testImplementation(project(":processor"))
-    kaptTest(project(":processor"))
+    testImplementation(projects.runtime)
+    testImplementation(projects.processor)
+    kaptTest(projects.processor)
 }

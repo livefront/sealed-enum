@@ -13,6 +13,7 @@ import com.squareup.kotlinpoet.TypeVariableName
 import com.squareup.kotlinpoet.WildcardTypeName
 import com.squareup.kotlinpoet.metadata.isInternal
 import com.squareup.kotlinpoet.metadata.isPublic
+import com.squareup.kotlinpoet.metadata.isSealed
 import com.squareup.kotlinpoet.metadata.specs.ClassInspector
 import com.squareup.kotlinpoet.metadata.specs.internal.ClassInspectorUtil
 import com.squareup.kotlinpoet.metadata.specs.toTypeSpec
@@ -100,7 +101,9 @@ internal class SuperInterfaces(
             .map(types::asElement)
             .map { it as TypeElement } // Interfaces should all be TypeElements
             .zip(typeSpec.superinterfaces.keys)
-            .filter { (superInterfaceType, _) -> superInterfaceType.isVisibleInterface() }
+            .filter { (superInterfaceType, _) ->
+                superInterfaceType.isVisibleInterface() && !superInterfaceType.isSealedInterface()
+            }
             .map(Pair<Element, TypeName>::second)
             .map { it.substituteTypeNames(typeVariableNamesToTypeArguments) }
             .filter { it.isValidInterface() }
@@ -139,7 +142,9 @@ internal class SuperInterfaces(
             .map(types::asElement)
             .map { it as TypeElement } // Interfaces should all be TypeElements
             .zip(typeElement.interfaces)
-            .filter { (superInterfaceType, _) -> superInterfaceType.isVisibleInterface() }
+            .filter { (superInterfaceType, _) ->
+                superInterfaceType.isVisibleInterface() && !superInterfaceType.isSealedInterface()
+            }
             .map(Pair<Element, TypeMirror>::second)
             .map { typeMirror -> substituteTypeNames(typeMirror, typeParameterElementsToTypeArguments) }
             .filter { it.isValidInterface() }
@@ -220,6 +225,20 @@ internal class SuperInterfaces(
             // If interface is a Java interface
             Modifier.PRIVATE !in modifiers &&
                 (Modifier.PROTECTED !in modifiers || elements.getPackageOf(this) == elements.getPackageOf(typeElement))
+        }
+
+    /**
+     * Returns true if the [TypeElement] interface is a sealed interface.
+     */
+    @Suppress("TooGenericExceptionCaught")
+    private fun TypeElement.isSealedInterface(): Boolean =
+        try {
+            // If interface is a Kotlin interface
+            val kmClass = toImmutableKmClass()
+            kmClass.isSealed
+        } catch (exception: Exception) {
+            // If interface is a Java interface
+            false // TODO: Java sealed interfaces?
         }
 
     /**

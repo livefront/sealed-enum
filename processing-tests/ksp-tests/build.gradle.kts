@@ -22,6 +22,17 @@ if (!debugProcessor) {
     }
 }
 
+detekt {
+    input = files(
+        "src/main/java",
+        "src/test/java",
+        "src/main/kotlin",
+        "src/test/kotlin",
+        "$rootDir/processing-tests/common/test/java",
+        "$rootDir/processing-tests/common/test/kotlin"
+    )
+}
+
 dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotlinCompileTesting.base)

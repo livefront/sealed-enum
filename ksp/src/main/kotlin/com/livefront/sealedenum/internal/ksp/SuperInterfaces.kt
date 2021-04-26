@@ -8,6 +8,7 @@ import com.google.devtools.ksp.symbol.ClassKind
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSType
 import com.google.devtools.ksp.symbol.KSTypeParameter
+import com.google.devtools.ksp.symbol.Modifier
 import com.google.devtools.ksp.symbol.Origin
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.ParameterizedTypeName
@@ -65,7 +66,8 @@ internal class SuperInterfaces(
                 val declaration = it.declaration
                 declaration is KSClassDeclaration &&
                         declaration.classKind == ClassKind.INTERFACE &&
-                        declaration.isVisibleInterface()
+                        declaration.isVisibleInterface() &&
+                        !declaration.isSealedInterface()
             }
             .map { it.substituteTypeNames(typeVariableNamesToTypeArguments) }
             .filter { it.isValidInterface() }
@@ -102,6 +104,12 @@ internal class SuperInterfaces(
     private fun KSClassDeclaration.isVisibleInterface(): Boolean =
         isPublic() || isInternal() || isJavaPackagePrivate() ||
                 (isProtected() && origin == Origin.JAVA && packageName == sealedEnumKSClass.packageName)
+
+    /**
+     * Returns true if the [KSClassDeclaration] interface is sealed.
+     */
+    private fun KSClassDeclaration.isSealedInterface(): Boolean =
+        modifiers.contains(Modifier.SEALED)
 
     /**
      * Returns true if the [TypeName] interface has the correct parameterization (if any) to be implemented by a

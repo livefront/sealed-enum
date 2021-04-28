@@ -3,10 +3,11 @@ package com.livefront.sealedenum.compilation.visibility
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getSourceFile
+import com.livefront.sealedenum.testing.getCommonSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledIf
 import kotlin.reflect.full.isSubclassOf
 
 class ProtectedInterfaceSealedClassTests {
@@ -58,10 +59,15 @@ class ProtectedInterfaceSealedClassTests {
         )
     }
 
+    /**
+     * TODO: In kotlin-compile-testing, the enum doesn't implement the interface, even though it does when run with ksp
+     *       directly (see above)
+     */
     @Test
+    @DisabledIf("com.livefront.sealedenum.testing.ProcessingTypeGetter#isKSP")
     fun `compilation generates correct code`() {
         val result = compile(
-            getSourceFile("compilation", "visibility", "ProtectedInterfaceSealedClass.kt")
+            getCommonSourceFile("compilation", "visibility", "ProtectedInterfaceSealedClass.kt")
         )
 
         assertCompiles(result)

@@ -3,7 +3,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getSourceFile
+import com.livefront.sealedenum.testing.getCommonSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -21,7 +21,7 @@ class SealedClassHierarchyTests {
 
     @Test
     fun `compilation for first hierarchy A generates correct code`() {
-        val result = compile(getSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
+        val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -43,7 +43,7 @@ class SealedClassHierarchyTests {
 
     @Test
     fun `compilation for first hierarchy B generates correct code`() {
-        val result = compile(getSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
+        val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -106,7 +106,7 @@ class SealedClassHierarchyTests {
 
     @Test
     fun `compilation for second hierarchy A generates correct code`() {
-        val result = compile(getSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
+        val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -151,7 +151,7 @@ class SealedClassHierarchyTests {
 
     @Test
     fun `compilation for second hierarchy C generates correct code`() {
-        val result = compile(getSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
+        val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -176,7 +176,7 @@ class SealedClassHierarchyTests {
 
     @Test
     fun `compilation for second hierarchy F generates correct code`() {
-        val result = compile(getSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
+        val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -201,7 +201,7 @@ class SealedClassHierarchyTests {
 
     @Test
     fun `compilation for second hierarchy H generates correct code`() {
-        val result = compile(getSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
+        val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -226,7 +226,7 @@ class SealedClassHierarchyTests {
 
     @Test
     fun `compilation for second hierarchy J generates correct code`() {
-        val result = compile(getSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
+        val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(

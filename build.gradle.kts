@@ -12,12 +12,6 @@ plugins {
 allprojects {
     repositories {
         mavenCentral()
-        jcenter {
-            content {
-                // TODO: https://github.com/Kotlin/kotlinx.html/issues/173
-                includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
-            }
-        }
     }
 }
 

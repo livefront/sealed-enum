@@ -54,7 +54,6 @@ class CreateSealedEnumFromEnumTests {
                     ComparatorConfig(AlphaEnum.DELTA, AlphaEnum.GAMMA, 1),
                     ComparatorConfig(AlphaEnum.DELTA, AlphaEnum.DELTA, 0)
                 ).map { Arguments.of(it) }.stream()
-
         }
     }
 

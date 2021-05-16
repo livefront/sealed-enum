@@ -9,7 +9,7 @@ pluginManagement {
     }
 
     plugins {
-        id("com.google.devtools.ksp") version "1.4.32-1.0.0-alpha07"
+        id("com.google.devtools.ksp") version "1.4.32-1.0.0-alpha08"
     }
 }
 

@@ -7,6 +7,7 @@ import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
+import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.ClassKind
 import com.google.devtools.ksp.symbol.FileLocation
 import com.google.devtools.ksp.symbol.KSAnnotated
@@ -34,21 +35,23 @@ internal const val ERROR_NON_OBJECT_SEALED_SUBCLASSES = "Annotated sealed class 
 internal const val ERROR_SUBCLASS_HAS_INVALID_VISIBILITY = "Subclass of sealed class isn't internal or public"
 internal const val ERROR_SEALED_CLASS_HAS_INVALID_VISIBILITY = "Annotated sealed class isn't internal or public"
 
-@AutoService(SymbolProcessor::class)
-public class SealedEnumProcessor : SymbolProcessor {
-
-    private lateinit var codeGenerator: CodeGenerator
-    private lateinit var logger: KSPLogger
-
-    override fun init(
+@AutoService(SymbolProcessorProvider::class)
+public class SealedEnumProcessorProvider : SymbolProcessorProvider {
+    override fun create(
         options: Map<String, String>,
         kotlinVersion: KotlinVersion,
         codeGenerator: CodeGenerator,
         logger: KSPLogger
-    ) {
-        this.codeGenerator = codeGenerator
-        this.logger = logger
-    }
+    ): SymbolProcessor = SealedEnumProcessor(
+        codeGenerator = codeGenerator,
+        logger = logger,
+    )
+}
+
+internal class SealedEnumProcessor(
+    private val codeGenerator: CodeGenerator,
+    private val logger: KSPLogger,
+) : SymbolProcessor {
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver

@@ -113,7 +113,7 @@ internal class SealedEnumProcessor(
             .map(GenSealedEnumHolder.Companion::fromKSAnnotation)
 
         // Ensure that the annotation are unique by traversal order
-        if (!sealedEnumAnnotations.areUniqueBy { it.traversalOrder }) {
+        if (!sealedEnumAnnotations.asIterable().areUniqueBy { it.traversalOrder }) {
             printError(ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER, sealedClassCompanionObjectKSClass)
             return null
         }

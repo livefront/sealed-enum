@@ -119,7 +119,7 @@ class OutsideSealedClassTests {
         assertEquals(
             listOf(
                 DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject,
-                DeltaOutsideSealedClassEnum.DeltaObject
+                DeltaOutsideSealedClassEnum.DeltaObject,
             ),
             enumValues<DeltaOutsideSealedClassEnum>().toList()
         )

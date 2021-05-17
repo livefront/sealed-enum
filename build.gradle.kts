@@ -72,6 +72,10 @@ subprojects {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
 
+        check {
+            dependsOn("detektMain")
+        }
+
         dokkaHtml {
             outputDirectory.set(javadoc.get().destinationDir)
         }

@@ -24,7 +24,6 @@ class VisibilitySealedClassTests {
                 KVisibility.PUBLIC,
                 InternalObjectsSealedClassSealedEnum::class.visibility
             )
-
         }
 
         @Test
@@ -86,7 +85,6 @@ class VisibilitySealedClassTests {
                 KVisibility.INTERNAL,
                 InternalSealedClassSealedEnum::class.visibility
             )
-
         }
 
         @Test
@@ -139,7 +137,6 @@ class VisibilitySealedClassTests {
                 KVisibility.PUBLIC,
                 InternalCompanionSealedClassSealedEnum::class.visibility
             )
-
         }
 
         @Test
@@ -199,7 +196,6 @@ class VisibilitySealedClassTests {
                 KVisibility.INTERNAL,
                 InternalSealedAndCompanionSealedClassSealedEnum::class.visibility
             )
-
         }
 
         @Test

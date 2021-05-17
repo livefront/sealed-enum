@@ -1,8 +1,9 @@
+@file:Suppress("MatchingDeclarationName")
+
 package com.livefront.sealedenum.compilation.visibility
 
 import com.livefront.sealedenum.GenSealedEnum
 import org.intellij.lang.annotations.Language
-
 
 open class ProtectedInterfaceOuterClassWithDifferentPackageBaseClass {
 

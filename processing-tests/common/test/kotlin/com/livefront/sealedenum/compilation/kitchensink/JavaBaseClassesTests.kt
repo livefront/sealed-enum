@@ -4,16 +4,16 @@ import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
-import com.tschuchort.compiletesting.SourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import java.nio.file.Paths
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubtypeOf
 
 class JavaBaseClassesTests {
+
+    @Suppress("LongMethod")
     @Test
     fun `enum implements correct interfaces with type arguments`() {
         assertTrue(

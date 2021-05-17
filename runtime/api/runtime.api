@@ -26,7 +26,6 @@ public final class com/livefront/sealedenum/SealedEnum$DefaultImpls {
 }
 
 public final class com/livefront/sealedenum/SealedEnumKt {
-	public static final synthetic fun createSealedEnumFromEnum ()Lcom/livefront/sealedenum/SealedEnumWithEnumProvider;
 	public static final fun createSealedEnumFromEnumArray ([Ljava/lang/Enum;Ljava/lang/Class;)Lcom/livefront/sealedenum/SealedEnumWithEnumProvider;
 }
 

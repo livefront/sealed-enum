@@ -54,6 +54,7 @@ internal class SealedEnumProcessor(
 ) : SymbolProcessor {
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
+        @Suppress("UnsafeCallOnNullableType")
         resolver
             .getSymbolsWithAnnotation(GenSealedEnum::class.qualifiedName!!)
             .distinct()
@@ -76,6 +77,7 @@ internal class SealedEnumProcessor(
     /**
      * Gets the [KSClassDeclaration] for the [GenSealedEnum] annotation.
      */
+    @Suppress("UnsafeCallOnNullableType")
     private fun getGenSealedEnumClassDeclaration(resolver: Resolver): KSClassDeclaration =
         resolver.getClassDeclarationByName(
             resolver.getKSNameFromString(
@@ -191,6 +193,7 @@ internal class SealedEnumProcessor(
             sealedClassNode = sealedClassNode,
             sealedEnumOptions = sealedEnumAnnotations.associate {
                 it.traversalOrder to if (it.generateEnum) {
+                    @Suppress("UnsafeCallOnNullableType") // Guaranteed safe by above any
                     SealedEnumWithEnum(sealedClassInterfaces!!)
                 } else {
                     SealedEnumOnly

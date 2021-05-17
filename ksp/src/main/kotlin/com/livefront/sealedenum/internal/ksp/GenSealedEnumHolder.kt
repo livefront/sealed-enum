@@ -19,6 +19,7 @@ public data class GenSealedEnumHolder(
             }?.value.toString()
 
             val traversalOrder = try {
+                @Suppress("UnsafeCallOnNullableType")
                 TreeTraversalOrder.valueOf(
                     traversalOrderQualifiedName.removePrefix(
                         "${TreeTraversalOrder::class.qualifiedName!!}."

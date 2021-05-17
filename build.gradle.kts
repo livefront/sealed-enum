@@ -55,6 +55,10 @@ subprojects {
             useJUnitPlatform()
         }
 
+        jacoco {
+            toolVersion = Versions.jacoco
+        }
+
         jacocoTestReport {
             dependsOn(test)
 
@@ -123,6 +127,10 @@ subprojects {
             }
         }
     }
+}
+
+jacoco {
+    toolVersion = Versions.jacoco
 }
 
 apiValidation {

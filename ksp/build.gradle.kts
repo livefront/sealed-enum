@@ -8,7 +8,6 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
     implementation(projects.runtime)
     implementation(projects.processingCommon)
     implementation(libs.squareUp.kotlinPoet)

@@ -2,9 +2,9 @@
 autoService = "1.0"
 incap = "0.3"
 junit = "5.7.0"
-kotlinCompileTesting = "1.4.0"
-kotlinPoet = "1.7.2"
-ksp = "1.4.32-1.0.0-alpha08"
+kotlinCompileTesting = "1.4.1-SNAPSHOT"
+kotlinPoet = "1.8.0"
+ksp = "1.5.0-1.0.0-alpha10"
 
 [libraries]
 autoService-runtime = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoService" }

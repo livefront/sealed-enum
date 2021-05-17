@@ -12,6 +12,7 @@ plugins {
 allprojects {
     repositories {
         mavenCentral()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
 }
 
@@ -47,8 +48,7 @@ subprojects {
         compileTestKotlin {
             kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_1_8.toString()
-                //allWarningsAsErrors = true
-                languageVersion = "1.5"
+                allWarningsAsErrors = true
             }
         }
 

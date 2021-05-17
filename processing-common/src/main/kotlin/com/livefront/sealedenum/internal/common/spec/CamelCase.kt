@@ -6,4 +6,4 @@ package com.livefront.sealedenum.internal.common.spec
  * This function assumes that [pascalCase] is non-empty.
  */
 internal fun pascalCaseToCamelCase(pascalCase: String): String =
-    pascalCase.take(1).toLowerCase() + pascalCase.drop(1)
+    pascalCase.take(1).lowercase() + pascalCase.drop(1)

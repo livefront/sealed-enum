@@ -48,9 +48,11 @@ internal fun KSClassDeclaration.toTypeName(argumentList: List<TypeName> = emptyL
  */
 internal fun KSClassDeclaration.wildcardedTypeNames(): List<TypeName> =
     typeParameters.map {
-        if (it.bounds.size == 1) {
+        val bounds = it.bounds.toList()
+
+        if (bounds.size == 1) {
             when (it.variance) {
-                Variance.INVARIANT -> it.bounds[0].resolve().toTypeName()
+                Variance.INVARIANT -> bounds[0].resolve().toTypeName()
                 else -> STAR
             }
         } else {

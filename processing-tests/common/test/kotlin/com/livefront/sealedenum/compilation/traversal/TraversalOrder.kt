@@ -1,3 +1,5 @@
+@file:Suppress("MatchingDeclarationName")
+
 package com.livefront.sealedenum.compilation.traversal
 
 import com.livefront.sealedenum.GenSealedEnum

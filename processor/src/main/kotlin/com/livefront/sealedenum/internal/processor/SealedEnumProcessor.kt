@@ -201,6 +201,7 @@ public class SealedEnumProcessor : AbstractProcessor() {
             sealedClassNode = sealedClassNode,
             sealedEnumOptions = sealedEnumAnnotations.associate {
                 it.traversalOrder to if (it.generateEnum) {
+                    @Suppress("UnsafeCallOnNullableType") // Guaranteed safe by above any call
                     SealedEnumWithEnum(sealedClassInterfaces!!)
                 } else {
                     SealedEnumOnly

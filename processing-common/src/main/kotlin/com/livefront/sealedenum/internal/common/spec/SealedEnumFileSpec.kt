@@ -131,6 +131,7 @@ public data class SealedEnumFileSpec(
 
         fileSpecBuilder.addType(enumForSealedEnumTypeSpec)
 
+        @Suppress("UnsafeCallOnNullableType") // Generated enum will have a non-null name
         val enumForSealedEnumClassName =
             ClassName(sealedClass.packageName, enumForSealedEnumTypeSpec.name!!)
 

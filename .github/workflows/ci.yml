@@ -19,7 +19,8 @@ jobs:
           - 12
           - 13
           - 14
-        # - 15 TODO: Include JDK 15 when we can update JaCoCo to 0.8.7
+          - 15
+          # - 16 TODO: Include JDK 16 when kapt supports it: https://youtrack.jetbrains.com/issue/KT-45545
 
     steps:
       - name: Checkout

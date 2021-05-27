@@ -7,6 +7,7 @@ import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
+import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.ClassKind
 import com.google.devtools.ksp.symbol.FileLocation
@@ -38,13 +39,10 @@ internal const val ERROR_SEALED_CLASS_HAS_INVALID_VISIBILITY = "Annotated sealed
 @AutoService(SymbolProcessorProvider::class)
 public class SealedEnumProcessorProvider : SymbolProcessorProvider {
     override fun create(
-        options: Map<String, String>,
-        kotlinVersion: KotlinVersion,
-        codeGenerator: CodeGenerator,
-        logger: KSPLogger
+        environment: SymbolProcessorEnvironment
     ): SymbolProcessor = SealedEnumProcessor(
-        codeGenerator = codeGenerator,
-        logger = logger,
+        codeGenerator = environment.codeGenerator,
+        logger = environment.logger,
     )
 }
 

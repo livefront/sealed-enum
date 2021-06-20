@@ -28,7 +28,7 @@ public data class SealedEnumFileSpec(
     private val sealedClassVisibility: Visibility,
     private val sealedClassCompanionObject: ClassName,
     private val sealedClassCompanionObjectVisibility: Visibility,
-    private val sealedClassCompanionObjectElement: TypeElement,
+    private val sealedClassCompanionObjectElement: TypeElement?,
     private val sealedClassNode: SealedClassNode.SealedClass,
     private val typeParameters: List<TypeName>,
     private val sealedEnumOptions: Map<TreeTraversalOrder, SealedEnumOption>

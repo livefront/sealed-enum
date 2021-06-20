@@ -263,8 +263,8 @@ import kotlin.collections.List
  */
 public enum class GammaOutsideSealedClassEnum {
     GammaFirstObject,
-    GammaThirdObject,
     GammaOutsideSealedClass_GammaSecondObject,
+    GammaThirdObject,
 }
 
 /**
@@ -287,8 +287,8 @@ public object GammaOutsideSealedClassSealedEnum : SealedEnum<GammaOutsideSealedC
         EnumForSealedEnumProvider<GammaOutsideSealedClass, GammaOutsideSealedClassEnum> {
     public override val values: List<GammaOutsideSealedClass> = listOf(
         GammaFirstObject,
-        GammaThirdObject,
-        GammaOutsideSealedClass.GammaSecondObject
+        GammaOutsideSealedClass.GammaSecondObject,
+        GammaThirdObject
     )
 
 
@@ -297,37 +297,37 @@ public object GammaOutsideSealedClassSealedEnum : SealedEnum<GammaOutsideSealedC
 
     public override fun ordinalOf(obj: GammaOutsideSealedClass): Int = when (obj) {
         GammaFirstObject -> 0
-        GammaThirdObject -> 1
-        GammaOutsideSealedClass.GammaSecondObject -> 2
+        GammaOutsideSealedClass.GammaSecondObject -> 1
+        GammaThirdObject -> 2
     }
 
     public override fun nameOf(obj: GammaOutsideSealedClass): String = when (obj) {
         GammaFirstObject -> "GammaFirstObject"
-        GammaThirdObject -> "GammaThirdObject"
         GammaOutsideSealedClass.GammaSecondObject -> "GammaOutsideSealedClass_GammaSecondObject"
+        GammaThirdObject -> "GammaThirdObject"
     }
 
     public override fun valueOf(name: String): GammaOutsideSealedClass = when (name) {
         "GammaFirstObject" -> GammaFirstObject
-        "GammaThirdObject" -> GammaThirdObject
         "GammaOutsideSealedClass_GammaSecondObject" -> GammaOutsideSealedClass.GammaSecondObject
+        "GammaThirdObject" -> GammaThirdObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
     public override fun sealedObjectToEnum(obj: GammaOutsideSealedClass):
             GammaOutsideSealedClassEnum = when (obj) {
         GammaFirstObject -> GammaOutsideSealedClassEnum.GammaFirstObject
-        GammaThirdObject -> GammaOutsideSealedClassEnum.GammaThirdObject
         GammaOutsideSealedClass.GammaSecondObject ->
                 GammaOutsideSealedClassEnum.GammaOutsideSealedClass_GammaSecondObject
+        GammaThirdObject -> GammaOutsideSealedClassEnum.GammaThirdObject
     }
 
     public override fun enumToSealedObject(`enum`: GammaOutsideSealedClassEnum):
             GammaOutsideSealedClass = when (enum) {
         GammaOutsideSealedClassEnum.GammaFirstObject -> GammaFirstObject
-        GammaOutsideSealedClassEnum.GammaThirdObject -> GammaThirdObject
         GammaOutsideSealedClassEnum.GammaOutsideSealedClass_GammaSecondObject ->
                 GammaOutsideSealedClass.GammaSecondObject
+        GammaOutsideSealedClassEnum.GammaThirdObject -> GammaThirdObject
     }
 }
 
@@ -391,8 +391,8 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [DeltaOutsideSealedClass]
  */
 public enum class DeltaOutsideSealedClassEnum {
-    DeltaObject,
     DeltaOutsideSealedClass_DeltaObject,
+    DeltaObject,
 }
 
 /**
@@ -414,8 +414,8 @@ public object DeltaOutsideSealedClassSealedEnum : SealedEnum<DeltaOutsideSealedC
         SealedEnumWithEnumProvider<DeltaOutsideSealedClass, DeltaOutsideSealedClassEnum>,
         EnumForSealedEnumProvider<DeltaOutsideSealedClass, DeltaOutsideSealedClassEnum> {
     public override val values: List<DeltaOutsideSealedClass> = listOf(
-        DeltaObject,
-        DeltaOutsideSealedClass.DeltaObject
+        DeltaOutsideSealedClass.DeltaObject,
+        DeltaObject
     )
 
 
@@ -423,33 +423,33 @@ public object DeltaOutsideSealedClassSealedEnum : SealedEnum<DeltaOutsideSealedC
         get() = DeltaOutsideSealedClassEnum::class.java
 
     public override fun ordinalOf(obj: DeltaOutsideSealedClass): Int = when (obj) {
-        DeltaObject -> 0
-        DeltaOutsideSealedClass.DeltaObject -> 1
+        DeltaOutsideSealedClass.DeltaObject -> 0
+        DeltaObject -> 1
     }
 
     public override fun nameOf(obj: DeltaOutsideSealedClass): String = when (obj) {
-        DeltaObject -> "DeltaObject"
         DeltaOutsideSealedClass.DeltaObject -> "DeltaOutsideSealedClass_DeltaObject"
+        DeltaObject -> "DeltaObject"
     }
 
     public override fun valueOf(name: String): DeltaOutsideSealedClass = when (name) {
-        "DeltaObject" -> DeltaObject
         "DeltaOutsideSealedClass_DeltaObject" -> DeltaOutsideSealedClass.DeltaObject
+        "DeltaObject" -> DeltaObject
         else -> throw IllegalArgumentException(""${'"'}No sealed enum constant ${'$'}name""${'"'})
     }
 
     public override fun sealedObjectToEnum(obj: DeltaOutsideSealedClass):
             DeltaOutsideSealedClassEnum = when (obj) {
-        DeltaObject -> DeltaOutsideSealedClassEnum.DeltaObject
         DeltaOutsideSealedClass.DeltaObject ->
                 DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject
+        DeltaObject -> DeltaOutsideSealedClassEnum.DeltaObject
     }
 
     public override fun enumToSealedObject(`enum`: DeltaOutsideSealedClassEnum):
             DeltaOutsideSealedClass = when (enum) {
-        DeltaOutsideSealedClassEnum.DeltaObject -> DeltaObject
         DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject ->
                 DeltaOutsideSealedClass.DeltaObject
+        DeltaOutsideSealedClassEnum.DeltaObject -> DeltaObject
     }
 }
 

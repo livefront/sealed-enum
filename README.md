@@ -336,7 +336,12 @@ To avoid failing compilation, interfaces that are impossible to specify will be 
 | `sealed class Kappa<out T> : Sigma<Upsilon<T>>`                   | `enum class KappaEnum(sealedObject: Kappa<*>) : Sigma<Upsilon<*>>` |
 
 ### Installation
-`sealed-enum` can be installed via gradle:
+
+The code generation portion of `sealed-enum` can be performed in one of two ways, either using `kapt` or [`ksp`](https://github.com/google/ksp).
+
+[`ksp`](https://github.com/google/ksp) is itself experimental, but the `ksp` processor for `sealed-enum` is equivalent to the `kapt` processor (or at least, they pass the same tests!)
+
+#### Via `kapt`
 
 ```kotlin
 plugins {
@@ -350,6 +355,24 @@ repositories {
 dependencies {
     implementation("com.github.livefront.sealed-enum:runtime:0.3.0")
     kapt("com.github.livefront.sealed-enum:processor:0.3.0")
+}
+```
+
+#### Via `ksp`
+
+```kotlin
+plugins {
+    id("com.google.devtools.ksp") version "1.4.30-1.0.0-alpha04"
+}
+
+repositories {
+    google()
+    maven(url = "https://jitpack.io")
+}
+
+dependencies {
+    implementation("com.github.livefront.sealed-enum:runtime:0.3.0")
+    ksp("com.github.livefront.sealed-enum:ksp:0.3.0")
 }
 ```
 

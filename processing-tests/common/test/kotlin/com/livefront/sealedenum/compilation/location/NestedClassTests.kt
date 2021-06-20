@@ -3,7 +3,7 @@ package com.livefront.sealedenum.compilation.location
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getSourceFile
+import com.livefront.sealedenum.testing.getCommonSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -22,7 +22,7 @@ class NestedClassTests {
 
     @Test
     fun `compilation for inside one class generates correct code`() {
-        val result = compile(getSourceFile("compilation", "location", "NestedClass.kt"))
+        val result = compile(getCommonSourceFile("compilation", "location", "NestedClass.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -45,7 +45,7 @@ class NestedClassTests {
 
     @Test
     fun `compilation for inside two classes generates correct code`() {
-        val result = compile(getSourceFile("compilation", "location", "NestedClass.kt"))
+        val result = compile(getCommonSourceFile("compilation", "location", "NestedClass.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(

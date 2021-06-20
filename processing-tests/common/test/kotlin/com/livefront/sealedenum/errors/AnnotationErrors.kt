@@ -6,6 +6,7 @@ import com.tschuchort.compiletesting.SourceFile
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledIf
 
 class AnnotationErrors {
 
@@ -29,7 +30,12 @@ class AnnotationErrors {
         assertTrue(result.messages.contains("Element is annotated with the same traversal order multiple times"))
     }
 
+    /**
+     * TODO: This should cause an error (and does when actually trying to add a Java file set up like this), but for
+     *       some reason with kotlin-compile-testing/ksp `JavaClass` isn't even picked up for processing.
+     */
     @Test
+    @DisabledIf("com.livefront.sealedenum.testing.ProcessingTypeGetter#isKSP")
     fun `element is not Kotlin class`() {
         @Language("java")
         val source = """

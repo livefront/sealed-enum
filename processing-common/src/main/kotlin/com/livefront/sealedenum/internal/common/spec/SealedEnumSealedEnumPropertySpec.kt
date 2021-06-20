@@ -11,13 +11,13 @@ internal data class SealedEnumSealedEnumPropertySpec(
     private val sealedClass: SealedClass,
     private val sealedClassCompanionObject: ClassName,
     private val sealedClassCompanionObjectEffectiveVisibility: Visibility,
-    private val sealedClassCompanionObjectElement: TypeElement,
+    private val sealedClassCompanionObjectElement: TypeElement?,
     private val sealedEnum: ClassName,
     private val enumPrefix: String
 ) {
     fun build(): PropertySpec {
         val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "SealedEnum"), sealedEnum)
-            .addOriginatingElement(sealedClassCompanionObjectElement)
+            .maybeAddOriginatingElement(sealedClassCompanionObjectElement)
             .addKdoc("Returns an implementation of [%T] for the sealed class [%T]", SealedEnum::class, sealedClass)
             .receiver(sealedClassCompanionObject)
             .addModifiers(sealedClassCompanionObjectEffectiveVisibility.kModifier)

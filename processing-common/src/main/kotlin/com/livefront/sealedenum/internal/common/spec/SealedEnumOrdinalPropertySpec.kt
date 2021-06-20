@@ -11,13 +11,13 @@ internal data class SealedEnumOrdinalPropertySpec(
     private val sealedClass: SealedClass,
     private val sealedClassVisibility: Visibility,
     private val parameterizedSealedClass: TypeName,
-    private val sealedClassCompanionObjectElement: TypeElement,
+    private val sealedClassCompanionObjectElement: TypeElement?,
     private val sealedEnum: ClassName,
     private val enumPrefix: String
 ) {
     fun build(): PropertySpec {
         val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "Ordinal"), Int::class)
-            .addOriginatingElement(sealedClassCompanionObjectElement)
+            .maybeAddOriginatingElement(sealedClassCompanionObjectElement)
             .addKdoc("The index of [this] in the values list.")
             .receiver(parameterizedSealedClass)
             .addModifiers(sealedClassVisibility.kModifier)

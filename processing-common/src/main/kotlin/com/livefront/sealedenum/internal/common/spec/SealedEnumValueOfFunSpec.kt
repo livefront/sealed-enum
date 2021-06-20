@@ -11,13 +11,13 @@ internal data class SealedEnumValueOfFunSpec(
     private val parameterizedSealedClass: TypeName,
     private val sealedClassCompanionObject: ClassName,
     private val sealedClassCompanionObjectEffectiveVisibility: Visibility,
-    private val sealedClassCompanionObjectElement: TypeElement,
+    private val sealedClassCompanionObjectElement: TypeElement?,
     private val sealedEnum: ClassName,
     private val enumPrefix: String
 ) {
     fun build(): FunSpec {
         val funSpecBuilder = FunSpec.builder(pascalCaseToCamelCase(enumPrefix + "ValueOf"))
-            .addOriginatingElement(sealedClassCompanionObjectElement)
+            .maybeAddOriginatingElement(sealedClassCompanionObjectElement)
             .addKdoc(
                 """
                 Returns the [%T] object for the given [name].

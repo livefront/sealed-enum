@@ -35,7 +35,7 @@ detekt {
 
 dependencies {
     testImplementation(libs.junit.jupiter)
-    testImplementation(libs.kotlinCompileTesting)
+    testImplementation(libs.kotlinCompileTesting.base)
     testImplementation(kotlin("reflect"))
     testImplementation(projects.runtime)
     testImplementation(projects.processor)

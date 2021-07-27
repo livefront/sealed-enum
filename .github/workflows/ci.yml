@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
@@ -21,6 +21,10 @@ jobs:
           - 14
           - 15
           # - 16 TODO: Include JDK 16 when kapt supports it: https://youtrack.jetbrains.com/issue/KT-45545
+        os:
+          - ubuntu-latest
+          - macOS-latest
+          - windows-latest
 
     steps:
       - name: Checkout

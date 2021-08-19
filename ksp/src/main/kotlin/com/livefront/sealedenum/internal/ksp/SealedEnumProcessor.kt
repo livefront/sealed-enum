@@ -3,7 +3,6 @@ package com.livefront.sealedenum.internal.ksp
 import com.google.auto.service.AutoService
 import com.google.devtools.ksp.isInternal
 import com.google.devtools.ksp.isPublic
-import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
@@ -41,13 +40,11 @@ public class SealedEnumProcessorProvider : SymbolProcessorProvider {
     override fun create(
         environment: SymbolProcessorEnvironment
     ): SymbolProcessor = SealedEnumProcessor(
-        codeGenerator = environment.codeGenerator,
         logger = environment.logger,
     )
 }
 
 internal class SealedEnumProcessor(
-    private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
 ) : SymbolProcessor {
 
@@ -58,15 +55,7 @@ internal class SealedEnumProcessor(
             .distinct()
             .filterIsInstance<KSClassDeclaration>()
             .forEach { ksClassDeclaration ->
-                val sealedEnumFileSpec = createSealedEnumFileSpec(resolver, ksClassDeclaration)
-
-                sealedEnumFileSpec?.build()?.writeTo(
-                    codeGenerator,
-                    listOfNotNull(
-                        getGenSealedEnumClassDeclaration(resolver).containingFile,
-                        ksClassDeclaration.containingFile
-                    )
-                )
+                createSealedEnumFileSpec(resolver, ksClassDeclaration)
             }
 
         return emptyList()

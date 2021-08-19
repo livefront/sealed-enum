@@ -3,10 +3,6 @@ plugins {
     idea
 }
 
-repositories {
-    google()
-}
-
 /**
  * Swap to `true` to allow debugging `ksp-tests`
  */

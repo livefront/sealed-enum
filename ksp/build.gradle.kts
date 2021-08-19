@@ -3,10 +3,6 @@ plugins {
     `maven-publish`
 }
 
-repositories {
-    google()
-}
-
 dependencies {
     implementation(projects.runtime)
     implementation(projects.processingCommon)

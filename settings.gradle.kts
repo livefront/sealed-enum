@@ -4,12 +4,11 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
     repositories {
         mavenCentral()
-        google()
         gradlePluginPortal()
     }
 
     plugins {
-        id("com.google.devtools.ksp") version "1.5.10-1.0.0-beta02"
+        id("com.google.devtools.ksp") version "1.5.21-1.0.0-beta07"
     }
 }
 

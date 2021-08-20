@@ -2,7 +2,7 @@
 
 plugins {
     kotlin("jvm") version Versions.kotlin
-    jacoco
+    //jacoco
     id("io.gitlab.arturbosch.detekt") version Versions.detekt
     id("org.jetbrains.dokka") version Versions.dokka
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version Versions.kotlinBinaryCompatibilityValidator
@@ -18,7 +18,7 @@ allprojects {
 subprojects {
     apply {
         plugin<org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper>()
-        plugin<JacocoPlugin>()
+        //plugin<JacocoPlugin>()
         plugin<io.gitlab.arturbosch.detekt.DetektPlugin>()
         plugin<org.jetbrains.dokka.gradle.DokkaPlugin>()
     }
@@ -55,18 +55,18 @@ subprojects {
             useJUnitPlatform()
         }
 
-        jacoco {
-            toolVersion = Versions.jacoco
-        }
-
-        jacocoTestReport {
-            dependsOn(test)
-
-            reports {
-                html.isEnabled = true
-                xml.isEnabled = true
-            }
-        }
+//        jacoco {
+//            toolVersion = Versions.jacoco
+//        }
+//
+//        jacocoTestReport {
+//            dependsOn(test)
+//
+//            reports {
+//                html.isEnabled = true
+//                xml.isEnabled = true
+//            }
+//        }
 
         withType<io.gitlab.arturbosch.detekt.Detekt> {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
@@ -133,32 +133,32 @@ subprojects {
     }
 }
 
-jacoco {
-    toolVersion = Versions.jacoco
-}
+//jacoco {
+//    toolVersion = Versions.jacoco
+//}
 
 apiValidation {
     ignoredPackages.add("com.livefront.sealedenum.internal")
 }
 
-tasks {
-    val jacocoMergeTest by registering(JacocoMerge::class) {
-        dependsOn(subprojects.map { it.tasks.jacocoTestReport })
-
-        destinationFile = file("$buildDir/jacoco/test.exec")
-        executionData = fileTree(rootDir) {
-            include("**/build/jacoco/test.exec")
-        }
-    }
-
-    jacocoTestReport {
-        dependsOn(jacocoMergeTest)
-
-        sourceSets(*subprojects.map { it.sourceSets.main.get() }.toTypedArray())
-
-        reports {
-            html.isEnabled = true
-            xml.isEnabled = true
-        }
-    }
-}
+//tasks {
+//    val jacocoMergeTest by registering(JacocoMerge::class) {
+//        dependsOn(subprojects.map { it.tasks.jacocoTestReport })
+//
+//        destinationFile = file("$buildDir/jacoco/test.exec")
+//        executionData = fileTree(rootDir) {
+//            include("**/build/jacoco/test.exec")
+//        }
+//    }
+//
+//    jacocoTestReport {
+//        dependsOn(jacocoMergeTest)
+//
+//        sourceSets(*subprojects.map { it.sourceSets.main.get() }.toTypedArray())
+//
+//        reports {
+//            html.isEnabled = true
+//            xml.isEnabled = true
+//        }
+//    }
+//}

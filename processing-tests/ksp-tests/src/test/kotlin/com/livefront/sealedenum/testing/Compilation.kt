@@ -18,7 +18,9 @@ internal fun compile(vararg sourceFiles: SourceFile): KotlinCompilation.Result =
                 .toFile()
                 .walk()
                 .filter(File::isFile)
+                .map { println(it.canonicalPath); it }
                 .map(SourceFile::fromPath)
+
 
         sources = sourceFiles.toList() + runtimeSources
         symbolProcessorProviders = listOf(SealedEnumProcessorProvider())

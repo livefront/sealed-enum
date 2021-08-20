@@ -13,19 +13,6 @@ class EmptySealedClassTests {
     }
 
     @Test
-    fun `empty enum for sealed class`() {
-        assertEquals(
-            EmptySealedClass.values.map(EmptySealedClass::enum),
-            enumValues<EmptySealedClassEnum>().toList()
-        )
-    }
-
-    @Test
-    fun `correct enum class`() {
-        assertEquals(EmptySealedClassEnum::class.java, EmptySealedClass.sealedEnum.enumClass)
-    }
-
-    @Test
     fun `compilation generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "basic", "EmptySealedClass.kt"))
 

@@ -12,5 +12,5 @@ internal fun compile(vararg sourceFiles: SourceFile): KotlinCompilation.Result =
     KotlinCompilation().apply {
         sources = sourceFiles.toList()
         symbolProcessorProviders = listOf(SealedEnumProcessorProvider())
-        inheritClassPath = false
+        inheritClassPath = true
     }.compile()

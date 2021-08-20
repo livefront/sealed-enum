@@ -35,8 +35,8 @@ dependencies {
     testImplementation(libs.kotlinCompileTesting.ksp)
     testImplementation(kotlin("reflect"))
     testImplementation(projects.runtime)
-    testImplementation(libs.ksp.runtime)
-    testImplementation(libs.ksp.api)
+    testCompileOnly(libs.ksp.runtime)
+    testCompileOnly(libs.ksp.api)
     testImplementation(projects.ksp)
     kspTest(projects.ksp)
 }

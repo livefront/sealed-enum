@@ -6,10 +6,6 @@ import com.livefront.sealedenum.testing.getCommonSourceFile
 import org.junit.jupiter.api.Test
 
 class EmptySealedClassTests {
-    @Test
-    fun `empty sealed class`() {
-        // assertEquals(emptyList<EmptySealedClass>(), EmptySealedClass.values)
-    }
 
     @Test
     fun `compilation generates correct code`() {

@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.basic
 
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -31,6 +30,5 @@ class EmptySealedClassTests {
         val result = compile(getCommonSourceFile("compilation", "basic", "EmptySealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches("EmptySealedClass_SealedEnum.kt", emptySealedClassGenerated, result)
     }
 }

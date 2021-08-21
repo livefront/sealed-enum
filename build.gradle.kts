@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    kotlin("jvm") version Versions.kotlin
+    kotlin("multiplatform") version Versions.kotlin apply false
     jacoco
     id("io.gitlab.arturbosch.detekt") version Versions.detekt
     id("org.jetbrains.dokka") version Versions.dokka
@@ -16,90 +16,23 @@ allprojects {
 }
 
 subprojects {
-    apply {
-        plugin<org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper>()
-        plugin<JacocoPlugin>()
-        plugin<io.gitlab.arturbosch.detekt.DetektPlugin>()
-        plugin<org.jetbrains.dokka.gradle.DokkaPlugin>()
-    }
-
-    dependencies {
-        detektPlugins(Dependencies.detektFormatting)
-    }
-
-    java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlin {
-        explicitApi()
-    }
-
     tasks {
-        compileKotlin {
+        withType<org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile>().configureEach {
             kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_1_8.toString()
-                allWarningsAsErrors = true
-                freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
             }
         }
-
-        compileTestKotlin {
+        withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
             kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_1_8.toString()
-                allWarningsAsErrors = true
                 freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+                allWarningsAsErrors = true
             }
-        }
-
-        test {
-            useJUnitPlatform()
-        }
-
-        jacoco {
-            toolVersion = Versions.jacoco
-        }
-
-        jacocoTestReport {
-            dependsOn(test)
-
-            reports {
-                html.isEnabled = true
-                xml.isEnabled = true
-            }
-        }
-
-        withType<io.gitlab.arturbosch.detekt.Detekt> {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
-        }
-
-        check {
-            dependsOn("detektMain")
-        }
-
-        dokkaHtml {
-            outputDirectory.set(javadoc.get().destinationDir)
         }
 
         plugins.withType(MavenPublishPlugin::class) {
-            val sourcesJar by creating(Jar::class) {
-                archiveClassifier.set("sources")
-                from(sourceSets.main.get().allSource)
-            }
-
-            val javadocJar by creating(Jar::class) {
-                archiveClassifier.set("javadoc")
-                from(dokkaHtml)
-            }
-
             publishing {
                 publications {
                     create<MavenPublication>("default") {
-                        from(this@subprojects.components["java"])
-                        artifact(sourcesJar)
-                        artifact(javadocJar)
-
                         pom {
                             name.set(project.name)
                             description.set("Obsoleting enums with sealed classes of objects")
@@ -145,22 +78,52 @@ apiValidation {
 
 tasks {
     val jacocoMergeTest by registering(JacocoMerge::class) {
-        dependsOn(subprojects.map { it.tasks.jacocoTestReport })
+        dependsOn(subprojects.mapNotNull { it.tasks.findByName("jacocoTestReport") })
 
-        destinationFile = file("$buildDir/jacoco/test.exec")
-        executionData = fileTree(rootDir) {
-            include("**/build/jacoco/test.exec")
-        }
+        destinationFile = file("$buildDir/jacoco/jvmTest.exec")
+
+        executionData(
+            subprojects.filter { it.tasks.findByName("jacocoTestReport") != null }.map {
+                "${it.buildDir}/jacoco/jvmTest.exec"
+            }
+        )
     }
 
-    jacocoTestReport {
+    val jacocoTestReport by registering(JacocoReport::class) {
         dependsOn(jacocoMergeTest)
 
-        sourceSets(*subprojects.map { it.sourceSets.main.get() }.toTypedArray())
+        executionData.setFrom("$buildDir/jacoco/jvmTest.exec")
+        classDirectories.setFrom(
+            files(
+                subprojects
+                    .map {
+                        it.buildDir.resolve("classes/kotlin/jvm/main")
+                    }
+                    .flatMap { it.walkBottomUp().toList() }
+            )
+        )
+        sourceDirectories.setFrom(
+            files(
+                subprojects.flatMap {
+                    listOf(
+                        it.projectDir.resolve("src/commonMain/kotlin"),
+                        it.projectDir.resolve("src/jvmMain/kotlin")
+                    ).filter(File::exists)
+                }
+            )
+        )
 
         reports {
             html.isEnabled = true
             xml.isEnabled = true
         }
+    }
+
+    val detektAll by registering {
+        allprojects {
+            this@registering.dependsOn(tasks.withType<io.gitlab.arturbosch.detekt.Detekt>())
+        }
+
+        getByName("check").dependsOn(this)
     }
 }

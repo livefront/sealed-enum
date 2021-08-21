@@ -1,6 +1,6 @@
 public abstract interface class com/livefront/sealedenum/EnumForSealedEnumProvider {
 	public abstract fun enumToSealedObject (Ljava/lang/Enum;)Ljava/lang/Object;
-	public abstract fun getEnumClass ()Ljava/lang/Class;
+	public abstract fun getEnumClass ()Lkotlin/reflect/KClass;
 	public abstract fun sealedObjectToEnum (Ljava/lang/Object;)Ljava/lang/Enum;
 }
 
@@ -26,7 +26,7 @@ public final class com/livefront/sealedenum/SealedEnum$DefaultImpls {
 }
 
 public final class com/livefront/sealedenum/SealedEnumKt {
-	public static final fun createSealedEnumFromEnumArray ([Ljava/lang/Enum;Ljava/lang/Class;)Lcom/livefront/sealedenum/SealedEnumWithEnumProvider;
+	public static final fun createSealedEnumFromEnumArray ([Ljava/lang/Enum;Lkotlin/reflect/KClass;)Lcom/livefront/sealedenum/SealedEnumWithEnumProvider;
 }
 
 public abstract interface class com/livefront/sealedenum/SealedEnumWithEnumProvider : com/livefront/sealedenum/EnumForSealedEnumProvider, com/livefront/sealedenum/SealedEnum {

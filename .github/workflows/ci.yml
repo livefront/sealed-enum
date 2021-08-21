@@ -61,7 +61,11 @@ jobs:
           java-version: ${{ matrix.java-version }}
           
       - name: Test
-        run: ./gradlew check jacocoTestReport --stacktrace --info
+        # Running check and jacocoTestReport together results in incorrect coverage (or no coverage)
+        # Running them separately runs the jvmTests twice, which is weird, but results in correct coverage
+        run: |
+          ./gradlew check --stacktrace --info
+          ./gradlew jacocoTestReport
 
       - name: Danger
         # Run Danger for PRs originating from within the repo (for fork PRs the token won't give permission to comment)

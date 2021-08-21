@@ -34,7 +34,7 @@ public interface SealedEnum<T> : Comparator<T> {
      */
     public fun valueOf(name: String): T
 
-    public override fun compare(first: T, second: T): Int = ordinalOf(first) - ordinalOf(second)
+    public override fun compare(a: T, b: T): Int = ordinalOf(a) - ordinalOf(b)
 }
 
 /**

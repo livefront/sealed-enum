@@ -20,7 +20,11 @@ tasks {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
+    val detektAll by registering {
+        dependsOn(tasks.withType<io.gitlab.arturbosch.detekt.Detekt>())
+    }
+
     getByName("check") {
-        dependsOn("detektMain")
+        dependsOn(detektAll)
     }
 }

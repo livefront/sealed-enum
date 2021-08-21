@@ -9,7 +9,6 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
     }
@@ -21,5 +20,4 @@ include(":processor")
 include(":ksp")
 include(":processing-tests:processor-tests")
 include(":processing-tests:ksp-tests")
-include(":jacoco")
 rootProject.name = "sealed-enum"

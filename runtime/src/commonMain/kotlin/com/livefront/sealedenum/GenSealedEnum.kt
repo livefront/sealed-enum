@@ -200,8 +200,7 @@ package com.livefront.sealedenum
  * determined by [traversalOrder]), and the names of the sealed objects (as given by [SealedEnum.nameOf] and
  * [SealedEnum.valueOf]) will match the names of the enum constants (assuming no obfuscation occurs).
  */
-@Suppress("DEPRECATED_JAVA_ANNOTATION")
-@java.lang.annotation.Repeatable(GenSealedEnums::class)
+@RepeatableContainer(GenSealedEnums::class)
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
 @Repeatable

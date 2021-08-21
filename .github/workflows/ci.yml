@@ -50,7 +50,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
           
       - name: Test
-        run: ./gradlew check jacocoTestReport --stacktrace --info
+        run: ./gradlew check koverMergedReport --stacktrace --info
 
       - name: Danger
         # Run Danger for PRs originating from within the repo (for fork PRs the token won't give permission to comment)

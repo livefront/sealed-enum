@@ -4,6 +4,25 @@ plugins {
     id("com.livefront.sealedenum.publish")
 }
 
-dependencies {
-    testImplementation(libs.junit.jupiter)
+kotlin {
+    jvm()
+    js(BOTH) {
+        browser()
+        nodejs()
+    }
+
+    macosX64()
+    iosArm32(); iosArm64(); iosX64()
+    watchosArm32(); watchosArm64(); watchosX86(); watchosX64()
+
+    linuxArm64(); linuxX64()
+    mingwX86(); mingwX64()
+
+    sourceSets {
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+    }
 }

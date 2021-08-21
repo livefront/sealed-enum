@@ -11,7 +11,8 @@ internal fun getCommonSourceFile(vararg paths: String): SourceFile = SourceFile.
     Paths.get(
         "..",
         "common",
-        "test",
+        "src",
+        "jvmTest",
         if (paths.last().endsWith(".java")) "java" else "kotlin",
         "com",
         "livefront",
@@ -27,7 +28,7 @@ internal fun getCommonSourceFile(vararg paths: String): SourceFile = SourceFile.
 internal fun getSourceFile(vararg paths: String): SourceFile = SourceFile.fromPath(
     Paths.get(
         "src",
-        "test",
+        "jvmTest",
         if (paths.last().endsWith(".java")) "java" else "kotlin",
         "com",
         "livefront",

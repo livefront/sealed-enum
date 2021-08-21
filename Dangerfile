@@ -1,1 +1,1 @@
-shroud.report 'jacoco/build/reports/jacoco/testCodeCoverageReport/testCodeCoverageReport.xml', 80, 80, true
+shroud.report 'build/reports/kover/report.xml', 80, 80, true

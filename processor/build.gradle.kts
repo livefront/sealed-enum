@@ -5,15 +5,23 @@ plugins {
     kotlin("kapt")
 }
 
-dependencies {
-    implementation(projects.runtime)
-    implementation(projects.processingCommon)
-    implementation(libs.squareUp.kotlinPoet)
-    implementation(libs.squareUp.kotlinPoetMetadata)
-    implementation(libs.autoService.runtime)
-    kapt(libs.autoService.processor)
-    implementation(libs.incap.runtime)
-    kapt(libs.incap.processor)
+kotlin {
+    jvm()
+
+    sourceSets {
+        val jvmMain by getting {
+            dependencies {
+                implementation(projects.runtime)
+                implementation(projects.processingCommon)
+                implementation(libs.squareUp.kotlinPoet)
+                implementation(libs.squareUp.kotlinPoetMetadata)
+                implementation(libs.autoService.runtime)
+                configurations["kapt"].dependencies.add(project.dependencies.create(libs.autoService.processor.get()))
+                implementation(libs.incap.runtime)
+                configurations["kapt"].dependencies.add(project.dependencies.create(libs.incap.processor.get()))
+            }
+        }
+    }
 }
 
 kapt {

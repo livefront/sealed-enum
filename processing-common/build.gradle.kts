@@ -5,6 +5,10 @@ plugins {
     `maven-publish`
 }
 
+kotlin {
+    jvm()
+}
+
 dependencies {
     implementation(projects.runtime)
     implementation(libs.squareUp.kotlinPoet)

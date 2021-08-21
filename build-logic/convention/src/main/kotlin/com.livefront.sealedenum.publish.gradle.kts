@@ -1,5 +1,6 @@
 plugins{
-    kotlin("jvm")
+    kotlin("multiplatform")
+    `java-library`
     `maven-publish`
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
@@ -15,11 +16,6 @@ tasks {
     }
 }
 
-val sourcesJar by tasks.creating(Jar::class) {
-    archiveClassifier.set("sources")
-    from(sourceSets.main.get().allSource)
-}
-
 val javadocJar by tasks.creating(Jar::class) {
     archiveClassifier.set("javadoc")
     from(tasks.dokkaHtml)
@@ -29,7 +25,7 @@ publishing {
     publications {
         create<MavenPublication>("default") {
             from(components["java"])
-            artifact(sourcesJar)
+            artifact(tasks.getByName("sourcesJar"))
             artifact(javadocJar)
 
             pom {

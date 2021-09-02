@@ -27,6 +27,10 @@ jobs:
           - windows-latest
 
     steps:
+      - name: Set TMP environment variable on Windows
+        if: matrix.os == 'windows-latest' 
+        run: echo "TMP=${{ runner.temp }}" >> $env:GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v2
 

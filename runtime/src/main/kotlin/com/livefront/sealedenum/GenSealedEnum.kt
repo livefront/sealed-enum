@@ -207,4 +207,6 @@ public annotation class GenSealedEnum(
 /**
  * This is the container annotation for multiple [GenSealedEnum] annotations.
  */
+@Retention(AnnotationRetention.SOURCE)
+@Target(AnnotationTarget.CLASS)
 public annotation class GenSealedEnums(vararg val value: GenSealedEnum)

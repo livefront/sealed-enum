@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
@@ -21,8 +21,16 @@ jobs:
           - 14
           - 15
           # - 16 TODO: Include JDK 16 when kapt supports it: https://youtrack.jetbrains.com/issue/KT-45545
+        os:
+          - ubuntu-latest
+          - macOS-latest
+          - windows-latest
 
     steps:
+      - name: Set TMP environment variable on Windows
+        if: matrix.os == 'windows-latest' 
+        run: echo "TMP=${{ runner.temp }}" >> $env:GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -49,7 +57,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
           
       - name: Test
-        run: ./gradlew check jacocoTestReport
+        run: ./gradlew check jacocoTestReport --stacktrace --info
 
       - name: Danger
         # Run Danger for PRs originating from within the repo (for fork PRs the token won't give permission to comment)

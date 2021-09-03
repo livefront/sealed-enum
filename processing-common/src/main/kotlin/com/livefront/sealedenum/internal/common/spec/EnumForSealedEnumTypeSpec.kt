@@ -20,7 +20,7 @@ import javax.lang.model.element.TypeElement
 internal data class EnumForSealedEnumTypeSpec(
     private val sealedClass: SealedClass,
     private val sealedClassVisibility: Visibility,
-    private val sealedClassCompanionObjectElement: TypeElement,
+    private val sealedClassCompanionObjectElement: TypeElement?,
     private val sealedObjects: List<SealedObject>,
     private val parameterizedSealedClass: TypeName,
     private val enumPrefix: String,
@@ -28,7 +28,7 @@ internal data class EnumForSealedEnumTypeSpec(
 ) {
     private val typeSpecBuilder = TypeSpec.enumBuilder(sealedClass.createEnumForSealedEnumName(enumPrefix))
         .addModifiers(sealedClassVisibility.kModifier)
-        .addOriginatingElement(sealedClassCompanionObjectElement)
+        .maybeAddOriginatingElement(sealedClassCompanionObjectElement)
         .addKdoc("An isomorphic enum for the sealed class [%T]", sealedClass)
         .primaryConstructor(
             FunSpec.constructorBuilder()

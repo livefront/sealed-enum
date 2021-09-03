@@ -3,7 +3,7 @@ package com.livefront.sealedenum.compilation.basic
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getSourceFile
+import com.livefront.sealedenum.testing.getCommonSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -36,7 +36,7 @@ class OneObjectSealedClassTests {
 
     @Test
     fun `compilation generates correct code`() {
-        val result = compile(getSourceFile("compilation", "basic", "OneObjectSealedClass.kt"))
+        val result = compile(getCommonSourceFile("compilation", "basic", "OneObjectSealedClass.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches("OneObjectSealedClass_SealedEnum.kt", oneObjectSealedClassGenerated, result)

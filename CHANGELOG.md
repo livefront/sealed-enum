@@ -1,7 +1,19 @@
+# 0.4.0
+## Features:
+- Added full support for `sealed interface`s
+- Added [KSP](https://github.com/google/ksp) processor as an alternate code generation method 
+
+## Miscellaneous updates:
+- Update to Kotlin 1.5
+- Add binary compatibility validator
+- Added JDK 15 to CI tests
+- Added CI to run on macOS and Windows
+- Various dependency updates
+
 # 0.3.0
 ## Breaking changes:
 - Artifact ids were updated (`sealedenum` -> `runtime` and `sealedenumprocessor` -> `processor`).
-  This was done to accomodate alternate generation implementations, such as by [KSP](https://github.com/google/ksp)
+  This was done to accommodate alternate generation implementations, such as by [KSP](https://github.com/google/ksp)
 
 ## Miscellaneous updates:
 - Switch to GitHub actions for CI

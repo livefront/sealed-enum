@@ -61,7 +61,10 @@ jobs:
 
       - name: Danger
         # Run Danger for PRs originating from within the repo (for fork PRs the token won't give permission to comment)
-        if: github.event_name == 'pull_request' && matrix.java-version == '1.8' && github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event_name == 'pull_request' &&
+                matrix.os == 'ubuntu-latest' &&
+                matrix.java-version == '1.8' &&
+                github.event.pull_request.head.repo.full_name == github.repository
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bundle exec danger

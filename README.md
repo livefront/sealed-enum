@@ -339,8 +339,6 @@ To avoid failing compilation, interfaces that are impossible to specify will be 
 
 The code generation portion of `sealed-enum` can be performed in one of two ways, either using `kapt` or [`ksp`](https://github.com/google/ksp).
 
-[`ksp`](https://github.com/google/ksp) is itself experimental, but the `ksp` processor for `sealed-enum` is equivalent to the `kapt` processor (or at least, they pass the same tests!)
-
 #### Via `kapt`
 
 ```kotlin

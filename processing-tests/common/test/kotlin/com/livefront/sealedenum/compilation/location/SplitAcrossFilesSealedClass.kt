@@ -24,7 +24,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [SplitAcrossFilesSealedClass]
  */
-public enum class SplitAcrossFilesSealedClassEnum {
+public enum class SplitAcrossFilesSealedClassEnum() {
     SplitAcrossFilesSubclassA,
     SplitAcrossFilesSubclassB,
     SplitAcrossFilesSubclassC,

@@ -31,7 +31,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [InternalObjectsSealedClass]
  */
-public enum class InternalObjectsSealedClassEnum {
+public enum class InternalObjectsSealedClassEnum() {
     InternalObjectsSealedClass_FirstObject,
     InternalObjectsSealedClass_SecondObject,
     InternalObjectsSealedClass_InnerSealedClass_ThirdObject,
@@ -166,7 +166,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [InternalSealedClass]
  */
-internal enum class InternalSealedClassEnum {
+internal enum class InternalSealedClassEnum() {
     InternalSealedClass_FirstObject,
     InternalSealedClass_SecondObject,
 }
@@ -286,7 +286,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [InternalCompanionSealedClass]
  */
-public enum class InternalCompanionSealedClassEnum {
+public enum class InternalCompanionSealedClassEnum() {
     InternalCompanionSealedClass_FirstObject,
     InternalCompanionSealedClass_SecondObject,
 }
@@ -411,7 +411,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [InternalSealedAndCompanionSealedClass]
  */
-internal enum class InternalSealedAndCompanionSealedClassEnum {
+internal enum class InternalSealedAndCompanionSealedClassEnum() {
     InternalSealedAndCompanionSealedClass_FirstObject,
     InternalSealedAndCompanionSealedClass_SecondObject,
 }

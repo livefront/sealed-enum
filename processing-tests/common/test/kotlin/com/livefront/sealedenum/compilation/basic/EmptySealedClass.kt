@@ -23,7 +23,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [EmptySealedClass]
  */
-public enum class EmptySealedClassEnum
+public enum class EmptySealedClassEnum()
 
 /**
  * The isomorphic [EmptySealedClassEnum] for [this].

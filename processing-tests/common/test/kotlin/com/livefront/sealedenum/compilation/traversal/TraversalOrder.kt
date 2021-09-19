@@ -76,7 +76,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [Tree]
  */
-public enum class TreeLevelOrderEnum {
+public enum class TreeLevelOrderEnum() {
     Tree_A,
     Tree_K,
     Tree_T,
@@ -253,7 +253,7 @@ public fun Tree.Companion.levelOrderValueOf(name: String): Tree =
 /**
  * An isomorphic enum for the sealed class [Tree]
  */
-public enum class TreePostOrderEnum {
+public enum class TreePostOrderEnum() {
     Tree_B_C_F_G,
     Tree_B_C_F_H,
     Tree_B_C_F_I,
@@ -430,7 +430,7 @@ public fun Tree.Companion.postOrderValueOf(name: String): Tree =
 /**
  * An isomorphic enum for the sealed class [Tree]
  */
-public enum class TreeInOrderEnum {
+public enum class TreeInOrderEnum() {
     Tree_A,
     Tree_B_C_D,
     Tree_B_C_E,
@@ -606,7 +606,7 @@ public fun Tree.Companion.inOrderValueOf(name: String): Tree = TreeInOrderSealed
 /**
  * An isomorphic enum for the sealed class [Tree]
  */
-public enum class TreePreOrderEnum {
+public enum class TreePreOrderEnum() {
     Tree_A,
     Tree_K,
     Tree_T,

@@ -25,7 +25,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [OneObjectSealedInterface]
  */
-public enum class OneObjectSealedInterfaceEnum {
+public enum class OneObjectSealedInterfaceEnum() {
     OneObjectSealedInterface_FirstObject,
 }
 

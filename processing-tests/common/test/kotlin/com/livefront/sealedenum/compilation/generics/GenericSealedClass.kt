@@ -31,7 +31,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [OneTypeParameterSealedClass]
  */
-public enum class OneTypeParameterSealedClassEnum {
+public enum class OneTypeParameterSealedClassEnum() {
     OneTypeParameterSealedClass_FirstObject,
     OneTypeParameterSealedClass_SecondObject,
     OneTypeParameterSealedClass_ThirdObject,
@@ -166,7 +166,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [TwoTypeParameterSealedClass]
  */
-public enum class TwoTypeParameterSealedClassEnum {
+public enum class TwoTypeParameterSealedClassEnum() {
     TwoTypeParameterSealedClass_FirstObject,
     TwoTypeParameterSealedClass_SecondObject,
 }
@@ -293,7 +293,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [LimitedTypeParameterSealedClass]
  */
-public enum class LimitedTypeParameterSealedClassEnum {
+public enum class LimitedTypeParameterSealedClassEnum() {
     LimitedTypeParameterSealedClass_FirstObject,
     LimitedTypeParameterSealedClass_SecondObject,
 }
@@ -429,7 +429,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [MultipleBoundsSealedClass]
  */
-public enum class MultipleBoundsSealedClassEnum {
+public enum class MultipleBoundsSealedClassEnum() {
     MultipleBoundsSealedClass_FirstObject,
 }
 

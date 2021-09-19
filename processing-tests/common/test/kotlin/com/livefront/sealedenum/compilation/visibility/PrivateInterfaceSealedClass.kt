@@ -31,7 +31,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [PrivateInterfaceSealedClass]
  */
-public enum class PrivateInterfaceSealedClassEnum {
+public enum class PrivateInterfaceSealedClassEnum() {
     PrivateInterfaceSealedClass_FirstObject,
     PrivateInterfaceSealedClass_SecondObject,
 }

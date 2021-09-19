@@ -34,7 +34,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [FirstInterfaceHierarchy.A]
  */
-public enum class FirstInterfaceHierarchy_AEnum {
+public enum class FirstInterfaceHierarchy_AEnum() {
     FirstInterfaceHierarchy_A_B_C,
 }
 
@@ -138,7 +138,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [FirstInterfaceHierarchy.A.B]
  */
-public enum class FirstInterfaceHierarchy_A_BEnum {
+public enum class FirstInterfaceHierarchy_A_BEnum() {
     FirstInterfaceHierarchy_A_B_C,
 }
 

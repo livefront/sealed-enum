@@ -25,7 +25,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [AlphaOutsideSealedClass]
  */
-public enum class AlphaOutsideSealedClassEnum {
+public enum class AlphaOutsideSealedClassEnum() {
     AlphaFirstObject,
 }
 
@@ -138,7 +138,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [BetaOutsideSealedClass]
  */
-public enum class BetaOutsideSealedClassEnum {
+public enum class BetaOutsideSealedClassEnum() {
     BetaFirstObject,
     BetaSecondObject,
 }
@@ -261,7 +261,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [GammaOutsideSealedClass]
  */
-public enum class GammaOutsideSealedClassEnum {
+public enum class GammaOutsideSealedClassEnum() {
     GammaFirstObject,
     GammaOutsideSealedClass_GammaSecondObject,
     GammaThirdObject,
@@ -390,7 +390,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [DeltaOutsideSealedClass]
  */
-public enum class DeltaOutsideSealedClassEnum {
+public enum class DeltaOutsideSealedClassEnum() {
     DeltaOutsideSealedClass_DeltaObject,
     DeltaObject,
 }

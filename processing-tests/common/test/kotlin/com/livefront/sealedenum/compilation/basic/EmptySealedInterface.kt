@@ -23,7 +23,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [EmptySealedInterface]
  */
-public enum class EmptySealedInterfaceEnum
+public enum class EmptySealedInterfaceEnum()
 
 /**
  * The isomorphic [EmptySealedInterfaceEnum] for [this].

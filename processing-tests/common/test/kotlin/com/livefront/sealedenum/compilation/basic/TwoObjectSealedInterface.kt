@@ -27,7 +27,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [TwoObjectSealedInterface]
  */
-public enum class TwoObjectSealedInterfaceEnum {
+public enum class TwoObjectSealedInterfaceEnum() {
     TwoObjectSealedInterface_FirstObject,
     TwoObjectSealedInterface_SecondObject,
 }

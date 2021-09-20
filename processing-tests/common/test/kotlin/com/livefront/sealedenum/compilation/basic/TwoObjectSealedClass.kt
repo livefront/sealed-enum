@@ -27,7 +27,7 @@ import kotlin.collections.List
 /**
  * An isomorphic enum for the sealed class [TwoObjectSealedClass]
  */
-public enum class TwoObjectSealedClassEnum {
+public enum class TwoObjectSealedClassEnum() {
     TwoObjectSealedClass_FirstObject,
     TwoObjectSealedClass_SecondObject,
 }

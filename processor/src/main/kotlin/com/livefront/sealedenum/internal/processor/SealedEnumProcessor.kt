@@ -12,16 +12,15 @@ import com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec.SealedEn
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
-import com.squareup.kotlinpoet.classinspector.elements.ElementsClassInspector
-import com.squareup.kotlinpoet.metadata.ImmutableKmClass
+import com.squareup.kotlinpoet.metadata.classinspectors.ElementsClassInspector
 import com.squareup.kotlinpoet.metadata.isCompanionObject
 import com.squareup.kotlinpoet.metadata.isInternal
 import com.squareup.kotlinpoet.metadata.isObject
 import com.squareup.kotlinpoet.metadata.isPublic
 import com.squareup.kotlinpoet.metadata.isSealed
-import com.squareup.kotlinpoet.metadata.specs.internal.ClassInspectorUtil
 import com.squareup.kotlinpoet.metadata.specs.toTypeSpec
-import com.squareup.kotlinpoet.metadata.toImmutableKmClass
+import com.squareup.kotlinpoet.metadata.toKmClass
+import kotlinx.metadata.KmClass
 import net.ltgt.gradle.incap.IncrementalAnnotationProcessor
 import net.ltgt.gradle.incap.IncrementalAnnotationProcessorType
 import javax.annotation.processing.AbstractProcessor
@@ -104,12 +103,12 @@ public class SealedEnumProcessor : AbstractProcessor() {
         }
 
         /**
-         * The [ImmutableKmClass] for the sealed class's companion object.
+         * The [KmClass] for the sealed class's companion object.
          */
         val sealedClassCompanionObjectKmClass =
             @Suppress("TooGenericExceptionCaught")
             try {
-                sealedClassCompanionObjectElement.toImmutableKmClass()
+                sealedClassCompanionObjectElement.toKmClass()
             } catch (exception: Exception) {
                 printError(ERROR_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassCompanionObjectElement)
                 return null
@@ -121,8 +120,8 @@ public class SealedEnumProcessor : AbstractProcessor() {
             }
 
         val sealedClassCompanionObjectVisibility = when {
-            sealedClassCompanionObjectKmClass.isPublic -> Visibility.PUBLIC
-            sealedClassCompanionObjectKmClass.isInternal -> Visibility.INTERNAL
+            sealedClassCompanionObjectKmClass.flags.isPublic -> Visibility.PUBLIC
+            sealedClassCompanionObjectKmClass.flags.isInternal -> Visibility.INTERNAL
             else -> {
                 printError(ERROR_COMPANION_OBJECT_HAS_INVALID_VISIBILITY, sealedClassCompanionObjectElement)
                 return null
@@ -132,25 +131,25 @@ public class SealedEnumProcessor : AbstractProcessor() {
         val sealedClassElement = sealedClassCompanionObjectElement.enclosingElement
 
         /**
-         * The [ImmutableKmClass] for the sealed class.
+         * The [KmClass] for the sealed class.
          */
         val sealedClassKmClass =
             @Suppress("TooGenericExceptionCaught")
             try {
-                (sealedClassElement as TypeElement).toImmutableKmClass()
+                (sealedClassElement as TypeElement).toKmClass()
             } catch (exception: Exception) {
                 printError(ERROR_ENCLOSING_ELEMENT_IS_NOT_KOTLIN_CLASS, sealedClassElement)
                 return null
             }.apply {
-                if (!isSealed) {
+                if (!flags.isSealed) {
                     printError(ERROR_CLASS_IS_NOT_SEALED, sealedClassElement)
                     return null
                 }
             }
 
         val sealedClassVisibility = when {
-            sealedClassKmClass.isPublic -> Visibility.PUBLIC
-            sealedClassKmClass.isInternal -> Visibility.INTERNAL
+            sealedClassKmClass.flags.isPublic -> Visibility.PUBLIC
+            sealedClassKmClass.flags.isInternal -> Visibility.INTERNAL
             else -> {
                 printError(ERROR_SEALED_CLASS_HAS_INVALID_VISIBILITY, sealedClassElement)
                 return null
@@ -192,9 +191,9 @@ public class SealedEnumProcessor : AbstractProcessor() {
         }
 
         return SealedEnumFileSpec(
-            sealedClass = ClassInspectorUtil.createClassName(sealedClassKmClass.name),
+            sealedClass = createClassName(sealedClassKmClass.name),
             sealedClassVisibility = sealedClassVisibility,
-            sealedClassCompanionObject = ClassInspectorUtil.createClassName(sealedClassCompanionObjectKmClass.name),
+            sealedClassCompanionObject = createClassName(sealedClassCompanionObjectKmClass.name),
             sealedClassCompanionObjectVisibility = sealedClassCompanionObjectVisibility,
             typeParameters = sealedClassTypeSpec.wildcardedTypeVariables,
             sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
@@ -212,13 +211,13 @@ public class SealedEnumProcessor : AbstractProcessor() {
 
     /**
      * A recursive function used in concert with [convertSealedSubclassToNode] to create a
-     * [SealedClassNode.SealedClass] given a [ImmutableKmClass] for the sealed class.
+     * [SealedClassNode.SealedClass] given a [KmClass] for the sealed class.
      */
     private fun createSealedClassNode(
-        sealedClassKmClass: ImmutableKmClass
+        sealedClassKmClass: KmClass
     ): SealedClassNode.SealedClass = SealedClassNode.SealedClass(
         sealedClassKmClass.sealedSubclasses
-            .map(ClassInspectorUtil::createClassName)
+            .map(::createClassName)
             .map(::convertSealedSubclassToNode)
     )
 
@@ -233,12 +232,12 @@ public class SealedEnumProcessor : AbstractProcessor() {
      */
     private fun convertSealedSubclassToNode(sealedSubclass: ClassName): SealedClassNode {
         val element = processingEnv.elementUtils.getTypeElement(sealedSubclass.canonicalName)
-        val kmClass = element.toImmutableKmClass()
+        val kmClass = element.toKmClass()
 
         return when {
-            kmClass.isPublic || kmClass.isInternal -> when {
+            kmClass.flags.isPublic || kmClass.flags.isInternal -> when {
                 kmClass.isObject -> SealedClassNode.Object(sealedSubclass)
-                kmClass.isSealed -> createSealedClassNode(kmClass)
+                kmClass.flags.isSealed -> createSealedClassNode(kmClass)
                 else -> throw NonObjectSealedSubclassException(element)
             }
             else -> throw InvalidSubclassVisibilityException(element)

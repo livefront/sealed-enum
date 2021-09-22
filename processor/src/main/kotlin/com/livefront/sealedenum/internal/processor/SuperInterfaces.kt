@@ -15,9 +15,8 @@ import com.squareup.kotlinpoet.metadata.isInternal
 import com.squareup.kotlinpoet.metadata.isPublic
 import com.squareup.kotlinpoet.metadata.isSealed
 import com.squareup.kotlinpoet.metadata.specs.ClassInspector
-import com.squareup.kotlinpoet.metadata.specs.internal.ClassInspectorUtil
 import com.squareup.kotlinpoet.metadata.specs.toTypeSpec
-import com.squareup.kotlinpoet.metadata.toImmutableKmClass
+import com.squareup.kotlinpoet.metadata.toKmClass
 import javax.lang.model.element.Element
 import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
@@ -72,7 +71,7 @@ internal class SuperInterfaces(
 
         @Suppress("TooGenericExceptionCaught")
         try {
-            val typeSpec = typeElement.toImmutableKmClass().toTypeSpec(classInspector)
+            val typeSpec = typeElement.toTypeSpec(classInspector)
             getAllSuperInterfacesKotlinImpl(typeElement, typeSpec, parentTypeArguments, superInterfaces)
         } catch (exception: Exception) {
             getAllSuperInterfacesJavaImpl(typeElement, parentTypeArguments, superInterfaces)
@@ -197,7 +196,7 @@ internal class SuperInterfaces(
 
             @Suppress("TooGenericExceptionCaught")
             val className = try {
-                ClassInspectorUtil.createClassName(element.toImmutableKmClass().name)
+                createClassName(element.toKmClass().name)
             } catch (exception: Exception) {
                 ClassName.bestGuess(element.qualifiedName.toString())
             }
@@ -219,8 +218,8 @@ internal class SuperInterfaces(
     private fun TypeElement.isVisibleInterface(): Boolean =
         try {
             // If interface is a Kotlin interface
-            val kmClass = toImmutableKmClass()
-            kmClass.isPublic || kmClass.isInternal
+            val kmClass = toKmClass()
+            kmClass.flags.isPublic || kmClass.flags.isInternal
         } catch (exception: Exception) {
             // If interface is a Java interface
             Modifier.PRIVATE !in modifiers &&
@@ -234,8 +233,8 @@ internal class SuperInterfaces(
     private fun TypeElement.isSealedInterface(): Boolean =
         try {
             // If interface is a Kotlin interface
-            val kmClass = toImmutableKmClass()
-            kmClass.isSealed
+            val kmClass = toKmClass()
+            kmClass.flags.isSealed
         } catch (exception: Exception) {
             // If interface is a Java interface
             false // TODO: Java sealed interfaces?

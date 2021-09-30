@@ -8,6 +8,10 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
 
+    concurrency:
+      group: ci-${{ github.event_name }}-${{ github.ref }}-${{ matrix.java-version }}-${{ matrix.os }}
+      cancel-in-progress: true
+
     strategy:
       fail-fast: false
       matrix:

@@ -19,6 +19,7 @@ kotlinCompileTesting-base = { module = "com.github.tschuchortdev:kotlin-compile-
 kotlinCompileTesting-ksp = { module = "com.github.tschuchortdev:kotlin-compile-testing-ksp", version.ref = "kotlinCompileTesting" }
 
 squareUp-kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
+squareUp-kotlinPoetKsp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinPoet" }
 squareUp-kotlinPoetMetadata = { module = "com.squareup:kotlinpoet-metadata", version.ref = "kotlinPoet" }
 
 ksp-runtime = { module = "com.google.devtools.ksp:symbol-processing", version.ref = "ksp" }

@@ -41,6 +41,7 @@ subprojects {
             kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_1_8.toString()
                 allWarningsAsErrors = true
+                freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
             }
         }
 
@@ -48,6 +49,7 @@ subprojects {
             kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_1_8.toString()
                 allWarningsAsErrors = true
+                freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
             }
         }
 

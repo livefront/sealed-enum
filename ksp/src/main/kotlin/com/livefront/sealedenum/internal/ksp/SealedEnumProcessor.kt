@@ -24,6 +24,9 @@ import com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec
 import com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec.SealedEnumOption.SealedEnumOnly
 import com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec.SealedEnumOption.SealedEnumWithEnum
 import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
+import com.squareup.kotlinpoet.ksp.toClassName
+import com.squareup.kotlinpoet.ksp.writeTo
 
 internal const val ERROR_ELEMENT_IS_ANNOTATED_WITH_REPEATED_TRAVERSAL_ORDER =
     "Element is annotated with the same traversal order multiple times"
@@ -51,6 +54,7 @@ internal class SealedEnumProcessor(
     private val logger: KSPLogger,
 ) : SymbolProcessor {
 
+    @OptIn(KotlinPoetKspPreview::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         @Suppress("UnsafeCallOnNullableType")
         resolver
@@ -61,8 +65,9 @@ internal class SealedEnumProcessor(
                 val sealedEnumFileSpec = createSealedEnumFileSpec(resolver, ksClassDeclaration)
 
                 sealedEnumFileSpec?.build()?.writeTo(
-                    codeGenerator,
-                    listOfNotNull(
+                    codeGenerator = codeGenerator,
+                    aggregating = false,
+                    originatingKSFiles = listOfNotNull(
                         getGenSealedEnumClassDeclaration(resolver).containingFile,
                         ksClassDeclaration.containingFile
                     )
@@ -89,6 +94,7 @@ internal class SealedEnumProcessor(
      * If there is an error processing the given [KSClassDeclaration], a relevant error message will be printed and a
      * null [SealedEnumFileSpec] will be returned.
      */
+    @OptIn(KotlinPoetKspPreview::class)
     @Suppress("ReturnCount", "LongMethod", "ComplexMethod")
     private fun createSealedEnumFileSpec(
         resolver: Resolver,
@@ -224,6 +230,7 @@ internal class SealedEnumProcessor(
      * [SealedClassNode.SealedClass].
      * If [sealedSubclassKSClass] is neither, then this function will throw a [NonObjectSealedSubclassException]
      */
+    @OptIn(KotlinPoetKspPreview::class)
     private fun convertSealedSubclassToNode(sealedSubclassKSClass: KSClassDeclaration): SealedClassNode {
         return when {
             sealedSubclassKSClass.isPublic() || sealedSubclassKSClass.isInternal() -> when {

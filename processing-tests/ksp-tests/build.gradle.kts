@@ -12,6 +12,10 @@ plugins {
  */
 val debugProcessor = false
 
+dependencies {
+    ksp(projects.ksp)
+}
+
 kotlin {
     explicitApi()
 
@@ -21,6 +25,19 @@ kotlin {
         }
         withJava()
     }
+    // TODO: Adding this results in "Collection has more than one element."
+    //       This is the same issue as https://github.com/glureau/ksp-kmp-issues/tree/kotlinjsir_single_crashing
+    // js(BOTH) {
+    //     browser()
+    //     nodejs()
+    // }
+
+    macosX64()
+    iosArm32(); iosArm64(); iosX64()
+    watchosArm32(); watchosArm64(); watchosX86(); watchosX64()
+
+    linuxArm64(); linuxX64()
+    mingwX86(); mingwX64()
 
     sourceSets {
         val commonTest by getting {
@@ -41,7 +58,6 @@ kotlin {
                 implementation(libs.ksp.runtime)
                 implementation(libs.ksp.api)
                 implementation(projects.ksp)
-                configurations["ksp"].dependencies.add(projects.ksp)
             }
             if (!debugProcessor) {
                 kotlin.srcDir("$rootDir/processing-tests/common/src/jvmTest")

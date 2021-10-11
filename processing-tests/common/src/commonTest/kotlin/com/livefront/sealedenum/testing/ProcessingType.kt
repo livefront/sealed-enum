@@ -1,6 +1,7 @@
 package com.livefront.sealedenum.testing
 
 import com.livefront.sealedenum.GenSealedEnum
+import kotlin.jvm.JvmStatic
 
 sealed class ProcessingType {
 

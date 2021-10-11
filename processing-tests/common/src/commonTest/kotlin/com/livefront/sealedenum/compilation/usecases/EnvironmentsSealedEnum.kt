@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.usecases
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 interface Uri {
     val scheme: String
@@ -35,7 +34,6 @@ sealed class Environments(
     companion object
 }
 
-@Language("kotlin")
 val environmentsGenerated = """
 package com.livefront.sealedenum.compilation.usecases
 

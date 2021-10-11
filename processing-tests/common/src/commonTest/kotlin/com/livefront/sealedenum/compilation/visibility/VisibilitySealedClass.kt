@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.visibility
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 sealed class InternalObjectsSealedClass {
     internal object FirstObject : InternalObjectsSealedClass()
@@ -16,7 +15,6 @@ sealed class InternalObjectsSealedClass {
     companion object
 }
 
-@Language("kotlin")
 val internalObjectsSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.visibility
 
@@ -155,7 +153,6 @@ internal sealed class InternalSealedClass {
     companion object
 }
 
-@Language("kotlin")
 val internalSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.visibility
 
@@ -281,7 +278,6 @@ sealed class InternalCompanionSealedClass {
     internal companion object
 }
 
-@Language("kotlin")
 val internalCompanionSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.visibility
 
@@ -410,7 +406,6 @@ internal sealed class InternalSealedAndCompanionSealedClass {
     internal companion object
 }
 
-@Language("kotlin")
 val internalSealedAndCompanionSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.visibility
 

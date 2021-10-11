@@ -4,7 +4,6 @@ package com.livefront.sealedenum.compilation.traversal
 
 import com.livefront.sealedenum.GenSealedEnum
 import com.livefront.sealedenum.TreeTraversalOrder
-import org.intellij.lang.annotations.Language
 
 sealed class Tree {
 
@@ -61,7 +60,6 @@ sealed class Tree {
     companion object
 }
 
-@Language("kotlin")
 val treeGenerated = """
 package com.livefront.sealedenum.compilation.traversal
 

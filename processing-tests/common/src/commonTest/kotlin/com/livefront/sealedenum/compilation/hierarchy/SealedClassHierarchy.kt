@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 class FirstClassHierarchy {
 
@@ -19,7 +18,6 @@ class FirstClassHierarchy {
     }
 }
 
-@Language("kotlin")
 val firstClassHierarchyAGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -127,7 +125,6 @@ public fun FirstClassHierarchy.A.Companion.valueOf(name: String): FirstClassHier
 
 """.trimIndent()
 
-@Language("kotlin")
 val firstClassHierarchyBGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -280,7 +277,6 @@ class SecondClassHierarchy {
     }
 }
 
-@Language("kotlin")
 val secondClassHierarchyZGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -375,7 +371,6 @@ public fun SecondClassHierarchy.Z.Companion.valueOf(name: String): SecondClassHi
 
 """.trimIndent()
 
-@Language("kotlin")
 val secondClassHierarchyZXGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -458,7 +453,6 @@ public fun SecondClassHierarchy.Z.X.Companion.valueOf(name: String): SecondClass
 
 """.trimIndent()
 
-@Language("kotlin")
 val secondClassHierarchyZXUGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -529,7 +523,6 @@ public fun SecondClassHierarchy.Z.X.U.Companion.valueOf(name: String): SecondCla
 
 """.trimIndent()
 
-@Language("kotlin")
 val secondClassHierarchyZXSGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -600,7 +593,6 @@ public fun SecondClassHierarchy.Z.X.S.Companion.valueOf(name: String): SecondCla
 
 """.trimIndent()
 
-@Language("kotlin")
 val secondClassHierarchyZQGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 

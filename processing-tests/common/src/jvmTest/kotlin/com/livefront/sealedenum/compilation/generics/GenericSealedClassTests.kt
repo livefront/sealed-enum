@@ -1,9 +1,11 @@
 package com.livefront.sealedenum.compilation.generics
 
+import com.livefront.sealedenum.testing.PlatformSourceType
+import com.livefront.sealedenum.testing.SharableProcessingSourceType
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -23,7 +25,15 @@ class GenericSealedClassTests {
 
     @Test
     fun `compilation for one type parameter generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "GenericSealedClass.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "GenericSealedClass.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -46,7 +56,15 @@ class GenericSealedClassTests {
 
     @Test
     fun `compilation for two type parameter generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "GenericSealedClass.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "GenericSealedClass.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -69,7 +87,15 @@ class GenericSealedClassTests {
 
     @Test
     fun `compilation for limited type parameter generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "GenericSealedClass.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "GenericSealedClass.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -91,7 +117,15 @@ class GenericSealedClassTests {
 
     @Test
     fun `compilation for multiple bounds sealed class generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "GenericSealedClass.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "GenericSealedClass.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(

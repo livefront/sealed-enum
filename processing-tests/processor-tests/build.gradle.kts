@@ -13,16 +13,26 @@ kotlin {
     jvm()
 
     sourceSets {
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("reflect"))
+                implementation(projects.runtime)
+            }
+            if (!debugKsp) {
+                kotlin.srcDir("$rootDir/processing-tests/common/src/commonTest")
+            }
+        }
+
         val jvmTest by getting {
             dependencies {
                 implementation(libs.junit.jupiter)
                 implementation(libs.kotlinCompileTesting.base)
-                implementation(kotlin("reflect"))
-                implementation(projects.runtime)
                 implementation(projects.processor)
                 configurations["kaptTest"].dependencies.add(projects.processor)
             }
             if (!debugKsp) {
+                // Add the processing common commonTest directly to jvmTest, to allow kapt to pick up and process
+                // annotations
                 kotlin.srcDir("$rootDir/processing-tests/common/src/jvmTest")
             }
         }
@@ -43,6 +53,7 @@ detekt {
     source = files(
         "src/jvmMain/kotlin",
         "src/jvmTest/kotlin",
+        "$rootDir/processing-tests/common/src/commonTest/kotlin",
         "$rootDir/processing-tests/common/src/jvmTest/java",
         "$rootDir/processing-tests/common/src/jvmTest/kotlin"
     )

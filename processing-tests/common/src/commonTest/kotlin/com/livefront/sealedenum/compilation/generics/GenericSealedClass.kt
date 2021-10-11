@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.generics
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 interface GenericInterfaceOut<out T>
 
@@ -16,7 +15,6 @@ sealed class OneTypeParameterSealedClass<out T> : GenericInterfaceOut<T> {
     companion object OneType
 }
 
-@Language("kotlin")
 val oneTypeParameterSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.generics
 
@@ -155,7 +153,6 @@ sealed class TwoTypeParameterSealedClass<out A, out B> : GenericInterfaceTwoOut<
     companion object TwoType
 }
 
-@Language("kotlin")
 val twoTypeParameterSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.generics
 
@@ -286,7 +283,6 @@ sealed class LimitedTypeParameterSealedClass<in Number, out String> : GenericInt
     companion object LimitedType
 }
 
-@Language("kotlin")
 val limitedTypeParameterSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.generics
 
@@ -426,7 +422,6 @@ sealed class MultipleBoundsSealedClass<T> where T : MultipleBoundsInterface1, T 
     companion object
 }
 
-@Language("kotlin")
 val multipleBoundsSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.generics
 

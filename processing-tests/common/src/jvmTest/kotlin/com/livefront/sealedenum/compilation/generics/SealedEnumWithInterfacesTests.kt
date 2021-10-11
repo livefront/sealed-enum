@@ -1,10 +1,12 @@
 package com.livefront.sealedenum.compilation.generics
 
 import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.testing.PlatformSourceType
+import com.livefront.sealedenum.testing.SharableProcessingSourceType
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -52,7 +54,15 @@ class SealedEnumWithInterfacesTests {
 
     @Test
     fun `compilation for empty sealed class generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "SealedEnumWithInterfaces.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "SealedEnumWithInterfaces.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -97,7 +107,15 @@ class SealedEnumWithInterfacesTests {
 
     @Test
     fun `compilation for one object sealed class generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "SealedEnumWithInterfaces.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "SealedEnumWithInterfaces.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -164,7 +182,15 @@ class SealedEnumWithInterfacesTests {
 
     @Test
     fun `compilation for two object sealed class generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "SealedEnumWithInterfaces.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "SealedEnumWithInterfaces.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -189,7 +215,15 @@ class SealedEnumWithInterfacesTests {
 
     @Test
     fun `compilation for sealed class with getter interface generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "SealedEnumWithInterfaces.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "SealedEnumWithInterfaces.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(

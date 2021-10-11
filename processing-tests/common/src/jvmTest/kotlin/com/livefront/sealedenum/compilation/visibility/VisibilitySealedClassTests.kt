@@ -1,10 +1,12 @@
 package com.livefront.sealedenum.compilation.visibility
 
 import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.testing.PlatformSourceType
+import com.livefront.sealedenum.testing.SharableProcessingSourceType
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -65,7 +67,15 @@ class VisibilitySealedClassTests {
 
         @Test
         fun `compilation generates correct code`() {
-            val result = compile(getCommonSourceFile("compilation", "visibility", "VisibilitySealedClass.kt"))
+            val result = compile(
+                getSourceFile(
+                    SharableProcessingSourceType.COMMMON,
+                    PlatformSourceType.COMMON,
+                    "compilation",
+                    "visibility",
+                    "VisibilitySealedClass.kt"
+                )
+            )
 
             assertCompiles(result)
             assertGeneratedFileMatches(
@@ -121,7 +131,15 @@ class VisibilitySealedClassTests {
 
         @Test
         fun `compilation generates correct code`() {
-            val result = compile(getCommonSourceFile("compilation", "visibility", "VisibilitySealedClass.kt"))
+            val result = compile(
+                getSourceFile(
+                    SharableProcessingSourceType.COMMMON,
+                    PlatformSourceType.COMMON,
+                    "compilation",
+                    "visibility",
+                    "VisibilitySealedClass.kt"
+                )
+            )
 
             assertCompiles(result)
             assertGeneratedFileMatches("InternalSealedClass_SealedEnum.kt", internalSealedClassGenerated, result)
@@ -176,7 +194,15 @@ class VisibilitySealedClassTests {
 
         @Test
         fun `compilation generates correct code`() {
-            val result = compile(getCommonSourceFile("compilation", "visibility", "VisibilitySealedClass.kt"))
+            val result = compile(
+                getSourceFile(
+                    SharableProcessingSourceType.COMMMON,
+                    PlatformSourceType.COMMON,
+                    "compilation",
+                    "visibility",
+                    "VisibilitySealedClass.kt"
+                )
+            )
 
             assertCompiles(result)
             assertGeneratedFileMatches(
@@ -238,7 +264,15 @@ class VisibilitySealedClassTests {
 
         @Test
         fun `compilation generates correct code`() {
-            val result = compile(getCommonSourceFile("compilation", "visibility", "VisibilitySealedClass.kt"))
+            val result = compile(
+                getSourceFile(
+                    SharableProcessingSourceType.COMMMON,
+                    PlatformSourceType.COMMON,
+                    "compilation",
+                    "visibility",
+                    "VisibilitySealedClass.kt"
+                )
+            )
 
             assertCompiles(result)
             assertGeneratedFileMatches(

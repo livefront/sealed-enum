@@ -1,5 +1,7 @@
 package com.livefront.sealedenum.compilation.ksp
 
+import com.livefront.sealedenum.testing.PlatformSourceType
+import com.livefront.sealedenum.testing.SharableProcessingSourceType
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
@@ -46,7 +48,15 @@ class NestedObjectsWithSameNameTests {
 
     @Test
     fun `compilation generates correct code`() {
-        val result = compile(getSourceFile("compilation", "ksp", "NestedObjectsWithSameName.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "ksp",
+                "NestedObjectsWithSameName.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(

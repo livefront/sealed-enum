@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.generics
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 interface TestInterface
 
@@ -16,7 +15,6 @@ sealed class EmptySealedClassWithInterface : TestInterface {
     companion object
 }
 
-@Language("kotlin")
 val emptySealedClassWithInterfaceGenerated = """
 package com.livefront.sealedenum.compilation.generics
 
@@ -121,7 +119,6 @@ sealed class OneObjectSealedClassWithInterface : TestInterface {
     companion object
 }
 
-@Language("kotlin")
 val oneObjectSealedClassWithInterfaceGenerated = """
 package com.livefront.sealedenum.compilation.generics
 
@@ -246,7 +243,6 @@ sealed class TwoObjectSealedClassWithGenericInterface<T : TestInterface> : TestG
     companion object
 }
 
-@Language("kotlin")
 val twoObjectSealedClassWithGenericInterfaceGenerated = """
 package com.livefront.sealedenum.compilation.generics
 
@@ -395,7 +391,6 @@ sealed class SealedClassWithGetterInterface : TestGetterInterface {
     companion object
 }
 
-@Language("kotlin")
 val sealedClassWithGetterInterface = """
 package com.livefront.sealedenum.compilation.generics
 

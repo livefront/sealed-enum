@@ -1,5 +1,7 @@
 package com.livefront.sealedenum.compilation.kitchensink
 
+import com.livefront.sealedenum.testing.PlatformSourceType
+import com.livefront.sealedenum.testing.SharableProcessingSourceType
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
@@ -148,17 +150,66 @@ class JavaBaseClassesTests {
         )
     }
 
+    @Suppress("LongMethod")
     @Test
     fun `compilation generates correct code`() {
         val result = compile(
-            getSourceFile("compilation", "kitchensink", "JavaInterface1.java"),
-            getSourceFile("compilation", "kitchensink", "JavaInterface2.java"),
-            getSourceFile("compilation", "kitchensink", "JavaInterface3.java"),
-            getSourceFile("compilation", "kitchensink", "JavaInterface4.java"),
-            getSourceFile("compilation", "kitchensink", "JavaInterface5.java"),
-            getSourceFile("compilation", "kitchensink", "JavaFirstBaseClass.java"),
-            getSourceFile("compilation", "kitchensink", "JavaSecondBaseClass.java"),
-            getSourceFile("compilation", "kitchensink", "JavaBaseClasses.kt")
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.JVM,
+                "compilation",
+                "kitchensink",
+                "JavaInterface1.java"
+            ),
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.JVM,
+                "compilation",
+                "kitchensink",
+                "JavaInterface2.java"
+            ),
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.JVM,
+                "compilation",
+                "kitchensink",
+                "JavaInterface3.java"
+            ),
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.JVM,
+                "compilation",
+                "kitchensink",
+                "JavaInterface4.java"
+            ),
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.JVM,
+                "compilation",
+                "kitchensink",
+                "JavaInterface5.java"
+            ),
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.JVM,
+                "compilation",
+                "kitchensink",
+                "JavaFirstBaseClass.java"
+            ),
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.JVM,
+                "compilation",
+                "kitchensink",
+                "JavaSecondBaseClass.java"
+            ),
+            getSourceFile(
+                SharableProcessingSourceType.UNIQUE,
+                PlatformSourceType.JVM,
+                "compilation",
+                "kitchensink",
+                "JavaBaseClasses.kt"
+            )
         )
 
         assertCompiles(result)

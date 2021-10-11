@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.location
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 sealed class SplitAcrossFilesSealedClass {
 
@@ -9,7 +8,6 @@ sealed class SplitAcrossFilesSealedClass {
     companion object
 }
 
-@Language("kotlin")
 val splitAcrossFilesSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.location
 

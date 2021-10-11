@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.generics
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 interface BaseClassInterface1<T>
 
@@ -18,7 +17,6 @@ sealed class SealedEnumWithAbstractBaseClasses : BetaBase<Any?, String>() {
     companion object
 }
 
-@Language("kotlin")
 val sealedEnumWithAbstractBaseClassesGenerated = """
 package com.livefront.sealedenum.compilation.generics
 
@@ -132,7 +130,6 @@ sealed class SealedEnumWithAbstractBaseClassesCovariantType<out T : Any> : Delta
     companion object
 }
 
-@Language("kotlin")
 val sealedEnumWithAbstractBaseClassesCovariantTypeGenerated = """
 package com.livefront.sealedenum.compilation.generics
 

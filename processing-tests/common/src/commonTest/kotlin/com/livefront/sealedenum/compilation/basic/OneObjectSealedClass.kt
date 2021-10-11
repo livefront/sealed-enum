@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.basic
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 sealed class OneObjectSealedClass {
     object FirstObject : OneObjectSealedClass()
@@ -10,7 +9,6 @@ sealed class OneObjectSealedClass {
     companion object
 }
 
-@Language("kotlin")
 val oneObjectSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.basic
 

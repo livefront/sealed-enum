@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.location
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 class OuterClass {
     sealed class InsideOneClassSealedClass {
@@ -14,7 +13,6 @@ class OuterClass {
     }
 }
 
-@Language("kotlin")
 val insideOneClassSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.location
 
@@ -107,7 +105,6 @@ class FirstOuterClass {
     }
 }
 
-@Language("kotlin")
 val insideTwoClassesSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.location
 

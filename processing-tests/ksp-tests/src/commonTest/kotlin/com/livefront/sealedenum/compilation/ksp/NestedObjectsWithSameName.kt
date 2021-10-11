@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.ksp
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 @Suppress("UtilityClassWithPublicConstructor")
 class NestedObjectsWithSameName {
@@ -13,7 +12,6 @@ class NestedObjectsWithSameName {
     }
 }
 
-@Language("kotlin")
 val nestedObjectsWithSameNameEmptySealedClassGenerated = """
 package com.livefront.sealedenum.compilation.ksp
 

@@ -23,13 +23,21 @@ kotlin {
     }
 
     sourceSets {
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("reflect"))
+                implementation(projects.runtime)
+            }
+            if (!debugProcessor) {
+                kotlin.srcDir("$rootDir/processing-tests/common/src/commonTest")
+            }
+        }
+
         val jvmTest by getting {
             dependencies {
                 implementation(libs.junit.jupiter)
                 implementation(libs.kotlinCompileTesting.base)
                 implementation(libs.kotlinCompileTesting.ksp)
-                implementation(kotlin("reflect"))
-                implementation(projects.runtime)
                 implementation(libs.ksp.runtime)
                 implementation(libs.ksp.api)
                 implementation(projects.ksp)
@@ -86,6 +94,7 @@ detekt {
     input = files(
         "src/jvmMain/kotlin",
         "src/jvmTest/kotlin",
+        "$rootDir/processing-tests/common/src/commonTest/kotlin",
         "$rootDir/processing-tests/common/src/jvmTest/java",
         "$rootDir/processing-tests/common/src/jvmTest/kotlin"
     )

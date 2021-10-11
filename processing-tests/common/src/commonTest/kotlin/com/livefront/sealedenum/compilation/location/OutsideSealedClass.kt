@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.location
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 sealed class AlphaOutsideSealedClass {
     @GenSealedEnum(generateEnum = true)
@@ -10,7 +9,6 @@ sealed class AlphaOutsideSealedClass {
 
 object AlphaFirstObject : AlphaOutsideSealedClass()
 
-@Language("kotlin")
 val alphaOutsideSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.location
 
@@ -123,7 +121,6 @@ object BetaFirstObject : BetaOutsideSealedClass()
 
 object BetaSecondObject : BetaOutsideSealedClass()
 
-@Language("kotlin")
 val betaOutsideSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.location
 
@@ -246,7 +243,6 @@ sealed class GammaOutsideSealedClass {
 
 object GammaThirdObject : GammaOutsideSealedClass()
 
-@Language("kotlin")
 val gammaOutsideSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.location
 
@@ -375,7 +371,6 @@ sealed class DeltaOutsideSealedClass {
 
 object DeltaObject : DeltaOutsideSealedClass()
 
-@Language("kotlin")
 val deltaOutsideSealedClassGenerated = """
 package com.livefront.sealedenum.compilation.location
 

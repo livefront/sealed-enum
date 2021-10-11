@@ -1,7 +1,6 @@
 package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 class FirstInterfaceHierarchy {
 
@@ -19,7 +18,6 @@ class FirstInterfaceHierarchy {
     }
 }
 
-@Language("kotlin")
 val firstInterfaceHierarchyAGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -123,7 +121,6 @@ public fun FirstInterfaceHierarchy.A.Companion.valueOf(name: String): FirstInter
 
 """.trimIndent()
 
-@Language("kotlin")
 val firstInterfaceHierarchyBGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -274,7 +271,6 @@ class SecondInterfaceHierarchy {
     }
 }
 
-@Language("kotlin")
 val secondInterfaceHierarchyAGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -365,7 +361,6 @@ public fun SecondInterfaceHierarchy.A.Companion.valueOf(name: String): SecondInt
 
 """.trimIndent()
 
-@Language("kotlin")
 val secondInterfaceHierarchyACGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -444,7 +439,6 @@ public fun SecondInterfaceHierarchy.A.C.Companion.valueOf(name: String):
 
 """.trimIndent()
 
-@Language("kotlin")
 val secondInterfaceHierarchyACFGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -513,7 +507,6 @@ public fun SecondInterfaceHierarchy.A.C.F.Companion.valueOf(name: String):
 
 """.trimIndent()
 
-@Language("kotlin")
 val secondInterfaceHierarchyACHGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 
@@ -582,7 +575,6 @@ public fun SecondInterfaceHierarchy.A.C.H.Companion.valueOf(name: String):
 
 """.trimIndent()
 
-@Language("kotlin")
 val secondInterfaceHierarchyAJGenerated = """
 package com.livefront.sealedenum.compilation.hierarchy
 

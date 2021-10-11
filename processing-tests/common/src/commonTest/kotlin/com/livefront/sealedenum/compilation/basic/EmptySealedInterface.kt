@@ -1,14 +1,12 @@
 package com.livefront.sealedenum.compilation.basic
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
 sealed interface EmptySealedInterface {
     @GenSealedEnum(generateEnum = true)
     companion object
 }
 
-@Language("kotlin")
 val emptySealedInterfaceGenerated = """
 package com.livefront.sealedenum.compilation.basic
 

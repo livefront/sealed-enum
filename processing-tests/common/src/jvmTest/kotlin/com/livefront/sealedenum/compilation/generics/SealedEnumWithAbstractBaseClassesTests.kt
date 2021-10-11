@@ -1,9 +1,11 @@
 package com.livefront.sealedenum.compilation.generics
 
+import com.livefront.sealedenum.testing.PlatformSourceType
+import com.livefront.sealedenum.testing.SharableProcessingSourceType
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -41,7 +43,8 @@ class SealedEnumWithAbstractBaseClassesTests {
         )
 
         // Check for compilation
-        val emptyValues1: Array<out BaseClassInterface1<BaseClassInterface1<Any?>>> = SealedEnumWithAbstractBaseClassesEnum.values()
+        val emptyValues1: Array<out BaseClassInterface1<BaseClassInterface1<Any?>>> =
+            SealedEnumWithAbstractBaseClassesEnum.values()
         val emptyValues2: Array<out BaseClassInterface2<String>> = SealedEnumWithAbstractBaseClassesEnum.values()
 
         assertEquals(
@@ -57,7 +60,15 @@ class SealedEnumWithAbstractBaseClassesTests {
 
     @Test
     fun `compilation for invariant type generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "SealedEnumWithAbstractBaseClasses.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "SealedEnumWithAbstractBaseClasses.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(
@@ -96,7 +107,15 @@ class SealedEnumWithAbstractBaseClassesTests {
 
     @Test
     fun `compilation for covariant type generates correct code`() {
-        val result = compile(getCommonSourceFile("compilation", "generics", "SealedEnumWithAbstractBaseClasses.kt"))
+        val result = compile(
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.COMMON,
+                "compilation",
+                "generics",
+                "SealedEnumWithAbstractBaseClasses.kt"
+            )
+        )
 
         assertCompiles(result)
         assertGeneratedFileMatches(

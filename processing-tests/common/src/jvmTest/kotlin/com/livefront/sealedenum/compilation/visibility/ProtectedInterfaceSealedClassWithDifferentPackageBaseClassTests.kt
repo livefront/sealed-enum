@@ -1,9 +1,11 @@
 package com.livefront.sealedenum.compilation.visibility
 
+import com.livefront.sealedenum.testing.PlatformSourceType
+import com.livefront.sealedenum.testing.SharableProcessingSourceType
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.livefront.sealedenum.testing.getSourceFile
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -34,7 +36,9 @@ class ProtectedInterfaceSealedClassWithDifferentPackageBaseClassTests {
     @Test
     fun `sealed class has correct enum values with mapping`() {
         assertEquals(
-            ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.values.map(ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass::enum),
+            ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.values.map(
+                ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass::enum
+            ),
             enumValues<ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum>().toList()
         )
     }
@@ -50,7 +54,13 @@ class ProtectedInterfaceSealedClassWithDifferentPackageBaseClassTests {
     @Test
     fun `compilation generates correct code`() {
         val result = compile(
-            getCommonSourceFile("compilation", "visibility", "ProtectedInterfaceSealedClassWithDifferentPackageBaseClass.kt")
+            getSourceFile(
+                SharableProcessingSourceType.COMMMON,
+                PlatformSourceType.JVM,
+                "compilation",
+                "visibility",
+                "ProtectedInterfaceSealedClassWithDifferentPackageBaseClass.kt"
+            )
         )
 
         assertCompiles(result)

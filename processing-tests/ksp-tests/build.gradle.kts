@@ -26,11 +26,11 @@ kotlin {
         withJava()
     }
     // TODO: Adding this results in "Collection has more than one element."
-    //       This is the same issue as https://github.com/glureau/ksp-kmp-issues/tree/kotlinjsir_single_crashing
-    // js(BOTH) {
-    //     browser()
-    //     nodejs()
-    // }
+    //       Is this the same issue as https://github.com/glureau/ksp-kmp-issues/tree/kotlinjsir_single_crashing?
+     js(BOTH) {
+         browser()
+         nodejs()
+     }
 
     macosX64()
     iosArm32(); iosArm64(); iosX64()

@@ -19,5 +19,6 @@ include(":processing-common")
 include(":processor")
 include(":ksp")
 include(":processing-tests:processor-tests")
-include(":processing-tests:ksp-tests")
+include(":processing-tests:ksp-common-tests")
+include(":processing-tests:ksp-java-tests")
 rootProject.name = "sealed-enum"

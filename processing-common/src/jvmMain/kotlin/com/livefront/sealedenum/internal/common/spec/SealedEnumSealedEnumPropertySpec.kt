@@ -5,6 +5,7 @@ import com.livefront.sealedenum.internal.common.Visibility
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.asTypeName
 import javax.lang.model.element.TypeElement
 
 internal data class SealedEnumSealedEnumPropertySpec(
@@ -18,7 +19,11 @@ internal data class SealedEnumSealedEnumPropertySpec(
     fun build(): PropertySpec {
         val propertySpecBuilder = PropertySpec.builder(pascalCaseToCamelCase(enumPrefix + "SealedEnum"), sealedEnum)
             .maybeAddOriginatingElement(sealedClassCompanionObjectElement)
-            .addKdoc("Returns an implementation of [%T] for the sealed class [%T]", SealedEnum::class, sealedClass)
+            .addKdoc(
+                "Returns an implementation of [%T] for the sealed class [%T]",
+                SealedEnum::class.asTypeName(), // Explicitly resolve to TypeName to avoid hitting javax.lang classes
+                sealedClass
+            )
             .receiver(sealedClassCompanionObject)
             .addModifiers(sealedClassCompanionObjectEffectiveVisibility.kModifier)
             .getter(

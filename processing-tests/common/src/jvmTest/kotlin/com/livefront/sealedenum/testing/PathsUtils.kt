@@ -14,12 +14,13 @@ internal fun getSourceFile(
 ): SourceFile {
     val relativePaths = when (sharableProcessingSourceType) {
         SharableProcessingSourceType.COMMMON -> arrayOf("..", "common")
+        SharableProcessingSourceType.KSP_COMMON -> arrayOf("..", "ksp-common-tests")
         SharableProcessingSourceType.UNIQUE -> emptyArray()
     } + arrayOf(
         "src",
         when (platformSourceType) {
-            PlatformSourceType.COMMON -> "commonTest"
-            PlatformSourceType.JVM -> "jvmTest"
+            PlatformSourceType.COMMON -> "commonMain"
+            PlatformSourceType.JVM -> "jvmMain"
         },
         if (paths.last().endsWith(".java")) "java" else "kotlin",
         "com",
@@ -45,7 +46,12 @@ enum class SharableProcessingSourceType {
     COMMMON,
 
     /**
-     * Source files unique to a specific type of processing (kapt vs ksp)
+     * Source files common to ksp processing
+     */
+    KSP_COMMON,
+
+    /**
+     * Source files unique to the current tests
      */
     UNIQUE
 }

@@ -3,7 +3,6 @@ package com.livefront.sealedenum.compilation.generics
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@OptIn(ExperimentalStdlibApi::class)
 class SealedEnumWithAbstractBaseClassesTests {
     @Test
     fun enum_implements_correct_interfaces_with_type_arguments() {

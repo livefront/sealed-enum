@@ -1,13 +1,7 @@
 package com.livefront.sealedenum.compilation.ksp
 
-import com.livefront.sealedenum.testing.PlatformSourceType
-import com.livefront.sealedenum.testing.SharableProcessingSourceType
-import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
-import com.livefront.sealedenum.testing.compile
-import com.livefront.sealedenum.testing.getSourceFile
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 /**
  * Verifies that a sealed class in a companion object (or more precisely, an annotation that appears on a nested object
@@ -21,7 +15,7 @@ import org.junit.jupiter.api.Test
  */
 class NestedObjectsWithSameNameTests {
     @Test
-    fun `empty sealed class`() {
+    fun empty_sealed_class() {
         assertEquals(
             emptyList<NestedObjectsWithSameName.Companion.EmptySealedClass>(),
             NestedObjectsWithSameName.Companion.EmptySealedClass.values
@@ -29,7 +23,7 @@ class NestedObjectsWithSameNameTests {
     }
 
     @Test
-    fun `empty enum for sealed class`() {
+    fun empty_enum_for_sealed_class() {
         assertEquals(
             NestedObjectsWithSameName.Companion.EmptySealedClass.values.map(
                 NestedObjectsWithSameName.Companion.EmptySealedClass::enum
@@ -39,30 +33,10 @@ class NestedObjectsWithSameNameTests {
     }
 
     @Test
-    fun `correct enum class`() {
+    fun correct_enum_class() {
         assertEquals(
             NestedObjectsWithSameName_Companion_EmptySealedClassEnum::class,
             NestedObjectsWithSameName.Companion.EmptySealedClass.sealedEnum.enumClass
-        )
-    }
-
-    @Test
-    fun `compilation generates correct code`() {
-        val result = compile(
-            getSourceFile(
-                SharableProcessingSourceType.UNIQUE,
-                PlatformSourceType.COMMON,
-                "compilation",
-                "ksp",
-                "NestedObjectsWithSameName.kt"
-            )
-        )
-
-        assertCompiles(result)
-        assertGeneratedFileMatches(
-            "NestedObjectsWithSameName.Companion.EmptySealedClass_SealedEnum.kt",
-            nestedObjectsWithSameNameEmptySealedClassGenerated,
-            result
         )
     }
 }

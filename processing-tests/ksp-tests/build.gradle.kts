@@ -16,6 +16,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("reflect"))
+                implementation(kotlin("test"))
                 implementation(projects.runtime)
             }
             if (!debugProcessor) {

@@ -6,22 +6,12 @@ import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class NestedClassTests {
-
-    @Test
-    fun `inside one class`() {
-        assertEquals(
-            listOf(
-                OuterClass.InsideOneClassSealedClass.FirstObject,
-                OuterClass.InsideOneClassSealedClass.SecondObject
-            ),
-            OuterClass.InsideOneClassSealedClass.values
-        )
-    }
-
+/**
+ * @see NestedClassTests
+ */
+class NestedClassCompilationTests {
     @Test
     fun `compilation for inside one class generates correct code`() {
         val result = compile(
@@ -39,17 +29,6 @@ class NestedClassTests {
             "OuterClass.InsideOneClassSealedClass_SealedEnum.kt",
             insideOneClassSealedClassGenerated,
             result
-        )
-    }
-
-    @Test
-    fun `inside two classes`() {
-        assertEquals(
-            listOf(
-                FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject,
-                FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject
-            ),
-            FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.values
         )
     }
 

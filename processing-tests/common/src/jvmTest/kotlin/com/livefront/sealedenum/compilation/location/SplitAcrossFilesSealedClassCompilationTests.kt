@@ -6,31 +6,9 @@ import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class SplitAcrossFilesSealedClassTests {
-
-    @Test
-    fun `object split across files`() {
-        assertEquals(
-            listOf(
-                SplitAcrossFilesSubclassA,
-                SplitAcrossFilesSubclassB,
-                SplitAcrossFilesSubclassC
-            ),
-            SplitAcrossFilesSealedClass.values
-        )
-    }
-
-    @Test
-    fun `enum for objects split across files`() {
-        assertEquals(
-            SplitAcrossFilesSealedClass.values.map(SplitAcrossFilesSealedClass::enum),
-            enumValues<SplitAcrossFilesSealedClassEnum>().toList()
-        )
-    }
-
+class SplitAcrossFilesSealedClassCompilationTests {
     @Test
     fun `compilation for objects split across files generates correct code`() {
         val result = compile(

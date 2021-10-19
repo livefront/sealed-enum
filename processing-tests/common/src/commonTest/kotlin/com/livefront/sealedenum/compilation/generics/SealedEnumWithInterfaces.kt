@@ -386,9 +386,10 @@ public fun TwoObjectSealedClassWithGenericInterface.Companion.valueOf(name: Stri
 
 """.trimIndent()
 
+var hasGetBeenCalled = false
+
 sealed class SealedClassWithGetterInterface : TestGetterInterface {
     object FirstObject : SealedClassWithGetterInterface() {
-        var hasGetBeenCalled = false
 
         override fun get(): String {
             hasGetBeenCalled = true

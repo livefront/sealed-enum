@@ -6,23 +6,12 @@ import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class GenericSealedClassTests {
-
-    @Test
-    fun `one type parameter sealed class`() {
-        assertEquals(
-            listOf(
-                OneTypeParameterSealedClass.FirstObject,
-                OneTypeParameterSealedClass.SecondObject,
-                OneTypeParameterSealedClass.ThirdObject
-            ),
-            OneTypeParameterSealedClass.values
-        )
-    }
-
+/**
+ * @see GenericSealedClassTests
+ */
+class GenericSealedClassCompilationTests {
     @Test
     fun `compilation for one type parameter generates correct code`() {
         val result = compile(
@@ -40,17 +29,6 @@ class GenericSealedClassTests {
             "OneTypeParameterSealedClass_SealedEnum.kt",
             oneTypeParameterSealedClassGenerated,
             result
-        )
-    }
-
-    @Test
-    fun `two type parameter sealed class`() {
-        assertEquals(
-            listOf(
-                TwoTypeParameterSealedClass.FirstObject,
-                TwoTypeParameterSealedClass.SecondObject
-            ),
-            TwoTypeParameterSealedClass.values
         )
     }
 
@@ -75,17 +53,6 @@ class GenericSealedClassTests {
     }
 
     @Test
-    fun `limited type parameter sealed class`() {
-        assertEquals(
-            listOf(
-                LimitedTypeParameterSealedClass.FirstObject,
-                LimitedTypeParameterSealedClass.SecondObject
-            ),
-            LimitedTypeParameterSealedClass.values
-        )
-    }
-
-    @Test
     fun `compilation for limited type parameter generates correct code`() {
         val result = compile(
             getSourceFile(
@@ -102,16 +69,6 @@ class GenericSealedClassTests {
             "LimitedTypeParameterSealedClass_SealedEnum.kt",
             limitedTypeParameterSealedClassGenerated,
             result
-        )
-    }
-
-    @Test
-    fun `multiple bounds sealed class`() {
-        assertEquals(
-            listOf(
-                MultipleBoundsSealedClass.FirstObject
-            ),
-            MultipleBoundsSealedClass.values
         )
     }
 

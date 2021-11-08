@@ -65,8 +65,8 @@ subprojects {
             dependsOn(test)
 
             reports {
-                html.isEnabled = true
-                xml.isEnabled = true
+                html.required.set(true)
+                xml.required.set(true)
             }
         }
 
@@ -144,23 +144,19 @@ apiValidation {
 }
 
 tasks {
-    val jacocoMergeTest by registering(JacocoMerge::class) {
-        dependsOn(subprojects.map { it.tasks.jacocoTestReport })
-
-        destinationFile = file("$buildDir/jacoco/test.exec")
-        executionData = fileTree(rootDir) {
-            include("**/build/jacoco/test.exec")
-        }
-    }
-
     jacocoTestReport {
-        dependsOn(jacocoMergeTest)
-
+        dependsOn(subprojects.map { it.tasks.jacocoTestReport })
         sourceSets(*subprojects.map { it.sourceSets.main.get() }.toTypedArray())
 
+        executionData.setFrom(
+            fileTree(rootDir) {
+                include("**/build/jacoco/test.exec")
+            }
+        )
+
         reports {
-            html.isEnabled = true
-            xml.isEnabled = true
+            html.required.set(true)
+            xml.required.set(true)
         }
     }
 }

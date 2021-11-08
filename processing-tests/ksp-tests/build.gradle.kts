@@ -19,7 +19,7 @@ if (!debugProcessor) {
 }
 
 detekt {
-    input = files(
+    source = files(
         "src/main/java",
         "src/test/java",
         "src/main/kotlin",

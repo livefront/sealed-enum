@@ -1,17 +1,6 @@
 enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-    }
-
-    plugins {
-        id("com.google.devtools.ksp") version "1.5.31-1.0.0"
-    }
-}
-
 include(":runtime")
 include(":processing-common")
 include(":processor")

@@ -1,7 +1,12 @@
 [versions]
 autoService = "1.0"
+detekt = "1.18.1"
+dokka = "1.5.31"
 incap = "0.3"
+jacoco = "0.8.7"
 junit = "5.8.1"
+kotlin = "1.5.31"
+kotlinxBinaryCompatibilityValidator = "0.7.1"
 kotlinCompileTesting = "1.4.5"
 kotlinPoet = "1.10.1"
 ksp = "1.5.31-1.0.0"
@@ -9,6 +14,8 @@ ksp = "1.5.31-1.0.0"
 [libraries]
 autoService-runtime = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoService" }
 autoService-processor = { module = "com.google.auto.service:auto-service", version.ref = "autoService" }
+
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt"}
 
 incap-runtime = { module = "net.ltgt.gradle.incap:incap", version.ref = "incap" }
 incap-processor = { module = "net.ltgt.gradle.incap:incap-processor", version.ref = "incap" }
@@ -24,3 +31,10 @@ squareUp-kotlinPoetMetadata = { module = "com.squareup:kotlinpoet-metadata", ver
 
 ksp-runtime = { module = "com.google.devtools.ksp:symbol-processing", version.ref = "ksp" }
 ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+
+[plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlinxBinaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinxBinaryCompatibilityValidator" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

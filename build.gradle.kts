@@ -1,11 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    kotlin("jvm") version Versions.kotlin
+    alias(libs.plugins.kotlin.jvm)
     jacoco
-    id("io.gitlab.arturbosch.detekt") version Versions.detekt
-    id("org.jetbrains.dokka") version Versions.dokka
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version Versions.kotlinBinaryCompatibilityValidator
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.kotlinxBinaryCompatibilityValidator)
     `maven-publish`
 }
 
@@ -24,7 +24,7 @@ subprojects {
     }
 
     dependencies {
-        detektPlugins(Dependencies.detektFormatting)
+        detektPlugins(rootProject.libs.detekt.formatting)
     }
 
     java {
@@ -58,15 +58,15 @@ subprojects {
         }
 
         jacoco {
-            toolVersion = Versions.jacoco
+            toolVersion = rootProject.libs.versions.jacoco.get()
         }
 
         jacocoTestReport {
             dependsOn(test)
 
             reports {
-                html.isEnabled = true
-                xml.isEnabled = true
+                html.required.set(true)
+                xml.required.set(true)
             }
         }
 
@@ -136,7 +136,7 @@ subprojects {
 }
 
 jacoco {
-    toolVersion = Versions.jacoco
+    toolVersion = libs.versions.jacoco.get()
 }
 
 apiValidation {
@@ -144,23 +144,19 @@ apiValidation {
 }
 
 tasks {
-    val jacocoMergeTest by registering(JacocoMerge::class) {
-        dependsOn(subprojects.map { it.tasks.jacocoTestReport })
-
-        destinationFile = file("$buildDir/jacoco/test.exec")
-        executionData = fileTree(rootDir) {
-            include("**/build/jacoco/test.exec")
-        }
-    }
-
     jacocoTestReport {
-        dependsOn(jacocoMergeTest)
-
+        dependsOn(subprojects.map { it.tasks.jacocoTestReport })
         sourceSets(*subprojects.map { it.sourceSets.main.get() }.toTypedArray())
 
+        executionData.setFrom(
+            fileTree(rootDir) {
+                include("**/build/jacoco/test.exec")
+            }
+        )
+
         reports {
-            html.isEnabled = true
-            xml.isEnabled = true
+            html.required.set(true)
+            xml.required.set(true)
         }
     }
 }

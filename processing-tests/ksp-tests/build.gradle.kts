@@ -1,5 +1,5 @@
 plugins {
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.ksp)
     idea
 }
 
@@ -19,7 +19,7 @@ if (!debugProcessor) {
 }
 
 detekt {
-    input = files(
+    source = files(
         "src/main/java",
         "src/test/java",
         "src/main/kotlin",

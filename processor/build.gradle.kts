@@ -1,6 +1,8 @@
 plugins {
+    id("com.livefront.sealedenum.kotlin")
+    id("com.livefront.sealedenum.detekt")
+    id("com.livefront.sealedenum.publish")
     kotlin("kapt")
-    `maven-publish`
 }
 
 dependencies {
@@ -18,6 +20,6 @@ kapt {
     includeCompileClasspath = false
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=com.squareup.kotlinpoet.metadata.KotlinPoetMetadataPreview"
 }

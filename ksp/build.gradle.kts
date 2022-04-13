@@ -1,6 +1,8 @@
 plugins {
+    id("com.livefront.sealedenum.kotlin")
+    id("com.livefront.sealedenum.detekt")
+    id("com.livefront.sealedenum.publish")
     kotlin("kapt")
-    `maven-publish`
 }
 
 dependencies {

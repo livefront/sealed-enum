@@ -1,6 +1,7 @@
 plugins {
+    id("com.livefront.sealedenum.kotlin")
+    id("com.livefront.sealedenum.detekt")
     alias(libs.plugins.ksp)
-    idea
 }
 
 /**

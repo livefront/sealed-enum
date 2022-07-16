@@ -5,11 +5,11 @@ dokka = "1.5.31"
 incap = "0.3"
 jacoco = "0.8.7"
 junit = "5.8.1"
-kotlin = "1.5.31"
-kotlinxBinaryCompatibilityValidator = "0.7.1"
-kotlinCompileTesting = "1.4.5"
+kotlin = "1.6.21"
+kotlinxBinaryCompatibilityValidator = "0.11.0"
+kotlinCompileTesting = "1.4.8"
 kotlinPoet = "1.10.1"
-ksp = "1.5.31-1.0.0"
+ksp = "1.6.21-1.0.6"
 
 [libraries]
 autoService-runtime = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoService" }

@@ -235,6 +235,13 @@ val Alpha.Companion.inOrderSealedEnum: AlphaInOrderSealedEnum
 fun Alpha.Companion.inOrderValueOf(name: String): Alpha = AlphaInOrderSealedEnum.valueOf(name)
 ```
 
+The traversal order is guaranteed to be in declaration order when the source code is nested within the sealed class.
+Sealed subclasses, however, can also be defined elsewhere in the file and package.
+
+In the general case, the default order of sealed subclasses is:
+- In source declaration order when declared as inner classes within the sealed class.
+- In qualified-name alphabetical order when not declared as an inner class within the sealed class.  
+
 The runtime library includes support from creating a `SealedEnum` from a normal enum class, with `createSealedEnumFromEnum()` and `createSealedEnumFromEnumArray(values: Array<E>, enumClass: Class<E>)`.
 
 If `generateEnum` is set to `true` on the `@GenSealedEnum` annotation, then an isomorphic enum class will be generated for the sealed class.

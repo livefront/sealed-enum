@@ -13,6 +13,7 @@ import com.google.devtools.ksp.symbol.ClassKind
 import com.google.devtools.ksp.symbol.FileLocation
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSNode
 import com.google.devtools.ksp.symbol.Modifier
 import com.google.devtools.ksp.symbol.Origin
@@ -24,7 +25,6 @@ import com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec
 import com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec.SealedEnumOption.SealedEnumOnly
 import com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec.SealedEnumOption.SealedEnumWithEnum
 import com.squareup.kotlinpoet.TypeName
-import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.writeTo
 
@@ -54,7 +54,6 @@ internal class SealedEnumProcessor(
     private val logger: KSPLogger,
 ) : SymbolProcessor {
 
-    @OptIn(KotlinPoetKspPreview::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         @Suppress("UnsafeCallOnNullableType")
         resolver
@@ -94,7 +93,6 @@ internal class SealedEnumProcessor(
      * If there is an error processing the given [KSClassDeclaration], a relevant error message will be printed and a
      * null [SealedEnumFileSpec] will be returned.
      */
-    @OptIn(KotlinPoetKspPreview::class)
     @Suppress("ReturnCount", "LongMethod", "ComplexMethod")
     private fun createSealedEnumFileSpec(
         resolver: Resolver,
@@ -212,12 +210,45 @@ internal class SealedEnumProcessor(
      */
     private fun createSealedClassNode(
         sealedClassKSClass: KSClassDeclaration
-    ): SealedClassNode.SealedClass =
-        SealedClassNode.SealedClass(
+    ): SealedClassNode.SealedClass {
+        val declarations = collectDeclarations(sealedClassKSClass)
+
+        return SealedClassNode.SealedClass(
             sealedClassKSClass.getSealedSubclasses()
+                .sortedWith(
+                    // First, check if the sealed subclass is declared as an inner class to the sealed class
+                    // If so, order by the source line number
+                    compareBy<KSClassDeclaration> { classDeclaration ->
+                        if (classDeclaration in declarations) {
+                            val location = classDeclaration.location
+                            when (location) {
+                                is FileLocation -> location.lineNumber
+                                else -> Int.MAX_VALUE
+                            }
+                        } else {
+                            Int.MAX_VALUE
+                        }
+                    }
+                        // Second, order by the qualified name
+                        .thenComparing { classDeclaration ->
+                            classDeclaration.qualifiedName?.asString() ?: ""
+                        }
+                )
                 .map(::convertSealedSubclassToNode)
                 .toList()
         )
+    }
+
+    /**
+     * Recusrively collects all class declarations declared within [ksDeclaration] (including [ksDeclaration] itself,
+     * if it is a [KSClassDeclaration]).
+     */
+    private fun collectDeclarations(ksDeclaration: KSDeclaration): List<KSClassDeclaration> =
+        when (ksDeclaration) {
+            is KSClassDeclaration ->
+                listOf(ksDeclaration) + ksDeclaration.declarations.flatMap(::collectDeclarations)
+            else -> emptyList()
+        }
 
     /**
      * A recursive function used in concert with [createSealedClassNode] to try to create a [SealedClassNode].
@@ -230,7 +261,6 @@ internal class SealedEnumProcessor(
      * [SealedClassNode.SealedClass].
      * If [sealedSubclassKSClass] is neither, then this function will throw a [NonObjectSealedSubclassException]
      */
-    @OptIn(KotlinPoetKspPreview::class)
     private fun convertSealedSubclassToNode(sealedSubclassKSClass: KSClassDeclaration): SealedClassNode {
         return when {
             sealedSubclassKSClass.isPublic() || sealedSubclassKSClass.isInternal() -> when {

@@ -32,7 +32,7 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [EmptySealedClassWithInterface]
  */
 public enum class EmptySealedClassWithInterfaceEnum(
-    sealedObject: EmptySealedClassWithInterface
+    sealedObject: EmptySealedClassWithInterface,
 ) : TestInterface by sealedObject
 
 /**
@@ -51,9 +51,9 @@ public val EmptySealedClassWithInterfaceEnum.sealedObject: EmptySealedClassWithI
  * An implementation of [SealedEnum] for the sealed class [EmptySealedClassWithInterface]
  */
 public object EmptySealedClassWithInterfaceSealedEnum : SealedEnum<EmptySealedClassWithInterface>,
-        SealedEnumWithEnumProvider<EmptySealedClassWithInterface,
-        EmptySealedClassWithInterfaceEnum>, EnumForSealedEnumProvider<EmptySealedClassWithInterface,
-        EmptySealedClassWithInterfaceEnum> {
+        SealedEnumWithEnumProvider<EmptySealedClassWithInterface, EmptySealedClassWithInterfaceEnum>,
+        EnumForSealedEnumProvider<EmptySealedClassWithInterface, EmptySealedClassWithInterfaceEnum>
+        {
     public override val values: List<EmptySealedClassWithInterface> = emptyList()
 
 
@@ -137,7 +137,7 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [OneObjectSealedClassWithInterface]
  */
 public enum class OneObjectSealedClassWithInterfaceEnum(
-    sealedObject: OneObjectSealedClassWithInterface
+    sealedObject: OneObjectSealedClassWithInterface,
 ) : TestInterface by sealedObject {
     OneObjectSealedClassWithInterface_FirstObject(com.livefront.sealedenum.compilation.generics.OneObjectSealedClassWithInterface.FirstObject),
 }
@@ -159,10 +159,9 @@ public val OneObjectSealedClassWithInterfaceEnum.sealedObject: OneObjectSealedCl
  */
 public object OneObjectSealedClassWithInterfaceSealedEnum :
         SealedEnum<OneObjectSealedClassWithInterface>,
-        SealedEnumWithEnumProvider<OneObjectSealedClassWithInterface,
-        OneObjectSealedClassWithInterfaceEnum>,
-        EnumForSealedEnumProvider<OneObjectSealedClassWithInterface,
-        OneObjectSealedClassWithInterfaceEnum> {
+        SealedEnumWithEnumProvider<OneObjectSealedClassWithInterface, OneObjectSealedClassWithInterfaceEnum>,
+        EnumForSealedEnumProvider<OneObjectSealedClassWithInterface, OneObjectSealedClassWithInterfaceEnum>
+        {
     public override val values: List<OneObjectSealedClassWithInterface> = listOf(
         OneObjectSealedClassWithInterface.FirstObject
     )
@@ -262,7 +261,7 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [TwoObjectSealedClassWithGenericInterface]
  */
 public enum class TwoObjectSealedClassWithGenericInterfaceEnum(
-    sealedObject: TwoObjectSealedClassWithGenericInterface<TestInterface>
+    sealedObject: TwoObjectSealedClassWithGenericInterface<TestInterface>,
 ) : TestGenericInterface<TestInterface> by sealedObject {
     TwoObjectSealedClassWithGenericInterface_FirstObject(com.livefront.sealedenum.compilation.generics.TwoObjectSealedClassWithGenericInterface.FirstObject),
     TwoObjectSealedClassWithGenericInterface_SecondObject(com.livefront.sealedenum.compilation.generics.TwoObjectSealedClassWithGenericInterface.SecondObject),
@@ -287,10 +286,9 @@ public val TwoObjectSealedClassWithGenericInterfaceEnum.sealedObject:
  */
 public object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
         SealedEnum<TwoObjectSealedClassWithGenericInterface<TestInterface>>,
-        SealedEnumWithEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>,
-        TwoObjectSealedClassWithGenericInterfaceEnum>,
-        EnumForSealedEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>,
-        TwoObjectSealedClassWithGenericInterfaceEnum> {
+        SealedEnumWithEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>, TwoObjectSealedClassWithGenericInterfaceEnum>,
+        EnumForSealedEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>, TwoObjectSealedClassWithGenericInterfaceEnum>
+        {
     public override val values: List<TwoObjectSealedClassWithGenericInterface<TestInterface>> =
             listOf(
         TwoObjectSealedClassWithGenericInterface.FirstObject,
@@ -411,7 +409,7 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [SealedClassWithGetterInterface]
  */
 public enum class SealedClassWithGetterInterfaceEnum(
-    sealedObject: SealedClassWithGetterInterface
+    sealedObject: SealedClassWithGetterInterface,
 ) : TestGetterInterface by sealedObject {
     SealedClassWithGetterInterface_FirstObject(com.livefront.sealedenum.compilation.generics.SealedClassWithGetterInterface.FirstObject),
 }
@@ -432,10 +430,9 @@ public val SealedClassWithGetterInterfaceEnum.sealedObject: SealedClassWithGette
  * An implementation of [SealedEnum] for the sealed class [SealedClassWithGetterInterface]
  */
 public object SealedClassWithGetterInterfaceSealedEnum : SealedEnum<SealedClassWithGetterInterface>,
-        SealedEnumWithEnumProvider<SealedClassWithGetterInterface,
-        SealedClassWithGetterInterfaceEnum>,
-        EnumForSealedEnumProvider<SealedClassWithGetterInterface,
-        SealedClassWithGetterInterfaceEnum> {
+        SealedEnumWithEnumProvider<SealedClassWithGetterInterface, SealedClassWithGetterInterfaceEnum>,
+        EnumForSealedEnumProvider<SealedClassWithGetterInterface, SealedClassWithGetterInterfaceEnum>
+        {
     public override val values: List<SealedClassWithGetterInterface> = listOf(
         SealedClassWithGetterInterface.FirstObject
     )

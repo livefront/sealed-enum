@@ -160,7 +160,7 @@ public class SealedEnumProcessor : AbstractProcessor() {
          * The root of the tree representing the sealed class hierarchy.
          */
         val sealedClassNode = try {
-            createSealedClassNode(sealedClassKmClass)
+            createSealedClassNode(sealedClassElement)
         } catch (nonSealedClassException: NonObjectSealedSubclassException) {
             printError(ERROR_NON_OBJECT_SEALED_SUBCLASSES, nonSealedClassException.element)
             return null
@@ -214,12 +214,41 @@ public class SealedEnumProcessor : AbstractProcessor() {
      * [SealedClassNode.SealedClass] given a [KmClass] for the sealed class.
      */
     private fun createSealedClassNode(
-        sealedClassKmClass: KmClass
-    ): SealedClassNode.SealedClass = SealedClassNode.SealedClass(
-        sealedClassKmClass.sealedSubclasses
-            .map(::createClassName)
-            .map(::convertSealedSubclassToNode)
-    )
+        sealedClassElement: TypeElement,
+    ): SealedClassNode.SealedClass {
+        val nestedClassesQualifiedNames = collectEnclosedTypeElementsInOrder(sealedClassElement)
+            .map(TypeElement::getQualifiedName)
+        return SealedClassNode.SealedClass(
+            sealedClassElement.toKmClass().sealedSubclasses
+                .map(::createClassName)
+                .sortedWith(
+                    // First, check if the sealed subclass is declared as an inner class to the sealed class
+                    // If so, order by the enclosed elements index (which is assumed to be declaration order).
+                    compareBy<ClassName> { className ->
+                        val qualifiedName =
+                            processingEnv.elementUtils.getTypeElement(className.canonicalName).qualifiedName
+                        if (qualifiedName in nestedClassesQualifiedNames) {
+                            nestedClassesQualifiedNames.indexOf(qualifiedName)
+                        } else {
+                            Int.MAX_VALUE
+                        }
+                    }
+                        // Second, order by the canonical name
+                        .thenComparing { className -> className.canonicalName }
+                )
+                .map(::convertSealedSubclassToNode)
+        )
+    }
+
+    /**
+     * Recusrively collects all type elements declared within [element] (including [element] itself,
+     * if it is a [TypeElement]).
+     */
+    private fun collectEnclosedTypeElementsInOrder(element: Element): List<TypeElement> =
+        when (element) {
+            is TypeElement -> listOf(element)
+            else -> emptyList()
+        } + element.enclosedElements.flatMap(::collectEnclosedTypeElementsInOrder)
 
     /**
      * A recursive function used in concert with [createSealedClassNode] to try to create a [SealedClassNode].
@@ -237,7 +266,7 @@ public class SealedEnumProcessor : AbstractProcessor() {
         return when {
             kmClass.flags.isPublic || kmClass.flags.isInternal -> when {
                 kmClass.isObject -> SealedClassNode.Object(sealedSubclass)
-                kmClass.flags.isSealed -> createSealedClassNode(kmClass)
+                kmClass.flags.isSealed -> createSealedClassNode(element)
                 else -> throw NonObjectSealedSubclassException(element)
             }
             else -> throw InvalidSubclassVisibilityException(element)

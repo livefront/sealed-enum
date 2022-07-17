@@ -40,7 +40,15 @@ class OutsideSealedClassTests {
 
     @Test
     fun `two objects outside sealed class`() {
-        assertEquals(listOf(BetaFirstObject, BetaSecondObject), BetaOutsideSealedClass.values)
+        assertEquals(
+            listOf(
+                BetaFirstObject,
+                BetaFourthObject,
+                BetaSecondObject,
+                BetaThirdObject,
+            ),
+            BetaOutsideSealedClass.values
+        )
     }
 
     @Test
@@ -48,7 +56,9 @@ class OutsideSealedClassTests {
         assertEquals(
             listOf(
                 BetaOutsideSealedClassEnum.BetaFirstObject,
-                BetaOutsideSealedClassEnum.BetaSecondObject
+                BetaOutsideSealedClassEnum.BetaFourthObject,
+                BetaOutsideSealedClassEnum.BetaSecondObject,
+                BetaOutsideSealedClassEnum.BetaThirdObject,
             ),
             enumValues<BetaOutsideSealedClassEnum>().toList()
         )
@@ -73,7 +83,12 @@ class OutsideSealedClassTests {
     @Test
     fun `outside object ordering`() {
         assertEquals(
-            listOf(GammaFirstObject, GammaOutsideSealedClass.GammaSecondObject, GammaThirdObject),
+            listOf(
+                GammaOutsideSealedClass.GammaSecondObject,
+                GammaFirstObject,
+                GammaFourthObject,
+                GammaThirdObject,
+            ),
             GammaOutsideSealedClass.values
         )
     }
@@ -82,8 +97,9 @@ class OutsideSealedClassTests {
     fun `outside enum ordering`() {
         assertEquals(
             listOf(
-                GammaOutsideSealedClassEnum.GammaFirstObject,
                 GammaOutsideSealedClassEnum.GammaOutsideSealedClass_GammaSecondObject,
+                GammaOutsideSealedClassEnum.GammaFirstObject,
+                GammaOutsideSealedClassEnum.GammaFourthObject,
                 GammaOutsideSealedClassEnum.GammaThirdObject,
             ),
             enumValues<GammaOutsideSealedClassEnum>().toList()

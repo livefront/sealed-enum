@@ -187,9 +187,9 @@ public val TwoTypeParameterSealedClassEnum.sealedObject: TwoTypeParameterSealedC
  * An implementation of [SealedEnum] for the sealed class [TwoTypeParameterSealedClass]
  */
 public object TwoTypeParameterSealedClassSealedEnum : SealedEnum<TwoTypeParameterSealedClass<*, *>>,
-        SealedEnumWithEnumProvider<TwoTypeParameterSealedClass<*, *>,
-        TwoTypeParameterSealedClassEnum>, EnumForSealedEnumProvider<TwoTypeParameterSealedClass<*,
-        *>, TwoTypeParameterSealedClassEnum> {
+        SealedEnumWithEnumProvider<TwoTypeParameterSealedClass<*, *>, TwoTypeParameterSealedClassEnum>,
+        EnumForSealedEnumProvider<TwoTypeParameterSealedClass<*, *>, TwoTypeParameterSealedClassEnum>
+        {
     public override val values: List<TwoTypeParameterSealedClass<*, *>> = listOf(
         TwoTypeParameterSealedClass.FirstObject,
         TwoTypeParameterSealedClass.SecondObject
@@ -262,8 +262,8 @@ public val TwoTypeParameterSealedClass.TwoType.sealedEnum: TwoTypeParameterSeale
  * If the given name doesn't correspond to any [TwoTypeParameterSealedClass], an
  * [IllegalArgumentException] will be thrown.
  */
-public fun TwoTypeParameterSealedClass.TwoType.valueOf(name: String): TwoTypeParameterSealedClass<*,
-        *> = TwoTypeParameterSealedClassSealedEnum.valueOf(name)
+public fun TwoTypeParameterSealedClass.TwoType.valueOf(name: String):
+        TwoTypeParameterSealedClass<*, *> = TwoTypeParameterSealedClassSealedEnum.valueOf(name)
 
 """.trimIndent()
 
@@ -315,10 +315,9 @@ public val LimitedTypeParameterSealedClassEnum.sealedObject: LimitedTypeParamete
  */
 public object LimitedTypeParameterSealedClassSealedEnum :
         SealedEnum<LimitedTypeParameterSealedClass<*, *>>,
-        SealedEnumWithEnumProvider<LimitedTypeParameterSealedClass<*, *>,
-        LimitedTypeParameterSealedClassEnum>,
-        EnumForSealedEnumProvider<LimitedTypeParameterSealedClass<*, *>,
-        LimitedTypeParameterSealedClassEnum> {
+        SealedEnumWithEnumProvider<LimitedTypeParameterSealedClass<*, *>, LimitedTypeParameterSealedClassEnum>,
+        EnumForSealedEnumProvider<LimitedTypeParameterSealedClass<*, *>, LimitedTypeParameterSealedClassEnum>
+        {
     public override val values: List<LimitedTypeParameterSealedClass<*, *>> = listOf(
         LimitedTypeParameterSealedClass.FirstObject,
         LimitedTypeParameterSealedClass.SecondObject

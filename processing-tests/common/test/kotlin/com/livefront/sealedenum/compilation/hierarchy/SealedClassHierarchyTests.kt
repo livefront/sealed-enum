@@ -54,184 +54,184 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `second hierarchy class A values`() {
+    fun `second hierarchy class Z values`() {
         assertEquals(
             listOf(
-                SecondClassHierarchy.A.B,
-                SecondClassHierarchy.A.C.D,
-                SecondClassHierarchy.A.C.E,
-                SecondClassHierarchy.A.C.F.G,
-                SecondClassHierarchy.A.C.H.I,
-                SecondClassHierarchy.A.J.K,
-                SecondClassHierarchy.A.L
+                SecondClassHierarchy.Z.Y,
+                SecondClassHierarchy.Z.X.W,
+                SecondClassHierarchy.Z.X.V,
+                SecondClassHierarchy.Z.X.U.T,
+                SecondClassHierarchy.Z.X.S.R,
+                SecondClassHierarchy.Z.Q.P,
+                SecondClassHierarchy.Z.O
             ),
-            SecondClassHierarchy.A.values
+            SecondClassHierarchy.Z.values
         )
     }
 
     @Test
-    fun `second hierarchy class A ordinal of A_B`() {
-        assertEquals(0, (SecondClassHierarchy.A.B as SecondClassHierarchy.A).ordinal)
+    fun `second hierarchy class Z ordinal of Z_Y`() {
+        assertEquals(0, (SecondClassHierarchy.Z.Y as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class A ordinal of A_C_D`() {
-        assertEquals(1, (SecondClassHierarchy.A.C.D as SecondClassHierarchy.A).ordinal)
+    fun `second hierarchy class Z ordinal of Z_X_W`() {
+        assertEquals(1, (SecondClassHierarchy.Z.X.W as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class A ordinal of A_C_E`() {
-        assertEquals(2, (SecondClassHierarchy.A.C.E as SecondClassHierarchy.A).ordinal)
+    fun `second hierarchy class Z ordinal of Z_X_V`() {
+        assertEquals(2, (SecondClassHierarchy.Z.X.V as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class A ordinal of A_C_F_G`() {
-        assertEquals(3, (SecondClassHierarchy.A.C.F.G as SecondClassHierarchy.A).ordinal)
+    fun `second hierarchy class Z ordinal of Z_X_U_T`() {
+        assertEquals(3, (SecondClassHierarchy.Z.X.U.T as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class A ordinal of A_C_H_I`() {
-        assertEquals(4, (SecondClassHierarchy.A.C.H.I as SecondClassHierarchy.A).ordinal)
+    fun `second hierarchy class Z ordinal of Z_X_S_R`() {
+        assertEquals(4, (SecondClassHierarchy.Z.X.S.R as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class A ordinal of A_J_K`() {
-        assertEquals(5, (SecondClassHierarchy.A.J.K as SecondClassHierarchy.A).ordinal)
+    fun `second hierarchy class Z ordinal of Z_Q_P`() {
+        assertEquals(5, (SecondClassHierarchy.Z.Q.P as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class A ordinal of A_L`() {
-        assertEquals(6, (SecondClassHierarchy.A.L as SecondClassHierarchy.A).ordinal)
+    fun `second hierarchy class Z ordinal of Z_O`() {
+        assertEquals(6, (SecondClassHierarchy.Z.O as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `compilation for second hierarchy A generates correct code`() {
+    fun `compilation for second hierarchy Z generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
-            "SecondClassHierarchy.A_SealedEnum.kt",
-            secondClassHierarchyAGenerated,
+            "SecondClassHierarchy.Z_SealedEnum.kt",
+            secondClassHierarchyZGenerated,
             result
         )
     }
 
     @Test
-    fun `second hierarchy class C values`() {
+    fun `second hierarchy class X values`() {
         assertEquals(
             listOf(
-                SecondClassHierarchy.A.C.D,
-                SecondClassHierarchy.A.C.E,
-                SecondClassHierarchy.A.C.F.G,
-                SecondClassHierarchy.A.C.H.I
+                SecondClassHierarchy.Z.X.W,
+                SecondClassHierarchy.Z.X.V,
+                SecondClassHierarchy.Z.X.U.T,
+                SecondClassHierarchy.Z.X.S.R
             ),
-            SecondClassHierarchy.A.C.values
+            SecondClassHierarchy.Z.X.values
         )
     }
 
     @Test
-    fun `second hierarchy class C ordinal of A_C_D`() {
-        assertEquals(0, (SecondClassHierarchy.A.C.D as SecondClassHierarchy.A.C).ordinal)
+    fun `second hierarchy class X ordinal of Z_X_W`() {
+        assertEquals(0, (SecondClassHierarchy.Z.X.W as SecondClassHierarchy.Z.X).ordinal)
     }
 
     @Test
-    fun `second hierarchy class C ordinal of A_C_E`() {
-        assertEquals(1, (SecondClassHierarchy.A.C.E as SecondClassHierarchy.A.C).ordinal)
+    fun `second hierarchy class X ordinal of Z_X_V`() {
+        assertEquals(1, (SecondClassHierarchy.Z.X.V as SecondClassHierarchy.Z.X).ordinal)
     }
 
     @Test
-    fun `second hierarchy class C ordinal of A_C_F_G`() {
-        assertEquals(2, (SecondClassHierarchy.A.C.F.G as SecondClassHierarchy.A.C).ordinal)
+    fun `second hierarchy class X ordinal of Z_X_U_T`() {
+        assertEquals(2, (SecondClassHierarchy.Z.X.U.T as SecondClassHierarchy.Z.X).ordinal)
     }
 
     @Test
-    fun `second hierarchy class C ordinal of A_C_H_I`() {
-        assertEquals(3, (SecondClassHierarchy.A.C.H.I as SecondClassHierarchy.A.C).ordinal)
+    fun `second hierarchy class X ordinal of Z_X_S_R`() {
+        assertEquals(3, (SecondClassHierarchy.Z.X.S.R as SecondClassHierarchy.Z.X).ordinal)
     }
 
     @Test
-    fun `compilation for second hierarchy C generates correct code`() {
+    fun `compilation for second hierarchy X generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
-            "SecondClassHierarchy.A.C_SealedEnum.kt",
-            secondClassHierarchyACGenerated,
+            "SecondClassHierarchy.Z.X_SealedEnum.kt",
+            secondClassHierarchyZXGenerated,
             result
         )
     }
 
     @Test
-    fun `second hierarchy class F values`() {
+    fun `second hierarchy class U values`() {
         assertEquals(
-            listOf(SecondClassHierarchy.A.C.F.G),
-            SecondClassHierarchy.A.C.F.values
+            listOf(SecondClassHierarchy.Z.X.U.T),
+            SecondClassHierarchy.Z.X.U.values
         )
     }
 
     @Test
-    fun `second hierarchy class F ordinal of A_L`() {
-        assertEquals(0, (SecondClassHierarchy.A.C.F.G as SecondClassHierarchy.A.C.F).ordinal)
+    fun `second hierarchy class U ordinal of Z_X_U_T`() {
+        assertEquals(0, (SecondClassHierarchy.Z.X.U.T as SecondClassHierarchy.Z.X.U).ordinal)
     }
 
     @Test
-    fun `compilation for second hierarchy F generates correct code`() {
+    fun `compilation for second hierarchy U generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
-            "SecondClassHierarchy.A.C.F_SealedEnum.kt",
-            secondClassHierarchyACFGenerated,
+            "SecondClassHierarchy.Z.X.U_SealedEnum.kt",
+            secondClassHierarchyZXUGenerated,
             result
         )
     }
 
     @Test
-    fun `second hierarchy class H values`() {
+    fun `second hierarchy class S values`() {
         assertEquals(
-            listOf(SecondClassHierarchy.A.C.H.I),
-            SecondClassHierarchy.A.C.H.values
+            listOf(SecondClassHierarchy.Z.X.S.R),
+            SecondClassHierarchy.Z.X.S.values
         )
     }
 
     @Test
-    fun `second hierarchy class H ordinal of A_C_H_I`() {
-        assertEquals(0, (SecondClassHierarchy.A.C.H.I as SecondClassHierarchy.A.C.H).ordinal)
+    fun `second hierarchy class S ordinal of Z_X_S_R`() {
+        assertEquals(0, (SecondClassHierarchy.Z.X.S.R as SecondClassHierarchy.Z.X.S).ordinal)
     }
 
     @Test
-    fun `compilation for second hierarchy H generates correct code`() {
+    fun `compilation for second hierarchy S generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
-            "SecondClassHierarchy.A.C.H_SealedEnum.kt",
-            secondClassHierarchyACHGenerated,
+            "SecondClassHierarchy.Z.X.S_SealedEnum.kt",
+            secondClassHierarchyZXSGenerated,
             result
         )
     }
 
     @Test
-    fun `second hierarchy class J values`() {
+    fun `second hierarchy class Q values`() {
         assertEquals(
-            listOf(SecondClassHierarchy.A.J.K),
-            SecondClassHierarchy.A.J.values
+            listOf(SecondClassHierarchy.Z.Q.P),
+            SecondClassHierarchy.Z.Q.values
         )
     }
 
     @Test
-    fun `second hierarchy class J ordinal of A_J_K`() {
-        assertEquals(0, (SecondClassHierarchy.A.J.K as SecondClassHierarchy.A.J).ordinal)
+    fun `second hierarchy class Q ordinal of Z_Q_P`() {
+        assertEquals(0, (SecondClassHierarchy.Z.Q.P as SecondClassHierarchy.Z.Q).ordinal)
     }
 
     @Test
-    fun `compilation for second hierarchy J generates correct code`() {
+    fun `compilation for second hierarchy Q generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
         assertGeneratedFileMatches(
-            "SecondClassHierarchy.A.J_SealedEnum.kt",
-            secondClassHierarchyAJGenerated,
+            "SecondClassHierarchy.Z.Q_SealedEnum.kt",
+            secondClassHierarchyZQGenerated,
             result
         )
     }

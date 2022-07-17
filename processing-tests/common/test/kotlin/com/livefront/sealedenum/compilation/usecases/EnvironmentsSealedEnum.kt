@@ -51,7 +51,7 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [Environments]
  */
 public enum class EnvironmentsEnum(
-    sealedObject: Environments
+    sealedObject: Environments,
 ) : Uri by sealedObject {
     Environments_Http_Livefront(com.livefront.sealedenum.compilation.usecases.Environments.Http.Livefront),
     Environments_Http_Google(com.livefront.sealedenum.compilation.usecases.Environments.Http.Google),

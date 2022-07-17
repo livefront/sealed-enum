@@ -55,7 +55,7 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [JavaBaseClassesSealedClass]
  */
 public enum class JavaBaseClassesSealedClassEnum(
-    sealedObject: JavaBaseClassesSealedClass<*>
+    sealedObject: JavaBaseClassesSealedClass<*>,
 ) : KotlinInterface5<KotlinInterface1> by sealedObject, JavaInterface3<Int> by sealedObject,
         KotlinInterface4<Double> by sealedObject, KotlinInterface6<Int> by sealedObject,
         JavaInterface2<List<String>> by sealedObject,

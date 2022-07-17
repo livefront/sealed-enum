@@ -1,3 +1,5 @@
+@file:Suppress("UnnecessaryAbstractClass")
+
 package com.livefront.sealedenum.compilation.generics
 
 import com.livefront.sealedenum.GenSealedEnum
@@ -35,7 +37,7 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [SealedEnumWithAbstractBaseClasses]
  */
 public enum class SealedEnumWithAbstractBaseClassesEnum(
-    sealedObject: SealedEnumWithAbstractBaseClasses
+    sealedObject: SealedEnumWithAbstractBaseClasses,
 ) : BaseClassInterface2<String> by sealedObject, BaseClassInterface1<BaseClassInterface1<Any?>> by
         sealedObject
 
@@ -56,10 +58,9 @@ public val SealedEnumWithAbstractBaseClassesEnum.sealedObject: SealedEnumWithAbs
  */
 public object SealedEnumWithAbstractBaseClassesSealedEnum :
         SealedEnum<SealedEnumWithAbstractBaseClasses>,
-        SealedEnumWithEnumProvider<SealedEnumWithAbstractBaseClasses,
-        SealedEnumWithAbstractBaseClassesEnum>,
-        EnumForSealedEnumProvider<SealedEnumWithAbstractBaseClasses,
-        SealedEnumWithAbstractBaseClassesEnum> {
+        SealedEnumWithEnumProvider<SealedEnumWithAbstractBaseClasses, SealedEnumWithAbstractBaseClassesEnum>,
+        EnumForSealedEnumProvider<SealedEnumWithAbstractBaseClasses, SealedEnumWithAbstractBaseClassesEnum>
+        {
     public override val values: List<SealedEnumWithAbstractBaseClasses> = emptyList()
 
 
@@ -148,7 +149,7 @@ import kotlin.collections.List
  * An isomorphic enum for the sealed class [SealedEnumWithAbstractBaseClassesCovariantType]
  */
 public enum class SealedEnumWithAbstractBaseClassesCovariantTypeEnum(
-    sealedObject: SealedEnumWithAbstractBaseClassesCovariantType<*>
+    sealedObject: SealedEnumWithAbstractBaseClassesCovariantType<*>,
 ) : BaseClassInterface3<BaseClassInterface3<*>> by sealedObject
 
 /**
@@ -171,10 +172,9 @@ public val SealedEnumWithAbstractBaseClassesCovariantTypeEnum.sealedObject:
  */
 public object SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum :
         SealedEnum<SealedEnumWithAbstractBaseClassesCovariantType<*>>,
-        SealedEnumWithEnumProvider<SealedEnumWithAbstractBaseClassesCovariantType<*>,
-        SealedEnumWithAbstractBaseClassesCovariantTypeEnum>,
-        EnumForSealedEnumProvider<SealedEnumWithAbstractBaseClassesCovariantType<*>,
-        SealedEnumWithAbstractBaseClassesCovariantTypeEnum> {
+        SealedEnumWithEnumProvider<SealedEnumWithAbstractBaseClassesCovariantType<*>, SealedEnumWithAbstractBaseClassesCovariantTypeEnum>,
+        EnumForSealedEnumProvider<SealedEnumWithAbstractBaseClassesCovariantType<*>, SealedEnumWithAbstractBaseClassesCovariantTypeEnum>
+        {
     public override val values: List<SealedEnumWithAbstractBaseClassesCovariantType<*>> =
             emptyList()
 

@@ -434,10 +434,9 @@ internal val InternalSealedAndCompanionSealedClassEnum.sealedObject:
  */
 internal object InternalSealedAndCompanionSealedClassSealedEnum :
         SealedEnum<InternalSealedAndCompanionSealedClass>,
-        SealedEnumWithEnumProvider<InternalSealedAndCompanionSealedClass,
-        InternalSealedAndCompanionSealedClassEnum>,
-        EnumForSealedEnumProvider<InternalSealedAndCompanionSealedClass,
-        InternalSealedAndCompanionSealedClassEnum> {
+        SealedEnumWithEnumProvider<InternalSealedAndCompanionSealedClass, InternalSealedAndCompanionSealedClassEnum>,
+        EnumForSealedEnumProvider<InternalSealedAndCompanionSealedClass, InternalSealedAndCompanionSealedClassEnum>
+        {
     public override val values: List<InternalSealedAndCompanionSealedClass> = listOf(
         InternalSealedAndCompanionSealedClass.FirstObject,
         InternalSealedAndCompanionSealedClass.SecondObject

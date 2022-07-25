@@ -50,10 +50,9 @@ public val NestedObjectsWithSameName_Companion_EmptySealedClassEnum.sealedObject
  */
 public object NestedObjectsWithSameName_Companion_EmptySealedClassSealedEnum :
         SealedEnum<NestedObjectsWithSameName.Companion.EmptySealedClass>,
-        SealedEnumWithEnumProvider<NestedObjectsWithSameName.Companion.EmptySealedClass,
-        NestedObjectsWithSameName_Companion_EmptySealedClassEnum>,
-        EnumForSealedEnumProvider<NestedObjectsWithSameName.Companion.EmptySealedClass,
-        NestedObjectsWithSameName_Companion_EmptySealedClassEnum> {
+        SealedEnumWithEnumProvider<NestedObjectsWithSameName.Companion.EmptySealedClass, NestedObjectsWithSameName_Companion_EmptySealedClassEnum>,
+        EnumForSealedEnumProvider<NestedObjectsWithSameName.Companion.EmptySealedClass, NestedObjectsWithSameName_Companion_EmptySealedClassEnum>
+        {
     public override val values: List<NestedObjectsWithSameName.Companion.EmptySealedClass> =
             emptyList()
 

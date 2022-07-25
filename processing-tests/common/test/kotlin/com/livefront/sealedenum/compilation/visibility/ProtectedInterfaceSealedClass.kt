@@ -38,7 +38,7 @@ import kotlin.collections.List
  * [ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass]
  */
 public enum class ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum(
-    sealedObject: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass
+    sealedObject: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass,
 ) : JavaProtectedInterfaceBaseClass.ProtectedInterface by sealedObject {
     ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_FirstObject(com.livefront.sealedenum.compilation.visibility.ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject),
     ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_SecondObject(com.livefront.sealedenum.compilation.visibility.ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject),
@@ -66,10 +66,9 @@ public val ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum.sealed
  */
 public object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEnum :
         SealedEnum<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass>,
-        SealedEnumWithEnumProvider<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass,
-        ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>,
-        EnumForSealedEnumProvider<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass,
-        ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum> {
+        SealedEnumWithEnumProvider<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass, ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>,
+        EnumForSealedEnumProvider<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass, ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>
+        {
     public override val values: List<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass> =
             listOf(
         ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject,

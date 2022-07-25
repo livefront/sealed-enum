@@ -108,8 +108,9 @@ public val TreeLevelOrderEnum.sealedObject: Tree
 /**
  * An implementation of [SealedEnum] for the sealed class [Tree]
  */
-public object TreeLevelOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
-        TreeLevelOrderEnum>, EnumForSealedEnumProvider<Tree, TreeLevelOrderEnum> {
+public object TreeLevelOrderSealedEnum : SealedEnum<Tree>,
+        SealedEnumWithEnumProvider<Tree, TreeLevelOrderEnum>,
+        EnumForSealedEnumProvider<Tree, TreeLevelOrderEnum> {
     public override val values: List<Tree> = listOf(
         Tree.A,
         Tree.K,
@@ -285,8 +286,9 @@ public val TreePostOrderEnum.sealedObject: Tree
 /**
  * An implementation of [SealedEnum] for the sealed class [Tree]
  */
-public object TreePostOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
-        TreePostOrderEnum>, EnumForSealedEnumProvider<Tree, TreePostOrderEnum> {
+public object TreePostOrderSealedEnum : SealedEnum<Tree>,
+        SealedEnumWithEnumProvider<Tree, TreePostOrderEnum>,
+        EnumForSealedEnumProvider<Tree, TreePostOrderEnum> {
     public override val values: List<Tree> = listOf(
         Tree.B.C.F.G,
         Tree.B.C.F.H,
@@ -462,8 +464,9 @@ public val TreeInOrderEnum.sealedObject: Tree
 /**
  * An implementation of [SealedEnum] for the sealed class [Tree]
  */
-public object TreeInOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
-        TreeInOrderEnum>, EnumForSealedEnumProvider<Tree, TreeInOrderEnum> {
+public object TreeInOrderSealedEnum : SealedEnum<Tree>,
+        SealedEnumWithEnumProvider<Tree, TreeInOrderEnum>,
+        EnumForSealedEnumProvider<Tree, TreeInOrderEnum> {
     public override val values: List<Tree> = listOf(
         Tree.A,
         Tree.B.C.D,
@@ -638,8 +641,9 @@ public val TreePreOrderEnum.sealedObject: Tree
 /**
  * An implementation of [SealedEnum] for the sealed class [Tree]
  */
-public object TreePreOrderSealedEnum : SealedEnum<Tree>, SealedEnumWithEnumProvider<Tree,
-        TreePreOrderEnum>, EnumForSealedEnumProvider<Tree, TreePreOrderEnum> {
+public object TreePreOrderSealedEnum : SealedEnum<Tree>,
+        SealedEnumWithEnumProvider<Tree, TreePreOrderEnum>,
+        EnumForSealedEnumProvider<Tree, TreePreOrderEnum> {
     public override val values: List<Tree> = listOf(
         Tree.A,
         Tree.K,

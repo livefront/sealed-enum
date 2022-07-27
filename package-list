@@ -1,0 +1,12 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:ksp
+com.livefront.sealedenum.internal.ksp
+module:processing-common
+com.livefront.sealedenum.internal.common
+com.livefront.sealedenum.internal.common.spec
+module:processor
+com.livefront.sealedenum.internal.processor
+module:runtime
+com.livefront.sealedenum

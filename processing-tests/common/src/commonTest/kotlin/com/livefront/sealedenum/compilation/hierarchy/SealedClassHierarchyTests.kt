@@ -25,7 +25,7 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `second hierarchy class Z values`() {
+    fun second_hierarchy_class_Z_values() {
         assertEquals(
             listOf(
                 SecondClassHierarchy.Z.Y,
@@ -41,42 +41,42 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `second hierarchy class Z ordinal of Z_Y`() {
+    fun second_hierarchy_class_Z_ordinal_of_Z_Y() {
         assertEquals(0, (SecondClassHierarchy.Z.Y as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class Z ordinal of Z_X_W`() {
+    fun second_hierarchy_class_Z_ordinal_of_Z_X_W() {
         assertEquals(1, (SecondClassHierarchy.Z.X.W as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class Z ordinal of Z_X_V`() {
+    fun second_hierarchy_class_Z_ordinal_of_Z_X_V() {
         assertEquals(2, (SecondClassHierarchy.Z.X.V as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class Z ordinal of Z_X_U_T`() {
+    fun second_hierarchy_class_Z_ordinal_of_Z_X_U_T() {
         assertEquals(3, (SecondClassHierarchy.Z.X.U.T as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class Z ordinal of Z_X_S_R`() {
+    fun second_hierarchy_class_Z_ordinal_of_Z_X_S_R() {
         assertEquals(4, (SecondClassHierarchy.Z.X.S.R as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class Z ordinal of Z_Q_P`() {
+    fun second_hierarchy_class_Z_ordinal_of_Z_Q_P() {
         assertEquals(5, (SecondClassHierarchy.Z.Q.P as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class Z ordinal of Z_O`() {
+    fun second_hierarchy_class_Z_ordinal_of_Z_O() {
         assertEquals(6, (SecondClassHierarchy.Z.O as SecondClassHierarchy.Z).ordinal)
     }
 
     @Test
-    fun `second hierarchy class X values`() {
+    fun second_hierarchy_class_X_values() {
         assertEquals(
             listOf(
                 SecondClassHierarchy.Z.X.W,
@@ -89,27 +89,27 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `second hierarchy class X ordinal of Z_X_W`() {
+    fun second_hierarchy_class_X_ordinal_of_Z_X_W() {
         assertEquals(0, (SecondClassHierarchy.Z.X.W as SecondClassHierarchy.Z.X).ordinal)
     }
 
     @Test
-    fun `second hierarchy class X ordinal of Z_X_V`() {
+    fun second_hierarchy_class_X_ordinal_of_Z_X_V() {
         assertEquals(1, (SecondClassHierarchy.Z.X.V as SecondClassHierarchy.Z.X).ordinal)
     }
 
     @Test
-    fun `second hierarchy class X ordinal of Z_X_U_T`() {
+    fun second_hierarchy_class_X_ordinal_of_Z_X_U_T() {
         assertEquals(2, (SecondClassHierarchy.Z.X.U.T as SecondClassHierarchy.Z.X).ordinal)
     }
 
     @Test
-    fun `second hierarchy class X ordinal of Z_X_S_R`() {
+    fun second_hierarchy_class_X_ordinal_of_Z_X_S_R() {
         assertEquals(3, (SecondClassHierarchy.Z.X.S.R as SecondClassHierarchy.Z.X).ordinal)
     }
 
     @Test
-    fun `second hierarchy class U values`() {
+    fun second_hierarchy_class_U_values() {
         assertEquals(
             listOf(SecondClassHierarchy.Z.X.U.T),
             SecondClassHierarchy.Z.X.U.values
@@ -117,12 +117,12 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `second hierarchy class U ordinal of Z_X_U_T`() {
+    fun second_hierarchy_class_U_ordinal_of_Z_X_U_T() {
         assertEquals(0, (SecondClassHierarchy.Z.X.U.T as SecondClassHierarchy.Z.X.U).ordinal)
     }
 
     @Test
-    fun `second hierarchy class S values`() {
+    fun second_hierarchy_class_S_values() {
         assertEquals(
             listOf(SecondClassHierarchy.Z.X.S.R),
             SecondClassHierarchy.Z.X.S.values
@@ -130,12 +130,12 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `second hierarchy class S ordinal of Z_X_S_R`() {
+    fun second_hierarchy_class_S_ordinal_of_Z_X_S_R() {
         assertEquals(0, (SecondClassHierarchy.Z.X.S.R as SecondClassHierarchy.Z.X.S).ordinal)
     }
 
     @Test
-    fun `second hierarchy class Q values`() {
+    fun second_hierarchy_class_Q_values() {
         assertEquals(
             listOf(SecondClassHierarchy.Z.Q.P),
             SecondClassHierarchy.Z.Q.values
@@ -143,7 +143,7 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `second hierarchy class Q ordinal of Z_Q_P`() {
+    fun second_hierarchy_class_Q_ordinal_of_Z_Q_P() {
         assertEquals(0, (SecondClassHierarchy.Z.Q.P as SecondClassHierarchy.Z.Q).ordinal)
     }
 }

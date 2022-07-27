@@ -28,12 +28,12 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.runtime)
-                project.dependencies.add("kspMetadata", projects.ksp)
+                project.dependencies.add("kspCommonMainMetadata", projects.ksp)
             }
             if (!disableForSharedCode) {
                 kotlin.srcDir("$rootDir/processing-tests/common/src/commonMain")
             }
-            kotlin.srcDir("$buildDir/generated/ksp/commonMain/kotlin")
+            kotlin.srcDir("$buildDir/generated/ksp/metadata/commonMain/kotlin")
         }
 
         val commonTest by getting {
@@ -50,8 +50,8 @@ kotlin {
 
 tasks {
     withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
-        if (name != "kspKotlinMetadata") {
-            dependsOn("kspKotlinMetadata")
+        if (name != "kspCommonMainKotlinMetadata") {
+            dependsOn("kspCommonMainKotlinMetadata")
         }
     }
 }

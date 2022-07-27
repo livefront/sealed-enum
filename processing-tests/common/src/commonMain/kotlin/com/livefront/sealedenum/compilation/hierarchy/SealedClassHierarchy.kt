@@ -277,7 +277,7 @@ public class SecondClassHierarchy {
     }
 }
 
-public val secondClassHierarchyZGenerated = """
+public val secondClassHierarchyZGenerated: String = """
 package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
@@ -371,7 +371,7 @@ public fun SecondClassHierarchy.Z.Companion.valueOf(name: String): SecondClassHi
 
 """.trimIndent()
 
-public val secondClassHierarchyZXGenerated = """
+public val secondClassHierarchyZXGenerated: String = """
 package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
@@ -453,7 +453,7 @@ public fun SecondClassHierarchy.Z.X.Companion.valueOf(name: String): SecondClass
 
 """.trimIndent()
 
-public val secondClassHierarchyZXUGenerated = """
+public val secondClassHierarchyZXUGenerated: String = """
 package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
@@ -523,7 +523,7 @@ public fun SecondClassHierarchy.Z.X.U.Companion.valueOf(name: String): SecondCla
 
 """.trimIndent()
 
-public val secondClassHierarchyZXSGenerated = """
+public val secondClassHierarchyZXSGenerated: String = """
 package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
@@ -593,7 +593,7 @@ public fun SecondClassHierarchy.Z.X.S.Companion.valueOf(name: String): SecondCla
 
 """.trimIndent()
 
-public val secondClassHierarchyZQGenerated = """
+public val secondClassHierarchyZQGenerated: String = """
 package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum

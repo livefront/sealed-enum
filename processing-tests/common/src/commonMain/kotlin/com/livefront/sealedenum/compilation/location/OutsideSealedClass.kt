@@ -129,7 +129,7 @@ public object BetaThirdObject : BetaOutsideSealedClass()
 
 public object BetaFourthObject : BetaOutsideSealedClass()
 
-public val betaOutsideSealedClassGenerated = """
+public val betaOutsideSealedClassGenerated: String = """
 package com.livefront.sealedenum.compilation.location
 
 import com.livefront.sealedenum.EnumForSealedEnumProvider
@@ -271,7 +271,7 @@ public object GammaThirdObject : GammaOutsideSealedClass()
 
 public object GammaFourthObject : GammaOutsideSealedClass()
 
-public val gammaOutsideSealedClassGenerated = """
+public val gammaOutsideSealedClassGenerated: String = """
 package com.livefront.sealedenum.compilation.location
 
 import com.livefront.sealedenum.EnumForSealedEnumProvider

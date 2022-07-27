@@ -12,6 +12,7 @@ public class NestedObjectsWithSameName {
     }
 }
 
+@Suppress("MaxLineLength")
 public val nestedObjectsWithSameNameEmptySealedClassGenerated: String = """
 package com.livefront.sealedenum.compilation.ksp
 

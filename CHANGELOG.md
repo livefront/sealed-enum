@@ -1,3 +1,15 @@
+# 0.5.0
+## Features:
+- Update to Kotlin 1.7
+
+## Breaking changes:
+- The implicit order of sealed subclasses was changed in Kotlin 1.7, resulting in different ordinal orders when using `sealed-enum` `0.4.0` and below.
+  `sealed-enum` `0.5.0` restored the expected behavior when declaring subclasses as nested inner classes and defined a deterministic order when subclasses occur elsewhere in the file and package. 
+
+## Miscellaneous updates:
+- Various dependency updates
+- Switch to using version catalogs and convention plugins
+
 # 0.4.0
 ## Features:
 - Added full support for `sealed interface`s

@@ -21,13 +21,8 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Cache Gradle Files
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: v1-${{ runner.os }}-gradle-${{ matrix.java-version }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
-          restore-keys: |
-            v1-${{ runner.os }}-gradle-${{ matrix.java-version }}-
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Configure JDK
         uses: actions/setup-java@v1

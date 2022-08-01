@@ -24,7 +24,8 @@ jobs:
           - 13
           - 14
           - 15
-          # - 16 TODO: Include JDK 16 when kapt supports it: https://youtrack.jetbrains.com/issue/KT-45545
+          - 16
+          - 17
         os:
           - ubuntu-latest
           - macOS-latest

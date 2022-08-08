@@ -358,8 +358,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.livefront.sealed-enum:runtime:0.4.0")
-    kapt("com.github.livefront.sealed-enum:processor:0.4.0")
+    implementation("com.github.livefront.sealed-enum:runtime:0.5.0")
+    kapt("com.github.livefront.sealed-enum:processor:0.5.0")
 }
 ```
 
@@ -367,7 +367,7 @@ dependencies {
 
 ```kotlin
 plugins {
-    id("com.google.devtools.ksp") version "1.5.30-1.0.0-beta09"
+    id("com.google.devtools.ksp") version "1.7.0-1.0.6"
 }
 
 repositories {
@@ -375,8 +375,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.livefront.sealed-enum:runtime:0.4.0")
-    ksp("com.github.livefront.sealed-enum:ksp:0.4.0")
+    implementation("com.github.livefront.sealed-enum:runtime:0.5.0")
+    ksp("com.github.livefront.sealed-enum:ksp:0.5.0")
 }
 ```
 

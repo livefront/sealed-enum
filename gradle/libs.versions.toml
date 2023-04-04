@@ -1,15 +1,15 @@
 [versions]
 autoService = "1.0"
-detekt = "1.20.0"
-dokka = "1.7.0"
+detekt = "1.22.0"
+dokka = "1.8.10"
 incap = "0.3"
-jacoco = "0.8.7"
+jacoco = "0.8.8"
 junit = "5.8.1"
-kotlin = "1.7.0"
-kotlinxBinaryCompatibilityValidator = "0.11.0"
-kotlinCompileTesting = "1.4.9"
-kotlinPoet = "1.12.0"
-ksp = "1.7.0-1.0.6"
+kotlin = "1.8.0"
+kotlinxBinaryCompatibilityValidator = "0.13.0"
+kotlinCompileTesting = "1.5.0"
+kotlinPoet = "1.13.0"
+ksp = "1.8.0-1.0.9"
 
 [libraries]
 autoService-runtime = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoService" }

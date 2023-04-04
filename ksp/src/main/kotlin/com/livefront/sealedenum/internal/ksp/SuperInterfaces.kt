@@ -65,9 +65,9 @@ internal class SuperInterfaces(
             .filter {
                 val declaration = it.declaration
                 declaration is KSClassDeclaration &&
-                        declaration.classKind == ClassKind.INTERFACE &&
-                        declaration.isVisibleInterface() &&
-                        !declaration.isSealedInterface()
+                    declaration.classKind == ClassKind.INTERFACE &&
+                    declaration.isVisibleInterface() &&
+                    !declaration.isSealedInterface()
             }
             .map { it.substituteTypeNames(typeVariableNamesToTypeArguments) }
             .filter { it.isValidInterface() }
@@ -103,7 +103,7 @@ internal class SuperInterfaces(
      */
     private fun KSClassDeclaration.isVisibleInterface(): Boolean =
         isPublic() || isInternal() || isJavaPackagePrivate() ||
-                (isProtected() && origin == Origin.JAVA && packageName == sealedEnumKSClass.packageName)
+            (isProtected() && origin == Origin.JAVA && packageName == sealedEnumKSClass.packageName)
 
     /**
      * Returns true if the [KSClassDeclaration] interface is sealed.

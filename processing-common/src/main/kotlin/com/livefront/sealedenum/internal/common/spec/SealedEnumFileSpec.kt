@@ -140,7 +140,6 @@ public data class SealedEnumFileSpec(
         // Add the SealedClass.enum extension property
         fileSpecBuilder.addProperty(
             SealedEnumEnumPropertySpec(
-                sealedClass = sealedClass,
                 sealedClassVisibility = sealedClassVisibility,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
@@ -177,7 +176,6 @@ public data class SealedEnumFileSpec(
         // Add the SealedEnum.ordinal extension property
         fileSpecBuilder.addProperty(
             SealedEnumOrdinalPropertySpec(
-                sealedClass = sealedClass,
                 sealedClassVisibility = sealedClassVisibility,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,
@@ -190,7 +188,6 @@ public data class SealedEnumFileSpec(
         // Add the SealedEnum.name extension property
         fileSpecBuilder.addProperty(
             SealedEnumNamePropertySpec(
-                sealedClass = sealedClass,
                 sealedClassVisibility = sealedClassVisibility,
                 parameterizedSealedClass = parameterizedSealedClass,
                 sealedClassCompanionObjectElement = sealedClassCompanionObjectElement,

@@ -46,7 +46,9 @@ class ProtectedInterfaceSealedClassTests {
     @Test
     fun `sealed class has correct enum values with mapping`() {
         assertEquals(
-            ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.values.map(ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass::enum),
+            ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.values.map(
+                ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass::enum
+            ),
             enumValues<ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>().toList()
         )
     }

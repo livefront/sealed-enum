@@ -18,6 +18,7 @@ public data class GenSealedEnumHolder(
                 it.name?.asString() == "traversalOrder"
             }?.value.toString()
 
+            @Suppress("SwallowedException")
             val traversalOrder = try {
                 @Suppress("UnsafeCallOnNullableType")
                 TreeTraversalOrder.valueOf(

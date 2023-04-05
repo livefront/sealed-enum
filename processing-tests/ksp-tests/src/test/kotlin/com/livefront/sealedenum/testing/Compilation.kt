@@ -13,4 +13,5 @@ internal fun compile(vararg sourceFiles: SourceFile): KotlinCompilation.Result =
         sources = sourceFiles.toList()
         symbolProcessorProviders = listOf(SealedEnumProcessorProvider())
         inheritClassPath = true
+        kotlincArguments = listOf("-language-version", "1.9")
     }.compile()

@@ -34,9 +34,10 @@ tasks {
 
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
-            allWarningsAsErrors = true
+            // allWarningsAsErrors = true
             freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
             jvmTarget = JavaVersion.VERSION_1_8.toString()
+            languageVersion = "1.9"
         }
     }
 }

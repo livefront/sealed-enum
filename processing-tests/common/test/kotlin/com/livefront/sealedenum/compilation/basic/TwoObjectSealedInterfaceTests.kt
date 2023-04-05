@@ -37,7 +37,7 @@ class TwoObjectSealedInterfaceTests {
 
     @Test
     fun `correct enum class`() {
-        assertEquals(TwoObjectSealedInterfaceEnum::class.java, TwoObjectSealedInterface.sealedEnum.enumClass)
+        assertEquals(TwoObjectSealedInterfaceEnum::class, TwoObjectSealedInterface.sealedEnum.enumClass)
     }
 
     @Test

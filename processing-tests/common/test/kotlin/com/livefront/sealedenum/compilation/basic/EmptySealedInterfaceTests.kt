@@ -23,7 +23,7 @@ class EmptySealedInterfaceTests {
 
     @Test
     fun `correct enum class`() {
-        assertEquals(EmptySealedInterfaceEnum::class.java, EmptySealedInterface.sealedEnum.enumClass)
+        assertEquals(EmptySealedInterfaceEnum::class, EmptySealedInterface.sealedEnum.enumClass)
     }
 
     @Test

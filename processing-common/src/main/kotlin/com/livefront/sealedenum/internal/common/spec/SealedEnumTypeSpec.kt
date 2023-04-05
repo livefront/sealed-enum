@@ -14,6 +14,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.buildCodeBlock
 import javax.lang.model.element.TypeElement
+import kotlin.reflect.KClass
 
 /**
  * A builder for a [SealedEnum] object for the given [sealedClass].
@@ -212,13 +213,13 @@ internal data class SealedEnumTypeSpec(
             .build()
 
     private fun createEnumClassGetter(enumForSealedEnum: ClassName): PropertySpec {
-        val parameterizedClass = Class::class.asClassName().parameterizedBy(enumForSealedEnum)
+        val parameterizedClass = KClass::class.asClassName().parameterizedBy(enumForSealedEnum)
 
         return PropertySpec.builder("enumClass", parameterizedClass)
             .addModifiers(KModifier.OVERRIDE)
             .getter(
                 FunSpec.getterBuilder()
-                    .addStatement("return %T::class.java", enumForSealedEnum)
+                    .addStatement("return %T::class", enumForSealedEnum)
                     .build()
             )
             .build()

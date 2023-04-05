@@ -31,7 +31,7 @@ class OneObjectSealedInterfaceTests {
 
     @Test
     fun `correct enum class`() {
-        assertEquals(OneObjectSealedInterfaceEnum::class.java, OneObjectSealedInterface.sealedEnum.enumClass)
+        assertEquals(OneObjectSealedInterfaceEnum::class, OneObjectSealedInterface.sealedEnum.enumClass)
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.livefront.sealedenum
 
+import kotlin.reflect.KClass
+
 /**
  * Defines a provider for interoperability between a [SealedEnum] for type [T] and a normal enum class [E].
  */
@@ -19,5 +21,5 @@ public interface EnumForSealedEnumProvider<T, E : Enum<E>> {
     /**
      * The class object for the enum.
      */
-    public val enumClass: Class<E>
+    public val enumClass: KClass<E>
 }

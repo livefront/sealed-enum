@@ -19,10 +19,10 @@ package com.livefront.sealedenum.compilation.basic
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [TwoObjectSealedClass]
@@ -56,8 +56,8 @@ public object TwoObjectSealedClassSealedEnum : SealedEnum<TwoObjectSealedClass>,
     )
 
 
-    public override val enumClass: Class<TwoObjectSealedClassEnum>
-        get() = TwoObjectSealedClassEnum::class.java
+    public override val enumClass: KClass<TwoObjectSealedClassEnum>
+        get() = TwoObjectSealedClassEnum::class
 
     public override fun ordinalOf(obj: TwoObjectSealedClass): Int = when (obj) {
         TwoObjectSealedClass.FirstObject -> 0

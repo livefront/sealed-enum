@@ -23,10 +23,10 @@ package com.livefront.sealedenum.compilation.visibility
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [InternalObjectsSealedClass]
@@ -62,8 +62,8 @@ public object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsS
     )
 
 
-    public override val enumClass: Class<InternalObjectsSealedClassEnum>
-        get() = InternalObjectsSealedClassEnum::class.java
+    public override val enumClass: KClass<InternalObjectsSealedClassEnum>
+        get() = InternalObjectsSealedClassEnum::class
 
     public override fun ordinalOf(obj: InternalObjectsSealedClass): Int = when (obj) {
         InternalObjectsSealedClass.FirstObject -> 0
@@ -158,10 +158,10 @@ package com.livefront.sealedenum.compilation.visibility
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [InternalSealedClass]
@@ -195,8 +195,8 @@ internal object InternalSealedClassSealedEnum : SealedEnum<InternalSealedClass>,
     )
 
 
-    public override val enumClass: Class<InternalSealedClassEnum>
-        get() = InternalSealedClassEnum::class.java
+    public override val enumClass: KClass<InternalSealedClassEnum>
+        get() = InternalSealedClassEnum::class
 
     public override fun ordinalOf(obj: InternalSealedClass): Int = when (obj) {
         InternalSealedClass.FirstObject -> 0
@@ -278,10 +278,10 @@ package com.livefront.sealedenum.compilation.visibility
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [InternalCompanionSealedClass]
@@ -315,8 +315,8 @@ public object InternalCompanionSealedClassSealedEnum : SealedEnum<InternalCompan
     )
 
 
-    public override val enumClass: Class<InternalCompanionSealedClassEnum>
-        get() = InternalCompanionSealedClassEnum::class.java
+    public override val enumClass: KClass<InternalCompanionSealedClassEnum>
+        get() = InternalCompanionSealedClassEnum::class
 
     public override fun ordinalOf(obj: InternalCompanionSealedClass): Int = when (obj) {
         InternalCompanionSealedClass.FirstObject -> 0
@@ -403,10 +403,10 @@ package com.livefront.sealedenum.compilation.visibility
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [InternalSealedAndCompanionSealedClass]
@@ -443,8 +443,8 @@ internal object InternalSealedAndCompanionSealedClassSealedEnum :
     )
 
 
-    public override val enumClass: Class<InternalSealedAndCompanionSealedClassEnum>
-        get() = InternalSealedAndCompanionSealedClassEnum::class.java
+    public override val enumClass: KClass<InternalSealedAndCompanionSealedClassEnum>
+        get() = InternalSealedAndCompanionSealedClassEnum::class
 
     public override fun ordinalOf(obj: InternalSealedAndCompanionSealedClass): Int = when (obj) {
         InternalSealedAndCompanionSealedClass.FirstObject -> 0

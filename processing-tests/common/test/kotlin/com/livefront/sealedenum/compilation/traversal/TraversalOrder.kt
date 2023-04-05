@@ -68,10 +68,10 @@ package com.livefront.sealedenum.compilation.traversal
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [Tree]
@@ -129,8 +129,8 @@ public object TreeLevelOrderSealedEnum : SealedEnum<Tree>,
     )
 
 
-    public override val enumClass: Class<TreeLevelOrderEnum>
-        get() = TreeLevelOrderEnum::class.java
+    public override val enumClass: KClass<TreeLevelOrderEnum>
+        get() = TreeLevelOrderEnum::class
 
     public override fun ordinalOf(obj: Tree): Int = when (obj) {
         Tree.A -> 0
@@ -307,8 +307,8 @@ public object TreePostOrderSealedEnum : SealedEnum<Tree>,
     )
 
 
-    public override val enumClass: Class<TreePostOrderEnum>
-        get() = TreePostOrderEnum::class.java
+    public override val enumClass: KClass<TreePostOrderEnum>
+        get() = TreePostOrderEnum::class
 
     public override fun ordinalOf(obj: Tree): Int = when (obj) {
         Tree.B.C.F.G -> 0
@@ -485,8 +485,8 @@ public object TreeInOrderSealedEnum : SealedEnum<Tree>,
     )
 
 
-    public override val enumClass: Class<TreeInOrderEnum>
-        get() = TreeInOrderEnum::class.java
+    public override val enumClass: KClass<TreeInOrderEnum>
+        get() = TreeInOrderEnum::class
 
     public override fun ordinalOf(obj: Tree): Int = when (obj) {
         Tree.A -> 0
@@ -662,8 +662,8 @@ public object TreePreOrderSealedEnum : SealedEnum<Tree>,
     )
 
 
-    public override val enumClass: Class<TreePreOrderEnum>
-        get() = TreePreOrderEnum::class.java
+    public override val enumClass: KClass<TreePreOrderEnum>
+        get() = TreePreOrderEnum::class
 
     public override fun ordinalOf(obj: Tree): Int = when (obj) {
         Tree.A -> 0

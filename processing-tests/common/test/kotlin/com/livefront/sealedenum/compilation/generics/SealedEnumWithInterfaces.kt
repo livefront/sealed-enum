@@ -23,10 +23,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [EmptySealedClassWithInterface]
@@ -57,8 +57,8 @@ public object EmptySealedClassWithInterfaceSealedEnum : SealedEnum<EmptySealedCl
     public override val values: List<EmptySealedClassWithInterface> = emptyList()
 
 
-    public override val enumClass: Class<EmptySealedClassWithInterfaceEnum>
-        get() = EmptySealedClassWithInterfaceEnum::class.java
+    public override val enumClass: KClass<EmptySealedClassWithInterfaceEnum>
+        get() = EmptySealedClassWithInterfaceEnum::class
 
     public override fun ordinalOf(obj: EmptySealedClassWithInterface): Int = throw
             AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
@@ -128,10 +128,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [OneObjectSealedClassWithInterface]
@@ -167,8 +167,8 @@ public object OneObjectSealedClassWithInterfaceSealedEnum :
     )
 
 
-    public override val enumClass: Class<OneObjectSealedClassWithInterfaceEnum>
-        get() = OneObjectSealedClassWithInterfaceEnum::class.java
+    public override val enumClass: KClass<OneObjectSealedClassWithInterfaceEnum>
+        get() = OneObjectSealedClassWithInterfaceEnum::class
 
     public override fun ordinalOf(obj: OneObjectSealedClassWithInterface): Int = when (obj) {
         OneObjectSealedClassWithInterface.FirstObject -> 0
@@ -252,10 +252,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [TwoObjectSealedClassWithGenericInterface]
@@ -296,8 +296,8 @@ public object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
     )
 
 
-    public override val enumClass: Class<TwoObjectSealedClassWithGenericInterfaceEnum>
-        get() = TwoObjectSealedClassWithGenericInterfaceEnum::class.java
+    public override val enumClass: KClass<TwoObjectSealedClassWithGenericInterfaceEnum>
+        get() = TwoObjectSealedClassWithGenericInterfaceEnum::class
 
     public override fun ordinalOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): Int
             = when (obj) {
@@ -400,10 +400,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [SealedClassWithGetterInterface]
@@ -438,8 +438,8 @@ public object SealedClassWithGetterInterfaceSealedEnum : SealedEnum<SealedClassW
     )
 
 
-    public override val enumClass: Class<SealedClassWithGetterInterfaceEnum>
-        get() = SealedClassWithGetterInterfaceEnum::class.java
+    public override val enumClass: KClass<SealedClassWithGetterInterfaceEnum>
+        get() = SealedClassWithGetterInterfaceEnum::class
 
     public override fun ordinalOf(obj: SealedClassWithGetterInterface): Int = when (obj) {
         SealedClassWithGetterInterface.FirstObject -> 0

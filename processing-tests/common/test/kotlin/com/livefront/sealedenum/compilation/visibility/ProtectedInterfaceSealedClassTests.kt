@@ -56,7 +56,7 @@ class ProtectedInterfaceSealedClassTests {
     @Test
     fun `sealed class has correct enum class`() {
         assertEquals(
-            ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum::class.java,
+            ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum::class,
             ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.sealedEnum.enumClass
         )
     }

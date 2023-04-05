@@ -17,10 +17,10 @@ package com.livefront.sealedenum.compilation.location
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [AlphaOutsideSealedClass]
@@ -52,8 +52,8 @@ public object AlphaOutsideSealedClassSealedEnum : SealedEnum<AlphaOutsideSealedC
     )
 
 
-    public override val enumClass: Class<AlphaOutsideSealedClassEnum>
-        get() = AlphaOutsideSealedClassEnum::class.java
+    public override val enumClass: KClass<AlphaOutsideSealedClassEnum>
+        get() = AlphaOutsideSealedClassEnum::class
 
     public override fun ordinalOf(obj: AlphaOutsideSealedClass): Int = when (obj) {
         AlphaFirstObject -> 0
@@ -134,10 +134,10 @@ package com.livefront.sealedenum.compilation.location
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [BetaOutsideSealedClass]
@@ -175,8 +175,8 @@ public object BetaOutsideSealedClassSealedEnum : SealedEnum<BetaOutsideSealedCla
     )
 
 
-    public override val enumClass: Class<BetaOutsideSealedClassEnum>
-        get() = BetaOutsideSealedClassEnum::class.java
+    public override val enumClass: KClass<BetaOutsideSealedClassEnum>
+        get() = BetaOutsideSealedClassEnum::class
 
     public override fun ordinalOf(obj: BetaOutsideSealedClass): Int = when (obj) {
         BetaFirstObject -> 0
@@ -273,10 +273,10 @@ package com.livefront.sealedenum.compilation.location
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [GammaOutsideSealedClass]
@@ -314,8 +314,8 @@ public object GammaOutsideSealedClassSealedEnum : SealedEnum<GammaOutsideSealedC
     )
 
 
-    public override val enumClass: Class<GammaOutsideSealedClassEnum>
-        get() = GammaOutsideSealedClassEnum::class.java
+    public override val enumClass: KClass<GammaOutsideSealedClassEnum>
+        get() = GammaOutsideSealedClassEnum::class
 
     public override fun ordinalOf(obj: GammaOutsideSealedClass): Int = when (obj) {
         GammaOutsideSealedClass.GammaSecondObject -> 0
@@ -409,10 +409,10 @@ package com.livefront.sealedenum.compilation.location
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [DeltaOutsideSealedClass]
@@ -446,8 +446,8 @@ public object DeltaOutsideSealedClassSealedEnum : SealedEnum<DeltaOutsideSealedC
     )
 
 
-    public override val enumClass: Class<DeltaOutsideSealedClassEnum>
-        get() = DeltaOutsideSealedClassEnum::class.java
+    public override val enumClass: KClass<DeltaOutsideSealedClassEnum>
+        get() = DeltaOutsideSealedClassEnum::class
 
     public override fun ordinalOf(obj: DeltaOutsideSealedClass): Int = when (obj) {
         DeltaOutsideSealedClass.DeltaObject -> 0

@@ -27,11 +27,11 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Any
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [SealedEnumWithAbstractBaseClasses]
@@ -64,8 +64,8 @@ public object SealedEnumWithAbstractBaseClassesSealedEnum :
     public override val values: List<SealedEnumWithAbstractBaseClasses> = emptyList()
 
 
-    public override val enumClass: Class<SealedEnumWithAbstractBaseClassesEnum>
-        get() = SealedEnumWithAbstractBaseClassesEnum::class.java
+    public override val enumClass: KClass<SealedEnumWithAbstractBaseClassesEnum>
+        get() = SealedEnumWithAbstractBaseClassesEnum::class
 
     public override fun ordinalOf(obj: SealedEnumWithAbstractBaseClasses): Int = throw
             AssertionError("Constructing a SealedEnumWithAbstractBaseClasses is impossible, since it has no sealed subclasses")
@@ -140,10 +140,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [SealedEnumWithAbstractBaseClassesCovariantType]
@@ -179,8 +179,8 @@ public object SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum :
             emptyList()
 
 
-    public override val enumClass: Class<SealedEnumWithAbstractBaseClassesCovariantTypeEnum>
-        get() = SealedEnumWithAbstractBaseClassesCovariantTypeEnum::class.java
+    public override val enumClass: KClass<SealedEnumWithAbstractBaseClassesCovariantTypeEnum>
+        get() = SealedEnumWithAbstractBaseClassesCovariantTypeEnum::class
 
     public override fun ordinalOf(obj: SealedEnumWithAbstractBaseClassesCovariantType<*>): Int =
             throw

@@ -26,10 +26,10 @@ package com.livefront.sealedenum.compilation.hierarchy
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [FirstInterfaceHierarchy.A]
@@ -61,8 +61,8 @@ public object FirstInterfaceHierarchy_ASealedEnum : SealedEnum<FirstInterfaceHie
     )
 
 
-    public override val enumClass: Class<FirstInterfaceHierarchy_AEnum>
-        get() = FirstInterfaceHierarchy_AEnum::class.java
+    public override val enumClass: KClass<FirstInterfaceHierarchy_AEnum>
+        get() = FirstInterfaceHierarchy_AEnum::class
 
     public override fun ordinalOf(obj: FirstInterfaceHierarchy.A): Int = when (obj) {
         FirstInterfaceHierarchy.A.B.C -> 0
@@ -130,10 +130,10 @@ package com.livefront.sealedenum.compilation.hierarchy
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [FirstInterfaceHierarchy.A.B]
@@ -165,8 +165,8 @@ public object FirstInterfaceHierarchy_A_BSealedEnum : SealedEnum<FirstInterfaceH
     )
 
 
-    public override val enumClass: Class<FirstInterfaceHierarchy_A_BEnum>
-        get() = FirstInterfaceHierarchy_A_BEnum::class.java
+    public override val enumClass: KClass<FirstInterfaceHierarchy_A_BEnum>
+        get() = FirstInterfaceHierarchy_A_BEnum::class
 
     public override fun ordinalOf(obj: FirstInterfaceHierarchy.A.B): Int = when (obj) {
         FirstInterfaceHierarchy.A.B.C -> 0

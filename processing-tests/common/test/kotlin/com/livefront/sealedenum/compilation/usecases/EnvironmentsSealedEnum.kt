@@ -42,10 +42,10 @@ package com.livefront.sealedenum.compilation.usecases
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [Environments]
@@ -85,8 +85,8 @@ public object EnvironmentsSealedEnum : SealedEnum<Environments>,
     )
 
 
-    public override val enumClass: Class<EnvironmentsEnum>
-        get() = EnvironmentsEnum::class.java
+    public override val enumClass: KClass<EnvironmentsEnum>
+        get() = EnvironmentsEnum::class
 
     public override fun ordinalOf(obj: Environments): Int = when (obj) {
         Environments.Http.Livefront -> 0

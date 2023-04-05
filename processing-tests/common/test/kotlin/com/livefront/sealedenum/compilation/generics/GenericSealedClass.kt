@@ -23,10 +23,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [OneTypeParameterSealedClass]
@@ -62,8 +62,8 @@ public object OneTypeParameterSealedClassSealedEnum : SealedEnum<OneTypeParamete
     )
 
 
-    public override val enumClass: Class<OneTypeParameterSealedClassEnum>
-        get() = OneTypeParameterSealedClassEnum::class.java
+    public override val enumClass: KClass<OneTypeParameterSealedClassEnum>
+        get() = OneTypeParameterSealedClassEnum::class
 
     public override fun ordinalOf(obj: OneTypeParameterSealedClass<*>): Int = when (obj) {
         OneTypeParameterSealedClass.FirstObject -> 0
@@ -158,10 +158,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [TwoTypeParameterSealedClass]
@@ -196,8 +196,8 @@ public object TwoTypeParameterSealedClassSealedEnum : SealedEnum<TwoTypeParamete
     )
 
 
-    public override val enumClass: Class<TwoTypeParameterSealedClassEnum>
-        get() = TwoTypeParameterSealedClassEnum::class.java
+    public override val enumClass: KClass<TwoTypeParameterSealedClassEnum>
+        get() = TwoTypeParameterSealedClassEnum::class
 
     public override fun ordinalOf(obj: TwoTypeParameterSealedClass<*, *>): Int = when (obj) {
         TwoTypeParameterSealedClass.FirstObject -> 0
@@ -285,10 +285,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [LimitedTypeParameterSealedClass]
@@ -324,8 +324,8 @@ public object LimitedTypeParameterSealedClassSealedEnum :
     )
 
 
-    public override val enumClass: Class<LimitedTypeParameterSealedClassEnum>
-        get() = LimitedTypeParameterSealedClassEnum::class.java
+    public override val enumClass: KClass<LimitedTypeParameterSealedClassEnum>
+        get() = LimitedTypeParameterSealedClassEnum::class
 
     public override fun ordinalOf(obj: LimitedTypeParameterSealedClass<*, *>): Int = when (obj) {
         LimitedTypeParameterSealedClass.FirstObject -> 0
@@ -420,10 +420,10 @@ package com.livefront.sealedenum.compilation.generics
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [MultipleBoundsSealedClass]
@@ -455,8 +455,8 @@ public object MultipleBoundsSealedClassSealedEnum : SealedEnum<MultipleBoundsSea
     )
 
 
-    public override val enumClass: Class<MultipleBoundsSealedClassEnum>
-        get() = MultipleBoundsSealedClassEnum::class.java
+    public override val enumClass: KClass<MultipleBoundsSealedClassEnum>
+        get() = MultipleBoundsSealedClassEnum::class
 
     public override fun ordinalOf(obj: MultipleBoundsSealedClass<*>): Int = when (obj) {
         MultipleBoundsSealedClass.FirstObject -> 0

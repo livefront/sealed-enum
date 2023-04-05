@@ -42,7 +42,7 @@ class PrivateInterfaceSealedClassTests {
     @Test
     fun `sealed class has correct enum class`() {
         assertEquals(
-            PrivateInterfaceSealedClassEnum::class.java,
+            PrivateInterfaceSealedClassEnum::class,
             PrivateInterfaceSealedClass.sealedEnum.enumClass
         )
     }

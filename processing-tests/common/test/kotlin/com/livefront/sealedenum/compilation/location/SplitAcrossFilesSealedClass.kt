@@ -16,10 +16,10 @@ package com.livefront.sealedenum.compilation.location
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [SplitAcrossFilesSealedClass]
@@ -55,8 +55,8 @@ public object SplitAcrossFilesSealedClassSealedEnum : SealedEnum<SplitAcrossFile
     )
 
 
-    public override val enumClass: Class<SplitAcrossFilesSealedClassEnum>
-        get() = SplitAcrossFilesSealedClassEnum::class.java
+    public override val enumClass: KClass<SplitAcrossFilesSealedClassEnum>
+        get() = SplitAcrossFilesSealedClassEnum::class
 
     public override fun ordinalOf(obj: SplitAcrossFilesSealedClass): Int = when (obj) {
         SplitAcrossFilesSubclassA -> 0

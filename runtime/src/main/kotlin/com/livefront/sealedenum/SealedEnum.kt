@@ -1,5 +1,7 @@
 package com.livefront.sealedenum
 
+import kotlin.reflect.KClass
+
 /**
  * An interface providing `Enum`-like methods in a generic manner, for sealed classes that only have objects as
  * subclasses.
@@ -39,20 +41,20 @@ public interface SealedEnum<T> : Comparator<T> {
  * Creates a [SealedEnumWithEnumProvider] for the enum [E].
  */
 public inline fun <reified E : Enum<E>> createSealedEnumFromEnum(): SealedEnumWithEnumProvider<E, E> =
-    createSealedEnumFromEnumArray(enumValues(), E::class.java)
+    createSealedEnumFromEnumArray(enumValues(), E::class)
 
 /**
  * Creates a [SealedEnumWithEnumProvider] for the enum [E] with the given array of enum values.
  */
 public fun <E : Enum<E>> createSealedEnumFromEnumArray(
     values: Array<E>,
-    enumClass: Class<E>
+    enumClass: KClass<E>
 ): SealedEnumWithEnumProvider<E, E> = object : SealedEnumWithEnumProvider<E, E> {
     val nameToValueMap: Map<String, E> by lazy(LazyThreadSafetyMode.PUBLICATION) {
         values.associateBy { it.name }
     }
 
-    override val enumClass: Class<E> = enumClass
+    override val enumClass: KClass<E> = enumClass
 
     override val values: List<E> = values.toList()
 

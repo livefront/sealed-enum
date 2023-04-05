@@ -20,10 +20,10 @@ package com.livefront.sealedenum.compilation.ksp
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [NestedObjectsWithSameName.Companion.EmptySealedClass]
@@ -57,8 +57,8 @@ public object NestedObjectsWithSameName_Companion_EmptySealedClassSealedEnum :
             emptyList()
 
 
-    public override val enumClass: Class<NestedObjectsWithSameName_Companion_EmptySealedClassEnum>
-        get() = NestedObjectsWithSameName_Companion_EmptySealedClassEnum::class.java
+    public override val enumClass: KClass<NestedObjectsWithSameName_Companion_EmptySealedClassEnum>
+        get() = NestedObjectsWithSameName_Companion_EmptySealedClassEnum::class
 
     public override fun ordinalOf(obj: NestedObjectsWithSameName.Companion.EmptySealedClass): Int =
             throw

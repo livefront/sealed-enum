@@ -98,7 +98,6 @@ internal class SealedEnumProcessor(
         resolver: Resolver,
         sealedClassCompanionObjectKSClass: KSClassDeclaration
     ): SealedEnumFileSpec? {
-
         val genSealedEnumClassType = getGenSealedEnumClassDeclaration(resolver).asType()
 
         /**
@@ -231,7 +230,7 @@ internal class SealedEnumProcessor(
                     }
                         // Second, order by the qualified name
                         .thenComparing { classDeclaration ->
-                            classDeclaration.qualifiedName?.asString() ?: ""
+                            classDeclaration.qualifiedName?.asString().orEmpty()
                         }
                 )
                 .map(::convertSealedSubclassToNode)

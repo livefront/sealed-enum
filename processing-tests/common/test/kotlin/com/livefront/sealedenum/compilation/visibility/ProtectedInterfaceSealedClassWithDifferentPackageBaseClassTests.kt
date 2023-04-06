@@ -34,7 +34,9 @@ class ProtectedInterfaceSealedClassWithDifferentPackageBaseClassTests {
     @Test
     fun `sealed class has correct enum values with mapping`() {
         assertEquals(
-            ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.values.map(ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass::enum),
+            ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.values.map(
+                ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass::enum
+            ),
             enumValues<ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum>().toList()
         )
     }
@@ -50,7 +52,11 @@ class ProtectedInterfaceSealedClassWithDifferentPackageBaseClassTests {
     @Test
     fun `compilation generates correct code`() {
         val result = compile(
-            getCommonSourceFile("compilation", "visibility", "ProtectedInterfaceSealedClassWithDifferentPackageBaseClass.kt")
+            getCommonSourceFile(
+                "compilation",
+                "visibility",
+                "ProtectedInterfaceSealedClassWithDifferentPackageBaseClass.kt"
+            )
         )
 
         assertCompiles(result)

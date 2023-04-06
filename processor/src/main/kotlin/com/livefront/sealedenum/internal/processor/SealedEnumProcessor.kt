@@ -82,7 +82,6 @@ public class SealedEnumProcessor : AbstractProcessor() {
      */
     @Suppress("ReturnCount", "LongMethod", "ComplexMethod")
     private fun createSealedEnumFileSpec(sealedClassCompanionObjectElement: TypeElement): SealedEnumFileSpec? {
-
         /**
          * A helper function to print the given [message] as an error.
          */
@@ -106,7 +105,7 @@ public class SealedEnumProcessor : AbstractProcessor() {
          * The [KmClass] for the sealed class's companion object.
          */
         val sealedClassCompanionObjectKmClass =
-            @Suppress("TooGenericExceptionCaught")
+            @Suppress("TooGenericExceptionCaught", "SwallowedException")
             try {
                 sealedClassCompanionObjectElement.toKmClass()
             } catch (exception: Exception) {
@@ -134,7 +133,7 @@ public class SealedEnumProcessor : AbstractProcessor() {
          * The [KmClass] for the sealed class.
          */
         val sealedClassKmClass =
-            @Suppress("TooGenericExceptionCaught")
+            @Suppress("TooGenericExceptionCaught", "SwallowedException")
             try {
                 (sealedClassElement as TypeElement).toKmClass()
             } catch (exception: Exception) {

@@ -8,7 +8,6 @@ import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
 
 internal data class SealedEnumOrdinalPropertySpec(
-    private val sealedClass: SealedClass,
     private val sealedClassVisibility: Visibility,
     private val parameterizedSealedClass: TypeName,
     private val sealedClassCompanionObjectElement: TypeElement?,

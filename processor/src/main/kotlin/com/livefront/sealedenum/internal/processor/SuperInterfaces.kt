@@ -69,7 +69,7 @@ internal class SuperInterfaces(
     ) {
         check(typeElement.typeParameters.size == parentTypeArguments.size)
 
-        @Suppress("TooGenericExceptionCaught")
+        @Suppress("TooGenericExceptionCaught", "SwallowedException")
         try {
             val typeSpec = typeElement.toTypeSpec(classInspector)
             getAllSuperInterfacesKotlinImpl(typeElement, typeSpec, parentTypeArguments, superInterfaces)
@@ -194,7 +194,7 @@ internal class SuperInterfaces(
                 return STAR
             }
 
-            @Suppress("TooGenericExceptionCaught")
+            @Suppress("TooGenericExceptionCaught", "SwallowedException")
             val className = try {
                 createClassName(element.toKmClass().name)
             } catch (exception: Exception) {
@@ -214,7 +214,7 @@ internal class SuperInterfaces(
     /**
      * Returns true if the [TypeElement] interface has the correct visibility to be implemented by a generated enum.
      */
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     private fun TypeElement.isVisibleInterface(): Boolean =
         try {
             // If interface is a Kotlin interface
@@ -229,7 +229,7 @@ internal class SuperInterfaces(
     /**
      * Returns true if the [TypeElement] interface is a sealed interface.
      */
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     private fun TypeElement.isSealedInterface(): Boolean =
         try {
             // If interface is a Kotlin interface

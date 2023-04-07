@@ -1,3 +1,11 @@
+# 0.6.0
+## Features:
+- Update to Kotlin 1.8
+
+## Miscellaneous updates:
+- Various dependency updates
+- Updated JDK versions on CI to 1.8, 11 and 17
+
 # 0.5.0
 ## Features:
 - Update to Kotlin 1.7

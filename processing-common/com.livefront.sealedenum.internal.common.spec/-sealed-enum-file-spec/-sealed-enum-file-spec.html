@@ -4,10 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>SealedEnumFileSpec</title>
 <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -18,16 +26,20 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../../index.html">
 <span>sealed-enum</span>            </a>    </div>
-    <div>0.5.0
+    <div>0.6.0
     </div>
     <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":processing-common:dokkaHtmlPartial/main">jvm</button>
+        </div>
         <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
         <div id="searchBar"></div>
     </div>
@@ -37,18 +49,18 @@ if(savedDarkMode === true){
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageids="processing-common::com.livefront.sealedenum.internal.common.spec/SealedEnumFileSpec/SealedEnumFileSpec/#com.squareup.kotlinpoet.ClassName#com.livefront.sealedenum.internal.common.Visibility#com.squareup.kotlinpoet.ClassName#com.livefront.sealedenum.internal.common.Visibility#javax.lang.model.element.TypeElement?#com.livefront.sealedenum.internal.common.SealedClassNode.SealedClass#kotlin.collections.List[com.squareup.kotlinpoet.TypeName]#kotlin.collections.Map[com.livefront.sealedenum.TreeTraversalOrder,com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec.SealedEnumOption]/PointingToDeclaration//409520149">
-  <div class="breadcrumbs"><a href="../../index.html">processing-common</a><span class="delimiter">/</span><a href="../index.html">com.livefront.sealedenum.internal.common.spec</a><span class="delimiter">/</span><a href="index.html">SealedEnumFileSpec</a><span class="delimiter">/</span><a href="-sealed-enum-file-spec.html">SealedEnumFileSpec</a></div>
+<div class="main-content" data-page-type="member" id="content" pageids="processing-common::com.livefront.sealedenum.internal.common.spec/SealedEnumFileSpec/SealedEnumFileSpec/#com.squareup.kotlinpoet.ClassName#com.livefront.sealedenum.internal.common.Visibility#com.squareup.kotlinpoet.ClassName#com.livefront.sealedenum.internal.common.Visibility#javax.lang.model.element.TypeElement?#com.livefront.sealedenum.internal.common.SealedClassNode.SealedClass#kotlin.collections.List[com.squareup.kotlinpoet.TypeName]#kotlin.collections.Map[com.livefront.sealedenum.TreeTraversalOrder,com.livefront.sealedenum.internal.common.spec.SealedEnumFileSpec.SealedEnumOption]/PointingToDeclaration//409520149">
+  <div class="breadcrumbs"><a href="../../index.html">processing-common</a><span class="delimiter">/</span><a href="../index.html">com.livefront.sealedenum.internal.common.spec</a><span class="delimiter">/</span><a href="index.html">SealedEnumFileSpec</a><span class="delimiter">/</span><span class="current">SealedEnumFileSpec</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Sealed</span><wbr><span>Enum</span><wbr><span>File</span><wbr><span><span>Spec</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-sealed-enum-file-spec.html"><span class="token function">SealedEnumFileSpec</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;sealedClass<span class="token operator">: </span><span data-unresolved-link="com.squareup.kotlinpoet/ClassName///PointingToDeclaration/">ClassName</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;sealedClassVisibility<span class="token operator">: </span><a href="../../com.livefront.sealedenum.internal.common/-visibility/index.html">Visibility</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;sealedClassCompanionObject<span class="token operator">: </span><span data-unresolved-link="com.squareup.kotlinpoet/ClassName///PointingToDeclaration/">ClassName</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;sealedClassCompanionObjectVisibility<span class="token operator">: </span><a href="../../com.livefront.sealedenum.internal.common/-visibility/index.html">Visibility</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;sealedClassCompanionObjectElement<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/javax/lang/model/element/TypeElement.html">TypeElement</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;sealedClassNode<span class="token operator">: </span><a href="../../com.livefront.sealedenum.internal.common/-sealed-class-node/-sealed-class/index.html">SealedClassNode.SealedClass</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;typeParameters<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="com.squareup.kotlinpoet/TypeName///PointingToDeclaration/">TypeName</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;sealedEnumOptions<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../../runtime/com.livefront.sealedenum/-tree-traversal-order/index.html">TreeTraversalOrder</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sealed-enum-option/index.html">SealedEnumFileSpec.SealedEnumOption</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sealedClass<span class="token operator">: </span><span data-unresolved-link="com.squareup.kotlinpoet/ClassName///PointingToDeclaration/">ClassName</span><span class="token punctuation">, </span></span><span class="parameter ">sealedClassVisibility<span class="token operator">: </span><a href="../../com.livefront.sealedenum.internal.common/-visibility/index.html">Visibility</a><span class="token punctuation">, </span></span><span class="parameter ">sealedClassCompanionObject<span class="token operator">: </span><span data-unresolved-link="com.squareup.kotlinpoet/ClassName///PointingToDeclaration/">ClassName</span><span class="token punctuation">, </span></span><span class="parameter ">sealedClassCompanionObjectVisibility<span class="token operator">: </span><a href="../../com.livefront.sealedenum.internal.common/-visibility/index.html">Visibility</a><span class="token punctuation">, </span></span><span class="parameter ">sealedClassCompanionObjectElement<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/javax/lang/model/element/TypeElement.html">TypeElement</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">sealedClassNode<span class="token operator">: </span><a href="../../com.livefront.sealedenum.internal.common/-sealed-class-node/-sealed-class/index.html">SealedClassNode.SealedClass</a><span class="token punctuation">, </span></span><span class="parameter ">typeParameters<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="com.squareup.kotlinpoet/TypeName///PointingToDeclaration/">TypeName</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">sealedEnumOptions<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../../runtime/com.livefront.sealedenum/-tree-traversal-order/index.html">TreeTraversalOrder</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sealed-enum-option/index.html">SealedEnumFileSpec.SealedEnumOption</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
 </div>
-
-</body></html>
+</body>
+</html>
 

@@ -4,10 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.livefront.sealedenum.internal.common</title>
 <link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -18,16 +26,20 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../scripts/prism.js" async></script></head>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../index.html">
 <span>sealed-enum</span>            </a>    </div>
-    <div>0.5.0
+    <div>0.6.0
     </div>
     <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":processing-common:dokkaHtmlPartial/main">jvm</button>
+        </div>
         <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
         <div id="searchBar"></div>
     </div>
@@ -37,73 +49,77 @@ if(savedDarkMode === true){
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageids="processing-common::com.livefront.sealedenum.internal.common////PointingToDeclaration//409520149">
-  <div class="breadcrumbs"><a href="../index.html">processing-common</a><span class="delimiter">/</span><a href="index.html">com.livefront.sealedenum.internal.common</a></div>
+<div class="main-content" data-page-type="package" id="content" pageids="processing-common::com.livefront.sealedenum.internal.common////PointingToDeclaration//409520149">
+  <div class="breadcrumbs"><a href="../index.html">processing-common</a><span class="delimiter">/</span><span class="current">com.livefront.sealedenum.internal.common</span></div>
   <div class="cover ">
-    <h1 class="cover"><span><span>Package</span></span> <span>com.</span><wbr><span>livefront.</span><wbr><span>sealedenum.</span><wbr><span>internal.</span><wbr><span>common</span></h1>
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
     <div class="tabs-section-body">
-      <h2 class="">Types</h2>
-      <div class="table" data-togglable="Types"><a data-name="2045146873%2FClasslikes%2F409520149" anchor-label="SealedClassNode" id="2045146873%2FClasslikes%2F409520149" data-filterable-set=":processing-common:dokkaHtmlPartial/main"></a>
-        <div class="table-row" data-filterable-current=":processing-common:dokkaHtmlPartial/main" data-filterable-set=":processing-common:dokkaHtmlPartial/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-sealed-class-node/index.html"><span>Sealed</span><wbr><span>Class</span><wbr><span><span>Node</span></span></a></div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="2045146873%2FClasslikes%2F409520149" anchor-label="SealedClassNode" id="2045146873%2FClasslikes%2F409520149" data-filterable-set=":processing-common:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":processing-common:dokkaHtmlPartial/main" data-filterable-set=":processing-common:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sealed-class-node/index.html"><span>Sealed</span><wbr><span>Class</span><wbr><span><span>Node</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2045146873%2FClasslikes%2F409520149"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-sealed-class-node/index.html">SealedClassNode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">An internal tree structure representing a sealed class and its sealed subclasses.</p></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-sealed-class-node/index.html">SealedClassNode</a></div><div class="brief "><p class="paragraph">An internal tree structure representing a sealed class and its sealed subclasses.</p></div></div></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 <a data-name="-1216806663%2FClasslikes%2F409520149" anchor-label="Visibility" id="-1216806663%2FClasslikes%2F409520149" data-filterable-set=":processing-common:dokkaHtmlPartial/main"></a>
-        <div class="table-row" data-filterable-current=":processing-common:dokkaHtmlPartial/main" data-filterable-set=":processing-common:dokkaHtmlPartial/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-visibility/index.html"><span><span>Visibility</span></span></a></div>
+          <div class="table-row" data-filterable-current=":processing-common:dokkaHtmlPartial/main" data-filterable-set=":processing-common:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-visibility/index.html"><span><span>Visibility</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1216806663%2FClasslikes%2F409520149"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-visibility/index.html">Visibility</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-visibility/index.html">Visibility</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">A restricted enumeration of visibilities for use with sealed classes. Due to generating code that is in a different file, we can only reasonably work with sealed classes and companion objects that are public or internal.</p></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-visibility/index.html">Visibility</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-visibility/index.html">Visibility</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">A restricted enumeration of visibilities for use with sealed classes. Due to generating code that is in a different file, we can only reasonably work with sealed classes and companion objects that are public or internal.</p></div></div></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <h2 class="">Functions</h2>
-      <div class="table" data-togglable="Functions"><a data-name="656310496%2FFunctions%2F409520149" anchor-label="areUniqueBy" id="656310496%2FFunctions%2F409520149" data-filterable-set=":processing-common:dokkaHtmlPartial/main"></a>
-        <div class="table-row" data-filterable-current=":processing-common:dokkaHtmlPartial/main" data-filterable-set=":processing-common:dokkaHtmlPartial/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="are-unique-by.html"><span>are</span><wbr><span>Unique</span><wbr><span><span>By</span></span></a></div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="656310496%2FFunctions%2F409520149" anchor-label="areUniqueBy" id="656310496%2FFunctions%2F409520149" data-filterable-set=":processing-common:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":processing-common:dokkaHtmlPartial/main" data-filterable-set=":processing-common:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="are-unique-by.html"><span>are</span><wbr><span>Unique</span><wbr><span><span>By</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="656310496%2FFunctions%2F409520149"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="are-unique-by.html">K</a><span class="token operator">&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="are-unique-by.html"><span class="token function">areUniqueBy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">selector<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="are-unique-by.html">K</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Returns true if and only if all elements of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a> are unique based on the key computed by the <a href="are-unique-by.html">selector</a>.</p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="are-unique-by.html">K</a><span class="token operator">&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="are-unique-by.html"><span class="token function">areUniqueBy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">selector<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="are-unique-by.html">K</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Returns true if and only if all elements of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> are unique based on the key computed by the <a href="are-unique-by.html">selector</a>.</p></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="are-unique-by.html">K</a><span class="token operator">&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="are-unique-by.html"><span class="token function">areUniqueBy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">selector<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="are-unique-by.html">K</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if and only if all elements of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a> are unique based on the key computed by the <a href="are-unique-by.html">selector</a>.</p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="are-unique-by.html">K</a><span class="token operator">&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="are-unique-by.html"><span class="token function">areUniqueBy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">selector<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="are-unique-by.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="are-unique-by.html">K</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if and only if all elements of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> are unique based on the key computed by the <a href="are-unique-by.html">selector</a>.</p></div></div></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 <a data-name="1791486749%2FFunctions%2F409520149" anchor-label="getSealedObjectsFromNode" id="1791486749%2FFunctions%2F409520149" data-filterable-set=":processing-common:dokkaHtmlPartial/main"></a>
-        <div class="table-row" data-filterable-current=":processing-common:dokkaHtmlPartial/main" data-filterable-set=":processing-common:dokkaHtmlPartial/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="get-sealed-objects-from-node.html"><span>get</span><wbr><span>Sealed</span><wbr><span>Objects</span><wbr><span>From</span><wbr><span><span>Node</span></span></a></div>
+          <div class="table-row" data-filterable-current=":processing-common:dokkaHtmlPartial/main" data-filterable-set=":processing-common:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-sealed-objects-from-node.html"><span>get</span><wbr><span>Sealed</span><wbr><span>Objects</span><wbr><span>From</span><wbr><span><span>Node</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1791486749%2FFunctions%2F409520149"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-sealed-objects-from-node.html"><span class="token function">getSealedObjectsFromNode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">treeTraversalOrder<span class="token operator">: </span><a href="../../runtime/com.livefront.sealedenum/-tree-traversal-order/index.html">TreeTraversalOrder</a><span class="token punctuation">, </span></span><span class="parameter ">sealedClassNode<span class="token operator">: </span><a href="-sealed-class-node/-sealed-class/index.html">SealedClassNode.SealedClass</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="com.squareup.kotlinpoet/ClassName///PointingToDeclaration/">ClassName</span><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">An internal function to traverse the tree rooted at <a href="get-sealed-objects-from-node.html">sealedClassNode</a> with the prescribed <a href="get-sealed-objects-from-node.html">treeTraversalOrder</a>, returning a list of <span data-unresolved-link="com.squareup.kotlinpoet/ClassName///PointingToDeclaration/">ClassName</span>s representing all <a href="-sealed-class-node/-object/index.html">SealedClassNode.Object</a>s in the tree.</p></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":processing-common:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-sealed-objects-from-node.html"><span class="token function">getSealedObjectsFromNode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">treeTraversalOrder<span class="token operator">: </span><a href="../../runtime/com.livefront.sealedenum/-tree-traversal-order/index.html">TreeTraversalOrder</a><span class="token punctuation">, </span></span><span class="parameter ">sealedClassNode<span class="token operator">: </span><a href="-sealed-class-node/-sealed-class/index.html">SealedClassNode.SealedClass</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="com.squareup.kotlinpoet/ClassName///PointingToDeclaration/">ClassName</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">An internal function to traverse the tree rooted at <a href="get-sealed-objects-from-node.html">sealedClassNode</a> with the prescribed <a href="get-sealed-objects-from-node.html">treeTraversalOrder</a>, returning a list of <span data-unresolved-link="com.squareup.kotlinpoet/ClassName///PointingToDeclaration/">ClassName</span>s representing all <a href="-sealed-class-node/-object/index.html">SealedClassNode.Object</a>s in the tree.</p></div></div></div>
+                </div>
               </div>
             </div>
           </div>
@@ -113,10 +129,10 @@ if(savedDarkMode === true){
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
 </div>
-
-</body></html>
+</body>
+</html>
 

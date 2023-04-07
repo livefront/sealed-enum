@@ -45,11 +45,11 @@ package com.livefront.sealedenum.compilation.kitchensink
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [JavaBaseClassesSealedClass]
@@ -91,8 +91,8 @@ public object JavaBaseClassesSealedClassSealedEnum : SealedEnum<JavaBaseClassesS
     )
 
 
-    public override val enumClass: Class<JavaBaseClassesSealedClassEnum>
-        get() = JavaBaseClassesSealedClassEnum::class.java
+    public override val enumClass: KClass<JavaBaseClassesSealedClassEnum>
+        get() = JavaBaseClassesSealedClassEnum::class
 
     public override fun ordinalOf(obj: JavaBaseClassesSealedClass<*>): Int = when (obj) {
         JavaBaseClassesSealedClass.FirstObject -> 0

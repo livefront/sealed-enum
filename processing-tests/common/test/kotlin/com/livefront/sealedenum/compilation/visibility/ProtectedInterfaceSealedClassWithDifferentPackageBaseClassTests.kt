@@ -44,7 +44,7 @@ class ProtectedInterfaceSealedClassWithDifferentPackageBaseClassTests {
     @Test
     fun `sealed class has correct enum class`() {
         assertEquals(
-            ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum::class.java,
+            ProtectedInterfaceOuterClassWithDifferentPackageBaseClass_ProtectedInterfaceSealedClassEnum::class,
             ProtectedInterfaceOuterClassWithDifferentPackageBaseClass.ProtectedInterfaceSealedClass.sealedEnum.enumClass
         )
     }

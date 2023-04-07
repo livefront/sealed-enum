@@ -45,7 +45,7 @@ class EnvironmentsSealedEnumTests {
     @Test
     fun `environment manager from sealed enum`() {
         val environmentManager = EnvironmentManager(
-            enumClass = Environments.sealedEnum.enumClass,
+            enumClass = Environments.sealedEnum.enumClass.java,
             defaultEnvironment = Environments.Https.Livefront.enum
         )
 

@@ -102,7 +102,7 @@ class CreateSealedEnumFromEnumTests {
 
     @Test
     fun `verify enum class is correct`() {
-        assertEquals(AlphaEnum::class.java, alphaEnumSealedEnum.enumClass)
+        assertEquals(AlphaEnum::class, alphaEnumSealedEnum.enumClass)
     }
 
     @Test

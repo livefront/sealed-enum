@@ -15,10 +15,10 @@ package com.livefront.sealedenum.compilation.basic
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class [EmptySealedClass]
@@ -46,8 +46,8 @@ public object EmptySealedClassSealedEnum : SealedEnum<EmptySealedClass>,
     public override val values: List<EmptySealedClass> = emptyList()
 
 
-    public override val enumClass: Class<EmptySealedClassEnum>
-        get() = EmptySealedClassEnum::class.java
+    public override val enumClass: KClass<EmptySealedClassEnum>
+        get() = EmptySealedClassEnum::class
 
     public override fun ordinalOf(obj: EmptySealedClass): Int = throw
             AssertionError("Constructing a EmptySealedClass is impossible, since it has no sealed subclasses")

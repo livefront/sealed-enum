@@ -23,7 +23,7 @@ class EmptySealedClassTests {
 
     @Test
     fun `correct enum class`() {
-        assertEquals(EmptySealedClassEnum::class.java, EmptySealedClass.sealedEnum.enumClass)
+        assertEquals(EmptySealedClassEnum::class, EmptySealedClass.sealedEnum.enumClass)
     }
 
     @Test

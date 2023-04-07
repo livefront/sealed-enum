@@ -60,7 +60,7 @@ class VisibilitySealedClassTests {
 
         @Test
         fun `correct enum class`() {
-            assertEquals(InternalObjectsSealedClassEnum::class.java, InternalObjectsSealedClass.sealedEnum.enumClass)
+            assertEquals(InternalObjectsSealedClassEnum::class, InternalObjectsSealedClass.sealedEnum.enumClass)
         }
 
         @Test
@@ -116,7 +116,7 @@ class VisibilitySealedClassTests {
 
         @Test
         fun `correct enum class`() {
-            assertEquals(InternalSealedClassEnum::class.java, InternalSealedClass.sealedEnum.enumClass)
+            assertEquals(InternalSealedClassEnum::class, InternalSealedClass.sealedEnum.enumClass)
         }
 
         @Test
@@ -169,7 +169,7 @@ class VisibilitySealedClassTests {
         @Test
         fun `correct enum class`() {
             assertEquals(
-                InternalCompanionSealedClassEnum::class.java,
+                InternalCompanionSealedClassEnum::class,
                 InternalCompanionSealedClass.sealedEnum.enumClass
             )
         }
@@ -231,7 +231,7 @@ class VisibilitySealedClassTests {
         @Test
         fun `correct enum class`() {
             assertEquals(
-                InternalSealedAndCompanionSealedClassEnum::class.java,
+                InternalSealedAndCompanionSealedClassEnum::class,
                 InternalSealedAndCompanionSealedClass.sealedEnum.enumClass
             )
         }

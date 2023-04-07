@@ -28,10 +28,10 @@ package com.livefront.sealedenum.compilation.visibility
 import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
-import java.lang.Class
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlin.reflect.KClass
 
 /**
  * An isomorphic enum for the sealed class
@@ -77,8 +77,8 @@ public object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEn
 
 
     public override val enumClass:
-            Class<ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>
-        get() = ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum::class.java
+            KClass<ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>
+        get() = ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum::class
 
     public override fun ordinalOf(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass):
             Int = when (obj) {

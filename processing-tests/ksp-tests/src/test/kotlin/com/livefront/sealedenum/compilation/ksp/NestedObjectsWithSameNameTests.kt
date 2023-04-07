@@ -39,7 +39,7 @@ class NestedObjectsWithSameNameTests {
     @Test
     fun `correct enum class`() {
         assertEquals(
-            NestedObjectsWithSameName_Companion_EmptySealedClassEnum::class.java,
+            NestedObjectsWithSameName_Companion_EmptySealedClassEnum::class,
             NestedObjectsWithSameName.Companion.EmptySealedClass.sealedEnum.enumClass
         )
     }

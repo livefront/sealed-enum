@@ -36,6 +36,7 @@ tasks {
         kotlinOptions {
             allWarningsAsErrors = true
             freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+            jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
     }
 }

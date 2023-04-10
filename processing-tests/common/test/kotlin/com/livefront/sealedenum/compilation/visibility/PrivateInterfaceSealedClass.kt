@@ -24,6 +24,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -54,23 +55,26 @@ public val PrivateInterfaceSealedClassEnum.sealedObject: PrivateInterfaceSealedC
 public object PrivateInterfaceSealedClassSealedEnum : SealedEnum<PrivateInterfaceSealedClass>,
         SealedEnumWithEnumProvider<PrivateInterfaceSealedClass, PrivateInterfaceSealedClassEnum>,
         EnumForSealedEnumProvider<PrivateInterfaceSealedClass, PrivateInterfaceSealedClassEnum> {
-    public override val values: List<PrivateInterfaceSealedClass> = listOf(
-        PrivateInterfaceSealedClass.FirstObject,
-        PrivateInterfaceSealedClass.SecondObject
-    )
+    public override val values: List<PrivateInterfaceSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            PrivateInterfaceSealedClass.FirstObject,
+            PrivateInterfaceSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<PrivateInterfaceSealedClassEnum>
         get() = PrivateInterfaceSealedClassEnum::class
 
     public override fun ordinalOf(obj: PrivateInterfaceSealedClass): Int = when (obj) {
-        PrivateInterfaceSealedClass.FirstObject -> 0
-        PrivateInterfaceSealedClass.SecondObject -> 1
+        is PrivateInterfaceSealedClass.FirstObject -> 0
+        is PrivateInterfaceSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: PrivateInterfaceSealedClass): String = when (obj) {
-        PrivateInterfaceSealedClass.FirstObject -> "PrivateInterfaceSealedClass_FirstObject"
-        PrivateInterfaceSealedClass.SecondObject -> "PrivateInterfaceSealedClass_SecondObject"
+        is PrivateInterfaceSealedClass.FirstObject -> "PrivateInterfaceSealedClass_FirstObject"
+        is PrivateInterfaceSealedClass.SecondObject -> "PrivateInterfaceSealedClass_SecondObject"
     }
 
     public override fun valueOf(name: String): PrivateInterfaceSealedClass = when (name) {
@@ -81,9 +85,9 @@ public object PrivateInterfaceSealedClassSealedEnum : SealedEnum<PrivateInterfac
 
     public override fun sealedObjectToEnum(obj: PrivateInterfaceSealedClass):
             PrivateInterfaceSealedClassEnum = when (obj) {
-        PrivateInterfaceSealedClass.FirstObject ->
+        is PrivateInterfaceSealedClass.FirstObject ->
                 PrivateInterfaceSealedClassEnum.PrivateInterfaceSealedClass_FirstObject
-        PrivateInterfaceSealedClass.SecondObject ->
+        is PrivateInterfaceSealedClass.SecondObject ->
                 PrivateInterfaceSealedClassEnum.PrivateInterfaceSealedClass_SecondObject
     }
 

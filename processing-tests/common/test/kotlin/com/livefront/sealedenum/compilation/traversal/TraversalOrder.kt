@@ -69,6 +69,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -111,59 +112,61 @@ public val TreeLevelOrderEnum.sealedObject: Tree
 public object TreeLevelOrderSealedEnum : SealedEnum<Tree>,
         SealedEnumWithEnumProvider<Tree, TreeLevelOrderEnum>,
         EnumForSealedEnumProvider<Tree, TreeLevelOrderEnum> {
-    public override val values: List<Tree> = listOf(
-        Tree.A,
-        Tree.K,
-        Tree.T,
-        Tree.L.S,
-        Tree.B.C.D,
-        Tree.B.C.E,
-        Tree.B.C.J,
-        Tree.L.M.N,
-        Tree.L.M.O,
-        Tree.L.P.Q,
-        Tree.L.P.R,
-        Tree.B.C.F.G,
-        Tree.B.C.F.H,
-        Tree.B.C.F.I
-    )
+    public override val values: List<Tree> by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Tree.A,
+            Tree.K,
+            Tree.T,
+            Tree.L.S,
+            Tree.B.C.D,
+            Tree.B.C.E,
+            Tree.B.C.J,
+            Tree.L.M.N,
+            Tree.L.M.O,
+            Tree.L.P.Q,
+            Tree.L.P.R,
+            Tree.B.C.F.G,
+            Tree.B.C.F.H,
+            Tree.B.C.F.I
+        )
+    }
 
 
     public override val enumClass: KClass<TreeLevelOrderEnum>
         get() = TreeLevelOrderEnum::class
 
     public override fun ordinalOf(obj: Tree): Int = when (obj) {
-        Tree.A -> 0
-        Tree.K -> 1
-        Tree.T -> 2
-        Tree.L.S -> 3
-        Tree.B.C.D -> 4
-        Tree.B.C.E -> 5
-        Tree.B.C.J -> 6
-        Tree.L.M.N -> 7
-        Tree.L.M.O -> 8
-        Tree.L.P.Q -> 9
-        Tree.L.P.R -> 10
-        Tree.B.C.F.G -> 11
-        Tree.B.C.F.H -> 12
-        Tree.B.C.F.I -> 13
+        is Tree.A -> 0
+        is Tree.K -> 1
+        is Tree.T -> 2
+        is Tree.L.S -> 3
+        is Tree.B.C.D -> 4
+        is Tree.B.C.E -> 5
+        is Tree.B.C.J -> 6
+        is Tree.L.M.N -> 7
+        is Tree.L.M.O -> 8
+        is Tree.L.P.Q -> 9
+        is Tree.L.P.R -> 10
+        is Tree.B.C.F.G -> 11
+        is Tree.B.C.F.H -> 12
+        is Tree.B.C.F.I -> 13
     }
 
     public override fun nameOf(obj: Tree): String = when (obj) {
-        Tree.A -> "Tree_A"
-        Tree.K -> "Tree_K"
-        Tree.T -> "Tree_T"
-        Tree.L.S -> "Tree_L_S"
-        Tree.B.C.D -> "Tree_B_C_D"
-        Tree.B.C.E -> "Tree_B_C_E"
-        Tree.B.C.J -> "Tree_B_C_J"
-        Tree.L.M.N -> "Tree_L_M_N"
-        Tree.L.M.O -> "Tree_L_M_O"
-        Tree.L.P.Q -> "Tree_L_P_Q"
-        Tree.L.P.R -> "Tree_L_P_R"
-        Tree.B.C.F.G -> "Tree_B_C_F_G"
-        Tree.B.C.F.H -> "Tree_B_C_F_H"
-        Tree.B.C.F.I -> "Tree_B_C_F_I"
+        is Tree.A -> "Tree_A"
+        is Tree.K -> "Tree_K"
+        is Tree.T -> "Tree_T"
+        is Tree.L.S -> "Tree_L_S"
+        is Tree.B.C.D -> "Tree_B_C_D"
+        is Tree.B.C.E -> "Tree_B_C_E"
+        is Tree.B.C.J -> "Tree_B_C_J"
+        is Tree.L.M.N -> "Tree_L_M_N"
+        is Tree.L.M.O -> "Tree_L_M_O"
+        is Tree.L.P.Q -> "Tree_L_P_Q"
+        is Tree.L.P.R -> "Tree_L_P_R"
+        is Tree.B.C.F.G -> "Tree_B_C_F_G"
+        is Tree.B.C.F.H -> "Tree_B_C_F_H"
+        is Tree.B.C.F.I -> "Tree_B_C_F_I"
     }
 
     public override fun valueOf(name: String): Tree = when (name) {
@@ -185,20 +188,20 @@ public object TreeLevelOrderSealedEnum : SealedEnum<Tree>,
     }
 
     public override fun sealedObjectToEnum(obj: Tree): TreeLevelOrderEnum = when (obj) {
-        Tree.A -> TreeLevelOrderEnum.Tree_A
-        Tree.K -> TreeLevelOrderEnum.Tree_K
-        Tree.T -> TreeLevelOrderEnum.Tree_T
-        Tree.L.S -> TreeLevelOrderEnum.Tree_L_S
-        Tree.B.C.D -> TreeLevelOrderEnum.Tree_B_C_D
-        Tree.B.C.E -> TreeLevelOrderEnum.Tree_B_C_E
-        Tree.B.C.J -> TreeLevelOrderEnum.Tree_B_C_J
-        Tree.L.M.N -> TreeLevelOrderEnum.Tree_L_M_N
-        Tree.L.M.O -> TreeLevelOrderEnum.Tree_L_M_O
-        Tree.L.P.Q -> TreeLevelOrderEnum.Tree_L_P_Q
-        Tree.L.P.R -> TreeLevelOrderEnum.Tree_L_P_R
-        Tree.B.C.F.G -> TreeLevelOrderEnum.Tree_B_C_F_G
-        Tree.B.C.F.H -> TreeLevelOrderEnum.Tree_B_C_F_H
-        Tree.B.C.F.I -> TreeLevelOrderEnum.Tree_B_C_F_I
+        is Tree.A -> TreeLevelOrderEnum.Tree_A
+        is Tree.K -> TreeLevelOrderEnum.Tree_K
+        is Tree.T -> TreeLevelOrderEnum.Tree_T
+        is Tree.L.S -> TreeLevelOrderEnum.Tree_L_S
+        is Tree.B.C.D -> TreeLevelOrderEnum.Tree_B_C_D
+        is Tree.B.C.E -> TreeLevelOrderEnum.Tree_B_C_E
+        is Tree.B.C.J -> TreeLevelOrderEnum.Tree_B_C_J
+        is Tree.L.M.N -> TreeLevelOrderEnum.Tree_L_M_N
+        is Tree.L.M.O -> TreeLevelOrderEnum.Tree_L_M_O
+        is Tree.L.P.Q -> TreeLevelOrderEnum.Tree_L_P_Q
+        is Tree.L.P.R -> TreeLevelOrderEnum.Tree_L_P_R
+        is Tree.B.C.F.G -> TreeLevelOrderEnum.Tree_B_C_F_G
+        is Tree.B.C.F.H -> TreeLevelOrderEnum.Tree_B_C_F_H
+        is Tree.B.C.F.I -> TreeLevelOrderEnum.Tree_B_C_F_I
     }
 
     public override fun enumToSealedObject(`enum`: TreeLevelOrderEnum): Tree = when (enum) {
@@ -289,59 +292,61 @@ public val TreePostOrderEnum.sealedObject: Tree
 public object TreePostOrderSealedEnum : SealedEnum<Tree>,
         SealedEnumWithEnumProvider<Tree, TreePostOrderEnum>,
         EnumForSealedEnumProvider<Tree, TreePostOrderEnum> {
-    public override val values: List<Tree> = listOf(
-        Tree.B.C.F.G,
-        Tree.B.C.F.H,
-        Tree.B.C.F.I,
-        Tree.B.C.D,
-        Tree.B.C.E,
-        Tree.B.C.J,
-        Tree.L.M.N,
-        Tree.L.M.O,
-        Tree.L.P.Q,
-        Tree.L.P.R,
-        Tree.L.S,
-        Tree.A,
-        Tree.K,
-        Tree.T
-    )
+    public override val values: List<Tree> by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Tree.B.C.F.G,
+            Tree.B.C.F.H,
+            Tree.B.C.F.I,
+            Tree.B.C.D,
+            Tree.B.C.E,
+            Tree.B.C.J,
+            Tree.L.M.N,
+            Tree.L.M.O,
+            Tree.L.P.Q,
+            Tree.L.P.R,
+            Tree.L.S,
+            Tree.A,
+            Tree.K,
+            Tree.T
+        )
+    }
 
 
     public override val enumClass: KClass<TreePostOrderEnum>
         get() = TreePostOrderEnum::class
 
     public override fun ordinalOf(obj: Tree): Int = when (obj) {
-        Tree.B.C.F.G -> 0
-        Tree.B.C.F.H -> 1
-        Tree.B.C.F.I -> 2
-        Tree.B.C.D -> 3
-        Tree.B.C.E -> 4
-        Tree.B.C.J -> 5
-        Tree.L.M.N -> 6
-        Tree.L.M.O -> 7
-        Tree.L.P.Q -> 8
-        Tree.L.P.R -> 9
-        Tree.L.S -> 10
-        Tree.A -> 11
-        Tree.K -> 12
-        Tree.T -> 13
+        is Tree.B.C.F.G -> 0
+        is Tree.B.C.F.H -> 1
+        is Tree.B.C.F.I -> 2
+        is Tree.B.C.D -> 3
+        is Tree.B.C.E -> 4
+        is Tree.B.C.J -> 5
+        is Tree.L.M.N -> 6
+        is Tree.L.M.O -> 7
+        is Tree.L.P.Q -> 8
+        is Tree.L.P.R -> 9
+        is Tree.L.S -> 10
+        is Tree.A -> 11
+        is Tree.K -> 12
+        is Tree.T -> 13
     }
 
     public override fun nameOf(obj: Tree): String = when (obj) {
-        Tree.B.C.F.G -> "Tree_B_C_F_G"
-        Tree.B.C.F.H -> "Tree_B_C_F_H"
-        Tree.B.C.F.I -> "Tree_B_C_F_I"
-        Tree.B.C.D -> "Tree_B_C_D"
-        Tree.B.C.E -> "Tree_B_C_E"
-        Tree.B.C.J -> "Tree_B_C_J"
-        Tree.L.M.N -> "Tree_L_M_N"
-        Tree.L.M.O -> "Tree_L_M_O"
-        Tree.L.P.Q -> "Tree_L_P_Q"
-        Tree.L.P.R -> "Tree_L_P_R"
-        Tree.L.S -> "Tree_L_S"
-        Tree.A -> "Tree_A"
-        Tree.K -> "Tree_K"
-        Tree.T -> "Tree_T"
+        is Tree.B.C.F.G -> "Tree_B_C_F_G"
+        is Tree.B.C.F.H -> "Tree_B_C_F_H"
+        is Tree.B.C.F.I -> "Tree_B_C_F_I"
+        is Tree.B.C.D -> "Tree_B_C_D"
+        is Tree.B.C.E -> "Tree_B_C_E"
+        is Tree.B.C.J -> "Tree_B_C_J"
+        is Tree.L.M.N -> "Tree_L_M_N"
+        is Tree.L.M.O -> "Tree_L_M_O"
+        is Tree.L.P.Q -> "Tree_L_P_Q"
+        is Tree.L.P.R -> "Tree_L_P_R"
+        is Tree.L.S -> "Tree_L_S"
+        is Tree.A -> "Tree_A"
+        is Tree.K -> "Tree_K"
+        is Tree.T -> "Tree_T"
     }
 
     public override fun valueOf(name: String): Tree = when (name) {
@@ -363,20 +368,20 @@ public object TreePostOrderSealedEnum : SealedEnum<Tree>,
     }
 
     public override fun sealedObjectToEnum(obj: Tree): TreePostOrderEnum = when (obj) {
-        Tree.B.C.F.G -> TreePostOrderEnum.Tree_B_C_F_G
-        Tree.B.C.F.H -> TreePostOrderEnum.Tree_B_C_F_H
-        Tree.B.C.F.I -> TreePostOrderEnum.Tree_B_C_F_I
-        Tree.B.C.D -> TreePostOrderEnum.Tree_B_C_D
-        Tree.B.C.E -> TreePostOrderEnum.Tree_B_C_E
-        Tree.B.C.J -> TreePostOrderEnum.Tree_B_C_J
-        Tree.L.M.N -> TreePostOrderEnum.Tree_L_M_N
-        Tree.L.M.O -> TreePostOrderEnum.Tree_L_M_O
-        Tree.L.P.Q -> TreePostOrderEnum.Tree_L_P_Q
-        Tree.L.P.R -> TreePostOrderEnum.Tree_L_P_R
-        Tree.L.S -> TreePostOrderEnum.Tree_L_S
-        Tree.A -> TreePostOrderEnum.Tree_A
-        Tree.K -> TreePostOrderEnum.Tree_K
-        Tree.T -> TreePostOrderEnum.Tree_T
+        is Tree.B.C.F.G -> TreePostOrderEnum.Tree_B_C_F_G
+        is Tree.B.C.F.H -> TreePostOrderEnum.Tree_B_C_F_H
+        is Tree.B.C.F.I -> TreePostOrderEnum.Tree_B_C_F_I
+        is Tree.B.C.D -> TreePostOrderEnum.Tree_B_C_D
+        is Tree.B.C.E -> TreePostOrderEnum.Tree_B_C_E
+        is Tree.B.C.J -> TreePostOrderEnum.Tree_B_C_J
+        is Tree.L.M.N -> TreePostOrderEnum.Tree_L_M_N
+        is Tree.L.M.O -> TreePostOrderEnum.Tree_L_M_O
+        is Tree.L.P.Q -> TreePostOrderEnum.Tree_L_P_Q
+        is Tree.L.P.R -> TreePostOrderEnum.Tree_L_P_R
+        is Tree.L.S -> TreePostOrderEnum.Tree_L_S
+        is Tree.A -> TreePostOrderEnum.Tree_A
+        is Tree.K -> TreePostOrderEnum.Tree_K
+        is Tree.T -> TreePostOrderEnum.Tree_T
     }
 
     public override fun enumToSealedObject(`enum`: TreePostOrderEnum): Tree = when (enum) {
@@ -467,59 +472,61 @@ public val TreeInOrderEnum.sealedObject: Tree
 public object TreeInOrderSealedEnum : SealedEnum<Tree>,
         SealedEnumWithEnumProvider<Tree, TreeInOrderEnum>,
         EnumForSealedEnumProvider<Tree, TreeInOrderEnum> {
-    public override val values: List<Tree> = listOf(
-        Tree.A,
-        Tree.B.C.D,
-        Tree.B.C.E,
-        Tree.B.C.F.G,
-        Tree.B.C.F.H,
-        Tree.B.C.F.I,
-        Tree.B.C.J,
-        Tree.K,
-        Tree.L.M.N,
-        Tree.L.M.O,
-        Tree.L.P.Q,
-        Tree.L.P.R,
-        Tree.L.S,
-        Tree.T
-    )
+    public override val values: List<Tree> by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Tree.A,
+            Tree.B.C.D,
+            Tree.B.C.E,
+            Tree.B.C.F.G,
+            Tree.B.C.F.H,
+            Tree.B.C.F.I,
+            Tree.B.C.J,
+            Tree.K,
+            Tree.L.M.N,
+            Tree.L.M.O,
+            Tree.L.P.Q,
+            Tree.L.P.R,
+            Tree.L.S,
+            Tree.T
+        )
+    }
 
 
     public override val enumClass: KClass<TreeInOrderEnum>
         get() = TreeInOrderEnum::class
 
     public override fun ordinalOf(obj: Tree): Int = when (obj) {
-        Tree.A -> 0
-        Tree.B.C.D -> 1
-        Tree.B.C.E -> 2
-        Tree.B.C.F.G -> 3
-        Tree.B.C.F.H -> 4
-        Tree.B.C.F.I -> 5
-        Tree.B.C.J -> 6
-        Tree.K -> 7
-        Tree.L.M.N -> 8
-        Tree.L.M.O -> 9
-        Tree.L.P.Q -> 10
-        Tree.L.P.R -> 11
-        Tree.L.S -> 12
-        Tree.T -> 13
+        is Tree.A -> 0
+        is Tree.B.C.D -> 1
+        is Tree.B.C.E -> 2
+        is Tree.B.C.F.G -> 3
+        is Tree.B.C.F.H -> 4
+        is Tree.B.C.F.I -> 5
+        is Tree.B.C.J -> 6
+        is Tree.K -> 7
+        is Tree.L.M.N -> 8
+        is Tree.L.M.O -> 9
+        is Tree.L.P.Q -> 10
+        is Tree.L.P.R -> 11
+        is Tree.L.S -> 12
+        is Tree.T -> 13
     }
 
     public override fun nameOf(obj: Tree): String = when (obj) {
-        Tree.A -> "Tree_A"
-        Tree.B.C.D -> "Tree_B_C_D"
-        Tree.B.C.E -> "Tree_B_C_E"
-        Tree.B.C.F.G -> "Tree_B_C_F_G"
-        Tree.B.C.F.H -> "Tree_B_C_F_H"
-        Tree.B.C.F.I -> "Tree_B_C_F_I"
-        Tree.B.C.J -> "Tree_B_C_J"
-        Tree.K -> "Tree_K"
-        Tree.L.M.N -> "Tree_L_M_N"
-        Tree.L.M.O -> "Tree_L_M_O"
-        Tree.L.P.Q -> "Tree_L_P_Q"
-        Tree.L.P.R -> "Tree_L_P_R"
-        Tree.L.S -> "Tree_L_S"
-        Tree.T -> "Tree_T"
+        is Tree.A -> "Tree_A"
+        is Tree.B.C.D -> "Tree_B_C_D"
+        is Tree.B.C.E -> "Tree_B_C_E"
+        is Tree.B.C.F.G -> "Tree_B_C_F_G"
+        is Tree.B.C.F.H -> "Tree_B_C_F_H"
+        is Tree.B.C.F.I -> "Tree_B_C_F_I"
+        is Tree.B.C.J -> "Tree_B_C_J"
+        is Tree.K -> "Tree_K"
+        is Tree.L.M.N -> "Tree_L_M_N"
+        is Tree.L.M.O -> "Tree_L_M_O"
+        is Tree.L.P.Q -> "Tree_L_P_Q"
+        is Tree.L.P.R -> "Tree_L_P_R"
+        is Tree.L.S -> "Tree_L_S"
+        is Tree.T -> "Tree_T"
     }
 
     public override fun valueOf(name: String): Tree = when (name) {
@@ -541,20 +548,20 @@ public object TreeInOrderSealedEnum : SealedEnum<Tree>,
     }
 
     public override fun sealedObjectToEnum(obj: Tree): TreeInOrderEnum = when (obj) {
-        Tree.A -> TreeInOrderEnum.Tree_A
-        Tree.B.C.D -> TreeInOrderEnum.Tree_B_C_D
-        Tree.B.C.E -> TreeInOrderEnum.Tree_B_C_E
-        Tree.B.C.F.G -> TreeInOrderEnum.Tree_B_C_F_G
-        Tree.B.C.F.H -> TreeInOrderEnum.Tree_B_C_F_H
-        Tree.B.C.F.I -> TreeInOrderEnum.Tree_B_C_F_I
-        Tree.B.C.J -> TreeInOrderEnum.Tree_B_C_J
-        Tree.K -> TreeInOrderEnum.Tree_K
-        Tree.L.M.N -> TreeInOrderEnum.Tree_L_M_N
-        Tree.L.M.O -> TreeInOrderEnum.Tree_L_M_O
-        Tree.L.P.Q -> TreeInOrderEnum.Tree_L_P_Q
-        Tree.L.P.R -> TreeInOrderEnum.Tree_L_P_R
-        Tree.L.S -> TreeInOrderEnum.Tree_L_S
-        Tree.T -> TreeInOrderEnum.Tree_T
+        is Tree.A -> TreeInOrderEnum.Tree_A
+        is Tree.B.C.D -> TreeInOrderEnum.Tree_B_C_D
+        is Tree.B.C.E -> TreeInOrderEnum.Tree_B_C_E
+        is Tree.B.C.F.G -> TreeInOrderEnum.Tree_B_C_F_G
+        is Tree.B.C.F.H -> TreeInOrderEnum.Tree_B_C_F_H
+        is Tree.B.C.F.I -> TreeInOrderEnum.Tree_B_C_F_I
+        is Tree.B.C.J -> TreeInOrderEnum.Tree_B_C_J
+        is Tree.K -> TreeInOrderEnum.Tree_K
+        is Tree.L.M.N -> TreeInOrderEnum.Tree_L_M_N
+        is Tree.L.M.O -> TreeInOrderEnum.Tree_L_M_O
+        is Tree.L.P.Q -> TreeInOrderEnum.Tree_L_P_Q
+        is Tree.L.P.R -> TreeInOrderEnum.Tree_L_P_R
+        is Tree.L.S -> TreeInOrderEnum.Tree_L_S
+        is Tree.T -> TreeInOrderEnum.Tree_T
     }
 
     public override fun enumToSealedObject(`enum`: TreeInOrderEnum): Tree = when (enum) {
@@ -644,59 +651,61 @@ public val TreePreOrderEnum.sealedObject: Tree
 public object TreePreOrderSealedEnum : SealedEnum<Tree>,
         SealedEnumWithEnumProvider<Tree, TreePreOrderEnum>,
         EnumForSealedEnumProvider<Tree, TreePreOrderEnum> {
-    public override val values: List<Tree> = listOf(
-        Tree.A,
-        Tree.K,
-        Tree.T,
-        Tree.B.C.D,
-        Tree.B.C.E,
-        Tree.B.C.J,
-        Tree.B.C.F.G,
-        Tree.B.C.F.H,
-        Tree.B.C.F.I,
-        Tree.L.S,
-        Tree.L.M.N,
-        Tree.L.M.O,
-        Tree.L.P.Q,
-        Tree.L.P.R
-    )
+    public override val values: List<Tree> by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Tree.A,
+            Tree.K,
+            Tree.T,
+            Tree.B.C.D,
+            Tree.B.C.E,
+            Tree.B.C.J,
+            Tree.B.C.F.G,
+            Tree.B.C.F.H,
+            Tree.B.C.F.I,
+            Tree.L.S,
+            Tree.L.M.N,
+            Tree.L.M.O,
+            Tree.L.P.Q,
+            Tree.L.P.R
+        )
+    }
 
 
     public override val enumClass: KClass<TreePreOrderEnum>
         get() = TreePreOrderEnum::class
 
     public override fun ordinalOf(obj: Tree): Int = when (obj) {
-        Tree.A -> 0
-        Tree.K -> 1
-        Tree.T -> 2
-        Tree.B.C.D -> 3
-        Tree.B.C.E -> 4
-        Tree.B.C.J -> 5
-        Tree.B.C.F.G -> 6
-        Tree.B.C.F.H -> 7
-        Tree.B.C.F.I -> 8
-        Tree.L.S -> 9
-        Tree.L.M.N -> 10
-        Tree.L.M.O -> 11
-        Tree.L.P.Q -> 12
-        Tree.L.P.R -> 13
+        is Tree.A -> 0
+        is Tree.K -> 1
+        is Tree.T -> 2
+        is Tree.B.C.D -> 3
+        is Tree.B.C.E -> 4
+        is Tree.B.C.J -> 5
+        is Tree.B.C.F.G -> 6
+        is Tree.B.C.F.H -> 7
+        is Tree.B.C.F.I -> 8
+        is Tree.L.S -> 9
+        is Tree.L.M.N -> 10
+        is Tree.L.M.O -> 11
+        is Tree.L.P.Q -> 12
+        is Tree.L.P.R -> 13
     }
 
     public override fun nameOf(obj: Tree): String = when (obj) {
-        Tree.A -> "Tree_A"
-        Tree.K -> "Tree_K"
-        Tree.T -> "Tree_T"
-        Tree.B.C.D -> "Tree_B_C_D"
-        Tree.B.C.E -> "Tree_B_C_E"
-        Tree.B.C.J -> "Tree_B_C_J"
-        Tree.B.C.F.G -> "Tree_B_C_F_G"
-        Tree.B.C.F.H -> "Tree_B_C_F_H"
-        Tree.B.C.F.I -> "Tree_B_C_F_I"
-        Tree.L.S -> "Tree_L_S"
-        Tree.L.M.N -> "Tree_L_M_N"
-        Tree.L.M.O -> "Tree_L_M_O"
-        Tree.L.P.Q -> "Tree_L_P_Q"
-        Tree.L.P.R -> "Tree_L_P_R"
+        is Tree.A -> "Tree_A"
+        is Tree.K -> "Tree_K"
+        is Tree.T -> "Tree_T"
+        is Tree.B.C.D -> "Tree_B_C_D"
+        is Tree.B.C.E -> "Tree_B_C_E"
+        is Tree.B.C.J -> "Tree_B_C_J"
+        is Tree.B.C.F.G -> "Tree_B_C_F_G"
+        is Tree.B.C.F.H -> "Tree_B_C_F_H"
+        is Tree.B.C.F.I -> "Tree_B_C_F_I"
+        is Tree.L.S -> "Tree_L_S"
+        is Tree.L.M.N -> "Tree_L_M_N"
+        is Tree.L.M.O -> "Tree_L_M_O"
+        is Tree.L.P.Q -> "Tree_L_P_Q"
+        is Tree.L.P.R -> "Tree_L_P_R"
     }
 
     public override fun valueOf(name: String): Tree = when (name) {
@@ -718,20 +727,20 @@ public object TreePreOrderSealedEnum : SealedEnum<Tree>,
     }
 
     public override fun sealedObjectToEnum(obj: Tree): TreePreOrderEnum = when (obj) {
-        Tree.A -> TreePreOrderEnum.Tree_A
-        Tree.K -> TreePreOrderEnum.Tree_K
-        Tree.T -> TreePreOrderEnum.Tree_T
-        Tree.B.C.D -> TreePreOrderEnum.Tree_B_C_D
-        Tree.B.C.E -> TreePreOrderEnum.Tree_B_C_E
-        Tree.B.C.J -> TreePreOrderEnum.Tree_B_C_J
-        Tree.B.C.F.G -> TreePreOrderEnum.Tree_B_C_F_G
-        Tree.B.C.F.H -> TreePreOrderEnum.Tree_B_C_F_H
-        Tree.B.C.F.I -> TreePreOrderEnum.Tree_B_C_F_I
-        Tree.L.S -> TreePreOrderEnum.Tree_L_S
-        Tree.L.M.N -> TreePreOrderEnum.Tree_L_M_N
-        Tree.L.M.O -> TreePreOrderEnum.Tree_L_M_O
-        Tree.L.P.Q -> TreePreOrderEnum.Tree_L_P_Q
-        Tree.L.P.R -> TreePreOrderEnum.Tree_L_P_R
+        is Tree.A -> TreePreOrderEnum.Tree_A
+        is Tree.K -> TreePreOrderEnum.Tree_K
+        is Tree.T -> TreePreOrderEnum.Tree_T
+        is Tree.B.C.D -> TreePreOrderEnum.Tree_B_C_D
+        is Tree.B.C.E -> TreePreOrderEnum.Tree_B_C_E
+        is Tree.B.C.J -> TreePreOrderEnum.Tree_B_C_J
+        is Tree.B.C.F.G -> TreePreOrderEnum.Tree_B_C_F_G
+        is Tree.B.C.F.H -> TreePreOrderEnum.Tree_B_C_F_H
+        is Tree.B.C.F.I -> TreePreOrderEnum.Tree_B_C_F_I
+        is Tree.L.S -> TreePreOrderEnum.Tree_L_S
+        is Tree.L.M.N -> TreePreOrderEnum.Tree_L_M_N
+        is Tree.L.M.O -> TreePreOrderEnum.Tree_L_M_O
+        is Tree.L.P.Q -> TreePreOrderEnum.Tree_L_P_Q
+        is Tree.L.P.R -> TreePreOrderEnum.Tree_L_P_R
     }
 
     public override fun enumToSealedObject(`enum`: TreePreOrderEnum): Tree = when (enum) {

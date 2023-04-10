@@ -27,6 +27,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -56,20 +57,23 @@ public val FirstClassHierarchy_AEnum.sealedObject: FirstClassHierarchy.A
 public object FirstClassHierarchy_ASealedEnum : SealedEnum<FirstClassHierarchy.A>,
         SealedEnumWithEnumProvider<FirstClassHierarchy.A, FirstClassHierarchy_AEnum>,
         EnumForSealedEnumProvider<FirstClassHierarchy.A, FirstClassHierarchy_AEnum> {
-    public override val values: List<FirstClassHierarchy.A> = listOf(
-        FirstClassHierarchy.A.B.C
-    )
+    public override val values: List<FirstClassHierarchy.A> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            FirstClassHierarchy.A.B.C
+        )
+    }
 
 
     public override val enumClass: KClass<FirstClassHierarchy_AEnum>
         get() = FirstClassHierarchy_AEnum::class
 
     public override fun ordinalOf(obj: FirstClassHierarchy.A): Int = when (obj) {
-        FirstClassHierarchy.A.B.C -> 0
+        is FirstClassHierarchy.A.B.C -> 0
     }
 
     public override fun nameOf(obj: FirstClassHierarchy.A): String = when (obj) {
-        FirstClassHierarchy.A.B.C -> "FirstClassHierarchy_A_B_C"
+        is FirstClassHierarchy.A.B.C -> "FirstClassHierarchy_A_B_C"
     }
 
     public override fun valueOf(name: String): FirstClassHierarchy.A = when (name) {
@@ -79,7 +83,7 @@ public object FirstClassHierarchy_ASealedEnum : SealedEnum<FirstClassHierarchy.A
 
     public override fun sealedObjectToEnum(obj: FirstClassHierarchy.A): FirstClassHierarchy_AEnum =
             when (obj) {
-        FirstClassHierarchy.A.B.C -> FirstClassHierarchy_AEnum.FirstClassHierarchy_A_B_C
+        is FirstClassHierarchy.A.B.C -> FirstClassHierarchy_AEnum.FirstClassHierarchy_A_B_C
     }
 
     public override fun enumToSealedObject(`enum`: FirstClassHierarchy_AEnum): FirstClassHierarchy.A
@@ -131,6 +135,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -160,20 +165,23 @@ public val FirstClassHierarchy_A_BEnum.sealedObject: FirstClassHierarchy.A.B
 public object FirstClassHierarchy_A_BSealedEnum : SealedEnum<FirstClassHierarchy.A.B>,
         SealedEnumWithEnumProvider<FirstClassHierarchy.A.B, FirstClassHierarchy_A_BEnum>,
         EnumForSealedEnumProvider<FirstClassHierarchy.A.B, FirstClassHierarchy_A_BEnum> {
-    public override val values: List<FirstClassHierarchy.A.B> = listOf(
-        FirstClassHierarchy.A.B.C
-    )
+    public override val values: List<FirstClassHierarchy.A.B> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            FirstClassHierarchy.A.B.C
+        )
+    }
 
 
     public override val enumClass: KClass<FirstClassHierarchy_A_BEnum>
         get() = FirstClassHierarchy_A_BEnum::class
 
     public override fun ordinalOf(obj: FirstClassHierarchy.A.B): Int = when (obj) {
-        FirstClassHierarchy.A.B.C -> 0
+        is FirstClassHierarchy.A.B.C -> 0
     }
 
     public override fun nameOf(obj: FirstClassHierarchy.A.B): String = when (obj) {
-        FirstClassHierarchy.A.B.C -> "FirstClassHierarchy_A_B_C"
+        is FirstClassHierarchy.A.B.C -> "FirstClassHierarchy_A_B_C"
     }
 
     public override fun valueOf(name: String): FirstClassHierarchy.A.B = when (name) {
@@ -183,7 +191,7 @@ public object FirstClassHierarchy_A_BSealedEnum : SealedEnum<FirstClassHierarchy
 
     public override fun sealedObjectToEnum(obj: FirstClassHierarchy.A.B):
             FirstClassHierarchy_A_BEnum = when (obj) {
-        FirstClassHierarchy.A.B.C -> FirstClassHierarchy_A_BEnum.FirstClassHierarchy_A_B_C
+        is FirstClassHierarchy.A.B.C -> FirstClassHierarchy_A_BEnum.FirstClassHierarchy_A_B_C
     }
 
     public override fun enumToSealedObject(`enum`: FirstClassHierarchy_A_BEnum):
@@ -278,6 +286,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -285,35 +294,38 @@ import kotlin.collections.List
  * An implementation of [SealedEnum] for the sealed class [SecondClassHierarchy.Z]
  */
 public object SecondClassHierarchy_ZSealedEnum : SealedEnum<SecondClassHierarchy.Z> {
-    public override val values: List<SecondClassHierarchy.Z> = listOf(
-        SecondClassHierarchy.Z.Y,
-        SecondClassHierarchy.Z.X.W,
-        SecondClassHierarchy.Z.X.V,
-        SecondClassHierarchy.Z.X.U.T,
-        SecondClassHierarchy.Z.X.S.R,
-        SecondClassHierarchy.Z.Q.P,
-        SecondClassHierarchy.Z.O
-    )
+    public override val values: List<SecondClassHierarchy.Z> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondClassHierarchy.Z.Y,
+            SecondClassHierarchy.Z.X.W,
+            SecondClassHierarchy.Z.X.V,
+            SecondClassHierarchy.Z.X.U.T,
+            SecondClassHierarchy.Z.X.S.R,
+            SecondClassHierarchy.Z.Q.P,
+            SecondClassHierarchy.Z.O
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondClassHierarchy.Z): Int = when (obj) {
-        SecondClassHierarchy.Z.Y -> 0
-        SecondClassHierarchy.Z.X.W -> 1
-        SecondClassHierarchy.Z.X.V -> 2
-        SecondClassHierarchy.Z.X.U.T -> 3
-        SecondClassHierarchy.Z.X.S.R -> 4
-        SecondClassHierarchy.Z.Q.P -> 5
-        SecondClassHierarchy.Z.O -> 6
+        is SecondClassHierarchy.Z.Y -> 0
+        is SecondClassHierarchy.Z.X.W -> 1
+        is SecondClassHierarchy.Z.X.V -> 2
+        is SecondClassHierarchy.Z.X.U.T -> 3
+        is SecondClassHierarchy.Z.X.S.R -> 4
+        is SecondClassHierarchy.Z.Q.P -> 5
+        is SecondClassHierarchy.Z.O -> 6
     }
 
     public override fun nameOf(obj: SecondClassHierarchy.Z): String = when (obj) {
-        SecondClassHierarchy.Z.Y -> "SecondClassHierarchy_Z_Y"
-        SecondClassHierarchy.Z.X.W -> "SecondClassHierarchy_Z_X_W"
-        SecondClassHierarchy.Z.X.V -> "SecondClassHierarchy_Z_X_V"
-        SecondClassHierarchy.Z.X.U.T -> "SecondClassHierarchy_Z_X_U_T"
-        SecondClassHierarchy.Z.X.S.R -> "SecondClassHierarchy_Z_X_S_R"
-        SecondClassHierarchy.Z.Q.P -> "SecondClassHierarchy_Z_Q_P"
-        SecondClassHierarchy.Z.O -> "SecondClassHierarchy_Z_O"
+        is SecondClassHierarchy.Z.Y -> "SecondClassHierarchy_Z_Y"
+        is SecondClassHierarchy.Z.X.W -> "SecondClassHierarchy_Z_X_W"
+        is SecondClassHierarchy.Z.X.V -> "SecondClassHierarchy_Z_X_V"
+        is SecondClassHierarchy.Z.X.U.T -> "SecondClassHierarchy_Z_X_U_T"
+        is SecondClassHierarchy.Z.X.S.R -> "SecondClassHierarchy_Z_X_S_R"
+        is SecondClassHierarchy.Z.Q.P -> "SecondClassHierarchy_Z_Q_P"
+        is SecondClassHierarchy.Z.O -> "SecondClassHierarchy_Z_O"
     }
 
     public override fun valueOf(name: String): SecondClassHierarchy.Z = when (name) {
@@ -369,6 +381,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -376,26 +389,29 @@ import kotlin.collections.List
  * An implementation of [SealedEnum] for the sealed class [SecondClassHierarchy.Z.X]
  */
 public object SecondClassHierarchy_Z_XSealedEnum : SealedEnum<SecondClassHierarchy.Z.X> {
-    public override val values: List<SecondClassHierarchy.Z.X> = listOf(
-        SecondClassHierarchy.Z.X.W,
-        SecondClassHierarchy.Z.X.V,
-        SecondClassHierarchy.Z.X.U.T,
-        SecondClassHierarchy.Z.X.S.R
-    )
+    public override val values: List<SecondClassHierarchy.Z.X> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondClassHierarchy.Z.X.W,
+            SecondClassHierarchy.Z.X.V,
+            SecondClassHierarchy.Z.X.U.T,
+            SecondClassHierarchy.Z.X.S.R
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondClassHierarchy.Z.X): Int = when (obj) {
-        SecondClassHierarchy.Z.X.W -> 0
-        SecondClassHierarchy.Z.X.V -> 1
-        SecondClassHierarchy.Z.X.U.T -> 2
-        SecondClassHierarchy.Z.X.S.R -> 3
+        is SecondClassHierarchy.Z.X.W -> 0
+        is SecondClassHierarchy.Z.X.V -> 1
+        is SecondClassHierarchy.Z.X.U.T -> 2
+        is SecondClassHierarchy.Z.X.S.R -> 3
     }
 
     public override fun nameOf(obj: SecondClassHierarchy.Z.X): String = when (obj) {
-        SecondClassHierarchy.Z.X.W -> "SecondClassHierarchy_Z_X_W"
-        SecondClassHierarchy.Z.X.V -> "SecondClassHierarchy_Z_X_V"
-        SecondClassHierarchy.Z.X.U.T -> "SecondClassHierarchy_Z_X_U_T"
-        SecondClassHierarchy.Z.X.S.R -> "SecondClassHierarchy_Z_X_S_R"
+        is SecondClassHierarchy.Z.X.W -> "SecondClassHierarchy_Z_X_W"
+        is SecondClassHierarchy.Z.X.V -> "SecondClassHierarchy_Z_X_V"
+        is SecondClassHierarchy.Z.X.U.T -> "SecondClassHierarchy_Z_X_U_T"
+        is SecondClassHierarchy.Z.X.S.R -> "SecondClassHierarchy_Z_X_S_R"
     }
 
     public override fun valueOf(name: String): SecondClassHierarchy.Z.X = when (name) {
@@ -448,6 +464,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -455,17 +472,20 @@ import kotlin.collections.List
  * An implementation of [SealedEnum] for the sealed class [SecondClassHierarchy.Z.X.U]
  */
 public object SecondClassHierarchy_Z_X_USealedEnum : SealedEnum<SecondClassHierarchy.Z.X.U> {
-    public override val values: List<SecondClassHierarchy.Z.X.U> = listOf(
-        SecondClassHierarchy.Z.X.U.T
-    )
+    public override val values: List<SecondClassHierarchy.Z.X.U> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondClassHierarchy.Z.X.U.T
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondClassHierarchy.Z.X.U): Int = when (obj) {
-        SecondClassHierarchy.Z.X.U.T -> 0
+        is SecondClassHierarchy.Z.X.U.T -> 0
     }
 
     public override fun nameOf(obj: SecondClassHierarchy.Z.X.U): String = when (obj) {
-        SecondClassHierarchy.Z.X.U.T -> "SecondClassHierarchy_Z_X_U_T"
+        is SecondClassHierarchy.Z.X.U.T -> "SecondClassHierarchy_Z_X_U_T"
     }
 
     public override fun valueOf(name: String): SecondClassHierarchy.Z.X.U = when (name) {
@@ -515,6 +535,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -522,17 +543,20 @@ import kotlin.collections.List
  * An implementation of [SealedEnum] for the sealed class [SecondClassHierarchy.Z.X.S]
  */
 public object SecondClassHierarchy_Z_X_SSealedEnum : SealedEnum<SecondClassHierarchy.Z.X.S> {
-    public override val values: List<SecondClassHierarchy.Z.X.S> = listOf(
-        SecondClassHierarchy.Z.X.S.R
-    )
+    public override val values: List<SecondClassHierarchy.Z.X.S> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondClassHierarchy.Z.X.S.R
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondClassHierarchy.Z.X.S): Int = when (obj) {
-        SecondClassHierarchy.Z.X.S.R -> 0
+        is SecondClassHierarchy.Z.X.S.R -> 0
     }
 
     public override fun nameOf(obj: SecondClassHierarchy.Z.X.S): String = when (obj) {
-        SecondClassHierarchy.Z.X.S.R -> "SecondClassHierarchy_Z_X_S_R"
+        is SecondClassHierarchy.Z.X.S.R -> "SecondClassHierarchy_Z_X_S_R"
     }
 
     public override fun valueOf(name: String): SecondClassHierarchy.Z.X.S = when (name) {
@@ -582,6 +606,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -589,17 +614,20 @@ import kotlin.collections.List
  * An implementation of [SealedEnum] for the sealed class [SecondClassHierarchy.Z.Q]
  */
 public object SecondClassHierarchy_Z_QSealedEnum : SealedEnum<SecondClassHierarchy.Z.Q> {
-    public override val values: List<SecondClassHierarchy.Z.Q> = listOf(
-        SecondClassHierarchy.Z.Q.P
-    )
+    public override val values: List<SecondClassHierarchy.Z.Q> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondClassHierarchy.Z.Q.P
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondClassHierarchy.Z.Q): Int = when (obj) {
-        SecondClassHierarchy.Z.Q.P -> 0
+        is SecondClassHierarchy.Z.Q.P -> 0
     }
 
     public override fun nameOf(obj: SecondClassHierarchy.Z.Q): String = when (obj) {
-        SecondClassHierarchy.Z.Q.P -> "SecondClassHierarchy_Z_Q_P"
+        is SecondClassHierarchy.Z.Q.P -> "SecondClassHierarchy_Z_Q_P"
     }
 
     public override fun valueOf(name: String): SecondClassHierarchy.Z.Q = when (name) {

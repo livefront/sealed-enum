@@ -24,6 +24,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -54,7 +55,10 @@ public object EmptySealedClassWithInterfaceSealedEnum : SealedEnum<EmptySealedCl
         SealedEnumWithEnumProvider<EmptySealedClassWithInterface, EmptySealedClassWithInterfaceEnum>,
         EnumForSealedEnumProvider<EmptySealedClassWithInterface, EmptySealedClassWithInterfaceEnum>
         {
-    public override val values: List<EmptySealedClassWithInterface> = emptyList()
+    public override val values: List<EmptySealedClassWithInterface> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        emptyList()
+    }
 
 
     public override val enumClass: KClass<EmptySealedClassWithInterfaceEnum>
@@ -129,6 +133,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -162,20 +167,23 @@ public object OneObjectSealedClassWithInterfaceSealedEnum :
         SealedEnumWithEnumProvider<OneObjectSealedClassWithInterface, OneObjectSealedClassWithInterfaceEnum>,
         EnumForSealedEnumProvider<OneObjectSealedClassWithInterface, OneObjectSealedClassWithInterfaceEnum>
         {
-    public override val values: List<OneObjectSealedClassWithInterface> = listOf(
-        OneObjectSealedClassWithInterface.FirstObject
-    )
+    public override val values: List<OneObjectSealedClassWithInterface> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            OneObjectSealedClassWithInterface.FirstObject
+        )
+    }
 
 
     public override val enumClass: KClass<OneObjectSealedClassWithInterfaceEnum>
         get() = OneObjectSealedClassWithInterfaceEnum::class
 
     public override fun ordinalOf(obj: OneObjectSealedClassWithInterface): Int = when (obj) {
-        OneObjectSealedClassWithInterface.FirstObject -> 0
+        is OneObjectSealedClassWithInterface.FirstObject -> 0
     }
 
     public override fun nameOf(obj: OneObjectSealedClassWithInterface): String = when (obj) {
-        OneObjectSealedClassWithInterface.FirstObject ->
+        is OneObjectSealedClassWithInterface.FirstObject ->
                 "OneObjectSealedClassWithInterface_FirstObject"
     }
 
@@ -187,7 +195,7 @@ public object OneObjectSealedClassWithInterfaceSealedEnum :
 
     public override fun sealedObjectToEnum(obj: OneObjectSealedClassWithInterface):
             OneObjectSealedClassWithInterfaceEnum = when (obj) {
-        OneObjectSealedClassWithInterface.FirstObject ->
+        is OneObjectSealedClassWithInterface.FirstObject ->
                 OneObjectSealedClassWithInterfaceEnum.OneObjectSealedClassWithInterface_FirstObject
     }
 
@@ -253,6 +261,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -289,11 +298,13 @@ public object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
         SealedEnumWithEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>, TwoObjectSealedClassWithGenericInterfaceEnum>,
         EnumForSealedEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>, TwoObjectSealedClassWithGenericInterfaceEnum>
         {
-    public override val values: List<TwoObjectSealedClassWithGenericInterface<TestInterface>> =
-            listOf(
-        TwoObjectSealedClassWithGenericInterface.FirstObject,
-        TwoObjectSealedClassWithGenericInterface.SecondObject
-    )
+    public override val values: List<TwoObjectSealedClassWithGenericInterface<TestInterface>> by
+            lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            TwoObjectSealedClassWithGenericInterface.FirstObject,
+            TwoObjectSealedClassWithGenericInterface.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<TwoObjectSealedClassWithGenericInterfaceEnum>
@@ -301,15 +312,15 @@ public object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
 
     public override fun ordinalOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): Int
             = when (obj) {
-        TwoObjectSealedClassWithGenericInterface.FirstObject -> 0
-        TwoObjectSealedClassWithGenericInterface.SecondObject -> 1
+        is TwoObjectSealedClassWithGenericInterface.FirstObject -> 0
+        is TwoObjectSealedClassWithGenericInterface.SecondObject -> 1
     }
 
     public override fun nameOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): String
             = when (obj) {
-        TwoObjectSealedClassWithGenericInterface.FirstObject ->
+        is TwoObjectSealedClassWithGenericInterface.FirstObject ->
                 "TwoObjectSealedClassWithGenericInterface_FirstObject"
-        TwoObjectSealedClassWithGenericInterface.SecondObject ->
+        is TwoObjectSealedClassWithGenericInterface.SecondObject ->
                 "TwoObjectSealedClassWithGenericInterface_SecondObject"
     }
 
@@ -325,9 +336,9 @@ public object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
     public override
             fun sealedObjectToEnum(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>):
             TwoObjectSealedClassWithGenericInterfaceEnum = when (obj) {
-        TwoObjectSealedClassWithGenericInterface.FirstObject ->
+        is TwoObjectSealedClassWithGenericInterface.FirstObject ->
                 TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_FirstObject
-        TwoObjectSealedClassWithGenericInterface.SecondObject ->
+        is TwoObjectSealedClassWithGenericInterface.SecondObject ->
                 TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_SecondObject
     }
 
@@ -401,6 +412,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -433,20 +445,24 @@ public object SealedClassWithGetterInterfaceSealedEnum : SealedEnum<SealedClassW
         SealedEnumWithEnumProvider<SealedClassWithGetterInterface, SealedClassWithGetterInterfaceEnum>,
         EnumForSealedEnumProvider<SealedClassWithGetterInterface, SealedClassWithGetterInterfaceEnum>
         {
-    public override val values: List<SealedClassWithGetterInterface> = listOf(
-        SealedClassWithGetterInterface.FirstObject
-    )
+    public override val values: List<SealedClassWithGetterInterface> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SealedClassWithGetterInterface.FirstObject
+        )
+    }
 
 
     public override val enumClass: KClass<SealedClassWithGetterInterfaceEnum>
         get() = SealedClassWithGetterInterfaceEnum::class
 
     public override fun ordinalOf(obj: SealedClassWithGetterInterface): Int = when (obj) {
-        SealedClassWithGetterInterface.FirstObject -> 0
+        is SealedClassWithGetterInterface.FirstObject -> 0
     }
 
     public override fun nameOf(obj: SealedClassWithGetterInterface): String = when (obj) {
-        SealedClassWithGetterInterface.FirstObject -> "SealedClassWithGetterInterface_FirstObject"
+        is SealedClassWithGetterInterface.FirstObject ->
+                "SealedClassWithGetterInterface_FirstObject"
     }
 
     public override fun valueOf(name: String): SealedClassWithGetterInterface = when (name) {
@@ -456,7 +472,7 @@ public object SealedClassWithGetterInterfaceSealedEnum : SealedEnum<SealedClassW
 
     public override fun sealedObjectToEnum(obj: SealedClassWithGetterInterface):
             SealedClassWithGetterInterfaceEnum = when (obj) {
-        SealedClassWithGetterInterface.FirstObject ->
+        is SealedClassWithGetterInterface.FirstObject ->
                 SealedClassWithGetterInterfaceEnum.SealedClassWithGetterInterface_FirstObject
     }
 

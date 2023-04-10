@@ -27,6 +27,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -56,20 +57,23 @@ public val FirstInterfaceHierarchy_AEnum.sealedObject: FirstInterfaceHierarchy.A
 public object FirstInterfaceHierarchy_ASealedEnum : SealedEnum<FirstInterfaceHierarchy.A>,
         SealedEnumWithEnumProvider<FirstInterfaceHierarchy.A, FirstInterfaceHierarchy_AEnum>,
         EnumForSealedEnumProvider<FirstInterfaceHierarchy.A, FirstInterfaceHierarchy_AEnum> {
-    public override val values: List<FirstInterfaceHierarchy.A> = listOf(
-        FirstInterfaceHierarchy.A.B.C
-    )
+    public override val values: List<FirstInterfaceHierarchy.A> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            FirstInterfaceHierarchy.A.B.C
+        )
+    }
 
 
     public override val enumClass: KClass<FirstInterfaceHierarchy_AEnum>
         get() = FirstInterfaceHierarchy_AEnum::class
 
     public override fun ordinalOf(obj: FirstInterfaceHierarchy.A): Int = when (obj) {
-        FirstInterfaceHierarchy.A.B.C -> 0
+        is FirstInterfaceHierarchy.A.B.C -> 0
     }
 
     public override fun nameOf(obj: FirstInterfaceHierarchy.A): String = when (obj) {
-        FirstInterfaceHierarchy.A.B.C -> "FirstInterfaceHierarchy_A_B_C"
+        is FirstInterfaceHierarchy.A.B.C -> "FirstInterfaceHierarchy_A_B_C"
     }
 
     public override fun valueOf(name: String): FirstInterfaceHierarchy.A = when (name) {
@@ -79,7 +83,8 @@ public object FirstInterfaceHierarchy_ASealedEnum : SealedEnum<FirstInterfaceHie
 
     public override fun sealedObjectToEnum(obj: FirstInterfaceHierarchy.A):
             FirstInterfaceHierarchy_AEnum = when (obj) {
-        FirstInterfaceHierarchy.A.B.C -> FirstInterfaceHierarchy_AEnum.FirstInterfaceHierarchy_A_B_C
+        is FirstInterfaceHierarchy.A.B.C ->
+                FirstInterfaceHierarchy_AEnum.FirstInterfaceHierarchy_A_B_C
     }
 
     public override fun enumToSealedObject(`enum`: FirstInterfaceHierarchy_AEnum):
@@ -131,6 +136,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -160,20 +166,23 @@ public val FirstInterfaceHierarchy_A_BEnum.sealedObject: FirstInterfaceHierarchy
 public object FirstInterfaceHierarchy_A_BSealedEnum : SealedEnum<FirstInterfaceHierarchy.A.B>,
         SealedEnumWithEnumProvider<FirstInterfaceHierarchy.A.B, FirstInterfaceHierarchy_A_BEnum>,
         EnumForSealedEnumProvider<FirstInterfaceHierarchy.A.B, FirstInterfaceHierarchy_A_BEnum> {
-    public override val values: List<FirstInterfaceHierarchy.A.B> = listOf(
-        FirstInterfaceHierarchy.A.B.C
-    )
+    public override val values: List<FirstInterfaceHierarchy.A.B> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            FirstInterfaceHierarchy.A.B.C
+        )
+    }
 
 
     public override val enumClass: KClass<FirstInterfaceHierarchy_A_BEnum>
         get() = FirstInterfaceHierarchy_A_BEnum::class
 
     public override fun ordinalOf(obj: FirstInterfaceHierarchy.A.B): Int = when (obj) {
-        FirstInterfaceHierarchy.A.B.C -> 0
+        is FirstInterfaceHierarchy.A.B.C -> 0
     }
 
     public override fun nameOf(obj: FirstInterfaceHierarchy.A.B): String = when (obj) {
-        FirstInterfaceHierarchy.A.B.C -> "FirstInterfaceHierarchy_A_B_C"
+        is FirstInterfaceHierarchy.A.B.C -> "FirstInterfaceHierarchy_A_B_C"
     }
 
     public override fun valueOf(name: String): FirstInterfaceHierarchy.A.B = when (name) {
@@ -183,7 +192,7 @@ public object FirstInterfaceHierarchy_A_BSealedEnum : SealedEnum<FirstInterfaceH
 
     public override fun sealedObjectToEnum(obj: FirstInterfaceHierarchy.A.B):
             FirstInterfaceHierarchy_A_BEnum = when (obj) {
-        FirstInterfaceHierarchy.A.B.C ->
+        is FirstInterfaceHierarchy.A.B.C ->
                 FirstInterfaceHierarchy_A_BEnum.FirstInterfaceHierarchy_A_B_C
     }
 
@@ -280,6 +289,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -287,35 +297,38 @@ import kotlin.collections.List
  * An implementation of [SealedEnum] for the sealed class [SecondInterfaceHierarchy.A]
  */
 public object SecondInterfaceHierarchy_ASealedEnum : SealedEnum<SecondInterfaceHierarchy.A> {
-    public override val values: List<SecondInterfaceHierarchy.A> = listOf(
-        SecondInterfaceHierarchy.A.B,
-        SecondInterfaceHierarchy.A.C.D,
-        SecondInterfaceHierarchy.A.C.E,
-        SecondInterfaceHierarchy.A.C.F.G,
-        SecondInterfaceHierarchy.A.C.H.I,
-        SecondInterfaceHierarchy.A.J.K,
-        SecondInterfaceHierarchy.A.L
-    )
+    public override val values: List<SecondInterfaceHierarchy.A> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondInterfaceHierarchy.A.B,
+            SecondInterfaceHierarchy.A.C.D,
+            SecondInterfaceHierarchy.A.C.E,
+            SecondInterfaceHierarchy.A.C.F.G,
+            SecondInterfaceHierarchy.A.C.H.I,
+            SecondInterfaceHierarchy.A.J.K,
+            SecondInterfaceHierarchy.A.L
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondInterfaceHierarchy.A): Int = when (obj) {
-        SecondInterfaceHierarchy.A.B -> 0
-        SecondInterfaceHierarchy.A.C.D -> 1
-        SecondInterfaceHierarchy.A.C.E -> 2
-        SecondInterfaceHierarchy.A.C.F.G -> 3
-        SecondInterfaceHierarchy.A.C.H.I -> 4
-        SecondInterfaceHierarchy.A.J.K -> 5
-        SecondInterfaceHierarchy.A.L -> 6
+        is SecondInterfaceHierarchy.A.B -> 0
+        is SecondInterfaceHierarchy.A.C.D -> 1
+        is SecondInterfaceHierarchy.A.C.E -> 2
+        is SecondInterfaceHierarchy.A.C.F.G -> 3
+        is SecondInterfaceHierarchy.A.C.H.I -> 4
+        is SecondInterfaceHierarchy.A.J.K -> 5
+        is SecondInterfaceHierarchy.A.L -> 6
     }
 
     public override fun nameOf(obj: SecondInterfaceHierarchy.A): String = when (obj) {
-        SecondInterfaceHierarchy.A.B -> "SecondInterfaceHierarchy_A_B"
-        SecondInterfaceHierarchy.A.C.D -> "SecondInterfaceHierarchy_A_C_D"
-        SecondInterfaceHierarchy.A.C.E -> "SecondInterfaceHierarchy_A_C_E"
-        SecondInterfaceHierarchy.A.C.F.G -> "SecondInterfaceHierarchy_A_C_F_G"
-        SecondInterfaceHierarchy.A.C.H.I -> "SecondInterfaceHierarchy_A_C_H_I"
-        SecondInterfaceHierarchy.A.J.K -> "SecondInterfaceHierarchy_A_J_K"
-        SecondInterfaceHierarchy.A.L -> "SecondInterfaceHierarchy_A_L"
+        is SecondInterfaceHierarchy.A.B -> "SecondInterfaceHierarchy_A_B"
+        is SecondInterfaceHierarchy.A.C.D -> "SecondInterfaceHierarchy_A_C_D"
+        is SecondInterfaceHierarchy.A.C.E -> "SecondInterfaceHierarchy_A_C_E"
+        is SecondInterfaceHierarchy.A.C.F.G -> "SecondInterfaceHierarchy_A_C_F_G"
+        is SecondInterfaceHierarchy.A.C.H.I -> "SecondInterfaceHierarchy_A_C_H_I"
+        is SecondInterfaceHierarchy.A.J.K -> "SecondInterfaceHierarchy_A_J_K"
+        is SecondInterfaceHierarchy.A.L -> "SecondInterfaceHierarchy_A_L"
     }
 
     public override fun valueOf(name: String): SecondInterfaceHierarchy.A = when (name) {
@@ -371,6 +384,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -378,26 +392,29 @@ import kotlin.collections.List
  * An implementation of [SealedEnum] for the sealed class [SecondInterfaceHierarchy.A.C]
  */
 public object SecondInterfaceHierarchy_A_CSealedEnum : SealedEnum<SecondInterfaceHierarchy.A.C> {
-    public override val values: List<SecondInterfaceHierarchy.A.C> = listOf(
-        SecondInterfaceHierarchy.A.C.D,
-        SecondInterfaceHierarchy.A.C.E,
-        SecondInterfaceHierarchy.A.C.F.G,
-        SecondInterfaceHierarchy.A.C.H.I
-    )
+    public override val values: List<SecondInterfaceHierarchy.A.C> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondInterfaceHierarchy.A.C.D,
+            SecondInterfaceHierarchy.A.C.E,
+            SecondInterfaceHierarchy.A.C.F.G,
+            SecondInterfaceHierarchy.A.C.H.I
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondInterfaceHierarchy.A.C): Int = when (obj) {
-        SecondInterfaceHierarchy.A.C.D -> 0
-        SecondInterfaceHierarchy.A.C.E -> 1
-        SecondInterfaceHierarchy.A.C.F.G -> 2
-        SecondInterfaceHierarchy.A.C.H.I -> 3
+        is SecondInterfaceHierarchy.A.C.D -> 0
+        is SecondInterfaceHierarchy.A.C.E -> 1
+        is SecondInterfaceHierarchy.A.C.F.G -> 2
+        is SecondInterfaceHierarchy.A.C.H.I -> 3
     }
 
     public override fun nameOf(obj: SecondInterfaceHierarchy.A.C): String = when (obj) {
-        SecondInterfaceHierarchy.A.C.D -> "SecondInterfaceHierarchy_A_C_D"
-        SecondInterfaceHierarchy.A.C.E -> "SecondInterfaceHierarchy_A_C_E"
-        SecondInterfaceHierarchy.A.C.F.G -> "SecondInterfaceHierarchy_A_C_F_G"
-        SecondInterfaceHierarchy.A.C.H.I -> "SecondInterfaceHierarchy_A_C_H_I"
+        is SecondInterfaceHierarchy.A.C.D -> "SecondInterfaceHierarchy_A_C_D"
+        is SecondInterfaceHierarchy.A.C.E -> "SecondInterfaceHierarchy_A_C_E"
+        is SecondInterfaceHierarchy.A.C.F.G -> "SecondInterfaceHierarchy_A_C_F_G"
+        is SecondInterfaceHierarchy.A.C.H.I -> "SecondInterfaceHierarchy_A_C_H_I"
     }
 
     public override fun valueOf(name: String): SecondInterfaceHierarchy.A.C = when (name) {
@@ -450,6 +467,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -458,17 +476,20 @@ import kotlin.collections.List
  */
 public object SecondInterfaceHierarchy_A_C_FSealedEnum : SealedEnum<SecondInterfaceHierarchy.A.C.F>
         {
-    public override val values: List<SecondInterfaceHierarchy.A.C.F> = listOf(
-        SecondInterfaceHierarchy.A.C.F.G
-    )
+    public override val values: List<SecondInterfaceHierarchy.A.C.F> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondInterfaceHierarchy.A.C.F.G
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondInterfaceHierarchy.A.C.F): Int = when (obj) {
-        SecondInterfaceHierarchy.A.C.F.G -> 0
+        is SecondInterfaceHierarchy.A.C.F.G -> 0
     }
 
     public override fun nameOf(obj: SecondInterfaceHierarchy.A.C.F): String = when (obj) {
-        SecondInterfaceHierarchy.A.C.F.G -> "SecondInterfaceHierarchy_A_C_F_G"
+        is SecondInterfaceHierarchy.A.C.F.G -> "SecondInterfaceHierarchy_A_C_F_G"
     }
 
     public override fun valueOf(name: String): SecondInterfaceHierarchy.A.C.F = when (name) {
@@ -519,6 +540,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -527,17 +549,20 @@ import kotlin.collections.List
  */
 public object SecondInterfaceHierarchy_A_C_HSealedEnum : SealedEnum<SecondInterfaceHierarchy.A.C.H>
         {
-    public override val values: List<SecondInterfaceHierarchy.A.C.H> = listOf(
-        SecondInterfaceHierarchy.A.C.H.I
-    )
+    public override val values: List<SecondInterfaceHierarchy.A.C.H> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondInterfaceHierarchy.A.C.H.I
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondInterfaceHierarchy.A.C.H): Int = when (obj) {
-        SecondInterfaceHierarchy.A.C.H.I -> 0
+        is SecondInterfaceHierarchy.A.C.H.I -> 0
     }
 
     public override fun nameOf(obj: SecondInterfaceHierarchy.A.C.H): String = when (obj) {
-        SecondInterfaceHierarchy.A.C.H.I -> "SecondInterfaceHierarchy_A_C_H_I"
+        is SecondInterfaceHierarchy.A.C.H.I -> "SecondInterfaceHierarchy_A_C_H_I"
     }
 
     public override fun valueOf(name: String): SecondInterfaceHierarchy.A.C.H = when (name) {
@@ -588,6 +613,7 @@ package com.livefront.sealedenum.compilation.hierarchy
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -595,17 +621,20 @@ import kotlin.collections.List
  * An implementation of [SealedEnum] for the sealed class [SecondInterfaceHierarchy.A.J]
  */
 public object SecondInterfaceHierarchy_A_JSealedEnum : SealedEnum<SecondInterfaceHierarchy.A.J> {
-    public override val values: List<SecondInterfaceHierarchy.A.J> = listOf(
-        SecondInterfaceHierarchy.A.J.K
-    )
+    public override val values: List<SecondInterfaceHierarchy.A.J> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondInterfaceHierarchy.A.J.K
+        )
+    }
 
 
     public override fun ordinalOf(obj: SecondInterfaceHierarchy.A.J): Int = when (obj) {
-        SecondInterfaceHierarchy.A.J.K -> 0
+        is SecondInterfaceHierarchy.A.J.K -> 0
     }
 
     public override fun nameOf(obj: SecondInterfaceHierarchy.A.J): String = when (obj) {
-        SecondInterfaceHierarchy.A.J.K -> "SecondInterfaceHierarchy_A_J_K"
+        is SecondInterfaceHierarchy.A.J.K -> "SecondInterfaceHierarchy_A_J_K"
     }
 
     public override fun valueOf(name: String): SecondInterfaceHierarchy.A.J = when (name) {

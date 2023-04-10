@@ -24,6 +24,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -55,26 +56,29 @@ public val OneTypeParameterSealedClassEnum.sealedObject: OneTypeParameterSealedC
 public object OneTypeParameterSealedClassSealedEnum : SealedEnum<OneTypeParameterSealedClass<*>>,
         SealedEnumWithEnumProvider<OneTypeParameterSealedClass<*>, OneTypeParameterSealedClassEnum>,
         EnumForSealedEnumProvider<OneTypeParameterSealedClass<*>, OneTypeParameterSealedClassEnum> {
-    public override val values: List<OneTypeParameterSealedClass<*>> = listOf(
-        OneTypeParameterSealedClass.FirstObject,
-        OneTypeParameterSealedClass.SecondObject,
-        OneTypeParameterSealedClass.ThirdObject
-    )
+    public override val values: List<OneTypeParameterSealedClass<*>> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            OneTypeParameterSealedClass.FirstObject,
+            OneTypeParameterSealedClass.SecondObject,
+            OneTypeParameterSealedClass.ThirdObject
+        )
+    }
 
 
     public override val enumClass: KClass<OneTypeParameterSealedClassEnum>
         get() = OneTypeParameterSealedClassEnum::class
 
     public override fun ordinalOf(obj: OneTypeParameterSealedClass<*>): Int = when (obj) {
-        OneTypeParameterSealedClass.FirstObject -> 0
-        OneTypeParameterSealedClass.SecondObject -> 1
-        OneTypeParameterSealedClass.ThirdObject -> 2
+        is OneTypeParameterSealedClass.FirstObject -> 0
+        is OneTypeParameterSealedClass.SecondObject -> 1
+        is OneTypeParameterSealedClass.ThirdObject -> 2
     }
 
     public override fun nameOf(obj: OneTypeParameterSealedClass<*>): String = when (obj) {
-        OneTypeParameterSealedClass.FirstObject -> "OneTypeParameterSealedClass_FirstObject"
-        OneTypeParameterSealedClass.SecondObject -> "OneTypeParameterSealedClass_SecondObject"
-        OneTypeParameterSealedClass.ThirdObject -> "OneTypeParameterSealedClass_ThirdObject"
+        is OneTypeParameterSealedClass.FirstObject -> "OneTypeParameterSealedClass_FirstObject"
+        is OneTypeParameterSealedClass.SecondObject -> "OneTypeParameterSealedClass_SecondObject"
+        is OneTypeParameterSealedClass.ThirdObject -> "OneTypeParameterSealedClass_ThirdObject"
     }
 
     public override fun valueOf(name: String): OneTypeParameterSealedClass<*> = when (name) {
@@ -86,11 +90,11 @@ public object OneTypeParameterSealedClassSealedEnum : SealedEnum<OneTypeParamete
 
     public override fun sealedObjectToEnum(obj: OneTypeParameterSealedClass<*>):
             OneTypeParameterSealedClassEnum = when (obj) {
-        OneTypeParameterSealedClass.FirstObject ->
+        is OneTypeParameterSealedClass.FirstObject ->
                 OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_FirstObject
-        OneTypeParameterSealedClass.SecondObject ->
+        is OneTypeParameterSealedClass.SecondObject ->
                 OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_SecondObject
-        OneTypeParameterSealedClass.ThirdObject ->
+        is OneTypeParameterSealedClass.ThirdObject ->
                 OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_ThirdObject
     }
 
@@ -159,6 +163,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -190,23 +195,26 @@ public object TwoTypeParameterSealedClassSealedEnum : SealedEnum<TwoTypeParamete
         SealedEnumWithEnumProvider<TwoTypeParameterSealedClass<*, *>, TwoTypeParameterSealedClassEnum>,
         EnumForSealedEnumProvider<TwoTypeParameterSealedClass<*, *>, TwoTypeParameterSealedClassEnum>
         {
-    public override val values: List<TwoTypeParameterSealedClass<*, *>> = listOf(
-        TwoTypeParameterSealedClass.FirstObject,
-        TwoTypeParameterSealedClass.SecondObject
-    )
+    public override val values: List<TwoTypeParameterSealedClass<*, *>> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            TwoTypeParameterSealedClass.FirstObject,
+            TwoTypeParameterSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<TwoTypeParameterSealedClassEnum>
         get() = TwoTypeParameterSealedClassEnum::class
 
     public override fun ordinalOf(obj: TwoTypeParameterSealedClass<*, *>): Int = when (obj) {
-        TwoTypeParameterSealedClass.FirstObject -> 0
-        TwoTypeParameterSealedClass.SecondObject -> 1
+        is TwoTypeParameterSealedClass.FirstObject -> 0
+        is TwoTypeParameterSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: TwoTypeParameterSealedClass<*, *>): String = when (obj) {
-        TwoTypeParameterSealedClass.FirstObject -> "TwoTypeParameterSealedClass_FirstObject"
-        TwoTypeParameterSealedClass.SecondObject -> "TwoTypeParameterSealedClass_SecondObject"
+        is TwoTypeParameterSealedClass.FirstObject -> "TwoTypeParameterSealedClass_FirstObject"
+        is TwoTypeParameterSealedClass.SecondObject -> "TwoTypeParameterSealedClass_SecondObject"
     }
 
     public override fun valueOf(name: String): TwoTypeParameterSealedClass<*, *> = when (name) {
@@ -217,9 +225,9 @@ public object TwoTypeParameterSealedClassSealedEnum : SealedEnum<TwoTypeParamete
 
     public override fun sealedObjectToEnum(obj: TwoTypeParameterSealedClass<*, *>):
             TwoTypeParameterSealedClassEnum = when (obj) {
-        TwoTypeParameterSealedClass.FirstObject ->
+        is TwoTypeParameterSealedClass.FirstObject ->
                 TwoTypeParameterSealedClassEnum.TwoTypeParameterSealedClass_FirstObject
-        TwoTypeParameterSealedClass.SecondObject ->
+        is TwoTypeParameterSealedClass.SecondObject ->
                 TwoTypeParameterSealedClassEnum.TwoTypeParameterSealedClass_SecondObject
     }
 
@@ -286,6 +294,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -318,23 +327,27 @@ public object LimitedTypeParameterSealedClassSealedEnum :
         SealedEnumWithEnumProvider<LimitedTypeParameterSealedClass<*, *>, LimitedTypeParameterSealedClassEnum>,
         EnumForSealedEnumProvider<LimitedTypeParameterSealedClass<*, *>, LimitedTypeParameterSealedClassEnum>
         {
-    public override val values: List<LimitedTypeParameterSealedClass<*, *>> = listOf(
-        LimitedTypeParameterSealedClass.FirstObject,
-        LimitedTypeParameterSealedClass.SecondObject
-    )
+    public override val values: List<LimitedTypeParameterSealedClass<*, *>> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            LimitedTypeParameterSealedClass.FirstObject,
+            LimitedTypeParameterSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<LimitedTypeParameterSealedClassEnum>
         get() = LimitedTypeParameterSealedClassEnum::class
 
     public override fun ordinalOf(obj: LimitedTypeParameterSealedClass<*, *>): Int = when (obj) {
-        LimitedTypeParameterSealedClass.FirstObject -> 0
-        LimitedTypeParameterSealedClass.SecondObject -> 1
+        is LimitedTypeParameterSealedClass.FirstObject -> 0
+        is LimitedTypeParameterSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: LimitedTypeParameterSealedClass<*, *>): String = when (obj) {
-        LimitedTypeParameterSealedClass.FirstObject -> "LimitedTypeParameterSealedClass_FirstObject"
-        LimitedTypeParameterSealedClass.SecondObject ->
+        is LimitedTypeParameterSealedClass.FirstObject ->
+                "LimitedTypeParameterSealedClass_FirstObject"
+        is LimitedTypeParameterSealedClass.SecondObject ->
                 "LimitedTypeParameterSealedClass_SecondObject"
     }
 
@@ -347,9 +360,9 @@ public object LimitedTypeParameterSealedClassSealedEnum :
 
     public override fun sealedObjectToEnum(obj: LimitedTypeParameterSealedClass<*, *>):
             LimitedTypeParameterSealedClassEnum = when (obj) {
-        LimitedTypeParameterSealedClass.FirstObject ->
+        is LimitedTypeParameterSealedClass.FirstObject ->
                 LimitedTypeParameterSealedClassEnum.LimitedTypeParameterSealedClass_FirstObject
-        LimitedTypeParameterSealedClass.SecondObject ->
+        is LimitedTypeParameterSealedClass.SecondObject ->
                 LimitedTypeParameterSealedClassEnum.LimitedTypeParameterSealedClass_SecondObject
     }
 
@@ -421,6 +434,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -450,20 +464,23 @@ public val MultipleBoundsSealedClassEnum.sealedObject: MultipleBoundsSealedClass
 public object MultipleBoundsSealedClassSealedEnum : SealedEnum<MultipleBoundsSealedClass<*>>,
         SealedEnumWithEnumProvider<MultipleBoundsSealedClass<*>, MultipleBoundsSealedClassEnum>,
         EnumForSealedEnumProvider<MultipleBoundsSealedClass<*>, MultipleBoundsSealedClassEnum> {
-    public override val values: List<MultipleBoundsSealedClass<*>> = listOf(
-        MultipleBoundsSealedClass.FirstObject
-    )
+    public override val values: List<MultipleBoundsSealedClass<*>> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            MultipleBoundsSealedClass.FirstObject
+        )
+    }
 
 
     public override val enumClass: KClass<MultipleBoundsSealedClassEnum>
         get() = MultipleBoundsSealedClassEnum::class
 
     public override fun ordinalOf(obj: MultipleBoundsSealedClass<*>): Int = when (obj) {
-        MultipleBoundsSealedClass.FirstObject -> 0
+        is MultipleBoundsSealedClass.FirstObject -> 0
     }
 
     public override fun nameOf(obj: MultipleBoundsSealedClass<*>): String = when (obj) {
-        MultipleBoundsSealedClass.FirstObject -> "MultipleBoundsSealedClass_FirstObject"
+        is MultipleBoundsSealedClass.FirstObject -> "MultipleBoundsSealedClass_FirstObject"
     }
 
     public override fun valueOf(name: String): MultipleBoundsSealedClass<*> = when (name) {
@@ -473,7 +490,7 @@ public object MultipleBoundsSealedClassSealedEnum : SealedEnum<MultipleBoundsSea
 
     public override fun sealedObjectToEnum(obj: MultipleBoundsSealedClass<*>):
             MultipleBoundsSealedClassEnum = when (obj) {
-        MultipleBoundsSealedClass.FirstObject ->
+        is MultipleBoundsSealedClass.FirstObject ->
                 MultipleBoundsSealedClassEnum.MultipleBoundsSealedClass_FirstObject
     }
 

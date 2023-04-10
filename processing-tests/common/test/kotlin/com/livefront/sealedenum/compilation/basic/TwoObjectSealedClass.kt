@@ -20,6 +20,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -50,23 +51,26 @@ public val TwoObjectSealedClassEnum.sealedObject: TwoObjectSealedClass
 public object TwoObjectSealedClassSealedEnum : SealedEnum<TwoObjectSealedClass>,
         SealedEnumWithEnumProvider<TwoObjectSealedClass, TwoObjectSealedClassEnum>,
         EnumForSealedEnumProvider<TwoObjectSealedClass, TwoObjectSealedClassEnum> {
-    public override val values: List<TwoObjectSealedClass> = listOf(
-        TwoObjectSealedClass.FirstObject,
-        TwoObjectSealedClass.SecondObject
-    )
+    public override val values: List<TwoObjectSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            TwoObjectSealedClass.FirstObject,
+            TwoObjectSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<TwoObjectSealedClassEnum>
         get() = TwoObjectSealedClassEnum::class
 
     public override fun ordinalOf(obj: TwoObjectSealedClass): Int = when (obj) {
-        TwoObjectSealedClass.FirstObject -> 0
-        TwoObjectSealedClass.SecondObject -> 1
+        is TwoObjectSealedClass.FirstObject -> 0
+        is TwoObjectSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: TwoObjectSealedClass): String = when (obj) {
-        TwoObjectSealedClass.FirstObject -> "TwoObjectSealedClass_FirstObject"
-        TwoObjectSealedClass.SecondObject -> "TwoObjectSealedClass_SecondObject"
+        is TwoObjectSealedClass.FirstObject -> "TwoObjectSealedClass_FirstObject"
+        is TwoObjectSealedClass.SecondObject -> "TwoObjectSealedClass_SecondObject"
     }
 
     public override fun valueOf(name: String): TwoObjectSealedClass = when (name) {
@@ -77,9 +81,9 @@ public object TwoObjectSealedClassSealedEnum : SealedEnum<TwoObjectSealedClass>,
 
     public override fun sealedObjectToEnum(obj: TwoObjectSealedClass): TwoObjectSealedClassEnum =
             when (obj) {
-        TwoObjectSealedClass.FirstObject ->
+        is TwoObjectSealedClass.FirstObject ->
                 TwoObjectSealedClassEnum.TwoObjectSealedClass_FirstObject
-        TwoObjectSealedClass.SecondObject ->
+        is TwoObjectSealedClass.SecondObject ->
                 TwoObjectSealedClassEnum.TwoObjectSealedClass_SecondObject
     }
 

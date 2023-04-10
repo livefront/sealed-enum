@@ -18,6 +18,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -47,20 +48,23 @@ public val OneObjectSealedClassEnum.sealedObject: OneObjectSealedClass
 public object OneObjectSealedClassSealedEnum : SealedEnum<OneObjectSealedClass>,
         SealedEnumWithEnumProvider<OneObjectSealedClass, OneObjectSealedClassEnum>,
         EnumForSealedEnumProvider<OneObjectSealedClass, OneObjectSealedClassEnum> {
-    public override val values: List<OneObjectSealedClass> = listOf(
-        OneObjectSealedClass.FirstObject
-    )
+    public override val values: List<OneObjectSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            OneObjectSealedClass.FirstObject
+        )
+    }
 
 
     public override val enumClass: KClass<OneObjectSealedClassEnum>
         get() = OneObjectSealedClassEnum::class
 
     public override fun ordinalOf(obj: OneObjectSealedClass): Int = when (obj) {
-        OneObjectSealedClass.FirstObject -> 0
+        is OneObjectSealedClass.FirstObject -> 0
     }
 
     public override fun nameOf(obj: OneObjectSealedClass): String = when (obj) {
-        OneObjectSealedClass.FirstObject -> "OneObjectSealedClass_FirstObject"
+        is OneObjectSealedClass.FirstObject -> "OneObjectSealedClass_FirstObject"
     }
 
     public override fun valueOf(name: String): OneObjectSealedClass = when (name) {
@@ -70,7 +74,7 @@ public object OneObjectSealedClassSealedEnum : SealedEnum<OneObjectSealedClass>,
 
     public override fun sealedObjectToEnum(obj: OneObjectSealedClass): OneObjectSealedClassEnum =
             when (obj) {
-        OneObjectSealedClass.FirstObject ->
+        is OneObjectSealedClass.FirstObject ->
                 OneObjectSealedClassEnum.OneObjectSealedClass_FirstObject
     }
 

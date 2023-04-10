@@ -88,19 +88,21 @@ sealed class Alpha {
 will generate the following object:
 ```kotlin
 object AlphaSealedEnum : SealedEnum<Alpha> {
-    override val values: List<Alpha> = listOf(
-        Alpha.Beta,
-        Alpha.Gamma
-    )
+    override val values: List<Alpha> by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Alpha.Beta,
+            Alpha.Gamma
+        )
+    }
 
     override fun ordinalOf(obj: Alpha): Int = when (obj) {
-        Alpha.Beta -> 0
-        Alpha.Gamma -> 1
+        is Alpha.Beta -> 0
+        is Alpha.Gamma -> 1
     }
 
     override fun nameOf(obj: AlphaSealedEnum): String = when (obj) {
-        Alpha.Beta -> "Alpha_Beta"
-        Alpha.Gamma -> "Alpha_Gamma"
+        is Alpha.Beta -> "Alpha_Beta"
+        is Alpha.Gamma -> "Alpha_Gamma"
     }
 
     override fun valueOf(name: String): AlphaSealedEnum = when (name) {
@@ -150,22 +152,24 @@ sealed class Alpha {
 will generate two objects:
 ```kotlin
 object AlphaLevelOrderSealedEnum : SealedEnum<Alpha> {
-    override val values: List<Alpha> = listOf(
-        Alpha.Delta,
-        Alpha.Beta.Gamma,
-        Alpha.Epsilon.Zeta
-    )
+    override val values: List<Alpha> by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Alpha.Delta,
+            Alpha.Beta.Gamma,
+            Alpha.Epsilon.Zeta
+        )
+    }
 
     override fun ordinalOf(obj: Alpha): Int = when (obj) {
-        Alpha.Delta -> 0
-        Alpha.Beta.Gamma -> 1
-        Alpha.Epsilon.Zeta -> 2
+        is Alpha.Delta -> 0
+        is Alpha.Beta.Gamma -> 1
+        is Alpha.Epsilon.Zeta -> 2
     }
 
     override fun nameOf(obj: AlphaLevelOrderSealedEnum): String = when (obj) {
-        Alpha.Delta -> "Alpha_Delta"
-        Alpha.Beta.Gamma -> "Alpha_Beta_Gamma"
-        Alpha.Epsilon.Zeta -> "Alpha_Epsilon_Zeta"
+        is Alpha.Delta -> "Alpha_Delta"
+        is Alpha.Beta.Gamma -> "Alpha_Beta_Gamma"
+        is Alpha.Epsilon.Zeta -> "Alpha_Epsilon_Zeta"
     }
 
     override fun valueOf(name: String): AlphaLevelOrderSealedEnum = when (name) {
@@ -177,22 +181,24 @@ object AlphaLevelOrderSealedEnum : SealedEnum<Alpha> {
 }
 
 object AlphaInOrderSealedEnum : SealedEnum<Alpha> {
-    override val values: List<Alpha> = listOf(
-        Alpha.Beta.Gamma,
-        Alpha.Delta,
-        Alpha.Epsilon.Zeta
-    )
+    override val values: List<Alpha> by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Alpha.Beta.Gamma,
+            Alpha.Delta,
+            Alpha.Epsilon.Zeta
+        )
+    }
 
     override fun ordinalOf(obj: Alpha): Int = when (obj) {
-        Alpha.Beta.Gamma -> 0
-        Alpha.Delta -> 1
-        Alpha.Epsilon.Zeta -> 2
+        is Alpha.Beta.Gamma -> 0
+        is Alpha.Delta -> 1
+        is Alpha.Epsilon.Zeta -> 2
     }
 
     override fun nameOf(obj: AlphaInOrderSealedEnum): String = when (obj) {
-        Alpha.Beta.Gamma -> "Alpha_Beta_Gamma"
-        Alpha.Delta -> "Alpha_Delta"
-        Alpha.Epsilon.Zeta -> "Alpha_Epsilon_Zeta"
+        is Alpha.Beta.Gamma -> "Alpha_Beta_Gamma"
+        is Alpha.Delta -> "Alpha_Delta"
+        is Alpha.Epsilon.Zeta -> "Alpha_Epsilon_Zeta"
     }
 
     override fun valueOf(name: String): AlphaInOrderSealedEnum = when (name) {
@@ -287,14 +293,16 @@ object AlphaSealedEnum : SealedEnum<Alpha>, SealedEnumWithEnumProvider<Alpha, Al
         EnumForSealedEnumProvider<Alpha, AlphaEnum> {
     ...
 
-    override val values: List<Alpha> = listOf(
-        Alpha.Beta,
-        Alpha.Gamma
-    )
+    override val values: List<Alpha> by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Alpha.Beta,
+            Alpha.Gamma
+        )
+    }
 
     override fun sealedObjectToEnum(obj: Alpha): AlphaEnum = when (obj) {
-        Alpha.Beta -> AlphaEnum.Alpha_Beta
-        Alpha.Gamma -> AlphaEnum.Alpha_Gamma
+        is Alpha.Beta -> AlphaEnum.Alpha_Beta
+        is Alpha.Gamma -> AlphaEnum.Alpha_Gamma
     }
 
     override fun enumToSealedObject(enum: AlphaEnum): Alpha = when (enum) {

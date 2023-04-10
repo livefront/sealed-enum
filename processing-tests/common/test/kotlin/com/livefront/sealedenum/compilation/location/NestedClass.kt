@@ -20,6 +20,7 @@ package com.livefront.sealedenum.compilation.location
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -28,21 +29,24 @@ import kotlin.collections.List
  */
 public object OuterClass_InsideOneClassSealedClassSealedEnum :
         SealedEnum<OuterClass.InsideOneClassSealedClass> {
-    public override val values: List<OuterClass.InsideOneClassSealedClass> = listOf(
-        OuterClass.InsideOneClassSealedClass.FirstObject,
-        OuterClass.InsideOneClassSealedClass.SecondObject
-    )
+    public override val values: List<OuterClass.InsideOneClassSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            OuterClass.InsideOneClassSealedClass.FirstObject,
+            OuterClass.InsideOneClassSealedClass.SecondObject
+        )
+    }
 
 
     public override fun ordinalOf(obj: OuterClass.InsideOneClassSealedClass): Int = when (obj) {
-        OuterClass.InsideOneClassSealedClass.FirstObject -> 0
-        OuterClass.InsideOneClassSealedClass.SecondObject -> 1
+        is OuterClass.InsideOneClassSealedClass.FirstObject -> 0
+        is OuterClass.InsideOneClassSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: OuterClass.InsideOneClassSealedClass): String = when (obj) {
-        OuterClass.InsideOneClassSealedClass.FirstObject ->
+        is OuterClass.InsideOneClassSealedClass.FirstObject ->
                 "OuterClass_InsideOneClassSealedClass_FirstObject"
-        OuterClass.InsideOneClassSealedClass.SecondObject ->
+        is OuterClass.InsideOneClassSealedClass.SecondObject ->
                 "OuterClass_InsideOneClassSealedClass_SecondObject"
     }
 
@@ -113,6 +117,7 @@ package com.livefront.sealedenum.compilation.location
 
 import com.livefront.sealedenum.SealedEnum
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 
@@ -122,25 +127,27 @@ import kotlin.collections.List
  */
 public object FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum :
         SealedEnum<FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass> {
-    public override val values: List<FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass> =
-            listOf(
-        FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject,
-        FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject
-    )
+    public override val values: List<FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass>
+            by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject,
+            FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject
+        )
+    }
 
 
     public override
             fun ordinalOf(obj: FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass): Int =
             when (obj) {
-        FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject -> 0
-        FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject -> 1
+        is FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject -> 0
+        is FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass):
             String = when (obj) {
-        FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject ->
+        is FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject ->
                 "FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClass_FirstObject"
-        FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject ->
+        is FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject ->
                 "FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClass_SecondObject"
     }
 

@@ -12,6 +12,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
+import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.buildCodeBlock
 import javax.lang.model.element.TypeElement
 import kotlin.reflect.KClass
@@ -77,8 +78,9 @@ internal data class SealedEnumTypeSpec(
 
     private fun createObjectsProperty(): PropertySpec = PropertySpec.builder("values", listOfSealedClass)
         .addModifiers(KModifier.OVERRIDE)
-        .initializer(
+        .delegate(
             buildCodeBlock {
+                beginControlFlow("lazy(mode = %T.PUBLICATION)", LazyThreadSafetyMode::class.asTypeName())
                 if (sealedObjects.isEmpty()) {
                     addStatement("emptyList()")
                 } else {
@@ -91,6 +93,7 @@ internal data class SealedEnumTypeSpec(
                     unindent()
                     addStatement(")")
                 }
+                endControlFlow()
             }
         )
         .build()
@@ -108,7 +111,7 @@ internal data class SealedEnumTypeSpec(
             } else {
                 beginControlFlow("return when (obj)")
                 sealedObjects.forEachIndexed { index, obj ->
-                    addStatement("%T -> $index", obj)
+                    addStatement("is %T -> $index", obj)
                 }
                 endControlFlow()
             }
@@ -131,7 +134,7 @@ internal data class SealedEnumTypeSpec(
             } else {
                 beginControlFlow("return when (obj)")
                 sealedObjects.forEach { obj ->
-                    addStatement("%T -> %S", obj, sealedObjectToName(obj))
+                    addStatement("is %T -> %S", obj, sealedObjectToName(obj))
                 }
                 endControlFlow()
             }
@@ -177,7 +180,7 @@ internal data class SealedEnumTypeSpec(
                     beginControlFlow("return when (obj)")
                     sealedObjects.forEach { obj ->
                         addStatement(
-                            "%T -> %T",
+                            "is %T -> %T",
                             obj,
                             enumForSealedEnum.nestedClass(obj.simpleNames.joinToString("_"))
                         )

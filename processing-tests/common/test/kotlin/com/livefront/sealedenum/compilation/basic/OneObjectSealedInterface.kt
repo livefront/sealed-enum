@@ -18,6 +18,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -47,20 +48,23 @@ public val OneObjectSealedInterfaceEnum.sealedObject: OneObjectSealedInterface
 public object OneObjectSealedInterfaceSealedEnum : SealedEnum<OneObjectSealedInterface>,
         SealedEnumWithEnumProvider<OneObjectSealedInterface, OneObjectSealedInterfaceEnum>,
         EnumForSealedEnumProvider<OneObjectSealedInterface, OneObjectSealedInterfaceEnum> {
-    public override val values: List<OneObjectSealedInterface> = listOf(
-        OneObjectSealedInterface.FirstObject
-    )
+    public override val values: List<OneObjectSealedInterface> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            OneObjectSealedInterface.FirstObject
+        )
+    }
 
 
     public override val enumClass: KClass<OneObjectSealedInterfaceEnum>
         get() = OneObjectSealedInterfaceEnum::class
 
     public override fun ordinalOf(obj: OneObjectSealedInterface): Int = when (obj) {
-        OneObjectSealedInterface.FirstObject -> 0
+        is OneObjectSealedInterface.FirstObject -> 0
     }
 
     public override fun nameOf(obj: OneObjectSealedInterface): String = when (obj) {
-        OneObjectSealedInterface.FirstObject -> "OneObjectSealedInterface_FirstObject"
+        is OneObjectSealedInterface.FirstObject -> "OneObjectSealedInterface_FirstObject"
     }
 
     public override fun valueOf(name: String): OneObjectSealedInterface = when (name) {
@@ -70,7 +74,7 @@ public object OneObjectSealedInterfaceSealedEnum : SealedEnum<OneObjectSealedInt
 
     public override fun sealedObjectToEnum(obj: OneObjectSealedInterface):
             OneObjectSealedInterfaceEnum = when (obj) {
-        OneObjectSealedInterface.FirstObject ->
+        is OneObjectSealedInterface.FirstObject ->
                 OneObjectSealedInterfaceEnum.OneObjectSealedInterface_FirstObject
     }
 

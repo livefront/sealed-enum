@@ -29,6 +29,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -69,11 +70,13 @@ public object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEn
         SealedEnumWithEnumProvider<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass, ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>,
         EnumForSealedEnumProvider<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass, ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum>
         {
-    public override val values: List<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass> =
-            listOf(
-        ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject,
-        ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject
-    )
+    public override val values: List<ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass> by
+            lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject,
+            ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass:
@@ -82,15 +85,15 @@ public object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEn
 
     public override fun ordinalOf(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass):
             Int = when (obj) {
-        ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject -> 0
-        ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject -> 1
+        is ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject -> 0
+        is ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass):
             String = when (obj) {
-        ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject ->
+        is ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject ->
                 "ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_FirstObject"
-        ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject ->
+        is ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject ->
                 "ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_SecondObject"
     }
 
@@ -106,9 +109,9 @@ public object ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassSealedEn
     public override
             fun sealedObjectToEnum(obj: ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass):
             ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum = when (obj) {
-        ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject ->
+        is ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.FirstObject ->
                 ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum.ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_FirstObject
-        ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject ->
+        is ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass.SecondObject ->
                 ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClassEnum.ProtectedInterfaceOuterClass_ProtectedInterfaceSealedClass_SecondObject
     }
 

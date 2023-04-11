@@ -21,6 +21,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -53,8 +54,10 @@ public object NestedObjectsWithSameName_Companion_EmptySealedClassSealedEnum :
         SealedEnumWithEnumProvider<NestedObjectsWithSameName.Companion.EmptySealedClass, NestedObjectsWithSameName_Companion_EmptySealedClassEnum>,
         EnumForSealedEnumProvider<NestedObjectsWithSameName.Companion.EmptySealedClass, NestedObjectsWithSameName_Companion_EmptySealedClassEnum>
         {
-    public override val values: List<NestedObjectsWithSameName.Companion.EmptySealedClass> =
-            emptyList()
+    public override val values: List<NestedObjectsWithSameName.Companion.EmptySealedClass> by
+            lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        emptyList()
+    }
 
 
     public override val enumClass: KClass<NestedObjectsWithSameName_Companion_EmptySealedClassEnum>

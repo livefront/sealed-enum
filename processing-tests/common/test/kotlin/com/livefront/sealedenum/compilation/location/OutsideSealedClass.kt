@@ -18,6 +18,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -47,20 +48,23 @@ public val AlphaOutsideSealedClassEnum.sealedObject: AlphaOutsideSealedClass
 public object AlphaOutsideSealedClassSealedEnum : SealedEnum<AlphaOutsideSealedClass>,
         SealedEnumWithEnumProvider<AlphaOutsideSealedClass, AlphaOutsideSealedClassEnum>,
         EnumForSealedEnumProvider<AlphaOutsideSealedClass, AlphaOutsideSealedClassEnum> {
-    public override val values: List<AlphaOutsideSealedClass> = listOf(
-        AlphaFirstObject
-    )
+    public override val values: List<AlphaOutsideSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            AlphaFirstObject
+        )
+    }
 
 
     public override val enumClass: KClass<AlphaOutsideSealedClassEnum>
         get() = AlphaOutsideSealedClassEnum::class
 
     public override fun ordinalOf(obj: AlphaOutsideSealedClass): Int = when (obj) {
-        AlphaFirstObject -> 0
+        is AlphaFirstObject -> 0
     }
 
     public override fun nameOf(obj: AlphaOutsideSealedClass): String = when (obj) {
-        AlphaFirstObject -> "AlphaFirstObject"
+        is AlphaFirstObject -> "AlphaFirstObject"
     }
 
     public override fun valueOf(name: String): AlphaOutsideSealedClass = when (name) {
@@ -70,7 +74,7 @@ public object AlphaOutsideSealedClassSealedEnum : SealedEnum<AlphaOutsideSealedC
 
     public override fun sealedObjectToEnum(obj: AlphaOutsideSealedClass):
             AlphaOutsideSealedClassEnum = when (obj) {
-        AlphaFirstObject -> AlphaOutsideSealedClassEnum.AlphaFirstObject
+        is AlphaFirstObject -> AlphaOutsideSealedClassEnum.AlphaFirstObject
     }
 
     public override fun enumToSealedObject(`enum`: AlphaOutsideSealedClassEnum):
@@ -135,6 +139,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -167,29 +172,32 @@ public val BetaOutsideSealedClassEnum.sealedObject: BetaOutsideSealedClass
 public object BetaOutsideSealedClassSealedEnum : SealedEnum<BetaOutsideSealedClass>,
         SealedEnumWithEnumProvider<BetaOutsideSealedClass, BetaOutsideSealedClassEnum>,
         EnumForSealedEnumProvider<BetaOutsideSealedClass, BetaOutsideSealedClassEnum> {
-    public override val values: List<BetaOutsideSealedClass> = listOf(
-        BetaFirstObject,
-        BetaFourthObject,
-        BetaSecondObject,
-        BetaThirdObject
-    )
+    public override val values: List<BetaOutsideSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            BetaFirstObject,
+            BetaFourthObject,
+            BetaSecondObject,
+            BetaThirdObject
+        )
+    }
 
 
     public override val enumClass: KClass<BetaOutsideSealedClassEnum>
         get() = BetaOutsideSealedClassEnum::class
 
     public override fun ordinalOf(obj: BetaOutsideSealedClass): Int = when (obj) {
-        BetaFirstObject -> 0
-        BetaFourthObject -> 1
-        BetaSecondObject -> 2
-        BetaThirdObject -> 3
+        is BetaFirstObject -> 0
+        is BetaFourthObject -> 1
+        is BetaSecondObject -> 2
+        is BetaThirdObject -> 3
     }
 
     public override fun nameOf(obj: BetaOutsideSealedClass): String = when (obj) {
-        BetaFirstObject -> "BetaFirstObject"
-        BetaFourthObject -> "BetaFourthObject"
-        BetaSecondObject -> "BetaSecondObject"
-        BetaThirdObject -> "BetaThirdObject"
+        is BetaFirstObject -> "BetaFirstObject"
+        is BetaFourthObject -> "BetaFourthObject"
+        is BetaSecondObject -> "BetaSecondObject"
+        is BetaThirdObject -> "BetaThirdObject"
     }
 
     public override fun valueOf(name: String): BetaOutsideSealedClass = when (name) {
@@ -202,10 +210,10 @@ public object BetaOutsideSealedClassSealedEnum : SealedEnum<BetaOutsideSealedCla
 
     public override fun sealedObjectToEnum(obj: BetaOutsideSealedClass): BetaOutsideSealedClassEnum
             = when (obj) {
-        BetaFirstObject -> BetaOutsideSealedClassEnum.BetaFirstObject
-        BetaFourthObject -> BetaOutsideSealedClassEnum.BetaFourthObject
-        BetaSecondObject -> BetaOutsideSealedClassEnum.BetaSecondObject
-        BetaThirdObject -> BetaOutsideSealedClassEnum.BetaThirdObject
+        is BetaFirstObject -> BetaOutsideSealedClassEnum.BetaFirstObject
+        is BetaFourthObject -> BetaOutsideSealedClassEnum.BetaFourthObject
+        is BetaSecondObject -> BetaOutsideSealedClassEnum.BetaSecondObject
+        is BetaThirdObject -> BetaOutsideSealedClassEnum.BetaThirdObject
     }
 
     public override fun enumToSealedObject(`enum`: BetaOutsideSealedClassEnum):
@@ -274,6 +282,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -306,29 +315,32 @@ public val GammaOutsideSealedClassEnum.sealedObject: GammaOutsideSealedClass
 public object GammaOutsideSealedClassSealedEnum : SealedEnum<GammaOutsideSealedClass>,
         SealedEnumWithEnumProvider<GammaOutsideSealedClass, GammaOutsideSealedClassEnum>,
         EnumForSealedEnumProvider<GammaOutsideSealedClass, GammaOutsideSealedClassEnum> {
-    public override val values: List<GammaOutsideSealedClass> = listOf(
-        GammaOutsideSealedClass.GammaSecondObject,
-        GammaFirstObject,
-        GammaFourthObject,
-        GammaThirdObject
-    )
+    public override val values: List<GammaOutsideSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            GammaOutsideSealedClass.GammaSecondObject,
+            GammaFirstObject,
+            GammaFourthObject,
+            GammaThirdObject
+        )
+    }
 
 
     public override val enumClass: KClass<GammaOutsideSealedClassEnum>
         get() = GammaOutsideSealedClassEnum::class
 
     public override fun ordinalOf(obj: GammaOutsideSealedClass): Int = when (obj) {
-        GammaOutsideSealedClass.GammaSecondObject -> 0
-        GammaFirstObject -> 1
-        GammaFourthObject -> 2
-        GammaThirdObject -> 3
+        is GammaOutsideSealedClass.GammaSecondObject -> 0
+        is GammaFirstObject -> 1
+        is GammaFourthObject -> 2
+        is GammaThirdObject -> 3
     }
 
     public override fun nameOf(obj: GammaOutsideSealedClass): String = when (obj) {
-        GammaOutsideSealedClass.GammaSecondObject -> "GammaOutsideSealedClass_GammaSecondObject"
-        GammaFirstObject -> "GammaFirstObject"
-        GammaFourthObject -> "GammaFourthObject"
-        GammaThirdObject -> "GammaThirdObject"
+        is GammaOutsideSealedClass.GammaSecondObject -> "GammaOutsideSealedClass_GammaSecondObject"
+        is GammaFirstObject -> "GammaFirstObject"
+        is GammaFourthObject -> "GammaFourthObject"
+        is GammaThirdObject -> "GammaThirdObject"
     }
 
     public override fun valueOf(name: String): GammaOutsideSealedClass = when (name) {
@@ -341,11 +353,11 @@ public object GammaOutsideSealedClassSealedEnum : SealedEnum<GammaOutsideSealedC
 
     public override fun sealedObjectToEnum(obj: GammaOutsideSealedClass):
             GammaOutsideSealedClassEnum = when (obj) {
-        GammaOutsideSealedClass.GammaSecondObject ->
+        is GammaOutsideSealedClass.GammaSecondObject ->
                 GammaOutsideSealedClassEnum.GammaOutsideSealedClass_GammaSecondObject
-        GammaFirstObject -> GammaOutsideSealedClassEnum.GammaFirstObject
-        GammaFourthObject -> GammaOutsideSealedClassEnum.GammaFourthObject
-        GammaThirdObject -> GammaOutsideSealedClassEnum.GammaThirdObject
+        is GammaFirstObject -> GammaOutsideSealedClassEnum.GammaFirstObject
+        is GammaFourthObject -> GammaOutsideSealedClassEnum.GammaFourthObject
+        is GammaThirdObject -> GammaOutsideSealedClassEnum.GammaThirdObject
     }
 
     public override fun enumToSealedObject(`enum`: GammaOutsideSealedClassEnum):
@@ -410,6 +422,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -440,23 +453,26 @@ public val DeltaOutsideSealedClassEnum.sealedObject: DeltaOutsideSealedClass
 public object DeltaOutsideSealedClassSealedEnum : SealedEnum<DeltaOutsideSealedClass>,
         SealedEnumWithEnumProvider<DeltaOutsideSealedClass, DeltaOutsideSealedClassEnum>,
         EnumForSealedEnumProvider<DeltaOutsideSealedClass, DeltaOutsideSealedClassEnum> {
-    public override val values: List<DeltaOutsideSealedClass> = listOf(
-        DeltaOutsideSealedClass.DeltaObject,
-        DeltaObject
-    )
+    public override val values: List<DeltaOutsideSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            DeltaOutsideSealedClass.DeltaObject,
+            DeltaObject
+        )
+    }
 
 
     public override val enumClass: KClass<DeltaOutsideSealedClassEnum>
         get() = DeltaOutsideSealedClassEnum::class
 
     public override fun ordinalOf(obj: DeltaOutsideSealedClass): Int = when (obj) {
-        DeltaOutsideSealedClass.DeltaObject -> 0
-        DeltaObject -> 1
+        is DeltaOutsideSealedClass.DeltaObject -> 0
+        is DeltaObject -> 1
     }
 
     public override fun nameOf(obj: DeltaOutsideSealedClass): String = when (obj) {
-        DeltaOutsideSealedClass.DeltaObject -> "DeltaOutsideSealedClass_DeltaObject"
-        DeltaObject -> "DeltaObject"
+        is DeltaOutsideSealedClass.DeltaObject -> "DeltaOutsideSealedClass_DeltaObject"
+        is DeltaObject -> "DeltaObject"
     }
 
     public override fun valueOf(name: String): DeltaOutsideSealedClass = when (name) {
@@ -467,9 +483,9 @@ public object DeltaOutsideSealedClassSealedEnum : SealedEnum<DeltaOutsideSealedC
 
     public override fun sealedObjectToEnum(obj: DeltaOutsideSealedClass):
             DeltaOutsideSealedClassEnum = when (obj) {
-        DeltaOutsideSealedClass.DeltaObject ->
+        is DeltaOutsideSealedClass.DeltaObject ->
                 DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject
-        DeltaObject -> DeltaOutsideSealedClassEnum.DeltaObject
+        is DeltaObject -> DeltaOutsideSealedClassEnum.DeltaObject
     }
 
     public override fun enumToSealedObject(`enum`: DeltaOutsideSealedClassEnum):

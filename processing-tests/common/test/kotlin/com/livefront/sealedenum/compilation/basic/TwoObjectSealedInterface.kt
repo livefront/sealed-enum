@@ -20,6 +20,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -50,23 +51,26 @@ public val TwoObjectSealedInterfaceEnum.sealedObject: TwoObjectSealedInterface
 public object TwoObjectSealedInterfaceSealedEnum : SealedEnum<TwoObjectSealedInterface>,
         SealedEnumWithEnumProvider<TwoObjectSealedInterface, TwoObjectSealedInterfaceEnum>,
         EnumForSealedEnumProvider<TwoObjectSealedInterface, TwoObjectSealedInterfaceEnum> {
-    public override val values: List<TwoObjectSealedInterface> = listOf(
-        TwoObjectSealedInterface.FirstObject,
-        TwoObjectSealedInterface.SecondObject
-    )
+    public override val values: List<TwoObjectSealedInterface> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            TwoObjectSealedInterface.FirstObject,
+            TwoObjectSealedInterface.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<TwoObjectSealedInterfaceEnum>
         get() = TwoObjectSealedInterfaceEnum::class
 
     public override fun ordinalOf(obj: TwoObjectSealedInterface): Int = when (obj) {
-        TwoObjectSealedInterface.FirstObject -> 0
-        TwoObjectSealedInterface.SecondObject -> 1
+        is TwoObjectSealedInterface.FirstObject -> 0
+        is TwoObjectSealedInterface.SecondObject -> 1
     }
 
     public override fun nameOf(obj: TwoObjectSealedInterface): String = when (obj) {
-        TwoObjectSealedInterface.FirstObject -> "TwoObjectSealedInterface_FirstObject"
-        TwoObjectSealedInterface.SecondObject -> "TwoObjectSealedInterface_SecondObject"
+        is TwoObjectSealedInterface.FirstObject -> "TwoObjectSealedInterface_FirstObject"
+        is TwoObjectSealedInterface.SecondObject -> "TwoObjectSealedInterface_SecondObject"
     }
 
     public override fun valueOf(name: String): TwoObjectSealedInterface = when (name) {
@@ -77,9 +81,9 @@ public object TwoObjectSealedInterfaceSealedEnum : SealedEnum<TwoObjectSealedInt
 
     public override fun sealedObjectToEnum(obj: TwoObjectSealedInterface):
             TwoObjectSealedInterfaceEnum = when (obj) {
-        TwoObjectSealedInterface.FirstObject ->
+        is TwoObjectSealedInterface.FirstObject ->
                 TwoObjectSealedInterfaceEnum.TwoObjectSealedInterface_FirstObject
-        TwoObjectSealedInterface.SecondObject ->
+        is TwoObjectSealedInterface.SecondObject ->
                 TwoObjectSealedInterfaceEnum.TwoObjectSealedInterface_SecondObject
     }
 

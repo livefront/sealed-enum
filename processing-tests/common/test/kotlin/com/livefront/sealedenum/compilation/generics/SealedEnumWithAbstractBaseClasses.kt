@@ -29,6 +29,7 @@ import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Any
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -61,7 +62,10 @@ public object SealedEnumWithAbstractBaseClassesSealedEnum :
         SealedEnumWithEnumProvider<SealedEnumWithAbstractBaseClasses, SealedEnumWithAbstractBaseClassesEnum>,
         EnumForSealedEnumProvider<SealedEnumWithAbstractBaseClasses, SealedEnumWithAbstractBaseClassesEnum>
         {
-    public override val values: List<SealedEnumWithAbstractBaseClasses> = emptyList()
+    public override val values: List<SealedEnumWithAbstractBaseClasses> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        emptyList()
+    }
 
 
     public override val enumClass: KClass<SealedEnumWithAbstractBaseClassesEnum>
@@ -141,6 +145,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -175,8 +180,10 @@ public object SealedEnumWithAbstractBaseClassesCovariantTypeSealedEnum :
         SealedEnumWithEnumProvider<SealedEnumWithAbstractBaseClassesCovariantType<*>, SealedEnumWithAbstractBaseClassesCovariantTypeEnum>,
         EnumForSealedEnumProvider<SealedEnumWithAbstractBaseClassesCovariantType<*>, SealedEnumWithAbstractBaseClassesCovariantTypeEnum>
         {
-    public override val values: List<SealedEnumWithAbstractBaseClassesCovariantType<*>> =
-            emptyList()
+    public override val values: List<SealedEnumWithAbstractBaseClassesCovariantType<*>> by lazy(mode
+            = LazyThreadSafetyMode.PUBLICATION) {
+        emptyList()
+    }
 
 
     public override val enumClass: KClass<SealedEnumWithAbstractBaseClassesCovariantTypeEnum>

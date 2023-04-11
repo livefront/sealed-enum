@@ -16,6 +16,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -43,7 +44,10 @@ public val EmptySealedClassEnum.sealedObject: EmptySealedClass
 public object EmptySealedClassSealedEnum : SealedEnum<EmptySealedClass>,
         SealedEnumWithEnumProvider<EmptySealedClass, EmptySealedClassEnum>,
         EnumForSealedEnumProvider<EmptySealedClass, EmptySealedClassEnum> {
-    public override val values: List<EmptySealedClass> = emptyList()
+    public override val values: List<EmptySealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        emptyList()
+    }
 
 
     public override val enumClass: KClass<EmptySealedClassEnum>

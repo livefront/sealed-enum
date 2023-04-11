@@ -43,6 +43,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -77,29 +78,32 @@ public val EnvironmentsEnum.sealedObject: Environments
 public object EnvironmentsSealedEnum : SealedEnum<Environments>,
         SealedEnumWithEnumProvider<Environments, EnvironmentsEnum>,
         EnumForSealedEnumProvider<Environments, EnvironmentsEnum> {
-    public override val values: List<Environments> = listOf(
-        Environments.Http.Livefront,
-        Environments.Http.Google,
-        Environments.Https.Livefront,
-        Environments.Https.Google
-    )
+    public override val values: List<Environments> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            Environments.Http.Livefront,
+            Environments.Http.Google,
+            Environments.Https.Livefront,
+            Environments.Https.Google
+        )
+    }
 
 
     public override val enumClass: KClass<EnvironmentsEnum>
         get() = EnvironmentsEnum::class
 
     public override fun ordinalOf(obj: Environments): Int = when (obj) {
-        Environments.Http.Livefront -> 0
-        Environments.Http.Google -> 1
-        Environments.Https.Livefront -> 2
-        Environments.Https.Google -> 3
+        is Environments.Http.Livefront -> 0
+        is Environments.Http.Google -> 1
+        is Environments.Https.Livefront -> 2
+        is Environments.Https.Google -> 3
     }
 
     public override fun nameOf(obj: Environments): String = when (obj) {
-        Environments.Http.Livefront -> "Environments_Http_Livefront"
-        Environments.Http.Google -> "Environments_Http_Google"
-        Environments.Https.Livefront -> "Environments_Https_Livefront"
-        Environments.Https.Google -> "Environments_Https_Google"
+        is Environments.Http.Livefront -> "Environments_Http_Livefront"
+        is Environments.Http.Google -> "Environments_Http_Google"
+        is Environments.Https.Livefront -> "Environments_Https_Livefront"
+        is Environments.Https.Google -> "Environments_Https_Google"
     }
 
     public override fun valueOf(name: String): Environments = when (name) {
@@ -111,10 +115,10 @@ public object EnvironmentsSealedEnum : SealedEnum<Environments>,
     }
 
     public override fun sealedObjectToEnum(obj: Environments): EnvironmentsEnum = when (obj) {
-        Environments.Http.Livefront -> EnvironmentsEnum.Environments_Http_Livefront
-        Environments.Http.Google -> EnvironmentsEnum.Environments_Http_Google
-        Environments.Https.Livefront -> EnvironmentsEnum.Environments_Https_Livefront
-        Environments.Https.Google -> EnvironmentsEnum.Environments_Https_Google
+        is Environments.Http.Livefront -> EnvironmentsEnum.Environments_Http_Livefront
+        is Environments.Http.Google -> EnvironmentsEnum.Environments_Http_Google
+        is Environments.Https.Livefront -> EnvironmentsEnum.Environments_Https_Livefront
+        is Environments.Https.Google -> EnvironmentsEnum.Environments_Https_Google
     }
 
     public override fun enumToSealedObject(`enum`: EnvironmentsEnum): Environments = when (enum) {

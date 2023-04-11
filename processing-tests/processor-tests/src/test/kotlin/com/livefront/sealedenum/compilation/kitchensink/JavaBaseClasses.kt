@@ -47,6 +47,7 @@ import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Double
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -85,23 +86,26 @@ public val JavaBaseClassesSealedClassEnum.sealedObject: JavaBaseClassesSealedCla
 public object JavaBaseClassesSealedClassSealedEnum : SealedEnum<JavaBaseClassesSealedClass<*>>,
         SealedEnumWithEnumProvider<JavaBaseClassesSealedClass<*>, JavaBaseClassesSealedClassEnum>,
         EnumForSealedEnumProvider<JavaBaseClassesSealedClass<*>, JavaBaseClassesSealedClassEnum> {
-    public override val values: List<JavaBaseClassesSealedClass<*>> = listOf(
-        JavaBaseClassesSealedClass.FirstObject,
-        JavaBaseClassesSealedClass.SecondObject
-    )
+    public override val values: List<JavaBaseClassesSealedClass<*>> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            JavaBaseClassesSealedClass.FirstObject,
+            JavaBaseClassesSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<JavaBaseClassesSealedClassEnum>
         get() = JavaBaseClassesSealedClassEnum::class
 
     public override fun ordinalOf(obj: JavaBaseClassesSealedClass<*>): Int = when (obj) {
-        JavaBaseClassesSealedClass.FirstObject -> 0
-        JavaBaseClassesSealedClass.SecondObject -> 1
+        is JavaBaseClassesSealedClass.FirstObject -> 0
+        is JavaBaseClassesSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: JavaBaseClassesSealedClass<*>): String = when (obj) {
-        JavaBaseClassesSealedClass.FirstObject -> "JavaBaseClassesSealedClass_FirstObject"
-        JavaBaseClassesSealedClass.SecondObject -> "JavaBaseClassesSealedClass_SecondObject"
+        is JavaBaseClassesSealedClass.FirstObject -> "JavaBaseClassesSealedClass_FirstObject"
+        is JavaBaseClassesSealedClass.SecondObject -> "JavaBaseClassesSealedClass_SecondObject"
     }
 
     public override fun valueOf(name: String): JavaBaseClassesSealedClass<*> = when (name) {
@@ -112,9 +116,9 @@ public object JavaBaseClassesSealedClassSealedEnum : SealedEnum<JavaBaseClassesS
 
     public override fun sealedObjectToEnum(obj: JavaBaseClassesSealedClass<*>):
             JavaBaseClassesSealedClassEnum = when (obj) {
-        JavaBaseClassesSealedClass.FirstObject ->
+        is JavaBaseClassesSealedClass.FirstObject ->
                 JavaBaseClassesSealedClassEnum.JavaBaseClassesSealedClass_FirstObject
-        JavaBaseClassesSealedClass.SecondObject ->
+        is JavaBaseClassesSealedClass.SecondObject ->
                 JavaBaseClassesSealedClassEnum.JavaBaseClassesSealedClass_SecondObject
     }
 

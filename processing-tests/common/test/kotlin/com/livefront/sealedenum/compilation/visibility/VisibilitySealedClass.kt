@@ -24,6 +24,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -55,26 +56,29 @@ public val InternalObjectsSealedClassEnum.sealedObject: InternalObjectsSealedCla
 public object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsSealedClass>,
         SealedEnumWithEnumProvider<InternalObjectsSealedClass, InternalObjectsSealedClassEnum>,
         EnumForSealedEnumProvider<InternalObjectsSealedClass, InternalObjectsSealedClassEnum> {
-    public override val values: List<InternalObjectsSealedClass> = listOf(
-        InternalObjectsSealedClass.FirstObject,
-        InternalObjectsSealedClass.SecondObject,
-        InternalObjectsSealedClass.InnerSealedClass.ThirdObject
-    )
+    public override val values: List<InternalObjectsSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            InternalObjectsSealedClass.FirstObject,
+            InternalObjectsSealedClass.SecondObject,
+            InternalObjectsSealedClass.InnerSealedClass.ThirdObject
+        )
+    }
 
 
     public override val enumClass: KClass<InternalObjectsSealedClassEnum>
         get() = InternalObjectsSealedClassEnum::class
 
     public override fun ordinalOf(obj: InternalObjectsSealedClass): Int = when (obj) {
-        InternalObjectsSealedClass.FirstObject -> 0
-        InternalObjectsSealedClass.SecondObject -> 1
-        InternalObjectsSealedClass.InnerSealedClass.ThirdObject -> 2
+        is InternalObjectsSealedClass.FirstObject -> 0
+        is InternalObjectsSealedClass.SecondObject -> 1
+        is InternalObjectsSealedClass.InnerSealedClass.ThirdObject -> 2
     }
 
     public override fun nameOf(obj: InternalObjectsSealedClass): String = when (obj) {
-        InternalObjectsSealedClass.FirstObject -> "InternalObjectsSealedClass_FirstObject"
-        InternalObjectsSealedClass.SecondObject -> "InternalObjectsSealedClass_SecondObject"
-        InternalObjectsSealedClass.InnerSealedClass.ThirdObject ->
+        is InternalObjectsSealedClass.FirstObject -> "InternalObjectsSealedClass_FirstObject"
+        is InternalObjectsSealedClass.SecondObject -> "InternalObjectsSealedClass_SecondObject"
+        is InternalObjectsSealedClass.InnerSealedClass.ThirdObject ->
                 "InternalObjectsSealedClass_InnerSealedClass_ThirdObject"
     }
 
@@ -88,11 +92,11 @@ public object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsS
 
     public override fun sealedObjectToEnum(obj: InternalObjectsSealedClass):
             InternalObjectsSealedClassEnum = when (obj) {
-        InternalObjectsSealedClass.FirstObject ->
+        is InternalObjectsSealedClass.FirstObject ->
                 InternalObjectsSealedClassEnum.InternalObjectsSealedClass_FirstObject
-        InternalObjectsSealedClass.SecondObject ->
+        is InternalObjectsSealedClass.SecondObject ->
                 InternalObjectsSealedClassEnum.InternalObjectsSealedClass_SecondObject
-        InternalObjectsSealedClass.InnerSealedClass.ThirdObject ->
+        is InternalObjectsSealedClass.InnerSealedClass.ThirdObject ->
                 InternalObjectsSealedClassEnum.InternalObjectsSealedClass_InnerSealedClass_ThirdObject
     }
 
@@ -159,6 +163,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -189,23 +194,26 @@ internal val InternalSealedClassEnum.sealedObject: InternalSealedClass
 internal object InternalSealedClassSealedEnum : SealedEnum<InternalSealedClass>,
         SealedEnumWithEnumProvider<InternalSealedClass, InternalSealedClassEnum>,
         EnumForSealedEnumProvider<InternalSealedClass, InternalSealedClassEnum> {
-    public override val values: List<InternalSealedClass> = listOf(
-        InternalSealedClass.FirstObject,
-        InternalSealedClass.SecondObject
-    )
+    public override val values: List<InternalSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            InternalSealedClass.FirstObject,
+            InternalSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<InternalSealedClassEnum>
         get() = InternalSealedClassEnum::class
 
     public override fun ordinalOf(obj: InternalSealedClass): Int = when (obj) {
-        InternalSealedClass.FirstObject -> 0
-        InternalSealedClass.SecondObject -> 1
+        is InternalSealedClass.FirstObject -> 0
+        is InternalSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: InternalSealedClass): String = when (obj) {
-        InternalSealedClass.FirstObject -> "InternalSealedClass_FirstObject"
-        InternalSealedClass.SecondObject -> "InternalSealedClass_SecondObject"
+        is InternalSealedClass.FirstObject -> "InternalSealedClass_FirstObject"
+        is InternalSealedClass.SecondObject -> "InternalSealedClass_SecondObject"
     }
 
     public override fun valueOf(name: String): InternalSealedClass = when (name) {
@@ -216,8 +224,10 @@ internal object InternalSealedClassSealedEnum : SealedEnum<InternalSealedClass>,
 
     public override fun sealedObjectToEnum(obj: InternalSealedClass): InternalSealedClassEnum = when
             (obj) {
-        InternalSealedClass.FirstObject -> InternalSealedClassEnum.InternalSealedClass_FirstObject
-        InternalSealedClass.SecondObject -> InternalSealedClassEnum.InternalSealedClass_SecondObject
+        is InternalSealedClass.FirstObject ->
+                InternalSealedClassEnum.InternalSealedClass_FirstObject
+        is InternalSealedClass.SecondObject ->
+                InternalSealedClassEnum.InternalSealedClass_SecondObject
     }
 
     public override fun enumToSealedObject(`enum`: InternalSealedClassEnum): InternalSealedClass =
@@ -279,6 +289,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -309,23 +320,26 @@ public val InternalCompanionSealedClassEnum.sealedObject: InternalCompanionSeale
 public object InternalCompanionSealedClassSealedEnum : SealedEnum<InternalCompanionSealedClass>,
         SealedEnumWithEnumProvider<InternalCompanionSealedClass, InternalCompanionSealedClassEnum>,
         EnumForSealedEnumProvider<InternalCompanionSealedClass, InternalCompanionSealedClassEnum> {
-    public override val values: List<InternalCompanionSealedClass> = listOf(
-        InternalCompanionSealedClass.FirstObject,
-        InternalCompanionSealedClass.SecondObject
-    )
+    public override val values: List<InternalCompanionSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            InternalCompanionSealedClass.FirstObject,
+            InternalCompanionSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<InternalCompanionSealedClassEnum>
         get() = InternalCompanionSealedClassEnum::class
 
     public override fun ordinalOf(obj: InternalCompanionSealedClass): Int = when (obj) {
-        InternalCompanionSealedClass.FirstObject -> 0
-        InternalCompanionSealedClass.SecondObject -> 1
+        is InternalCompanionSealedClass.FirstObject -> 0
+        is InternalCompanionSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: InternalCompanionSealedClass): String = when (obj) {
-        InternalCompanionSealedClass.FirstObject -> "InternalCompanionSealedClass_FirstObject"
-        InternalCompanionSealedClass.SecondObject -> "InternalCompanionSealedClass_SecondObject"
+        is InternalCompanionSealedClass.FirstObject -> "InternalCompanionSealedClass_FirstObject"
+        is InternalCompanionSealedClass.SecondObject -> "InternalCompanionSealedClass_SecondObject"
     }
 
     public override fun valueOf(name: String): InternalCompanionSealedClass = when (name) {
@@ -336,9 +350,9 @@ public object InternalCompanionSealedClassSealedEnum : SealedEnum<InternalCompan
 
     public override fun sealedObjectToEnum(obj: InternalCompanionSealedClass):
             InternalCompanionSealedClassEnum = when (obj) {
-        InternalCompanionSealedClass.FirstObject ->
+        is InternalCompanionSealedClass.FirstObject ->
                 InternalCompanionSealedClassEnum.InternalCompanionSealedClass_FirstObject
-        InternalCompanionSealedClass.SecondObject ->
+        is InternalCompanionSealedClass.SecondObject ->
                 InternalCompanionSealedClassEnum.InternalCompanionSealedClass_SecondObject
     }
 
@@ -404,6 +418,7 @@ import com.livefront.sealedenum.EnumForSealedEnumProvider
 import com.livefront.sealedenum.SealedEnum
 import com.livefront.sealedenum.SealedEnumWithEnumProvider
 import kotlin.Int
+import kotlin.LazyThreadSafetyMode
 import kotlin.String
 import kotlin.collections.List
 import kotlin.reflect.KClass
@@ -437,24 +452,27 @@ internal object InternalSealedAndCompanionSealedClassSealedEnum :
         SealedEnumWithEnumProvider<InternalSealedAndCompanionSealedClass, InternalSealedAndCompanionSealedClassEnum>,
         EnumForSealedEnumProvider<InternalSealedAndCompanionSealedClass, InternalSealedAndCompanionSealedClassEnum>
         {
-    public override val values: List<InternalSealedAndCompanionSealedClass> = listOf(
-        InternalSealedAndCompanionSealedClass.FirstObject,
-        InternalSealedAndCompanionSealedClass.SecondObject
-    )
+    public override val values: List<InternalSealedAndCompanionSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            InternalSealedAndCompanionSealedClass.FirstObject,
+            InternalSealedAndCompanionSealedClass.SecondObject
+        )
+    }
 
 
     public override val enumClass: KClass<InternalSealedAndCompanionSealedClassEnum>
         get() = InternalSealedAndCompanionSealedClassEnum::class
 
     public override fun ordinalOf(obj: InternalSealedAndCompanionSealedClass): Int = when (obj) {
-        InternalSealedAndCompanionSealedClass.FirstObject -> 0
-        InternalSealedAndCompanionSealedClass.SecondObject -> 1
+        is InternalSealedAndCompanionSealedClass.FirstObject -> 0
+        is InternalSealedAndCompanionSealedClass.SecondObject -> 1
     }
 
     public override fun nameOf(obj: InternalSealedAndCompanionSealedClass): String = when (obj) {
-        InternalSealedAndCompanionSealedClass.FirstObject ->
+        is InternalSealedAndCompanionSealedClass.FirstObject ->
                 "InternalSealedAndCompanionSealedClass_FirstObject"
-        InternalSealedAndCompanionSealedClass.SecondObject ->
+        is InternalSealedAndCompanionSealedClass.SecondObject ->
                 "InternalSealedAndCompanionSealedClass_SecondObject"
     }
 
@@ -468,9 +486,9 @@ internal object InternalSealedAndCompanionSealedClassSealedEnum :
 
     public override fun sealedObjectToEnum(obj: InternalSealedAndCompanionSealedClass):
             InternalSealedAndCompanionSealedClassEnum = when (obj) {
-        InternalSealedAndCompanionSealedClass.FirstObject ->
+        is InternalSealedAndCompanionSealedClass.FirstObject ->
                 InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_FirstObject
-        InternalSealedAndCompanionSealedClass.SecondObject ->
+        is InternalSealedAndCompanionSealedClass.SecondObject ->
                 InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_SecondObject
     }
 

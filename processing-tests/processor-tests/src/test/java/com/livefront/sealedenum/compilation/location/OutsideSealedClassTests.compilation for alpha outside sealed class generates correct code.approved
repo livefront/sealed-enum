@@ -1,0 +1,103 @@
+package com.livefront.sealedenum.compilation.location
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [AlphaOutsideSealedClass]
+ */
+public enum class AlphaOutsideSealedClassEnum() {
+    AlphaFirstObject,
+}
+
+/**
+ * The isomorphic [AlphaOutsideSealedClassEnum] for [this].
+ */
+public val AlphaOutsideSealedClass.`enum`: AlphaOutsideSealedClassEnum
+    get() = AlphaOutsideSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [AlphaOutsideSealedClass] for [this].
+ */
+public val AlphaOutsideSealedClassEnum.sealedObject: AlphaOutsideSealedClass
+    get() = AlphaOutsideSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [AlphaOutsideSealedClass]
+ */
+public object AlphaOutsideSealedClassSealedEnum : SealedEnum<AlphaOutsideSealedClass>,
+        SealedEnumWithEnumProvider<AlphaOutsideSealedClass, AlphaOutsideSealedClassEnum>,
+        EnumForSealedEnumProvider<AlphaOutsideSealedClass, AlphaOutsideSealedClassEnum> {
+    public override val values: List<AlphaOutsideSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            AlphaFirstObject
+        )
+    }
+
+
+    public override val enumClass: KClass<AlphaOutsideSealedClassEnum>
+        get() = AlphaOutsideSealedClassEnum::class
+
+    public override fun ordinalOf(obj: AlphaOutsideSealedClass): Int = when (obj) {
+        is AlphaFirstObject -> 0
+    }
+
+    public override fun nameOf(obj: AlphaOutsideSealedClass): String = when (obj) {
+        is AlphaFirstObject -> "AlphaFirstObject"
+    }
+
+    public override fun valueOf(name: String): AlphaOutsideSealedClass = when (name) {
+        "AlphaFirstObject" -> AlphaFirstObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: AlphaOutsideSealedClass):
+            AlphaOutsideSealedClassEnum = when (obj) {
+        is AlphaFirstObject -> AlphaOutsideSealedClassEnum.AlphaFirstObject
+    }
+
+    public override fun enumToSealedObject(`enum`: AlphaOutsideSealedClassEnum):
+            AlphaOutsideSealedClass = when (enum) {
+        AlphaOutsideSealedClassEnum.AlphaFirstObject -> AlphaFirstObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val AlphaOutsideSealedClass.ordinal: Int
+    get() = AlphaOutsideSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val AlphaOutsideSealedClass.name: String
+    get() = AlphaOutsideSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [AlphaOutsideSealedClass] objects.
+ */
+public val AlphaOutsideSealedClass.Companion.values: List<AlphaOutsideSealedClass>
+    get() = AlphaOutsideSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [AlphaOutsideSealedClass]
+ */
+public val AlphaOutsideSealedClass.Companion.sealedEnum: AlphaOutsideSealedClassSealedEnum
+    get() = AlphaOutsideSealedClassSealedEnum
+
+/**
+ * Returns the [AlphaOutsideSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [AlphaOutsideSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun AlphaOutsideSealedClass.Companion.valueOf(name: String): AlphaOutsideSealedClass =
+        AlphaOutsideSealedClassSealedEnum.valueOf(name)

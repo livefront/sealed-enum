@@ -1,0 +1,123 @@
+package com.livefront.sealedenum.compilation.generics
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [OneTypeParameterSealedClass]
+ */
+public enum class OneTypeParameterSealedClassEnum() {
+    OneTypeParameterSealedClass_FirstObject,
+    OneTypeParameterSealedClass_SecondObject,
+    OneTypeParameterSealedClass_ThirdObject,
+}
+
+/**
+ * The isomorphic [OneTypeParameterSealedClassEnum] for [this].
+ */
+public val OneTypeParameterSealedClass<*>.`enum`: OneTypeParameterSealedClassEnum
+    get() = OneTypeParameterSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [OneTypeParameterSealedClass] for [this].
+ */
+public val OneTypeParameterSealedClassEnum.sealedObject: OneTypeParameterSealedClass<*>
+    get() = OneTypeParameterSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [OneTypeParameterSealedClass]
+ */
+public object OneTypeParameterSealedClassSealedEnum : SealedEnum<OneTypeParameterSealedClass<*>>,
+        SealedEnumWithEnumProvider<OneTypeParameterSealedClass<*>, OneTypeParameterSealedClassEnum>,
+        EnumForSealedEnumProvider<OneTypeParameterSealedClass<*>, OneTypeParameterSealedClassEnum> {
+    public override val values: List<OneTypeParameterSealedClass<*>> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            OneTypeParameterSealedClass.FirstObject,
+            OneTypeParameterSealedClass.SecondObject,
+            OneTypeParameterSealedClass.ThirdObject
+        )
+    }
+
+
+    public override val enumClass: KClass<OneTypeParameterSealedClassEnum>
+        get() = OneTypeParameterSealedClassEnum::class
+
+    public override fun ordinalOf(obj: OneTypeParameterSealedClass<*>): Int = when (obj) {
+        is OneTypeParameterSealedClass.FirstObject -> 0
+        is OneTypeParameterSealedClass.SecondObject -> 1
+        is OneTypeParameterSealedClass.ThirdObject -> 2
+    }
+
+    public override fun nameOf(obj: OneTypeParameterSealedClass<*>): String = when (obj) {
+        is OneTypeParameterSealedClass.FirstObject -> "OneTypeParameterSealedClass_FirstObject"
+        is OneTypeParameterSealedClass.SecondObject -> "OneTypeParameterSealedClass_SecondObject"
+        is OneTypeParameterSealedClass.ThirdObject -> "OneTypeParameterSealedClass_ThirdObject"
+    }
+
+    public override fun valueOf(name: String): OneTypeParameterSealedClass<*> = when (name) {
+        "OneTypeParameterSealedClass_FirstObject" -> OneTypeParameterSealedClass.FirstObject
+        "OneTypeParameterSealedClass_SecondObject" -> OneTypeParameterSealedClass.SecondObject
+        "OneTypeParameterSealedClass_ThirdObject" -> OneTypeParameterSealedClass.ThirdObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: OneTypeParameterSealedClass<*>):
+            OneTypeParameterSealedClassEnum = when (obj) {
+        is OneTypeParameterSealedClass.FirstObject ->
+                OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_FirstObject
+        is OneTypeParameterSealedClass.SecondObject ->
+                OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_SecondObject
+        is OneTypeParameterSealedClass.ThirdObject ->
+                OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_ThirdObject
+    }
+
+    public override fun enumToSealedObject(`enum`: OneTypeParameterSealedClassEnum):
+            OneTypeParameterSealedClass<*> = when (enum) {
+        OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_FirstObject ->
+                OneTypeParameterSealedClass.FirstObject
+        OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_SecondObject ->
+                OneTypeParameterSealedClass.SecondObject
+        OneTypeParameterSealedClassEnum.OneTypeParameterSealedClass_ThirdObject ->
+                OneTypeParameterSealedClass.ThirdObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val OneTypeParameterSealedClass<*>.ordinal: Int
+    get() = OneTypeParameterSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val OneTypeParameterSealedClass<*>.name: String
+    get() = OneTypeParameterSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [OneTypeParameterSealedClass] objects.
+ */
+public val OneTypeParameterSealedClass.OneType.values: List<OneTypeParameterSealedClass<*>>
+    get() = OneTypeParameterSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [OneTypeParameterSealedClass]
+ */
+public val OneTypeParameterSealedClass.OneType.sealedEnum: OneTypeParameterSealedClassSealedEnum
+    get() = OneTypeParameterSealedClassSealedEnum
+
+/**
+ * Returns the [OneTypeParameterSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [OneTypeParameterSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun OneTypeParameterSealedClass.OneType.valueOf(name: String): OneTypeParameterSealedClass<*>
+        = OneTypeParameterSealedClassSealedEnum.valueOf(name)

@@ -1,12 +1,16 @@
 package com.livefront.sealedenum.compilation.location
 
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
+import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(ApprovalsExtension::class)
 class SplitAcrossFilesSealedClassTests {
 
     @Test
@@ -30,7 +34,7 @@ class SplitAcrossFilesSealedClassTests {
     }
 
     @Test
-    fun `compilation for objects split across files generates correct code`() {
+    fun Approver.`compilation for objects split across files generates correct code`() {
         val result = compile(
             getCommonSourceFile("compilation", "location", "SplitAcrossFilesSealedClass.kt"),
             getCommonSourceFile("compilation", "location", "SplitAcrossFilesSubclassA.kt"),
@@ -39,10 +43,6 @@ class SplitAcrossFilesSealedClassTests {
         )
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SplitAcrossFilesSealedClass_SealedEnum.kt",
-            splitAcrossFilesSealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SplitAcrossFilesSealedClass_SealedEnum.kt", result)
     }
 }

@@ -1,0 +1,87 @@
+package com.livefront.sealedenum.compilation.location
+
+import com.livefront.sealedenum.SealedEnum
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+
+/**
+ * An implementation of [SealedEnum] for the sealed class
+ * [FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass]
+ */
+public object FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum :
+        SealedEnum<FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass> {
+    public override val values: List<FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass>
+            by lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject,
+            FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject
+        )
+    }
+
+
+    public override
+            fun ordinalOf(obj: FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass): Int =
+            when (obj) {
+        is FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject -> 0
+        is FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject -> 1
+    }
+
+    public override fun nameOf(obj: FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass):
+            String = when (obj) {
+        is FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject ->
+                "FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClass_FirstObject"
+        is FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject ->
+                "FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClass_SecondObject"
+    }
+
+    public override fun valueOf(name: String):
+            FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass = when (name) {
+        "FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClass_FirstObject" ->
+                FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.FirstObject
+        "FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClass_SecondObject" ->
+                FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.SecondObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.ordinal: Int
+    get() = FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.name: String
+    get() = FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass] objects.
+ */
+public val FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.Companion.values:
+        List<FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass>
+    get() = FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class
+ * [FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass]
+ */
+public val FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.Companion.sealedEnum:
+        FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum
+    get() = FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum
+
+/**
+ * Returns the [FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass] object for the given
+ * [name].
+ *
+ * If the given name doesn't correspond to any
+ * [FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass], an [IllegalArgumentException] will
+ * be thrown.
+ */
+public
+        fun FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass.Companion.valueOf(name: String):
+        FirstOuterClass.SecondOuterClass.InsideTwoClassesSealedClass =
+        FirstOuterClass_SecondOuterClass_InsideTwoClassesSealedClassSealedEnum.valueOf(name)

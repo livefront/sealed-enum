@@ -1,0 +1,105 @@
+package com.livefront.sealedenum.compilation.hierarchy
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [FirstInterfaceHierarchy.A.B]
+ */
+public enum class FirstInterfaceHierarchy_A_BEnum() {
+    FirstInterfaceHierarchy_A_B_C,
+}
+
+/**
+ * The isomorphic [FirstInterfaceHierarchy_A_BEnum] for [this].
+ */
+public val FirstInterfaceHierarchy.A.B.`enum`: FirstInterfaceHierarchy_A_BEnum
+    get() = FirstInterfaceHierarchy_A_BSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [FirstInterfaceHierarchy.A.B] for [this].
+ */
+public val FirstInterfaceHierarchy_A_BEnum.sealedObject: FirstInterfaceHierarchy.A.B
+    get() = FirstInterfaceHierarchy_A_BSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [FirstInterfaceHierarchy.A.B]
+ */
+public object FirstInterfaceHierarchy_A_BSealedEnum : SealedEnum<FirstInterfaceHierarchy.A.B>,
+        SealedEnumWithEnumProvider<FirstInterfaceHierarchy.A.B, FirstInterfaceHierarchy_A_BEnum>,
+        EnumForSealedEnumProvider<FirstInterfaceHierarchy.A.B, FirstInterfaceHierarchy_A_BEnum> {
+    public override val values: List<FirstInterfaceHierarchy.A.B> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            FirstInterfaceHierarchy.A.B.C
+        )
+    }
+
+
+    public override val enumClass: KClass<FirstInterfaceHierarchy_A_BEnum>
+        get() = FirstInterfaceHierarchy_A_BEnum::class
+
+    public override fun ordinalOf(obj: FirstInterfaceHierarchy.A.B): Int = when (obj) {
+        is FirstInterfaceHierarchy.A.B.C -> 0
+    }
+
+    public override fun nameOf(obj: FirstInterfaceHierarchy.A.B): String = when (obj) {
+        is FirstInterfaceHierarchy.A.B.C -> "FirstInterfaceHierarchy_A_B_C"
+    }
+
+    public override fun valueOf(name: String): FirstInterfaceHierarchy.A.B = when (name) {
+        "FirstInterfaceHierarchy_A_B_C" -> FirstInterfaceHierarchy.A.B.C
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: FirstInterfaceHierarchy.A.B):
+            FirstInterfaceHierarchy_A_BEnum = when (obj) {
+        is FirstInterfaceHierarchy.A.B.C ->
+                FirstInterfaceHierarchy_A_BEnum.FirstInterfaceHierarchy_A_B_C
+    }
+
+    public override fun enumToSealedObject(`enum`: FirstInterfaceHierarchy_A_BEnum):
+            FirstInterfaceHierarchy.A.B = when (enum) {
+        FirstInterfaceHierarchy_A_BEnum.FirstInterfaceHierarchy_A_B_C ->
+                FirstInterfaceHierarchy.A.B.C
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val FirstInterfaceHierarchy.A.B.ordinal: Int
+    get() = FirstInterfaceHierarchy_A_BSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val FirstInterfaceHierarchy.A.B.name: String
+    get() = FirstInterfaceHierarchy_A_BSealedEnum.nameOf(this)
+
+/**
+ * A list of all [FirstInterfaceHierarchy.A.B] objects.
+ */
+public val FirstInterfaceHierarchy.A.B.Companion.values: List<FirstInterfaceHierarchy.A.B>
+    get() = FirstInterfaceHierarchy_A_BSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [FirstInterfaceHierarchy.A.B]
+ */
+public val FirstInterfaceHierarchy.A.B.Companion.sealedEnum: FirstInterfaceHierarchy_A_BSealedEnum
+    get() = FirstInterfaceHierarchy_A_BSealedEnum
+
+/**
+ * Returns the [FirstInterfaceHierarchy.A.B] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [FirstInterfaceHierarchy.A.B], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun FirstInterfaceHierarchy.A.B.Companion.valueOf(name: String): FirstInterfaceHierarchy.A.B
+        = FirstInterfaceHierarchy_A_BSealedEnum.valueOf(name)

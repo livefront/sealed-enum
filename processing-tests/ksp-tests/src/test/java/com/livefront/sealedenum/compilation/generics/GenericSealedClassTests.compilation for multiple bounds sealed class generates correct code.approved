@@ -1,0 +1,105 @@
+package com.livefront.sealedenum.compilation.generics
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [MultipleBoundsSealedClass]
+ */
+public enum class MultipleBoundsSealedClassEnum() {
+    MultipleBoundsSealedClass_FirstObject,
+}
+
+/**
+ * The isomorphic [MultipleBoundsSealedClassEnum] for [this].
+ */
+public val MultipleBoundsSealedClass<*>.`enum`: MultipleBoundsSealedClassEnum
+    get() = MultipleBoundsSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [MultipleBoundsSealedClass] for [this].
+ */
+public val MultipleBoundsSealedClassEnum.sealedObject: MultipleBoundsSealedClass<*>
+    get() = MultipleBoundsSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [MultipleBoundsSealedClass]
+ */
+public object MultipleBoundsSealedClassSealedEnum : SealedEnum<MultipleBoundsSealedClass<*>>,
+        SealedEnumWithEnumProvider<MultipleBoundsSealedClass<*>, MultipleBoundsSealedClassEnum>,
+        EnumForSealedEnumProvider<MultipleBoundsSealedClass<*>, MultipleBoundsSealedClassEnum> {
+    public override val values: List<MultipleBoundsSealedClass<*>> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            MultipleBoundsSealedClass.FirstObject
+        )
+    }
+
+
+    public override val enumClass: KClass<MultipleBoundsSealedClassEnum>
+        get() = MultipleBoundsSealedClassEnum::class
+
+    public override fun ordinalOf(obj: MultipleBoundsSealedClass<*>): Int = when (obj) {
+        is MultipleBoundsSealedClass.FirstObject -> 0
+    }
+
+    public override fun nameOf(obj: MultipleBoundsSealedClass<*>): String = when (obj) {
+        is MultipleBoundsSealedClass.FirstObject -> "MultipleBoundsSealedClass_FirstObject"
+    }
+
+    public override fun valueOf(name: String): MultipleBoundsSealedClass<*> = when (name) {
+        "MultipleBoundsSealedClass_FirstObject" -> MultipleBoundsSealedClass.FirstObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: MultipleBoundsSealedClass<*>):
+            MultipleBoundsSealedClassEnum = when (obj) {
+        is MultipleBoundsSealedClass.FirstObject ->
+                MultipleBoundsSealedClassEnum.MultipleBoundsSealedClass_FirstObject
+    }
+
+    public override fun enumToSealedObject(`enum`: MultipleBoundsSealedClassEnum):
+            MultipleBoundsSealedClass<*> = when (enum) {
+        MultipleBoundsSealedClassEnum.MultipleBoundsSealedClass_FirstObject ->
+                MultipleBoundsSealedClass.FirstObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val MultipleBoundsSealedClass<*>.ordinal: Int
+    get() = MultipleBoundsSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val MultipleBoundsSealedClass<*>.name: String
+    get() = MultipleBoundsSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [MultipleBoundsSealedClass] objects.
+ */
+public val MultipleBoundsSealedClass.Companion.values: List<MultipleBoundsSealedClass<*>>
+    get() = MultipleBoundsSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [MultipleBoundsSealedClass]
+ */
+public val MultipleBoundsSealedClass.Companion.sealedEnum: MultipleBoundsSealedClassSealedEnum
+    get() = MultipleBoundsSealedClassSealedEnum
+
+/**
+ * Returns the [MultipleBoundsSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [MultipleBoundsSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun MultipleBoundsSealedClass.Companion.valueOf(name: String): MultipleBoundsSealedClass<*> =
+        MultipleBoundsSealedClassSealedEnum.valueOf(name)

@@ -1,11 +1,14 @@
 package com.livefront.sealedenum.compilation.ksp
 
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
+import com.oneeyedmen.okeydoke.Approver
+import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 /**
  * Verifies that a sealed class in a companion object (or more precisely, an annotation that appears on a nested object
@@ -17,6 +20,7 @@ import org.junit.jupiter.api.Test
  *
  * @see <a href="https://github.com/livefront/sealed-enum/issues/60">sealed-enum/issues/60</a>
  */
+@ExtendWith(ApprovalsExtension::class)
 class NestedObjectsWithSameNameTests {
     @Test
     fun `empty sealed class`() {
@@ -45,14 +49,10 @@ class NestedObjectsWithSameNameTests {
     }
 
     @Test
-    fun `compilation generates correct code`() {
+    fun Approver.`compilation generates correct code`() {
         val result = compile(getSourceFile("compilation", "ksp", "NestedObjectsWithSameName.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "NestedObjectsWithSameName.Companion.EmptySealedClass_SealedEnum.kt",
-            nestedObjectsWithSameNameEmptySealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("NestedObjectsWithSameName.Companion.EmptySealedClass_SealedEnum.kt", result)
     }
 }

@@ -1,12 +1,16 @@
 package com.livefront.sealedenum.compilation.generics
 
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
+import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(ApprovalsExtension::class)
 class GenericSealedClassTests {
 
     @Test
@@ -22,15 +26,11 @@ class GenericSealedClassTests {
     }
 
     @Test
-    fun `compilation for one type parameter generates correct code`() {
+    fun Approver.`compilation for one type parameter generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "generics", "GenericSealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "OneTypeParameterSealedClass_SealedEnum.kt",
-            oneTypeParameterSealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("OneTypeParameterSealedClass_SealedEnum.kt", result)
     }
 
     @Test
@@ -45,15 +45,11 @@ class GenericSealedClassTests {
     }
 
     @Test
-    fun `compilation for two type parameter generates correct code`() {
+    fun Approver.`compilation for two type parameter generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "generics", "GenericSealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "TwoTypeParameterSealedClass_SealedEnum.kt",
-            twoTypeParameterSealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("TwoTypeParameterSealedClass_SealedEnum.kt", result)
     }
 
     @Test
@@ -68,15 +64,11 @@ class GenericSealedClassTests {
     }
 
     @Test
-    fun `compilation for limited type parameter generates correct code`() {
+    fun Approver.`compilation for limited type parameter generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "generics", "GenericSealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "LimitedTypeParameterSealedClass_SealedEnum.kt",
-            limitedTypeParameterSealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("LimitedTypeParameterSealedClass_SealedEnum.kt", result)
     }
 
     @Test
@@ -90,14 +82,10 @@ class GenericSealedClassTests {
     }
 
     @Test
-    fun `compilation for multiple bounds sealed class generates correct code`() {
+    fun Approver.`compilation for multiple bounds sealed class generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "generics", "GenericSealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "MultipleBoundsSealedClass_SealedEnum.kt",
-            multipleBoundsSealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("MultipleBoundsSealedClass_SealedEnum.kt", result)
     }
 }

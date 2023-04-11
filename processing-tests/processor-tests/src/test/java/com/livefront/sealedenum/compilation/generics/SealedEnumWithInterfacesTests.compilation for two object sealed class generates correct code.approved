@@ -1,0 +1,132 @@
+package com.livefront.sealedenum.compilation.generics
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [TwoObjectSealedClassWithGenericInterface]
+ */
+public enum class TwoObjectSealedClassWithGenericInterfaceEnum(
+    sealedObject: TwoObjectSealedClassWithGenericInterface<TestInterface>,
+) : TestGenericInterface<TestInterface> by sealedObject {
+    TwoObjectSealedClassWithGenericInterface_FirstObject(com.livefront.sealedenum.compilation.generics.TwoObjectSealedClassWithGenericInterface.FirstObject),
+    TwoObjectSealedClassWithGenericInterface_SecondObject(com.livefront.sealedenum.compilation.generics.TwoObjectSealedClassWithGenericInterface.SecondObject),
+}
+
+/**
+ * The isomorphic [TwoObjectSealedClassWithGenericInterfaceEnum] for [this].
+ */
+public val TwoObjectSealedClassWithGenericInterface<TestInterface>.`enum`:
+        TwoObjectSealedClassWithGenericInterfaceEnum
+    get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [TwoObjectSealedClassWithGenericInterface] for [this].
+ */
+public val TwoObjectSealedClassWithGenericInterfaceEnum.sealedObject:
+        TwoObjectSealedClassWithGenericInterface<TestInterface>
+    get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [TwoObjectSealedClassWithGenericInterface]
+ */
+public object TwoObjectSealedClassWithGenericInterfaceSealedEnum :
+        SealedEnum<TwoObjectSealedClassWithGenericInterface<TestInterface>>,
+        SealedEnumWithEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>, TwoObjectSealedClassWithGenericInterfaceEnum>,
+        EnumForSealedEnumProvider<TwoObjectSealedClassWithGenericInterface<TestInterface>, TwoObjectSealedClassWithGenericInterfaceEnum>
+        {
+    public override val values: List<TwoObjectSealedClassWithGenericInterface<TestInterface>> by
+            lazy(mode = LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            TwoObjectSealedClassWithGenericInterface.FirstObject,
+            TwoObjectSealedClassWithGenericInterface.SecondObject
+        )
+    }
+
+
+    public override val enumClass: KClass<TwoObjectSealedClassWithGenericInterfaceEnum>
+        get() = TwoObjectSealedClassWithGenericInterfaceEnum::class
+
+    public override fun ordinalOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): Int
+            = when (obj) {
+        is TwoObjectSealedClassWithGenericInterface.FirstObject -> 0
+        is TwoObjectSealedClassWithGenericInterface.SecondObject -> 1
+    }
+
+    public override fun nameOf(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>): String
+            = when (obj) {
+        is TwoObjectSealedClassWithGenericInterface.FirstObject ->
+                "TwoObjectSealedClassWithGenericInterface_FirstObject"
+        is TwoObjectSealedClassWithGenericInterface.SecondObject ->
+                "TwoObjectSealedClassWithGenericInterface_SecondObject"
+    }
+
+    public override fun valueOf(name: String):
+            TwoObjectSealedClassWithGenericInterface<TestInterface> = when (name) {
+        "TwoObjectSealedClassWithGenericInterface_FirstObject" ->
+                TwoObjectSealedClassWithGenericInterface.FirstObject
+        "TwoObjectSealedClassWithGenericInterface_SecondObject" ->
+                TwoObjectSealedClassWithGenericInterface.SecondObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override
+            fun sealedObjectToEnum(obj: TwoObjectSealedClassWithGenericInterface<TestInterface>):
+            TwoObjectSealedClassWithGenericInterfaceEnum = when (obj) {
+        is TwoObjectSealedClassWithGenericInterface.FirstObject ->
+                TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_FirstObject
+        is TwoObjectSealedClassWithGenericInterface.SecondObject ->
+                TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_SecondObject
+    }
+
+    public override fun enumToSealedObject(`enum`: TwoObjectSealedClassWithGenericInterfaceEnum):
+            TwoObjectSealedClassWithGenericInterface<TestInterface> = when (enum) {
+        TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_FirstObject ->
+                TwoObjectSealedClassWithGenericInterface.FirstObject
+        TwoObjectSealedClassWithGenericInterfaceEnum.TwoObjectSealedClassWithGenericInterface_SecondObject ->
+                TwoObjectSealedClassWithGenericInterface.SecondObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val TwoObjectSealedClassWithGenericInterface<TestInterface>.ordinal: Int
+    get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val TwoObjectSealedClassWithGenericInterface<TestInterface>.name: String
+    get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.nameOf(this)
+
+/**
+ * A list of all [TwoObjectSealedClassWithGenericInterface] objects.
+ */
+public val TwoObjectSealedClassWithGenericInterface.Companion.values:
+        List<TwoObjectSealedClassWithGenericInterface<TestInterface>>
+    get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class
+ * [TwoObjectSealedClassWithGenericInterface]
+ */
+public val TwoObjectSealedClassWithGenericInterface.Companion.sealedEnum:
+        TwoObjectSealedClassWithGenericInterfaceSealedEnum
+    get() = TwoObjectSealedClassWithGenericInterfaceSealedEnum
+
+/**
+ * Returns the [TwoObjectSealedClassWithGenericInterface] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [TwoObjectSealedClassWithGenericInterface], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun TwoObjectSealedClassWithGenericInterface.Companion.valueOf(name: String):
+        TwoObjectSealedClassWithGenericInterface<TestInterface> =
+        TwoObjectSealedClassWithGenericInterfaceSealedEnum.valueOf(name)

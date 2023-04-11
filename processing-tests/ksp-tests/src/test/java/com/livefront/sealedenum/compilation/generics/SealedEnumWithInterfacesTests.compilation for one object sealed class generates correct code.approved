@@ -1,0 +1,115 @@
+package com.livefront.sealedenum.compilation.generics
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [OneObjectSealedClassWithInterface]
+ */
+public enum class OneObjectSealedClassWithInterfaceEnum(
+    sealedObject: OneObjectSealedClassWithInterface,
+) : TestInterface by sealedObject {
+    OneObjectSealedClassWithInterface_FirstObject(com.livefront.sealedenum.compilation.generics.OneObjectSealedClassWithInterface.FirstObject),
+}
+
+/**
+ * The isomorphic [OneObjectSealedClassWithInterfaceEnum] for [this].
+ */
+public val OneObjectSealedClassWithInterface.`enum`: OneObjectSealedClassWithInterfaceEnum
+    get() = OneObjectSealedClassWithInterfaceSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [OneObjectSealedClassWithInterface] for [this].
+ */
+public val OneObjectSealedClassWithInterfaceEnum.sealedObject: OneObjectSealedClassWithInterface
+    get() = OneObjectSealedClassWithInterfaceSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [OneObjectSealedClassWithInterface]
+ */
+public object OneObjectSealedClassWithInterfaceSealedEnum :
+        SealedEnum<OneObjectSealedClassWithInterface>,
+        SealedEnumWithEnumProvider<OneObjectSealedClassWithInterface, OneObjectSealedClassWithInterfaceEnum>,
+        EnumForSealedEnumProvider<OneObjectSealedClassWithInterface, OneObjectSealedClassWithInterfaceEnum>
+        {
+    public override val values: List<OneObjectSealedClassWithInterface> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            OneObjectSealedClassWithInterface.FirstObject
+        )
+    }
+
+
+    public override val enumClass: KClass<OneObjectSealedClassWithInterfaceEnum>
+        get() = OneObjectSealedClassWithInterfaceEnum::class
+
+    public override fun ordinalOf(obj: OneObjectSealedClassWithInterface): Int = when (obj) {
+        is OneObjectSealedClassWithInterface.FirstObject -> 0
+    }
+
+    public override fun nameOf(obj: OneObjectSealedClassWithInterface): String = when (obj) {
+        is OneObjectSealedClassWithInterface.FirstObject ->
+                "OneObjectSealedClassWithInterface_FirstObject"
+    }
+
+    public override fun valueOf(name: String): OneObjectSealedClassWithInterface = when (name) {
+        "OneObjectSealedClassWithInterface_FirstObject" ->
+                OneObjectSealedClassWithInterface.FirstObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: OneObjectSealedClassWithInterface):
+            OneObjectSealedClassWithInterfaceEnum = when (obj) {
+        is OneObjectSealedClassWithInterface.FirstObject ->
+                OneObjectSealedClassWithInterfaceEnum.OneObjectSealedClassWithInterface_FirstObject
+    }
+
+    public override fun enumToSealedObject(`enum`: OneObjectSealedClassWithInterfaceEnum):
+            OneObjectSealedClassWithInterface = when (enum) {
+        OneObjectSealedClassWithInterfaceEnum.OneObjectSealedClassWithInterface_FirstObject ->
+                OneObjectSealedClassWithInterface.FirstObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val OneObjectSealedClassWithInterface.ordinal: Int
+    get() = OneObjectSealedClassWithInterfaceSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val OneObjectSealedClassWithInterface.name: String
+    get() = OneObjectSealedClassWithInterfaceSealedEnum.nameOf(this)
+
+/**
+ * A list of all [OneObjectSealedClassWithInterface] objects.
+ */
+public val OneObjectSealedClassWithInterface.Companion.values:
+        List<OneObjectSealedClassWithInterface>
+    get() = OneObjectSealedClassWithInterfaceSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class
+ * [OneObjectSealedClassWithInterface]
+ */
+public val OneObjectSealedClassWithInterface.Companion.sealedEnum:
+        OneObjectSealedClassWithInterfaceSealedEnum
+    get() = OneObjectSealedClassWithInterfaceSealedEnum
+
+/**
+ * Returns the [OneObjectSealedClassWithInterface] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [OneObjectSealedClassWithInterface], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun OneObjectSealedClassWithInterface.Companion.valueOf(name: String):
+        OneObjectSealedClassWithInterface =
+        OneObjectSealedClassWithInterfaceSealedEnum.valueOf(name)

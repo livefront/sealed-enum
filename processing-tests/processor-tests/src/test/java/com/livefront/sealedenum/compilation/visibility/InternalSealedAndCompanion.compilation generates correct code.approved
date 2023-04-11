@@ -1,0 +1,125 @@
+package com.livefront.sealedenum.compilation.visibility
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [InternalSealedAndCompanionSealedClass]
+ */
+internal enum class InternalSealedAndCompanionSealedClassEnum() {
+    InternalSealedAndCompanionSealedClass_FirstObject,
+    InternalSealedAndCompanionSealedClass_SecondObject,
+}
+
+/**
+ * The isomorphic [InternalSealedAndCompanionSealedClassEnum] for [this].
+ */
+internal val InternalSealedAndCompanionSealedClass.`enum`: InternalSealedAndCompanionSealedClassEnum
+    get() = InternalSealedAndCompanionSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [InternalSealedAndCompanionSealedClass] for [this].
+ */
+internal val InternalSealedAndCompanionSealedClassEnum.sealedObject:
+        InternalSealedAndCompanionSealedClass
+    get() = InternalSealedAndCompanionSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [InternalSealedAndCompanionSealedClass]
+ */
+internal object InternalSealedAndCompanionSealedClassSealedEnum :
+        SealedEnum<InternalSealedAndCompanionSealedClass>,
+        SealedEnumWithEnumProvider<InternalSealedAndCompanionSealedClass, InternalSealedAndCompanionSealedClassEnum>,
+        EnumForSealedEnumProvider<InternalSealedAndCompanionSealedClass, InternalSealedAndCompanionSealedClassEnum>
+        {
+    public override val values: List<InternalSealedAndCompanionSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            InternalSealedAndCompanionSealedClass.FirstObject,
+            InternalSealedAndCompanionSealedClass.SecondObject
+        )
+    }
+
+
+    public override val enumClass: KClass<InternalSealedAndCompanionSealedClassEnum>
+        get() = InternalSealedAndCompanionSealedClassEnum::class
+
+    public override fun ordinalOf(obj: InternalSealedAndCompanionSealedClass): Int = when (obj) {
+        is InternalSealedAndCompanionSealedClass.FirstObject -> 0
+        is InternalSealedAndCompanionSealedClass.SecondObject -> 1
+    }
+
+    public override fun nameOf(obj: InternalSealedAndCompanionSealedClass): String = when (obj) {
+        is InternalSealedAndCompanionSealedClass.FirstObject ->
+                "InternalSealedAndCompanionSealedClass_FirstObject"
+        is InternalSealedAndCompanionSealedClass.SecondObject ->
+                "InternalSealedAndCompanionSealedClass_SecondObject"
+    }
+
+    public override fun valueOf(name: String): InternalSealedAndCompanionSealedClass = when (name) {
+        "InternalSealedAndCompanionSealedClass_FirstObject" ->
+                InternalSealedAndCompanionSealedClass.FirstObject
+        "InternalSealedAndCompanionSealedClass_SecondObject" ->
+                InternalSealedAndCompanionSealedClass.SecondObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: InternalSealedAndCompanionSealedClass):
+            InternalSealedAndCompanionSealedClassEnum = when (obj) {
+        is InternalSealedAndCompanionSealedClass.FirstObject ->
+                InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_FirstObject
+        is InternalSealedAndCompanionSealedClass.SecondObject ->
+                InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_SecondObject
+    }
+
+    public override fun enumToSealedObject(`enum`: InternalSealedAndCompanionSealedClassEnum):
+            InternalSealedAndCompanionSealedClass = when (enum) {
+        InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_FirstObject ->
+                InternalSealedAndCompanionSealedClass.FirstObject
+        InternalSealedAndCompanionSealedClassEnum.InternalSealedAndCompanionSealedClass_SecondObject ->
+                InternalSealedAndCompanionSealedClass.SecondObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+internal val InternalSealedAndCompanionSealedClass.ordinal: Int
+    get() = InternalSealedAndCompanionSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+internal val InternalSealedAndCompanionSealedClass.name: String
+    get() = InternalSealedAndCompanionSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [InternalSealedAndCompanionSealedClass] objects.
+ */
+internal val InternalSealedAndCompanionSealedClass.Companion.values:
+        List<InternalSealedAndCompanionSealedClass>
+    get() = InternalSealedAndCompanionSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class
+ * [InternalSealedAndCompanionSealedClass]
+ */
+internal val InternalSealedAndCompanionSealedClass.Companion.sealedEnum:
+        InternalSealedAndCompanionSealedClassSealedEnum
+    get() = InternalSealedAndCompanionSealedClassSealedEnum
+
+/**
+ * Returns the [InternalSealedAndCompanionSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [InternalSealedAndCompanionSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+internal fun InternalSealedAndCompanionSealedClass.Companion.valueOf(name: String):
+        InternalSealedAndCompanionSealedClass =
+        InternalSealedAndCompanionSealedClassSealedEnum.valueOf(name)

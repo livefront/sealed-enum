@@ -1,0 +1,112 @@
+package com.livefront.sealedenum.compilation.location
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [DeltaOutsideSealedClass]
+ */
+public enum class DeltaOutsideSealedClassEnum() {
+    DeltaOutsideSealedClass_DeltaObject,
+    DeltaObject,
+}
+
+/**
+ * The isomorphic [DeltaOutsideSealedClassEnum] for [this].
+ */
+public val DeltaOutsideSealedClass.`enum`: DeltaOutsideSealedClassEnum
+    get() = DeltaOutsideSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [DeltaOutsideSealedClass] for [this].
+ */
+public val DeltaOutsideSealedClassEnum.sealedObject: DeltaOutsideSealedClass
+    get() = DeltaOutsideSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [DeltaOutsideSealedClass]
+ */
+public object DeltaOutsideSealedClassSealedEnum : SealedEnum<DeltaOutsideSealedClass>,
+        SealedEnumWithEnumProvider<DeltaOutsideSealedClass, DeltaOutsideSealedClassEnum>,
+        EnumForSealedEnumProvider<DeltaOutsideSealedClass, DeltaOutsideSealedClassEnum> {
+    public override val values: List<DeltaOutsideSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            DeltaOutsideSealedClass.DeltaObject,
+            DeltaObject
+        )
+    }
+
+
+    public override val enumClass: KClass<DeltaOutsideSealedClassEnum>
+        get() = DeltaOutsideSealedClassEnum::class
+
+    public override fun ordinalOf(obj: DeltaOutsideSealedClass): Int = when (obj) {
+        is DeltaOutsideSealedClass.DeltaObject -> 0
+        is DeltaObject -> 1
+    }
+
+    public override fun nameOf(obj: DeltaOutsideSealedClass): String = when (obj) {
+        is DeltaOutsideSealedClass.DeltaObject -> "DeltaOutsideSealedClass_DeltaObject"
+        is DeltaObject -> "DeltaObject"
+    }
+
+    public override fun valueOf(name: String): DeltaOutsideSealedClass = when (name) {
+        "DeltaOutsideSealedClass_DeltaObject" -> DeltaOutsideSealedClass.DeltaObject
+        "DeltaObject" -> DeltaObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: DeltaOutsideSealedClass):
+            DeltaOutsideSealedClassEnum = when (obj) {
+        is DeltaOutsideSealedClass.DeltaObject ->
+                DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject
+        is DeltaObject -> DeltaOutsideSealedClassEnum.DeltaObject
+    }
+
+    public override fun enumToSealedObject(`enum`: DeltaOutsideSealedClassEnum):
+            DeltaOutsideSealedClass = when (enum) {
+        DeltaOutsideSealedClassEnum.DeltaOutsideSealedClass_DeltaObject ->
+                DeltaOutsideSealedClass.DeltaObject
+        DeltaOutsideSealedClassEnum.DeltaObject -> DeltaObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val DeltaOutsideSealedClass.ordinal: Int
+    get() = DeltaOutsideSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val DeltaOutsideSealedClass.name: String
+    get() = DeltaOutsideSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [DeltaOutsideSealedClass] objects.
+ */
+public val DeltaOutsideSealedClass.Companion.values: List<DeltaOutsideSealedClass>
+    get() = DeltaOutsideSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [DeltaOutsideSealedClass]
+ */
+public val DeltaOutsideSealedClass.Companion.sealedEnum: DeltaOutsideSealedClassSealedEnum
+    get() = DeltaOutsideSealedClassSealedEnum
+
+/**
+ * Returns the [DeltaOutsideSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [DeltaOutsideSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun DeltaOutsideSealedClass.Companion.valueOf(name: String): DeltaOutsideSealedClass =
+        DeltaOutsideSealedClassSealedEnum.valueOf(name)

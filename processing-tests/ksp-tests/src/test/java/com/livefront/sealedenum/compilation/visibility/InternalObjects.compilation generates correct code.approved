@@ -1,0 +1,125 @@
+package com.livefront.sealedenum.compilation.visibility
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [InternalObjectsSealedClass]
+ */
+public enum class InternalObjectsSealedClassEnum() {
+    InternalObjectsSealedClass_FirstObject,
+    InternalObjectsSealedClass_SecondObject,
+    InternalObjectsSealedClass_InnerSealedClass_ThirdObject,
+}
+
+/**
+ * The isomorphic [InternalObjectsSealedClassEnum] for [this].
+ */
+public val InternalObjectsSealedClass.`enum`: InternalObjectsSealedClassEnum
+    get() = InternalObjectsSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [InternalObjectsSealedClass] for [this].
+ */
+public val InternalObjectsSealedClassEnum.sealedObject: InternalObjectsSealedClass
+    get() = InternalObjectsSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [InternalObjectsSealedClass]
+ */
+public object InternalObjectsSealedClassSealedEnum : SealedEnum<InternalObjectsSealedClass>,
+        SealedEnumWithEnumProvider<InternalObjectsSealedClass, InternalObjectsSealedClassEnum>,
+        EnumForSealedEnumProvider<InternalObjectsSealedClass, InternalObjectsSealedClassEnum> {
+    public override val values: List<InternalObjectsSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            InternalObjectsSealedClass.FirstObject,
+            InternalObjectsSealedClass.SecondObject,
+            InternalObjectsSealedClass.InnerSealedClass.ThirdObject
+        )
+    }
+
+
+    public override val enumClass: KClass<InternalObjectsSealedClassEnum>
+        get() = InternalObjectsSealedClassEnum::class
+
+    public override fun ordinalOf(obj: InternalObjectsSealedClass): Int = when (obj) {
+        is InternalObjectsSealedClass.FirstObject -> 0
+        is InternalObjectsSealedClass.SecondObject -> 1
+        is InternalObjectsSealedClass.InnerSealedClass.ThirdObject -> 2
+    }
+
+    public override fun nameOf(obj: InternalObjectsSealedClass): String = when (obj) {
+        is InternalObjectsSealedClass.FirstObject -> "InternalObjectsSealedClass_FirstObject"
+        is InternalObjectsSealedClass.SecondObject -> "InternalObjectsSealedClass_SecondObject"
+        is InternalObjectsSealedClass.InnerSealedClass.ThirdObject ->
+                "InternalObjectsSealedClass_InnerSealedClass_ThirdObject"
+    }
+
+    public override fun valueOf(name: String): InternalObjectsSealedClass = when (name) {
+        "InternalObjectsSealedClass_FirstObject" -> InternalObjectsSealedClass.FirstObject
+        "InternalObjectsSealedClass_SecondObject" -> InternalObjectsSealedClass.SecondObject
+        "InternalObjectsSealedClass_InnerSealedClass_ThirdObject" ->
+                InternalObjectsSealedClass.InnerSealedClass.ThirdObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: InternalObjectsSealedClass):
+            InternalObjectsSealedClassEnum = when (obj) {
+        is InternalObjectsSealedClass.FirstObject ->
+                InternalObjectsSealedClassEnum.InternalObjectsSealedClass_FirstObject
+        is InternalObjectsSealedClass.SecondObject ->
+                InternalObjectsSealedClassEnum.InternalObjectsSealedClass_SecondObject
+        is InternalObjectsSealedClass.InnerSealedClass.ThirdObject ->
+                InternalObjectsSealedClassEnum.InternalObjectsSealedClass_InnerSealedClass_ThirdObject
+    }
+
+    public override fun enumToSealedObject(`enum`: InternalObjectsSealedClassEnum):
+            InternalObjectsSealedClass = when (enum) {
+        InternalObjectsSealedClassEnum.InternalObjectsSealedClass_FirstObject ->
+                InternalObjectsSealedClass.FirstObject
+        InternalObjectsSealedClassEnum.InternalObjectsSealedClass_SecondObject ->
+                InternalObjectsSealedClass.SecondObject
+        InternalObjectsSealedClassEnum.InternalObjectsSealedClass_InnerSealedClass_ThirdObject ->
+                InternalObjectsSealedClass.InnerSealedClass.ThirdObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val InternalObjectsSealedClass.ordinal: Int
+    get() = InternalObjectsSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val InternalObjectsSealedClass.name: String
+    get() = InternalObjectsSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [InternalObjectsSealedClass] objects.
+ */
+public val InternalObjectsSealedClass.Companion.values: List<InternalObjectsSealedClass>
+    get() = InternalObjectsSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [InternalObjectsSealedClass]
+ */
+public val InternalObjectsSealedClass.Companion.sealedEnum: InternalObjectsSealedClassSealedEnum
+    get() = InternalObjectsSealedClassSealedEnum
+
+/**
+ * Returns the [InternalObjectsSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [InternalObjectsSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun InternalObjectsSealedClass.Companion.valueOf(name: String): InternalObjectsSealedClass =
+        InternalObjectsSealedClassSealedEnum.valueOf(name)

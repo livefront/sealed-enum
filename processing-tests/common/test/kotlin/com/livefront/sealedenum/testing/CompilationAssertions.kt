@@ -1,7 +1,7 @@
 package com.livefront.sealedenum.testing
 
+import com.oneeyedmen.okeydoke.Approver
 import com.tschuchort.compiletesting.KotlinCompilation
-import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Assertions.assertEquals
 
 /**
@@ -19,16 +19,9 @@ internal fun assertFails(result: KotlinCompilation.Result) {
 }
 
 /**
- * Asserts that the contents of the generated source file with the name of [fileName] is equal to [expected] for the
- * given [result] of compilation.
+ * Asserts that the contents of the generated source file with the name of [fileName] for the given [result] of
+ * compilation is approved
  */
-internal fun assertGeneratedFileMatches(
-    fileName: String,
-    @Language("kotlin") expected: String,
-    result: KotlinCompilation.Result
-) {
-    assertEquals(
-        expected,
-        result.outputDirectory.parentFile.walk().first { it.name == fileName }.readText()
-    )
+internal fun Approver.assertApprovedGeneratedFile(fileName: String, result: KotlinCompilation.Result) {
+    assertApproved(result.outputDirectory.parentFile.walk().first { it.name == fileName }.readText())
 }

@@ -1,0 +1,90 @@
+package com.livefront.sealedenum.compilation.hierarchy
+
+import com.livefront.sealedenum.SealedEnum
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [SecondClassHierarchy.Z]
+ */
+public object SecondClassHierarchy_ZSealedEnum : SealedEnum<SecondClassHierarchy.Z> {
+    public override val values: List<SecondClassHierarchy.Z> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondClassHierarchy.Z.Y,
+            SecondClassHierarchy.Z.X.W,
+            SecondClassHierarchy.Z.X.V,
+            SecondClassHierarchy.Z.X.U.T,
+            SecondClassHierarchy.Z.X.S.R,
+            SecondClassHierarchy.Z.Q.P,
+            SecondClassHierarchy.Z.O
+        )
+    }
+
+
+    public override fun ordinalOf(obj: SecondClassHierarchy.Z): Int = when (obj) {
+        is SecondClassHierarchy.Z.Y -> 0
+        is SecondClassHierarchy.Z.X.W -> 1
+        is SecondClassHierarchy.Z.X.V -> 2
+        is SecondClassHierarchy.Z.X.U.T -> 3
+        is SecondClassHierarchy.Z.X.S.R -> 4
+        is SecondClassHierarchy.Z.Q.P -> 5
+        is SecondClassHierarchy.Z.O -> 6
+    }
+
+    public override fun nameOf(obj: SecondClassHierarchy.Z): String = when (obj) {
+        is SecondClassHierarchy.Z.Y -> "SecondClassHierarchy_Z_Y"
+        is SecondClassHierarchy.Z.X.W -> "SecondClassHierarchy_Z_X_W"
+        is SecondClassHierarchy.Z.X.V -> "SecondClassHierarchy_Z_X_V"
+        is SecondClassHierarchy.Z.X.U.T -> "SecondClassHierarchy_Z_X_U_T"
+        is SecondClassHierarchy.Z.X.S.R -> "SecondClassHierarchy_Z_X_S_R"
+        is SecondClassHierarchy.Z.Q.P -> "SecondClassHierarchy_Z_Q_P"
+        is SecondClassHierarchy.Z.O -> "SecondClassHierarchy_Z_O"
+    }
+
+    public override fun valueOf(name: String): SecondClassHierarchy.Z = when (name) {
+        "SecondClassHierarchy_Z_Y" -> SecondClassHierarchy.Z.Y
+        "SecondClassHierarchy_Z_X_W" -> SecondClassHierarchy.Z.X.W
+        "SecondClassHierarchy_Z_X_V" -> SecondClassHierarchy.Z.X.V
+        "SecondClassHierarchy_Z_X_U_T" -> SecondClassHierarchy.Z.X.U.T
+        "SecondClassHierarchy_Z_X_S_R" -> SecondClassHierarchy.Z.X.S.R
+        "SecondClassHierarchy_Z_Q_P" -> SecondClassHierarchy.Z.Q.P
+        "SecondClassHierarchy_Z_O" -> SecondClassHierarchy.Z.O
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val SecondClassHierarchy.Z.ordinal: Int
+    get() = SecondClassHierarchy_ZSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val SecondClassHierarchy.Z.name: String
+    get() = SecondClassHierarchy_ZSealedEnum.nameOf(this)
+
+/**
+ * A list of all [SecondClassHierarchy.Z] objects.
+ */
+public val SecondClassHierarchy.Z.Companion.values: List<SecondClassHierarchy.Z>
+    get() = SecondClassHierarchy_ZSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [SecondClassHierarchy.Z]
+ */
+public val SecondClassHierarchy.Z.Companion.sealedEnum: SecondClassHierarchy_ZSealedEnum
+    get() = SecondClassHierarchy_ZSealedEnum
+
+/**
+ * Returns the [SecondClassHierarchy.Z] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [SecondClassHierarchy.Z], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun SecondClassHierarchy.Z.Companion.valueOf(name: String): SecondClassHierarchy.Z =
+        SecondClassHierarchy_ZSealedEnum.valueOf(name)

@@ -1,16 +1,16 @@
 package com.livefront.sealedenum.compilation.hierarchy
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
 import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
 import com.oneeyedmen.okeydoke.Approver
-import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(ApprovalsExtension::class)
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class SealedClassHierarchyTests {
 
     @Test

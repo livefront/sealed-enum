@@ -1,12 +1,12 @@
 package com.livefront.sealedenum.compilation.visibility
 
 import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
 import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
 import com.oneeyedmen.okeydoke.Approver
-import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -16,7 +16,7 @@ import kotlin.reflect.KVisibility
 /**
  * Verifies that generated [SealedEnum] implementations, extension properties and methods have valid visibilities.
  */
-@ExtendWith(ApprovalsExtension::class)
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class VisibilitySealedClassTests {
 
     @Nested

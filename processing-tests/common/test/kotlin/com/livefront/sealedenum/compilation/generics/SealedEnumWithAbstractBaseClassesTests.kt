@@ -1,11 +1,11 @@
 package com.livefront.sealedenum.compilation.generics
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
 import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
 import com.oneeyedmen.okeydoke.Approver
-import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -14,7 +14,7 @@ import kotlin.reflect.KTypeProjection
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubtypeOf
 
-@ExtendWith(ApprovalsExtension::class)
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class SealedEnumWithAbstractBaseClassesTests {
     @Test
     fun `enum implements correct interfaces with type arguments`() {

@@ -3,6 +3,7 @@ package com.livefront.sealedenum.testing
 import com.oneeyedmen.okeydoke.Approver
 import com.tschuchort.compiletesting.KotlinCompilation
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.opentest4j.AssertionFailedError
 
 /**
  * Asserts that the given [result] compiled successfully.
@@ -23,5 +24,11 @@ internal fun assertFails(result: KotlinCompilation.Result) {
  * compilation is approved
  */
 internal fun Approver.assertApprovedGeneratedFile(fileName: String, result: KotlinCompilation.Result) {
-    assertApproved(result.outputDirectory.parentFile.walk().first { it.name == fileName }.readText())
+    val fileText = result.outputDirectory.parentFile.walk().first { it.name == fileName }.readText()
+    try {
+        assertApproved(fileText)
+    } catch (e: AssertionFailedError) {
+        System.err.println("Expected: ${e.expected}\nActual: ${e.actual}")
+        throw e
+    }
 }

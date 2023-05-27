@@ -7,6 +7,7 @@ import java.util.ArrayDeque
 /**
  * An internal function to traverse the tree rooted at [sealedClassNode] with the prescribed [treeTraversalOrder],
  * returning a list of [ClassName]s representing all [SealedClassNode.Object]s in the tree.
+ * Duplicates are removed, and only the first occurrence of each [ClassName] is preserved.
  */
 public fun getSealedObjectsFromNode(
     treeTraversalOrder: TreeTraversalOrder,
@@ -58,5 +59,5 @@ public fun getSealedObjectsFromNode(
         }
     }
 
-    return sealedObjects
+    return sealedObjects.distinct()
 }

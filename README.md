@@ -248,6 +248,8 @@ In the general case, the default order of sealed subclasses is:
 - In source declaration order when declared as inner classes within the sealed class.
 - In qualified-name alphabetical order when not declared as an inner class within the sealed class.  
 
+Any objects that appear multiple times in the hierarchy will be deduplicated; only the first occurrence, according to the above order, will be used.
+
 The runtime library includes support from creating a `SealedEnum` from a normal enum class, with `createSealedEnumFromEnum()` and `createSealedEnumFromEnumArray(values: Array<E>, enumClass: Class<E>)`.
 
 If `generateEnum` is set to `true` on the `@GenSealedEnum` annotation, then an isomorphic enum class will be generated for the sealed class.

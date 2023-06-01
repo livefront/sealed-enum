@@ -1,3 +1,12 @@
+# 0.7.0
+## Bug fixes:
+- Switch to `is` instead of `==` to improve static initialization behavior (#130). Thanks @kyay10!
+- Ensure objects are not duplicated in the sealed enum list, if reachable from more than one subclass (#135). Thanks @kyay10! 
+
+## Breaking changes:
+- The type of `EnumForSealedEnumProvider.enumClass` is updated from a `Class` to a `KClass`.
+  This allows `runtime` to not depend on any JVM classes, and therefore can be a multiplatform artifact in the future.
+
 # 0.6.0
 ## Features:
 - Update to Kotlin 1.8

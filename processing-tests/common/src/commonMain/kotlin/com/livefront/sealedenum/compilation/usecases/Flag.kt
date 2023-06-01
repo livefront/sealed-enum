@@ -1,20 +1,18 @@
 package com.livefront.sealedenum.compilation.usecases
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
-sealed class Flag {
-    val i: Int = 1 shl ordinal
-    object FirstFlag : Flag()
+public sealed class Flag {
+    public val i: Int = 1 shl ordinal
+    public object FirstFlag : Flag()
 
-    object SecondFlag : Flag()
+    public object SecondFlag : Flag()
 
     @GenSealedEnum(generateEnum = true)
-    companion object
+    public companion object
 }
 
-@Language("kotlin")
-val flagGenerated = """
+public val flagGenerated: String = """
 package com.livefront.sealedenum.compilation.usecases
 
 import com.livefront.sealedenum.EnumForSealedEnumProvider

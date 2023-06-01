@@ -1,21 +1,19 @@
 package com.livefront.sealedenum.compilation.usecases
 
 import com.livefront.sealedenum.GenSealedEnum
-import org.intellij.lang.annotations.Language
 
-sealed interface MultiInterfaceFlag {
-    sealed interface FirstInterface : MultiInterfaceFlag
-    sealed interface SecondInterface : MultiInterfaceFlag
-    object FirstFlag : FirstInterface
-    object SecondFlag : SecondInterface
-    object BothFlags : FirstInterface, SecondInterface
+public sealed interface MultiInterfaceFlag {
+    public sealed interface FirstInterface : MultiInterfaceFlag
+    public sealed interface SecondInterface : MultiInterfaceFlag
+    public object FirstFlag : FirstInterface
+    public object SecondFlag : SecondInterface
+    public object BothFlags : FirstInterface, SecondInterface
 
     @GenSealedEnum(generateEnum = true)
-    companion object
+    public companion object
 }
 
-@Language("kotlin")
-val multiInterfaceFlagGenerated = """
+public val multiInterfaceFlagGenerated: String = """
 package com.livefront.sealedenum.compilation.usecases
 
 import com.livefront.sealedenum.EnumForSealedEnumProvider

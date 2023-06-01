@@ -54,6 +54,9 @@ tasks {
             dependsOn("kspCommonMainKotlinMetadata")
         }
     }
+    val detektMetadataMain by getting {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
 }
 
 detekt {

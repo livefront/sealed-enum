@@ -368,8 +368,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.livefront.sealed-enum:runtime:0.6.0")
-    kapt("com.github.livefront.sealed-enum:processor:0.6.0")
+    implementation("com.github.livefront.sealed-enum:runtime:0.7.0")
+    kapt("com.github.livefront.sealed-enum:processor:0.7.0")
 }
 ```
 
@@ -385,8 +385,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.livefront.sealed-enum:runtime:0.6.0")
-    ksp("com.github.livefront.sealed-enum:ksp:0.6.0")
+    implementation("com.github.livefront.sealed-enum:runtime:0.7.0")
+    ksp("com.github.livefront.sealed-enum:ksp:0.7.0")
 }
 ```
 

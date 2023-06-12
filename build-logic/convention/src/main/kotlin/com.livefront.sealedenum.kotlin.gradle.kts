@@ -1,6 +1,5 @@
 plugins {
-    kotlin("jvm")
-    jacoco
+    kotlin("multiplatform")
 }
 
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -12,26 +11,15 @@ java {
 
 kotlin {
     explicitApi()
-}
-
-jacoco {
-    toolVersion = libs.findVersion("jacoco").get().toString()
+    jvm {
+        withJava()
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+    }
 }
 
 tasks {
-    test {
-        useJUnitPlatform()
-    }
-
-    jacocoTestReport {
-        dependsOn(test)
-
-        reports {
-            html.required.set(true)
-            xml.required.set(true)
-        }
-    }
-
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
             allWarningsAsErrors = true

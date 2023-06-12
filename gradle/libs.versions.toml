@@ -3,10 +3,10 @@ autoService = "1.0"
 detekt = "1.22.0"
 dokka = "1.8.10"
 incap = "0.3"
-jacoco = "0.8.8"
 junit = "5.8.1"
 kotlin = "1.8.0"
 kotlinxBinaryCompatibilityValidator = "0.13.0"
+kotlinxKover = "0.5.0"
 kotlinCompileTesting = "1.5.0"
 kotlinPoet = "1.13.0"
 ksp = "1.8.0-1.0.9"
@@ -39,5 +39,6 @@ ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.re
 
 [plugins]
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kotlinxKover" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -5,15 +5,67 @@ plugins {
 }
 
 /**
- * Swap to `true` to allow debugging `ksp-tests`
+ * Swap to `true` to allow debugging other tests that share code
  */
-val debugKsp = false
-if (!debugKsp) {
+val disableForSharedCode = false
+
+kotlin {
+    jvm()
+
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.runtime)
+            }
+            if (!disableForSharedCode) {
+                kotlin.srcDir("$rootDir/processing-tests/common/src/commonMain")
+            }
+        }
+
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("reflect"))
+                implementation(kotlin("test"))
+            }
+            if (!disableForSharedCode) {
+                kotlin.srcDir("$rootDir/processing-tests/common/src/commonTest")
+            }
+        }
+
+        val jvmMain by getting {
+            configurations["kapt"].dependencies.add(projects.processor)
+            if (!disableForSharedCode) {
+                kotlin.srcDir("$rootDir/processing-tests/common/src/jvmMain")
+            }
+        }
+
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.junit.jupiter)
+                implementation(libs.kotlinCompileTesting.base)
+                implementation(projects.processor)
+            }
+            if (!disableForSharedCode) {
+                kotlin.srcDir("$rootDir/processing-tests/common/src/jvmTest")
+            }
+        }
+    }
+}
+
+kapt {
+    includeCompileClasspath = false
+}
+
+if (!disableForSharedCode) {
+    sourceSets {
+        main {
+            java {
+                srcDir("$rootDir/processing-tests/common/src/jvmMain/java")
+            }
+        }
         test {
             java {
-                srcDir("$rootDir/processing-tests/common/test/java")
-                srcDir("$rootDir/processing-tests/common/test/kotlin")
+                srcDir("$rootDir/processing-tests/common/src/jvmTest/java")
             }
         }
     }
@@ -21,22 +73,17 @@ if (!debugKsp) {
 
 detekt {
     source = files(
-        "src/main/java",
-        "src/test/java",
-        "src/main/kotlin",
-        "src/test/kotlin",
-        "$rootDir/processing-tests/common/test/java",
-        "$rootDir/processing-tests/common/test/kotlin"
+        "src/commonMain/kotlin",
+        "src/commonTest/kotlin",
+        "src/jvmMain/kotlin",
+        "src/jvmTest/kotlin",
+        "$rootDir/processing-tests/common/src/commonMain/kotlin",
+        "$rootDir/processing-tests/common/src/commonTest/kotlin",
+        "$rootDir/processing-tests/common/src/jvmMain/java",
+        "$rootDir/processing-tests/common/src/jvmMain/kotlin",
+        "$rootDir/processing-tests/common/src/jvmTest/java",
+        "$rootDir/processing-tests/common/src/jvmTest/kotlin"
     )
-}
-
-dependencies {
-    testImplementation(libs.junit.jupiter)
-    testImplementation(libs.kotlinCompileTesting.base)
-    testImplementation(kotlin("reflect"))
-    testImplementation(projects.runtime)
-    testImplementation(projects.processor)
-    kaptTest(projects.processor)
 }
 
 // See https://github.com/tschuchortdev/kotlin-compile-testing#java-16-compatibility

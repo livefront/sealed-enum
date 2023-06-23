@@ -1,16 +1,20 @@
 package com.livefront.sealedenum.compilation.generics
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubtypeOf
 
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class SealedEnumWithAbstractBaseClassesTests {
     @Test
     fun `enum implements correct interfaces with type arguments`() {
@@ -56,15 +60,11 @@ class SealedEnumWithAbstractBaseClassesTests {
     }
 
     @Test
-    fun `compilation for invariant type generates correct code`() {
+    fun Approver.`compilation for invariant type generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "generics", "SealedEnumWithAbstractBaseClasses.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SealedEnumWithAbstractBaseClasses_SealedEnum.kt",
-            sealedEnumWithAbstractBaseClassesGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SealedEnumWithAbstractBaseClasses_SealedEnum.kt", result)
     }
 
     @Test
@@ -95,14 +95,10 @@ class SealedEnumWithAbstractBaseClassesTests {
     }
 
     @Test
-    fun `compilation for covariant type generates correct code`() {
+    fun Approver.`compilation for covariant type generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "generics", "SealedEnumWithAbstractBaseClasses.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SealedEnumWithAbstractBaseClassesCovariantType_SealedEnum.kt",
-            sealedEnumWithAbstractBaseClassesCovariantTypeGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SealedEnumWithAbstractBaseClassesCovariantType_SealedEnum.kt", result)
     }
 }

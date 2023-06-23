@@ -1,12 +1,16 @@
 package com.livefront.sealedenum.compilation.hierarchy
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class SealedInterfaceHierarchyTests {
 
     @Test
@@ -20,15 +24,11 @@ class SealedInterfaceHierarchyTests {
     }
 
     @Test
-    fun `compilation for first hierarchy A generates correct code`() {
+    fun Approver.`compilation for first hierarchy A generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedInterfaceHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "FirstInterfaceHierarchy.A_SealedEnum.kt",
-            firstInterfaceHierarchyAGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("FirstInterfaceHierarchy.A_SealedEnum.kt", result)
     }
 
     @Test
@@ -42,15 +42,11 @@ class SealedInterfaceHierarchyTests {
     }
 
     @Test
-    fun `compilation for first hierarchy B generates correct code`() {
+    fun Approver.`compilation for first hierarchy B generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedInterfaceHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "FirstInterfaceHierarchy.A.B_SealedEnum.kt",
-            firstInterfaceHierarchyBGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("FirstInterfaceHierarchy.A.B_SealedEnum.kt", result)
     }
 
     @Test
@@ -105,15 +101,11 @@ class SealedInterfaceHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy A generates correct code`() {
+    fun Approver.`compilation for second hierarchy A generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedInterfaceHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondInterfaceHierarchy.A_SealedEnum.kt",
-            secondInterfaceHierarchyAGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondInterfaceHierarchy.A_SealedEnum.kt", result)
     }
 
     @Test
@@ -150,15 +142,11 @@ class SealedInterfaceHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy C generates correct code`() {
+    fun Approver.`compilation for second hierarchy C generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedInterfaceHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondInterfaceHierarchy.A.C_SealedEnum.kt",
-            secondInterfaceHierarchyACGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondInterfaceHierarchy.A.C_SealedEnum.kt", result)
     }
 
     @Test
@@ -175,15 +163,11 @@ class SealedInterfaceHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy F generates correct code`() {
+    fun Approver.`compilation for second hierarchy F generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedInterfaceHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondInterfaceHierarchy.A.C.F_SealedEnum.kt",
-            secondInterfaceHierarchyACFGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondInterfaceHierarchy.A.C.F_SealedEnum.kt", result)
     }
 
     @Test
@@ -200,15 +184,11 @@ class SealedInterfaceHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy H generates correct code`() {
+    fun Approver.`compilation for second hierarchy H generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedInterfaceHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondInterfaceHierarchy.A.C.H_SealedEnum.kt",
-            secondInterfaceHierarchyACHGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondInterfaceHierarchy.A.C.H_SealedEnum.kt", result)
     }
 
     @Test
@@ -225,14 +205,10 @@ class SealedInterfaceHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy J generates correct code`() {
+    fun Approver.`compilation for second hierarchy J generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedInterfaceHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondInterfaceHierarchy.A.J_SealedEnum.kt",
-            secondInterfaceHierarchyAJGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondInterfaceHierarchy.A.J_SealedEnum.kt", result)
     }
 }

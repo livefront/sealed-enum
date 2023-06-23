@@ -1,0 +1,103 @@
+package com.livefront.sealedenum.compilation.hierarchy
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [FirstClassHierarchy.A.B]
+ */
+public enum class FirstClassHierarchy_A_BEnum() {
+    FirstClassHierarchy_A_B_C,
+}
+
+/**
+ * The isomorphic [FirstClassHierarchy_A_BEnum] for [this].
+ */
+public val FirstClassHierarchy.A.B.`enum`: FirstClassHierarchy_A_BEnum
+    get() = FirstClassHierarchy_A_BSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [FirstClassHierarchy.A.B] for [this].
+ */
+public val FirstClassHierarchy_A_BEnum.sealedObject: FirstClassHierarchy.A.B
+    get() = FirstClassHierarchy_A_BSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [FirstClassHierarchy.A.B]
+ */
+public object FirstClassHierarchy_A_BSealedEnum : SealedEnum<FirstClassHierarchy.A.B>,
+        SealedEnumWithEnumProvider<FirstClassHierarchy.A.B, FirstClassHierarchy_A_BEnum>,
+        EnumForSealedEnumProvider<FirstClassHierarchy.A.B, FirstClassHierarchy_A_BEnum> {
+    public override val values: List<FirstClassHierarchy.A.B> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            FirstClassHierarchy.A.B.C
+        )
+    }
+
+
+    public override val enumClass: KClass<FirstClassHierarchy_A_BEnum>
+        get() = FirstClassHierarchy_A_BEnum::class
+
+    public override fun ordinalOf(obj: FirstClassHierarchy.A.B): Int = when (obj) {
+        is FirstClassHierarchy.A.B.C -> 0
+    }
+
+    public override fun nameOf(obj: FirstClassHierarchy.A.B): String = when (obj) {
+        is FirstClassHierarchy.A.B.C -> "FirstClassHierarchy_A_B_C"
+    }
+
+    public override fun valueOf(name: String): FirstClassHierarchy.A.B = when (name) {
+        "FirstClassHierarchy_A_B_C" -> FirstClassHierarchy.A.B.C
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: FirstClassHierarchy.A.B):
+            FirstClassHierarchy_A_BEnum = when (obj) {
+        is FirstClassHierarchy.A.B.C -> FirstClassHierarchy_A_BEnum.FirstClassHierarchy_A_B_C
+    }
+
+    public override fun enumToSealedObject(`enum`: FirstClassHierarchy_A_BEnum):
+            FirstClassHierarchy.A.B = when (enum) {
+        FirstClassHierarchy_A_BEnum.FirstClassHierarchy_A_B_C -> FirstClassHierarchy.A.B.C
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val FirstClassHierarchy.A.B.ordinal: Int
+    get() = FirstClassHierarchy_A_BSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val FirstClassHierarchy.A.B.name: String
+    get() = FirstClassHierarchy_A_BSealedEnum.nameOf(this)
+
+/**
+ * A list of all [FirstClassHierarchy.A.B] objects.
+ */
+public val FirstClassHierarchy.A.B.Companion.values: List<FirstClassHierarchy.A.B>
+    get() = FirstClassHierarchy_A_BSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [FirstClassHierarchy.A.B]
+ */
+public val FirstClassHierarchy.A.B.Companion.sealedEnum: FirstClassHierarchy_A_BSealedEnum
+    get() = FirstClassHierarchy_A_BSealedEnum
+
+/**
+ * Returns the [FirstClassHierarchy.A.B] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [FirstClassHierarchy.A.B], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun FirstClassHierarchy.A.B.Companion.valueOf(name: String): FirstClassHierarchy.A.B =
+        FirstClassHierarchy_A_BSealedEnum.valueOf(name)

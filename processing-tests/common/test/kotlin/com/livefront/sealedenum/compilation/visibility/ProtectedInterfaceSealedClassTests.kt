@@ -1,15 +1,19 @@
 package com.livefront.sealedenum.compilation.visibility
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.condition.DisabledIf
+import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.reflect.full.isSubclassOf
 
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class ProtectedInterfaceSealedClassTests {
 
     @Test
@@ -67,16 +71,12 @@ class ProtectedInterfaceSealedClassTests {
      */
     @Test
     @DisabledIf("com.livefront.sealedenum.testing.ProcessingTypeGetter#isKSP")
-    fun `compilation generates correct code`() {
+    fun Approver.`compilation generates correct code`() {
         val result = compile(
             getCommonSourceFile("compilation", "visibility", "ProtectedInterfaceSealedClass.kt")
         )
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass_SealedEnum.kt",
-            protectedInterfaceSealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("ProtectedInterfaceOuterClass.ProtectedInterfaceSealedClass_SealedEnum.kt", result)
     }
 }

@@ -1,12 +1,16 @@
 package com.livefront.sealedenum.compilation.hierarchy
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class SealedClassHierarchyTests {
 
     @Test
@@ -20,15 +24,11 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `compilation for first hierarchy A generates correct code`() {
+    fun Approver.`compilation for first hierarchy A generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "FirstClassHierarchy.A_SealedEnum.kt",
-            firstClassHierarchyAGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("FirstClassHierarchy.A_SealedEnum.kt", result)
     }
 
     @Test
@@ -42,15 +42,11 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `compilation for first hierarchy B generates correct code`() {
+    fun Approver.`compilation for first hierarchy B generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "FirstClassHierarchy.A.B_SealedEnum.kt",
-            firstClassHierarchyBGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("FirstClassHierarchy.A.B_SealedEnum.kt", result)
     }
 
     @Test
@@ -105,15 +101,11 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy Z generates correct code`() {
+    fun Approver.`compilation for second hierarchy Z generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondClassHierarchy.Z_SealedEnum.kt",
-            secondClassHierarchyZGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondClassHierarchy.Z_SealedEnum.kt", result)
     }
 
     @Test
@@ -150,15 +142,11 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy X generates correct code`() {
+    fun Approver.`compilation for second hierarchy X generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondClassHierarchy.Z.X_SealedEnum.kt",
-            secondClassHierarchyZXGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondClassHierarchy.Z.X_SealedEnum.kt", result)
     }
 
     @Test
@@ -175,15 +163,11 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy U generates correct code`() {
+    fun Approver.`compilation for second hierarchy U generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondClassHierarchy.Z.X.U_SealedEnum.kt",
-            secondClassHierarchyZXUGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondClassHierarchy.Z.X.U_SealedEnum.kt", result)
     }
 
     @Test
@@ -200,15 +184,11 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy S generates correct code`() {
+    fun Approver.`compilation for second hierarchy S generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondClassHierarchy.Z.X.S_SealedEnum.kt",
-            secondClassHierarchyZXSGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondClassHierarchy.Z.X.S_SealedEnum.kt", result)
     }
 
     @Test
@@ -225,14 +205,10 @@ class SealedClassHierarchyTests {
     }
 
     @Test
-    fun `compilation for second hierarchy Q generates correct code`() {
+    fun Approver.`compilation for second hierarchy Q generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "hierarchy", "SealedClassHierarchy.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "SecondClassHierarchy.Z.Q_SealedEnum.kt",
-            secondClassHierarchyZQGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("SecondClassHierarchy.Z.Q_SealedEnum.kt", result)
     }
 }

@@ -34,6 +34,7 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotlinCompileTesting.base)
     testImplementation(libs.kotlinCompileTesting.ksp)
+    testImplementation(libs.okeyDoke)
     testImplementation(kotlin("reflect"))
     testImplementation(projects.runtime)
     testImplementation(libs.ksp.runtime)

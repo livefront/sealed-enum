@@ -1,0 +1,126 @@
+package com.livefront.sealedenum.compilation.location
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [GammaOutsideSealedClass]
+ */
+public enum class GammaOutsideSealedClassEnum() {
+    GammaOutsideSealedClass_GammaSecondObject,
+    GammaFirstObject,
+    GammaFourthObject,
+    GammaThirdObject,
+}
+
+/**
+ * The isomorphic [GammaOutsideSealedClassEnum] for [this].
+ */
+public val GammaOutsideSealedClass.`enum`: GammaOutsideSealedClassEnum
+    get() = GammaOutsideSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [GammaOutsideSealedClass] for [this].
+ */
+public val GammaOutsideSealedClassEnum.sealedObject: GammaOutsideSealedClass
+    get() = GammaOutsideSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [GammaOutsideSealedClass]
+ */
+public object GammaOutsideSealedClassSealedEnum : SealedEnum<GammaOutsideSealedClass>,
+        SealedEnumWithEnumProvider<GammaOutsideSealedClass, GammaOutsideSealedClassEnum>,
+        EnumForSealedEnumProvider<GammaOutsideSealedClass, GammaOutsideSealedClassEnum> {
+    public override val values: List<GammaOutsideSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            GammaOutsideSealedClass.GammaSecondObject,
+            GammaFirstObject,
+            GammaFourthObject,
+            GammaThirdObject
+        )
+    }
+
+
+    public override val enumClass: KClass<GammaOutsideSealedClassEnum>
+        get() = GammaOutsideSealedClassEnum::class
+
+    public override fun ordinalOf(obj: GammaOutsideSealedClass): Int = when (obj) {
+        is GammaOutsideSealedClass.GammaSecondObject -> 0
+        is GammaFirstObject -> 1
+        is GammaFourthObject -> 2
+        is GammaThirdObject -> 3
+    }
+
+    public override fun nameOf(obj: GammaOutsideSealedClass): String = when (obj) {
+        is GammaOutsideSealedClass.GammaSecondObject -> "GammaOutsideSealedClass_GammaSecondObject"
+        is GammaFirstObject -> "GammaFirstObject"
+        is GammaFourthObject -> "GammaFourthObject"
+        is GammaThirdObject -> "GammaThirdObject"
+    }
+
+    public override fun valueOf(name: String): GammaOutsideSealedClass = when (name) {
+        "GammaOutsideSealedClass_GammaSecondObject" -> GammaOutsideSealedClass.GammaSecondObject
+        "GammaFirstObject" -> GammaFirstObject
+        "GammaFourthObject" -> GammaFourthObject
+        "GammaThirdObject" -> GammaThirdObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: GammaOutsideSealedClass):
+            GammaOutsideSealedClassEnum = when (obj) {
+        is GammaOutsideSealedClass.GammaSecondObject ->
+                GammaOutsideSealedClassEnum.GammaOutsideSealedClass_GammaSecondObject
+        is GammaFirstObject -> GammaOutsideSealedClassEnum.GammaFirstObject
+        is GammaFourthObject -> GammaOutsideSealedClassEnum.GammaFourthObject
+        is GammaThirdObject -> GammaOutsideSealedClassEnum.GammaThirdObject
+    }
+
+    public override fun enumToSealedObject(`enum`: GammaOutsideSealedClassEnum):
+            GammaOutsideSealedClass = when (enum) {
+        GammaOutsideSealedClassEnum.GammaOutsideSealedClass_GammaSecondObject ->
+                GammaOutsideSealedClass.GammaSecondObject
+        GammaOutsideSealedClassEnum.GammaFirstObject -> GammaFirstObject
+        GammaOutsideSealedClassEnum.GammaFourthObject -> GammaFourthObject
+        GammaOutsideSealedClassEnum.GammaThirdObject -> GammaThirdObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val GammaOutsideSealedClass.ordinal: Int
+    get() = GammaOutsideSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val GammaOutsideSealedClass.name: String
+    get() = GammaOutsideSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [GammaOutsideSealedClass] objects.
+ */
+public val GammaOutsideSealedClass.Companion.values: List<GammaOutsideSealedClass>
+    get() = GammaOutsideSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [GammaOutsideSealedClass]
+ */
+public val GammaOutsideSealedClass.Companion.sealedEnum: GammaOutsideSealedClassSealedEnum
+    get() = GammaOutsideSealedClassSealedEnum
+
+/**
+ * Returns the [GammaOutsideSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [GammaOutsideSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun GammaOutsideSealedClass.Companion.valueOf(name: String): GammaOutsideSealedClass =
+        GammaOutsideSealedClassSealedEnum.valueOf(name)

@@ -1,0 +1,78 @@
+package com.livefront.sealedenum.compilation.hierarchy
+
+import com.livefront.sealedenum.SealedEnum
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [SecondInterfaceHierarchy.A.C]
+ */
+public object SecondInterfaceHierarchy_A_CSealedEnum : SealedEnum<SecondInterfaceHierarchy.A.C> {
+    public override val values: List<SecondInterfaceHierarchy.A.C> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondInterfaceHierarchy.A.C.D,
+            SecondInterfaceHierarchy.A.C.E,
+            SecondInterfaceHierarchy.A.C.F.G,
+            SecondInterfaceHierarchy.A.C.H.I
+        )
+    }
+
+
+    public override fun ordinalOf(obj: SecondInterfaceHierarchy.A.C): Int = when (obj) {
+        is SecondInterfaceHierarchy.A.C.D -> 0
+        is SecondInterfaceHierarchy.A.C.E -> 1
+        is SecondInterfaceHierarchy.A.C.F.G -> 2
+        is SecondInterfaceHierarchy.A.C.H.I -> 3
+    }
+
+    public override fun nameOf(obj: SecondInterfaceHierarchy.A.C): String = when (obj) {
+        is SecondInterfaceHierarchy.A.C.D -> "SecondInterfaceHierarchy_A_C_D"
+        is SecondInterfaceHierarchy.A.C.E -> "SecondInterfaceHierarchy_A_C_E"
+        is SecondInterfaceHierarchy.A.C.F.G -> "SecondInterfaceHierarchy_A_C_F_G"
+        is SecondInterfaceHierarchy.A.C.H.I -> "SecondInterfaceHierarchy_A_C_H_I"
+    }
+
+    public override fun valueOf(name: String): SecondInterfaceHierarchy.A.C = when (name) {
+        "SecondInterfaceHierarchy_A_C_D" -> SecondInterfaceHierarchy.A.C.D
+        "SecondInterfaceHierarchy_A_C_E" -> SecondInterfaceHierarchy.A.C.E
+        "SecondInterfaceHierarchy_A_C_F_G" -> SecondInterfaceHierarchy.A.C.F.G
+        "SecondInterfaceHierarchy_A_C_H_I" -> SecondInterfaceHierarchy.A.C.H.I
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val SecondInterfaceHierarchy.A.C.ordinal: Int
+    get() = SecondInterfaceHierarchy_A_CSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val SecondInterfaceHierarchy.A.C.name: String
+    get() = SecondInterfaceHierarchy_A_CSealedEnum.nameOf(this)
+
+/**
+ * A list of all [SecondInterfaceHierarchy.A.C] objects.
+ */
+public val SecondInterfaceHierarchy.A.C.Companion.values: List<SecondInterfaceHierarchy.A.C>
+    get() = SecondInterfaceHierarchy_A_CSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [SecondInterfaceHierarchy.A.C]
+ */
+public val SecondInterfaceHierarchy.A.C.Companion.sealedEnum: SecondInterfaceHierarchy_A_CSealedEnum
+    get() = SecondInterfaceHierarchy_A_CSealedEnum
+
+/**
+ * Returns the [SecondInterfaceHierarchy.A.C] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [SecondInterfaceHierarchy.A.C], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun SecondInterfaceHierarchy.A.C.Companion.valueOf(name: String):
+        SecondInterfaceHierarchy.A.C = SecondInterfaceHierarchy_A_CSealedEnum.valueOf(name)

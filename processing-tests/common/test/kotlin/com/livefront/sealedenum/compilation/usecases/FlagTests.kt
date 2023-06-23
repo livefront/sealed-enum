@@ -1,12 +1,16 @@
 package com.livefront.sealedenum.compilation.usecases
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class FlagTests {
     @Test
     fun `two objects sealed class`() {
@@ -41,10 +45,10 @@ class FlagTests {
     }
 
     @Test
-    fun `compilation generates correct code`() {
+    fun Approver.`compilation generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "usecases", "Flag.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches("Flag_SealedEnum.kt", flagGenerated, result)
+        assertApprovedGeneratedFile("Flag_SealedEnum.kt", result)
     }
 }

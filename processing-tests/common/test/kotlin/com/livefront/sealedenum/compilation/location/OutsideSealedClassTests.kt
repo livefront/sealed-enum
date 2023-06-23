@@ -1,12 +1,16 @@
 package com.livefront.sealedenum.compilation.location
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class OutsideSealedClassTests {
 
     @Test
@@ -31,11 +35,11 @@ class OutsideSealedClassTests {
     }
 
     @Test
-    fun `compilation for alpha outside sealed class generates correct code`() {
+    fun Approver.`compilation for alpha outside sealed class generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "location", "OutsideSealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches("AlphaOutsideSealedClass_SealedEnum.kt", alphaOutsideSealedClassGenerated, result)
+        assertApprovedGeneratedFile("AlphaOutsideSealedClass_SealedEnum.kt", result)
     }
 
     @Test
@@ -73,11 +77,11 @@ class OutsideSealedClassTests {
     }
 
     @Test
-    fun `compilation for beta outside sealed class generates correct code`() {
+    fun Approver.`compilation for beta outside sealed class generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "location", "OutsideSealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches("BetaOutsideSealedClass_SealedEnum.kt", betaOutsideSealedClassGenerated, result)
+        assertApprovedGeneratedFile("BetaOutsideSealedClass_SealedEnum.kt", result)
     }
 
     @Test
@@ -115,11 +119,11 @@ class OutsideSealedClassTests {
     }
 
     @Test
-    fun `compilation for gamma outside sealed class generates correct code`() {
+    fun Approver.`compilation for gamma outside sealed class generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "location", "OutsideSealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches("GammaOutsideSealedClass_SealedEnum.kt", gammaOutsideSealedClassGenerated, result)
+        assertApprovedGeneratedFile("GammaOutsideSealedClass_SealedEnum.kt", result)
     }
 
     @Test
@@ -150,10 +154,10 @@ class OutsideSealedClassTests {
     }
 
     @Test
-    fun `compilation for delta outside sealed class generates correct code`() {
+    fun Approver.`compilation for delta outside sealed class generates correct code`() {
         val result = compile(getCommonSourceFile("compilation", "location", "OutsideSealedClass.kt"))
 
         assertCompiles(result)
-        assertGeneratedFileMatches("DeltaOutsideSealedClass_SealedEnum.kt", deltaOutsideSealedClassGenerated, result)
+        assertApprovedGeneratedFile("DeltaOutsideSealedClass_SealedEnum.kt", result)
     }
 }

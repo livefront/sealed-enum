@@ -1,18 +1,22 @@
 package com.livefront.sealedenum.compilation.visibility
 
 import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.reflect.KVisibility
 
 /**
  * Verifies that generated [SealedEnum] implementations, extension properties and methods have valid visibilities.
  */
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class VisibilitySealedClassTests {
 
     @Nested
@@ -64,15 +68,11 @@ class VisibilitySealedClassTests {
         }
 
         @Test
-        fun `compilation generates correct code`() {
+        fun Approver.`compilation generates correct code`() {
             val result = compile(getCommonSourceFile("compilation", "visibility", "VisibilitySealedClass.kt"))
 
             assertCompiles(result)
-            assertGeneratedFileMatches(
-                "InternalObjectsSealedClass_SealedEnum.kt",
-                internalObjectsSealedClassGenerated,
-                result
-            )
+            assertApprovedGeneratedFile("InternalObjectsSealedClass_SealedEnum.kt", result)
         }
     }
 
@@ -120,11 +120,11 @@ class VisibilitySealedClassTests {
         }
 
         @Test
-        fun `compilation generates correct code`() {
+        fun Approver.`compilation generates correct code`() {
             val result = compile(getCommonSourceFile("compilation", "visibility", "VisibilitySealedClass.kt"))
 
             assertCompiles(result)
-            assertGeneratedFileMatches("InternalSealedClass_SealedEnum.kt", internalSealedClassGenerated, result)
+            assertApprovedGeneratedFile("InternalSealedClass_SealedEnum.kt", result)
         }
     }
 
@@ -175,15 +175,11 @@ class VisibilitySealedClassTests {
         }
 
         @Test
-        fun `compilation generates correct code`() {
+        fun Approver.`compilation generates correct code`() {
             val result = compile(getCommonSourceFile("compilation", "visibility", "VisibilitySealedClass.kt"))
 
             assertCompiles(result)
-            assertGeneratedFileMatches(
-                "InternalCompanionSealedClass_SealedEnum.kt",
-                internalCompanionSealedClassGenerated,
-                result
-            )
+            assertApprovedGeneratedFile("InternalCompanionSealedClass_SealedEnum.kt", result)
         }
     }
 
@@ -237,15 +233,11 @@ class VisibilitySealedClassTests {
         }
 
         @Test
-        fun `compilation generates correct code`() {
+        fun Approver.`compilation generates correct code`() {
             val result = compile(getCommonSourceFile("compilation", "visibility", "VisibilitySealedClass.kt"))
 
             assertCompiles(result)
-            assertGeneratedFileMatches(
-                "InternalSealedAndCompanionSealedClass_SealedEnum.kt",
-                internalSealedAndCompanionSealedClassGenerated,
-                result
-            )
+            assertApprovedGeneratedFile("InternalSealedAndCompanionSealedClass_SealedEnum.kt", result)
         }
     }
 }

@@ -1,0 +1,124 @@
+package com.livefront.sealedenum.compilation.location
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [BetaOutsideSealedClass]
+ */
+public enum class BetaOutsideSealedClassEnum() {
+    BetaFirstObject,
+    BetaFourthObject,
+    BetaSecondObject,
+    BetaThirdObject,
+}
+
+/**
+ * The isomorphic [BetaOutsideSealedClassEnum] for [this].
+ */
+public val BetaOutsideSealedClass.`enum`: BetaOutsideSealedClassEnum
+    get() = BetaOutsideSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [BetaOutsideSealedClass] for [this].
+ */
+public val BetaOutsideSealedClassEnum.sealedObject: BetaOutsideSealedClass
+    get() = BetaOutsideSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [BetaOutsideSealedClass]
+ */
+public object BetaOutsideSealedClassSealedEnum : SealedEnum<BetaOutsideSealedClass>,
+        SealedEnumWithEnumProvider<BetaOutsideSealedClass, BetaOutsideSealedClassEnum>,
+        EnumForSealedEnumProvider<BetaOutsideSealedClass, BetaOutsideSealedClassEnum> {
+    public override val values: List<BetaOutsideSealedClass> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            BetaFirstObject,
+            BetaFourthObject,
+            BetaSecondObject,
+            BetaThirdObject
+        )
+    }
+
+
+    public override val enumClass: KClass<BetaOutsideSealedClassEnum>
+        get() = BetaOutsideSealedClassEnum::class
+
+    public override fun ordinalOf(obj: BetaOutsideSealedClass): Int = when (obj) {
+        is BetaFirstObject -> 0
+        is BetaFourthObject -> 1
+        is BetaSecondObject -> 2
+        is BetaThirdObject -> 3
+    }
+
+    public override fun nameOf(obj: BetaOutsideSealedClass): String = when (obj) {
+        is BetaFirstObject -> "BetaFirstObject"
+        is BetaFourthObject -> "BetaFourthObject"
+        is BetaSecondObject -> "BetaSecondObject"
+        is BetaThirdObject -> "BetaThirdObject"
+    }
+
+    public override fun valueOf(name: String): BetaOutsideSealedClass = when (name) {
+        "BetaFirstObject" -> BetaFirstObject
+        "BetaFourthObject" -> BetaFourthObject
+        "BetaSecondObject" -> BetaSecondObject
+        "BetaThirdObject" -> BetaThirdObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: BetaOutsideSealedClass): BetaOutsideSealedClassEnum
+            = when (obj) {
+        is BetaFirstObject -> BetaOutsideSealedClassEnum.BetaFirstObject
+        is BetaFourthObject -> BetaOutsideSealedClassEnum.BetaFourthObject
+        is BetaSecondObject -> BetaOutsideSealedClassEnum.BetaSecondObject
+        is BetaThirdObject -> BetaOutsideSealedClassEnum.BetaThirdObject
+    }
+
+    public override fun enumToSealedObject(`enum`: BetaOutsideSealedClassEnum):
+            BetaOutsideSealedClass = when (enum) {
+        BetaOutsideSealedClassEnum.BetaFirstObject -> BetaFirstObject
+        BetaOutsideSealedClassEnum.BetaFourthObject -> BetaFourthObject
+        BetaOutsideSealedClassEnum.BetaSecondObject -> BetaSecondObject
+        BetaOutsideSealedClassEnum.BetaThirdObject -> BetaThirdObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val BetaOutsideSealedClass.ordinal: Int
+    get() = BetaOutsideSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val BetaOutsideSealedClass.name: String
+    get() = BetaOutsideSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [BetaOutsideSealedClass] objects.
+ */
+public val BetaOutsideSealedClass.Companion.values: List<BetaOutsideSealedClass>
+    get() = BetaOutsideSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [BetaOutsideSealedClass]
+ */
+public val BetaOutsideSealedClass.Companion.sealedEnum: BetaOutsideSealedClassSealedEnum
+    get() = BetaOutsideSealedClassSealedEnum
+
+/**
+ * Returns the [BetaOutsideSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [BetaOutsideSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun BetaOutsideSealedClass.Companion.valueOf(name: String): BetaOutsideSealedClass =
+        BetaOutsideSealedClassSealedEnum.valueOf(name)

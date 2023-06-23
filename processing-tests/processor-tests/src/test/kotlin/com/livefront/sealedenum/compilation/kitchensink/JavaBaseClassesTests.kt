@@ -1,16 +1,20 @@
 package com.livefront.sealedenum.compilation.kitchensink
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubtypeOf
 
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class JavaBaseClassesTests {
 
     @Suppress("LongMethod")
@@ -149,7 +153,7 @@ class JavaBaseClassesTests {
     }
 
     @Test
-    fun `compilation generates correct code`() {
+    fun Approver.`compilation generates correct code`() {
         val result = compile(
             getSourceFile("compilation", "kitchensink", "JavaInterface1.java"),
             getSourceFile("compilation", "kitchensink", "JavaInterface2.java"),
@@ -162,10 +166,6 @@ class JavaBaseClassesTests {
         )
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "JavaBaseClassesSealedClass_SealedEnum.kt",
-            javaBaseClassesSealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("JavaBaseClassesSealedClass_SealedEnum.kt", result)
     }
 }

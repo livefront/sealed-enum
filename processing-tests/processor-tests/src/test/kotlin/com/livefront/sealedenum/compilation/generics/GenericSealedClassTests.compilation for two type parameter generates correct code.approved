@@ -1,0 +1,115 @@
+package com.livefront.sealedenum.compilation.generics
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [TwoTypeParameterSealedClass]
+ */
+public enum class TwoTypeParameterSealedClassEnum() {
+    TwoTypeParameterSealedClass_FirstObject,
+    TwoTypeParameterSealedClass_SecondObject,
+}
+
+/**
+ * The isomorphic [TwoTypeParameterSealedClassEnum] for [this].
+ */
+public val TwoTypeParameterSealedClass<*, *>.`enum`: TwoTypeParameterSealedClassEnum
+    get() = TwoTypeParameterSealedClassSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [TwoTypeParameterSealedClass] for [this].
+ */
+public val TwoTypeParameterSealedClassEnum.sealedObject: TwoTypeParameterSealedClass<*, *>
+    get() = TwoTypeParameterSealedClassSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [TwoTypeParameterSealedClass]
+ */
+public object TwoTypeParameterSealedClassSealedEnum : SealedEnum<TwoTypeParameterSealedClass<*, *>>,
+        SealedEnumWithEnumProvider<TwoTypeParameterSealedClass<*, *>, TwoTypeParameterSealedClassEnum>,
+        EnumForSealedEnumProvider<TwoTypeParameterSealedClass<*, *>, TwoTypeParameterSealedClassEnum>
+        {
+    public override val values: List<TwoTypeParameterSealedClass<*, *>> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            TwoTypeParameterSealedClass.FirstObject,
+            TwoTypeParameterSealedClass.SecondObject
+        )
+    }
+
+
+    public override val enumClass: KClass<TwoTypeParameterSealedClassEnum>
+        get() = TwoTypeParameterSealedClassEnum::class
+
+    public override fun ordinalOf(obj: TwoTypeParameterSealedClass<*, *>): Int = when (obj) {
+        is TwoTypeParameterSealedClass.FirstObject -> 0
+        is TwoTypeParameterSealedClass.SecondObject -> 1
+    }
+
+    public override fun nameOf(obj: TwoTypeParameterSealedClass<*, *>): String = when (obj) {
+        is TwoTypeParameterSealedClass.FirstObject -> "TwoTypeParameterSealedClass_FirstObject"
+        is TwoTypeParameterSealedClass.SecondObject -> "TwoTypeParameterSealedClass_SecondObject"
+    }
+
+    public override fun valueOf(name: String): TwoTypeParameterSealedClass<*, *> = when (name) {
+        "TwoTypeParameterSealedClass_FirstObject" -> TwoTypeParameterSealedClass.FirstObject
+        "TwoTypeParameterSealedClass_SecondObject" -> TwoTypeParameterSealedClass.SecondObject
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+
+    public override fun sealedObjectToEnum(obj: TwoTypeParameterSealedClass<*, *>):
+            TwoTypeParameterSealedClassEnum = when (obj) {
+        is TwoTypeParameterSealedClass.FirstObject ->
+                TwoTypeParameterSealedClassEnum.TwoTypeParameterSealedClass_FirstObject
+        is TwoTypeParameterSealedClass.SecondObject ->
+                TwoTypeParameterSealedClassEnum.TwoTypeParameterSealedClass_SecondObject
+    }
+
+    public override fun enumToSealedObject(`enum`: TwoTypeParameterSealedClassEnum):
+            TwoTypeParameterSealedClass<*, *> = when (enum) {
+        TwoTypeParameterSealedClassEnum.TwoTypeParameterSealedClass_FirstObject ->
+                TwoTypeParameterSealedClass.FirstObject
+        TwoTypeParameterSealedClassEnum.TwoTypeParameterSealedClass_SecondObject ->
+                TwoTypeParameterSealedClass.SecondObject
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val TwoTypeParameterSealedClass<*, *>.ordinal: Int
+    get() = TwoTypeParameterSealedClassSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val TwoTypeParameterSealedClass<*, *>.name: String
+    get() = TwoTypeParameterSealedClassSealedEnum.nameOf(this)
+
+/**
+ * A list of all [TwoTypeParameterSealedClass] objects.
+ */
+public val TwoTypeParameterSealedClass.TwoType.values: List<TwoTypeParameterSealedClass<*, *>>
+    get() = TwoTypeParameterSealedClassSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [TwoTypeParameterSealedClass]
+ */
+public val TwoTypeParameterSealedClass.TwoType.sealedEnum: TwoTypeParameterSealedClassSealedEnum
+    get() = TwoTypeParameterSealedClassSealedEnum
+
+/**
+ * Returns the [TwoTypeParameterSealedClass] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [TwoTypeParameterSealedClass], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun TwoTypeParameterSealedClass.TwoType.valueOf(name: String):
+        TwoTypeParameterSealedClass<*, *> = TwoTypeParameterSealedClassSealedEnum.valueOf(name)

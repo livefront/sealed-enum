@@ -1,0 +1,97 @@
+package com.livefront.sealedenum.compilation.generics
+
+import com.livefront.sealedenum.EnumForSealedEnumProvider
+import com.livefront.sealedenum.SealedEnum
+import com.livefront.sealedenum.SealedEnumWithEnumProvider
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+import kotlin.reflect.KClass
+
+/**
+ * An isomorphic enum for the sealed class [EmptySealedClassWithInterface]
+ */
+public enum class EmptySealedClassWithInterfaceEnum(
+    sealedObject: EmptySealedClassWithInterface,
+) : TestInterface by sealedObject
+
+/**
+ * The isomorphic [EmptySealedClassWithInterfaceEnum] for [this].
+ */
+public val EmptySealedClassWithInterface.`enum`: EmptySealedClassWithInterfaceEnum
+    get() = EmptySealedClassWithInterfaceSealedEnum.sealedObjectToEnum(this)
+
+/**
+ * The isomorphic [EmptySealedClassWithInterface] for [this].
+ */
+public val EmptySealedClassWithInterfaceEnum.sealedObject: EmptySealedClassWithInterface
+    get() = EmptySealedClassWithInterfaceSealedEnum.enumToSealedObject(this)
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [EmptySealedClassWithInterface]
+ */
+public object EmptySealedClassWithInterfaceSealedEnum : SealedEnum<EmptySealedClassWithInterface>,
+        SealedEnumWithEnumProvider<EmptySealedClassWithInterface, EmptySealedClassWithInterfaceEnum>,
+        EnumForSealedEnumProvider<EmptySealedClassWithInterface, EmptySealedClassWithInterfaceEnum>
+        {
+    public override val values: List<EmptySealedClassWithInterface> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        emptyList()
+    }
+
+
+    public override val enumClass: KClass<EmptySealedClassWithInterfaceEnum>
+        get() = EmptySealedClassWithInterfaceEnum::class
+
+    public override fun ordinalOf(obj: EmptySealedClassWithInterface): Int = throw
+            AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
+
+    public override fun nameOf(obj: EmptySealedClassWithInterface): String = throw
+            AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
+
+    public override fun valueOf(name: String): EmptySealedClassWithInterface = throw
+            IllegalArgumentException("""No sealed enum constant $name""")
+
+    public override fun sealedObjectToEnum(obj: EmptySealedClassWithInterface):
+            EmptySealedClassWithInterfaceEnum = throw
+            AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
+
+    public override fun enumToSealedObject(`enum`: EmptySealedClassWithInterfaceEnum):
+            EmptySealedClassWithInterface = throw
+            AssertionError("Constructing a EmptySealedClassWithInterface is impossible, since it has no sealed subclasses")
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val EmptySealedClassWithInterface.ordinal: Int
+    get() = EmptySealedClassWithInterfaceSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val EmptySealedClassWithInterface.name: String
+    get() = EmptySealedClassWithInterfaceSealedEnum.nameOf(this)
+
+/**
+ * A list of all [EmptySealedClassWithInterface] objects.
+ */
+public val EmptySealedClassWithInterface.Companion.values: List<EmptySealedClassWithInterface>
+    get() = EmptySealedClassWithInterfaceSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [EmptySealedClassWithInterface]
+ */
+public val EmptySealedClassWithInterface.Companion.sealedEnum:
+        EmptySealedClassWithInterfaceSealedEnum
+    get() = EmptySealedClassWithInterfaceSealedEnum
+
+/**
+ * Returns the [EmptySealedClassWithInterface] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [EmptySealedClassWithInterface], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun EmptySealedClassWithInterface.Companion.valueOf(name: String):
+        EmptySealedClassWithInterface = EmptySealedClassWithInterfaceSealedEnum.valueOf(name)

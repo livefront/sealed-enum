@@ -1,0 +1,66 @@
+package com.livefront.sealedenum.compilation.hierarchy
+
+import com.livefront.sealedenum.SealedEnum
+import kotlin.Int
+import kotlin.LazyThreadSafetyMode
+import kotlin.String
+import kotlin.collections.List
+
+/**
+ * An implementation of [SealedEnum] for the sealed class [SecondInterfaceHierarchy.A.J]
+ */
+public object SecondInterfaceHierarchy_A_JSealedEnum : SealedEnum<SecondInterfaceHierarchy.A.J> {
+    public override val values: List<SecondInterfaceHierarchy.A.J> by lazy(mode =
+            LazyThreadSafetyMode.PUBLICATION) {
+        listOf(
+            SecondInterfaceHierarchy.A.J.K
+        )
+    }
+
+
+    public override fun ordinalOf(obj: SecondInterfaceHierarchy.A.J): Int = when (obj) {
+        is SecondInterfaceHierarchy.A.J.K -> 0
+    }
+
+    public override fun nameOf(obj: SecondInterfaceHierarchy.A.J): String = when (obj) {
+        is SecondInterfaceHierarchy.A.J.K -> "SecondInterfaceHierarchy_A_J_K"
+    }
+
+    public override fun valueOf(name: String): SecondInterfaceHierarchy.A.J = when (name) {
+        "SecondInterfaceHierarchy_A_J_K" -> SecondInterfaceHierarchy.A.J.K
+        else -> throw IllegalArgumentException("""No sealed enum constant $name""")
+    }
+}
+
+/**
+ * The index of [this] in the values list.
+ */
+public val SecondInterfaceHierarchy.A.J.ordinal: Int
+    get() = SecondInterfaceHierarchy_A_JSealedEnum.ordinalOf(this)
+
+/**
+ * The name of [this] for use with valueOf.
+ */
+public val SecondInterfaceHierarchy.A.J.name: String
+    get() = SecondInterfaceHierarchy_A_JSealedEnum.nameOf(this)
+
+/**
+ * A list of all [SecondInterfaceHierarchy.A.J] objects.
+ */
+public val SecondInterfaceHierarchy.A.J.Companion.values: List<SecondInterfaceHierarchy.A.J>
+    get() = SecondInterfaceHierarchy_A_JSealedEnum.values
+
+/**
+ * Returns an implementation of [SealedEnum] for the sealed class [SecondInterfaceHierarchy.A.J]
+ */
+public val SecondInterfaceHierarchy.A.J.Companion.sealedEnum: SecondInterfaceHierarchy_A_JSealedEnum
+    get() = SecondInterfaceHierarchy_A_JSealedEnum
+
+/**
+ * Returns the [SecondInterfaceHierarchy.A.J] object for the given [name].
+ *
+ * If the given name doesn't correspond to any [SecondInterfaceHierarchy.A.J], an
+ * [IllegalArgumentException] will be thrown.
+ */
+public fun SecondInterfaceHierarchy.A.J.Companion.valueOf(name: String):
+        SecondInterfaceHierarchy.A.J = SecondInterfaceHierarchy_A_JSealedEnum.valueOf(name)

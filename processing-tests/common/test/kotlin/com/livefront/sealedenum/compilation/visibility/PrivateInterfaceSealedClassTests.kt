@@ -1,12 +1,16 @@
 package com.livefront.sealedenum.compilation.visibility
 
+import com.livefront.sealedenum.testing.SealedEnumApprovalsExtension
+import com.livefront.sealedenum.testing.assertApprovedGeneratedFile
 import com.livefront.sealedenum.testing.assertCompiles
-import com.livefront.sealedenum.testing.assertGeneratedFileMatches
 import com.livefront.sealedenum.testing.compile
 import com.livefront.sealedenum.testing.getCommonSourceFile
+import com.oneeyedmen.okeydoke.Approver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(SealedEnumApprovalsExtension::class)
 class PrivateInterfaceSealedClassTests {
 
     @Test
@@ -48,16 +52,12 @@ class PrivateInterfaceSealedClassTests {
     }
 
     @Test
-    fun `compilation generates correct code`() {
+    fun Approver.`compilation generates correct code`() {
         val result = compile(
             getCommonSourceFile("compilation", "visibility", "PrivateInterfaceSealedClass.kt")
         )
 
         assertCompiles(result)
-        assertGeneratedFileMatches(
-            "PrivateInterfaceSealedClass_SealedEnum.kt",
-            privateInterfaceSealedClassGenerated,
-            result
-        )
+        assertApprovedGeneratedFile("PrivateInterfaceSealedClass_SealedEnum.kt", result)
     }
 }
